@@ -65,7 +65,9 @@ header levels provide a hierarchy to the content
 
 --LISTS--
 with the <ol> element, the order is meaningful.
-list-style-type" circle/disc/square/triangle
+list-style-type" circle/disc/square/triangle/ '-'/decimal/upper-roman
+list-style-type: "\1F44D"; // thumbs up sign
+
 ol global attributes: reversed, start='1', type='a/A/i/I/1(one)'
 li value='9'
 solid dot. This solid dot is called the list item marker, and it can be changed using CSS.
@@ -145,10 +147,31 @@ The <li> element may contain any normal element as desired
         </button>
 
         <ul>
-            <li>
+            <li class="thumb_list">
                 List item
             </li>
         </ul>
+
+        <!--list switcher -->
+
+    <h4>
+        List Switcher
+    </h4>
+    
+    <ol>
+        <li>Apollo</li>
+        <li>Hubble</li>
+        <li>Chandra</li>
+        <li>Cassini-Huygens</li>
+        <li>Spitzer</li>
+      </ol>
+
+      <div class="container">
+
+        <label for="disc">
+          <input type="radio" id="disc" name="type" value="disc">disc
+        </label>
+        </div>
 
 
 
