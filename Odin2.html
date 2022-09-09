@@ -1,4 +1,5 @@
 
+
 <!--
 whenever you use the Internet, you're looking at something that's stored on a server.
 this can be also company servers to store and share files internally
@@ -39,29 +40,54 @@ Node.js allows JS to work on server side
 ~ let x = Number ();
 
 
-getElementById();
-getElementsByClassName('x'); 
-//all elements with this class name and then becomes an array of elements
-getElementsByTagName('x'); //array
-.querySelector();   //returns the first element, any selector tag/class/id
-querySelectorAll();
+<head>   <base href="https://www.w3schools.com/" target="_blank">
+Specify a default URL and a default target for all links on a page:
+<body> <a href="tags/tag_base.asp">HTML base Tag</a>
 
- const btn = document.getElementById('btn')
- btn.addEventListener('click', function x() {}  );
-//     btn.classList.add('button')
+web servers will by default look for an index.html page
+doctype’s purpose is to tell the browser what version of HTML it should use
+lang="en" used for improving accessibility of the webpage
+
+in VSCode, !+enter brings a boiler plate
+
+ HTML character encoding is called ASCII
+UTF-8, supports many languages, compatible with ASCII, used by XML, less space
+
+lang, lang-subtag, lang-country_code,
+ru-Cyrl-BY
+
+header levels provide a hierarchy to the content
 
 
-[DOM Manoeuvering]
-.lastElementChild //its last child
-.children[3] //its child #3
-.parentNode
-.nextElementSibling
-.previousElementSibling
+<strong> useful for voice accessibility importance feature
+<b> without importance
+    
 
-document.insertBefore(newNode, existingNode)
-parentEl.insertBefore(createEl, firstchildEl)
-parentEl.replaceChild(createEl, firstchildEl)
-parentEl.removeChild(firstchildEl)
+--LISTS--
+with the <ol> element, the order is meaningful.
+list-style-type" circle/disc/square/triangle
+ol global attributes: reversed, start='1', type='a/A/i/I/1(one)'
+li value='9'
+solid dot. This solid dot is called the list item marker, and it can be changed using CSS.
+
+<dl> description list
+    <dt> description term element 
+        <dd> description element
+
+shows as >>
+    element
+            text for element
+
+
+nesting
+    <li>
+        <ul> <li>'s'..
+markers will change according to how deeply the list is nested.
+The <li> element may contain any normal element as desired
+
+
+
+
 
 
 
@@ -117,6 +143,17 @@ parentEl.removeChild(firstchildEl)
         <button id="btn">
             click me
         </button>
+
+        <ul>
+            <li>
+                List item
+            </li>
+        </ul>
+
+
+
+
+
 
 
         <script src="Odin2.js">

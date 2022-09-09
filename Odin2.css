@@ -5,3 +5,8 @@
     background-color: blue;
 
 }
+
+
+li {
+    list-style-type: "\1F44D";
+}
