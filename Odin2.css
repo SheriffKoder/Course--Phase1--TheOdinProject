@@ -51,4 +51,13 @@ clearfix */
   }
   
   
+/* lets define a counter/marker style that is not in the predefined set of styles */ 
+@counter-style thumbsUp {
+    system : cyclic;
+    symbols: "\1F44D";
+    suffix: " ";
+}
 
+li {
+    list-style: thumbsUp;
+}
