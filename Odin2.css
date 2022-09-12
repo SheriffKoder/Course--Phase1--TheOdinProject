@@ -8,5 +8,47 @@
 
 
 .thumb_list {
-    list-style-type: "\1F44D";
+    list-style-type: "\1F44D"; /*thumb icon as the list marker */
 }
+
+
+/* a way of adding an image to the list item 
+and by padding make it seem like a marker */
+.image_li_marker {
+    margin-left: -12px;
+    background: url('images/arrow.png') 0 50% no-repeat;
+    list-style-type: none;
+    padding-left: 12px;
+}
+
+.inside_li_marker {
+    /*list-style-position: inside; */
+    /*placed with the text itself */
+    list-style: circle inside;
+}
+
+/* horizontal list */
+li {
+    /*
+    display: inline-block; /* items on same line and markers removed */
+    
+    float: left;
+    margin-left: 30px;
+    /* items on same line and markers kept */
+
+}
+
+/*div containing 2 elements one of them get overflow because of flow property
+clearfix */
+.div_clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .div_clearfix2 {
+    overflow: auto;
+  }
+  
+  
+
