@@ -52,12 +52,22 @@ clearfix */
   
   
 /* lets define a counter/marker style that is not in the predefined set of styles */ 
+/* more reading on application */
 @counter-style thumbsUp {
-    system : cyclic;
-    symbols: "\1F44D";
-    suffix: " ";
+    system : cyclic; /* cyclic, numeric, alphabetic, symbolic, additive, or fixed. */
+    symbols: "\1F44D"; /* strings, images, or custom identifiers, can have multi symbols and will be placed in order */
+    suffix: " "; /*content space,),img ... that will be appended to the marker representation. also there is prefix*/
+    /*fallback: range: start end(infinite); speak-as */
 }
+/*https://www.w3.org/TR/predefined-counter-styles/, https://r12a.github.io/app-counters/*/
 
 li {
     list-style: thumbsUp;
 }
+
+p {
+    font-size: 50px;
+}
+
+
+/*/////////////////////////////////////////////////////*/

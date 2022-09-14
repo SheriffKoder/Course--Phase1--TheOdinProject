@@ -63,7 +63,8 @@ header levels provide a hierarchy to the content
 <b> without importance
     
 
---LISTS--
+/* LISTS --------------------------------------------------------------*/
+
 with the <ol> element, the order is meaningful.
 list-style-type" circle/disc/square/triangle/ '-'/decimal/upper-roman
 list-style-type: "\1F44D"; // thumbs up sign
@@ -87,11 +88,38 @@ nesting
 markers will change according to how deeply the list is nested.
 The <li> element may contain any normal element as desired
 
+<nav> is a block element like div,
+
+/* --------------------------------------------------------------------*/
 
 
+/* LINKS --------------------------------------------------------------*/
 
+protocol://domain/path  absolute
+./folder/page.html relative
 
+../ (stepping a step back in directories)
 
+The alt attribute is used to describe an image. 
+It will be used in place of the image if it cannot be loaded. It is also used with screen readers to describe what the image is to visually impaired users.
+
+in prev versions img used to be closed with /> but with HTML5 just use >
+
+%20 = space in links so better use _
+
+Images
+jpg is not transparent
+png transparency
+svg vector based graphics format, scale without loss of quality
+
+defining height or width, one will make the other adjust
+width='75' unless you want to stretch can use both
+
+        &lt; &gt; and &amp;. //< > &
+        &ldquo; &rdquo; &lsquo; &rsquo; " " ' '
+
+        UTF-8 character set, any character directly into the HTML document
+        <meta charset='UTF-8'/>
 
 
 -->
@@ -165,7 +193,7 @@ The <li> element may contain any normal element as desired
     </h4>
     
     <ol>
-        <li>Apollo</li>
+        <li class="custom_marker">Apollo</li>
         <li>Hubble</li>
         <li>Chandra</li>
         <li class="inside_li_marker" >Cassini-Huygens</li>
@@ -183,12 +211,16 @@ The <li> element may contain any normal element as desired
 
     </div>
 
+    <p>
+
+    </p>
+
 <!-- --------------------------------------------------- -->
 <!-- --------------------------------------------------- -->
 
     <br><br><br>
 
-
+  
 
 
 

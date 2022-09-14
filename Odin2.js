@@ -55,8 +55,8 @@ container.addEventListener("change", (event) =>
 
 
 /* textNode is the text for h1,p etc without using innerHTML */
-const h1 = document.createElement('h1');
-const TextNode = document.createTextNode('Hello World');
-h1.appendChild(TextNode);
-document.body.appendChild(h1);
+//const h1 = document.createElement('h1');
+//const TextNode = document.createTextNode('Hello World');
+//h1.appendChild(TextNode);
+//document.body.appendChild(h1);
 
