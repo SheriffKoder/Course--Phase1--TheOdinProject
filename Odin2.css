@@ -1,3 +1,86 @@
+/*
+* (universal selector)
+Div (all type selector)
+.Class (all class selector)
+
+#Id unlike classes
+should use IDs sparingly, 
+an element can only have one id
+cannot be repeated on a single page
+
+
+hyphen _
+
+
+.read, .unread {
+    //group selector, common declarations between the two elements
+}
+
+.read.subread {
+.read#preview {
+        //chain selector > an element that is 'read' and 'subread' in the same time
+        //any selector, name with type but not chain types together
+}
+
+
+. ancestor .child {
+        //descendant selector, when element is a child and in this ancestor
+}
+
+color: transparent;
+
+quotes on the family name, no quouts on the generic names
+"Times New Roman" sans-serif
+
+setting height and width for an image (even if not needed)
+will cause the image to have a space reserved until it loads 
+and not cause float loading problems
+
+
+CSS Cascade (Priority) for the same style-property only, else is applied
+1.HTML inline 
+2.Layer
+3.Direct specificity/Last specified
+4.ID
+5.Class/attribute(required, href=.. )/pseudo-selectors(::hover etc)
+6.Type
+
+.para:first-of-type << highest hit 4 4 (wins) -> color:white
+p.para << hit 4 5  -> color:red
+
+#para -> color:red (now color:red has been enhanced by a hit so wins with this)
+
+
+if same type, then the more count the more priority
+.class .class wins over .class
+#id .class wins over .class .class
+#id .class .class wins over #id .class
+
+
+Website style over browser style
+* + > ~ _ || have no impact over specificity 
+
+
+@layers one, two; /* defining our layers */
+
+@layer one {
+    h1 {
+
+    }
+}
+
+@layer two {
+    h1 {
+
+    }
+
+}
+
+
+
+*/
+
+
 
 .button_blue {
 
@@ -71,3 +154,20 @@ p {
 
 
 /*/////////////////////////////////////////////////////*/
+
+
+.Para:first-of-type {
+    color: orange;
+    } 
+p#Para {
+    color: red;   
+}
+
+#Para {
+    color: red;   
+}
+
+
+div {
+    font-family: 'Gayathri', sans-serif;
+}
