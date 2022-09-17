@@ -38,12 +38,14 @@ and not cause float loading problems
 
 
 CSS Cascade (Priority) for the same style-property only, else is applied
-1.HTML inline 
-2.Layer
+1.HTML inline                                           score 1000
+1.1 html header style
+2.Layer                                                 score 
 3.Direct specificity/Last specified
-4.ID
-5.Class/attribute(required, href=.. )/pseudo-selectors(::hover etc)
-6.Type
+4.ID                                                   score 100
+5.Class/attribute(required, href=.. )/pseudo-selectors(::hover etc) score 10
+6.Type                                                  score 1
+* + > ~ _ || have no impact over specificity score      score 0
 
 .para:first-of-type << highest hit 4 4 (wins) -> color:white
 p.para << hit 4 5  -> color:red
@@ -58,10 +60,11 @@ if same type, then the more count the more priority
 
 
 Website style over browser style
-* + > ~ _ || have no impact over specificity 
 
 
 @layers one, two; /* defining our layers */
+
+/*
 
 @layer one {
     h1 {
@@ -75,6 +78,35 @@ Website style over browser style
     }
 
 }
+
+/* Adding fonts  */
+/*
+@font-face {
+    font-family : fontname; 1
+    src: url (  ); 2 
+}
+
+html link 
+css font-family: 'fontname';
+
+css @import url('');
+css font-family: 'fontname';
+
+
+/* to open the ruler */
+/*
+Inspect in Chrome
+Press Control+Shift+P or Command+Shift+P (Mac) to open the Command menu, 
+type Show rulers on hover, and press Enter.
+
+Command+F in elements to find
+Edit HTML , CMD+Enter to finish
+Right click force state hover etc,
+Drag element
+H > hide, delete > delete
+
+Inspect > three dots on top-right > More tools > CSS overview
+
 
 
 
@@ -167,7 +199,3 @@ p#Para {
     color: red;   
 }
 
-
-div {
-    font-family: 'Gayathri', sans-serif;
-}
