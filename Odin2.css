@@ -36,6 +36,8 @@ setting height and width for an image (even if not needed)
 will cause the image to have a space reserved until it loads 
 and not cause float loading problems
 
+/*-----------------------------------------------------------------------------*/
+/*
 
 CSS Cascade (Priority) for the same style-property only, else is applied
 1.HTML inline                                           score 1000
@@ -93,6 +95,8 @@ css @import url('');
 css font-family: 'fontname';
 
 
+
+/*-----------------------------------------------------------------------------*/
 /* to open the ruler */
 /*
 Inspect in Chrome
@@ -106,6 +110,61 @@ Drag element
 H > hide, delete > delete
 
 Inspect > three dots on top-right > More tools > CSS overview
+
+
+/*-----------------------------------------------------------------------------*/
+/*
+Everything in CSS is a box
+with two types of boxes, inline or block
+
+Which ever margin between two boxes is the largest, it is the one will be used
+
+Padding and border adds to the total space
+else use box-sizing: border:box to use only the given space over the content
+called alternative CSS box model
+
+
+
+Block:
+new line, 
+height/width are respected, 
+padding/margin/border cause elements to be pushed away, 
+box extend in the inline direction to fill space available in its container
+
+inLine: (no HW,Vertical overlap)
+same line
+no height and width respected
+vertical properties(padding,border) not push the opposite content overlap
+
+inner display type
+display: flex, affects the inner elements
+display: inner-flex
+
+display: inline-block
+
+inline-size/block-size
+If the writing mode is vertically oriented, 
+the value of inline-size relates to the height of the element
+inline-size: 150px;
+writing-mode: vertical-rl;
+
+/*-----------------------------------------------------------------------------*/
+/*
+margin
+in relation to the containing element
+if two opposites are in negative, the container is shrink by allowing their value
+but container's min height does not shrink,
+
+>Two positive margins will combine to become one margin. Its size will be equal to the largest individual margin.
+>Two negative margins will collapse and the smallest (furthest from zero) value will be used.
+(the direction between this element and the element on the other side is shortened, so you can find the other element traveling to the other side margrin)
+>If one margin is negative, its value will be subtracted from the total.
+
+
+border-style
+cannot have a negative padding, will be 0
+
+
 
 
 
@@ -199,3 +258,32 @@ p#Para {
     color: red;   
 }
 
+
+
+.Test_Container {
+    height: 100px;
+    width: 100px;
+    background: red;
+    display: block;
+    
+
+}
+
+.Margin1 {
+    margin-bottom: 100px;
+}
+
+.Margin2 {
+    margin-top: -20px;
+}
+
+.Test_Inline {
+    background: blue;
+    height: 100px;
+    width: 100px;
+    padding-left: 100px;
+    padding-top: 100px;
+    display: inline-block;
+
+
+}
