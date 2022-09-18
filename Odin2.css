@@ -171,6 +171,15 @@ so you can find the other element traveling to the other side margrin)
 border-style
 cannot have a negative padding, will be 0
 
+Margin: 0 auto;
+element will take the width specified, then the remaining space
+split evenly between the two margins,
+horizontally center that element within its container
+
+Max-width instead of width, improve handling small windows by allowing shrinking
+
+
+
 
 /*-----------------------------------------------------------------------------*/
 /*
@@ -188,6 +197,83 @@ using the normal/default flow of elements, ensures that your content is readable
 
 By default, block-level elements are laid out in the block flow direction, which is based on the parent's writing mode (initial: horizontal-tb).
 so in a writing-moder: vertical-lr; divs will align beside eachother
+
+
+
+/* hide, not take space
+Display:none; element like <script> uses it as default, 
+common with KS to hide/show elements without really deleting and recreating them
+
+/* hide, take space
+visibility:none;
+
+
+/*-----------------------------------------------------------------------------*/
+/*
+
+float: left;
+overflow: auto; (allows parent to contain the float, a fix)
+
+position: static; not positioned in any specific way
+position: relative; when add top/left etc will adjust its normal position, if not specified same as static
+position: fixed; relative to 'viewport', same place even if scrolled, top/left of view port window
+position: absolute; to its nearest 'positioned' ancestor
+
+/*Layout
+make container relative
+sections static but with margin-left (will be 2/3 right)
+navigation absolute(to parent) (will be 1/3 left)
+or float:left with section margin of its width 200px or 25%(not fixed nav)
+/* and will be responsive because the divs do not have width's and take available
+
+
+/* make divs beside each other and wrap
+display: inline-block; 
+or
+float: left; (after box clear:left;)
+
+/*layout2
+.nav {
+    display: inline-block;
+    vertical-align: top;
+    width: 25%
+}
+.remaining_of_the_container_container {
+    display: inline-block;
+    vertical-align: top;
+    width: 25%
+
+}
+
+/*Layout 3
+.container {
+    display: flex;
+}
+.nav {
+    width: 200px;
+}
+.flex-column {
+    flex: 1;
+}
+
+
+
+
+
+
+/*Fixing layout on screen size change
+@media (min-width:600px) {  /*if more than 600px
+    .class {}
+}
+
+@media (max-width:599px) { /*if less than 599px
+    .class {display: inline;}
+}
+
+
+
+
+
 
 
 
@@ -337,13 +423,10 @@ p#Para {
 .testdiv_1809.main {
 
     height: 200px;
-    width: 500px;
+    width: 300px;
     background-color: lightblue;
+    margin: auto;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    writing-mode: vertical-lr;
 }
 
 .testdiv_1809.sub {
