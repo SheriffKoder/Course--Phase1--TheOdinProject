@@ -29,7 +29,7 @@ hyphen _
 
 color: transparent;
 
-quotes on the family name, no quouts on the generic names
+quotes on the family name, no quotes on the generic names
 "Times New Roman" sans-serif
 
 setting height and width for an image (even if not needed)
@@ -151,13 +151,20 @@ writing-mode: vertical-rl;
 /*-----------------------------------------------------------------------------*/
 /*
 margin
-in relation to the containing element
+child in relation to the containing element
 if two opposites are in negative, the container is shrink by allowing their value
 but container's min height does not shrink,
 
->Two positive margins will combine to become one margin. Its size will be equal to the largest individual margin.
->Two negative margins will collapse and the smallest (furthest from zero) value will be used.
-(the direction between this element and the element on the other side is shortened, so you can find the other element traveling to the other side margrin)
+>Two positive margins will combine to become one margin. 
+Its size will be equal to the largest individual margin.
+called Collapsing margins, is only relevant in the vertical direction.
+
+
+>Two negative margins will collapse and the smallest 
+(furthest from zero) value will be used.
+(the direction between this element and the element on the other side is shortened, 
+so you can find the other element traveling to the other side margrin)
+
 >If one margin is negative, its value will be subtracted from the total.
 
 
@@ -165,9 +172,47 @@ border-style
 cannot have a negative padding, will be 0
 
 
+/*-----------------------------------------------------------------------------*/
+/*
+
+
+Flexbox is used to line up a bunch of boxes
+
+Divs and spans give no particular meaning to their content
+Generic boxes that can contain anything
+parent elements to correctly position other elements
+
+Span, inline, group inline elements for styling, wrap with its content
+
+using the normal/default flow of elements, ensures that your content is readable even if the user's using a very limited browser or a device such as a screen reader that reads out the content of the page. 
+
+By default, block-level elements are laid out in the block flow direction, which is based on the parent's writing mode (initial: horizontal-tb).
+so in a writing-moder: vertical-lr; divs will align beside eachother
 
 
 
+
+
+*/
+
+/*
+.testdiv_date.main {
+
+    height: 200px;
+    width: 500px;
+    background-color: lightblue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.testdiv_date.sub {
+
+    height: 100px;
+    width: 100px;
+    background-color: red;
+}
 
 */
 
@@ -286,4 +331,22 @@ p#Para {
     display: inline-block;
 
 
+}
+
+
+.testdiv_1809.main {
+
+    height: 200px;
+    width: 500px;
+    background-color: lightblue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    writing-mode: vertical-lr;
+}
+
+.testdiv_1809.sub {
+
+    background-color: red;
 }
