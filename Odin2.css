@@ -37,6 +37,16 @@ a[href^="http"] {       /* attribute selector
 
 /*
 
+/* .class .class > parent child relation cant be reversed
+chain can be reversed
+
+
+.nav {
+.remaining_of_the_container_container {
+
+}
+
+
 color: transparent;
 
 quotes on the family name, no quotes on the generic names
@@ -339,252 +349,323 @@ align-content: flex-start;
 */
 
 
-@counter-style x { symbol: }
-list-style: x;
-list-style-type: none;
-background:
-
-.button_blue {
-
-    color: white;
-    background-color: blue;
-
-}
 
 
-.thumb_list {
-    list-style-type: "\1F44D"; /*thumb icon as the list marker */
-}
-
-
-/* a way of adding an image to the list item 
-and by padding make it seem like a marker */
-.image_li_marker {
-    margin-left: -12px;
-    padding-left: 12px;
-
-    list-style-type: none;
-    background: url('images/arrow.png') 0 50% no-repeat;
-
-}
-
-.inside_li_marker {
-
-    list-style-position: inside;     /*placed with the text itself */
-    list-style: circle inside;
-
-}
-
-/* horizontal list */
-li {
-    /*
-    display: inline-block; /* items on same line and markers removed */
-    
-    float: left;
-    margin-left: 30px;
-    /* items on same line and markers kept */
-
-}
-
-/*div containing 2 elements one of them get overflow because of flow property
-clearfix */
-.div_clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
-  
-  .div_clearfix2 {
-    overflow: auto;
-  }
-  
-  
-/* lets define a counter/marker style that is not in the predefined set of styles */ 
-/* more reading on application */
-@counter-style thumbsUp {
-    system : cyclic; /* cyclic, numeric, alphabetic, symbolic, additive, or fixed. */
-    symbols: "\1F44D"; /* strings, images, or custom identifiers, can have multi symbols and will be placed in order */
-    suffix: " "; /*content space,),img ... that will be appended to the marker representation. also there is prefix*/
-    /*fallback: range: start end(infinite); speak-as */
-}
-/*https://www.w3.org/TR/predefined-counter-styles/, https://r12a.github.io/app-counters/*/
-
-li {
-    list-style: thumbsUp;
-}
-
-p {
-    font-size: 50px;
-}
-
-/*/////////////////////////////////////////////////////*/
-
-
-.Para:first-of-type {
-    color: orange;
-    } 
-p#Para {
-    color: red;   
-}
-
-#Para {
-    color: red;   
-}
-
-
-
-.Test_Container {
-    height: 100px;
-    width: 100px;
-    background: red;
-    display: block;
-    
-
-}
-
-.Margin1 {
-    margin-bottom: 100px;
-}
-
-.Margin2 {
-    margin-top: -20px;
-}
-
-.Test_Inline {
-    background: blue;
-    height: 100px;
-    width: 100px;
-    padding-left: 100px;
-    padding-top: 100px;
-    display: inline-block;
-
-
-}
-
-
-.testdiv_1809.main {
-
-    height: 200px;
-    width: 300px;
-    background-color: lightblue;
-    margin: auto;
-
-}
-
-.testdiv_1809.sub {
-
-    background-color: red;
-}
-
-
-.main.testdiv_2109 { 
-    height: 300px; 
-    background-color: rgb(109, 109, 109);
-    display: flex;
-
-    width: 500px;  !important;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: center;
-
-    color: white;
-    position: relative;
-
-/*    align-content is similar to align-items in values
-    but it is related to "flex-wrap" lines
-*/
-
-}
-
-.testdiv_2109.main:before {
-    position: absolute;
-    top: 0;
-    left: 20%;
-}
-
-.testdiv_2109 {
-    width: 200px;
-    height: 100px;
-
-}
-
-.testdiv_2109.sub1 { 
-    background-color: rgb(209, 91, 91);
-    display: inline-block;
-    vertical-align: top;
-    flex: initial; /* grow 0 shrink 1 */
-
+    /* counter style, clearfix, test_divs */
+    @media (min-width:100px)  {
     
     
-}
 
-.testdiv_2109.sub2 { 
-    background-color: rgb(112, 112, 231);
-    display: inline-block;
-    vertical-align: top;
-    flex: none;     /* no remaining space division just the content*/
+        @counter-style x { symbol: }
+        list-style: x;
+        list-style-type: none;
+        background:
 
-}
+        .button_blue {
 
-.testdiv_2109.sub3 { 
-    background-color: rgb(148, 192, 145);
-    display: inline-block;
-    vertical-align: top;
+            color: white;
+            background-color: blue;
 
-}
-
-.testdiv_2109.sub4 { 
-    background-color: rgb(199, 95, 199);
-    vertical-align: top;
-
-}
-
-/* .class .class > parent child relation cant be reversed
-chain can be reversed
+        }
 
 
-.nav {
-.remaining_of_the_container_container {
-
-}
-
-*/
+        .thumb_list {
+            list-style-type: "\1F44D"; /*thumb icon as the list marker */
+        }
 
 
+        /* a way of adding an image to the list item 
+        and by padding make it seem like a marker */
+        .image_li_marker {
+            margin-left: -12px;
+            padding-left: 12px;
+
+            list-style-type: none;
+            background: url('images/arrow.png') 0 50% no-repeat;
+
+        }
+
+        .inside_li_marker {
+
+            list-style-position: inside;     /*placed with the text itself */
+            list-style: circle inside;
+
+        }
+
+        /* horizontal list */
+        li {
+            /*
+            display: inline-block; /* items on same line and markers removed */
+            
+            float: left;
+            margin-left: 30px;
+            /* items on same line and markers kept */
+
+        }
+
+        /*div containing 2 elements one of them get overflow because of flow property
+        clearfix */
+        .div_clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        
+        .div_clearfix2 {
+            overflow: auto;
+        }
+        
+        
+        /* lets define a counter/marker style that is not in the predefined set of styles */ 
+        /* more reading on application */
+        @counter-style thumbsUp {
+            system : cyclic; /* cyclic, numeric, alphabetic, symbolic, additive, or fixed. */
+            symbols: "\1F44D"; /* strings, images, or custom identifiers, can have multi symbols and will be placed in order */
+            suffix: " "; /*content space,),img ... that will be appended to the marker representation. also there is prefix*/
+            /*fallback: range: start end(infinite); speak-as */
+        }
+        /*https://www.w3.org/TR/predefined-counter-styles/, https://r12a.github.io/app-counters/*/
+
+        li {
+            list-style: thumbsUp;
+        }
+
+        p {
+            font-size: 50px;
+        }
+
+        /*/////////////////////////////////////////////////////*/
+
+
+        .Para:first-of-type {
+            color: orange;
+            } 
+        p#Para {
+            color: red;   
+        }
+
+        #Para {
+            color: red;   
+        }
+
+
+
+        .Test_Container {
+            height: 100px;
+            width: 100px;
+            background: red;
+            display: block;
+            
+
+        }
+
+        .Margin1 {
+            margin-bottom: 100px;
+        }
+
+        .Margin2 {
+            margin-top: -20px;
+        }
+
+        .Test_Inline {
+            background: blue;
+            height: 100px;
+            width: 100px;
+            padding-left: 100px;
+            padding-top: 100px;
+            display: inline-block;
+
+
+        }
+
+
+        .testdiv_1809.main {
+
+            height: 200px;
+            width: 300px;
+            background-color: lightblue;
+            margin: auto;
+
+        }
+
+        .testdiv_1809.sub {
+
+            background-color: red;
+        }
+
+
+        .main.testdiv_2109 { 
+            height: 300px; 
+            background-color: rgb(109, 109, 109);
+            display: flex;
+
+            width: 500px;  !important;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-content: center;
+
+            color: white;
+            position: relative;
+
+        /*    align-content is similar to align-items in values
+            but it is related to "flex-wrap" lines
+        */
+
+        }
+
+        .testdiv_2109.main:before {
+            position: absolute;
+            top: 0;
+            left: 20%;
+        }
+
+        .testdiv_2109 {
+            width: 200px;
+            height: 100px;
+
+        }
+
+        .testdiv_2109.sub1 { 
+            background-color: rgb(209, 91, 91);
+            display: inline-block;
+            vertical-align: top;
+            flex: initial; /* grow 0 shrink 1 */
+
+            
+            
+        }
+
+        .testdiv_2109.sub2 { 
+            background-color: rgb(112, 112, 231);
+            display: inline-block;
+            vertical-align: top;
+            flex: none;     /* no remaining space division just the content*/
+
+        }
+
+        .testdiv_2109.sub3 { 
+            background-color: rgb(148, 192, 145);
+            display: inline-block;
+            vertical-align: top;
+
+        }
+
+        .testdiv_2109.sub4 { 
+            background-color: rgb(199, 95, 199);
+            vertical-align: top;
+
+        }
+    }
+
+
+
+
+
+
+/*------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*/
 
 /*
 Animation then use keyframes
+*/
+    @media (min-width:100px)  {
 
+        @keyframes example {
+
+            from {background-color: red; left:0px; top:0px;}       /* default 0% */
+            25%  {background-color: green; left:10px; top:10px;}
+            50%  {background-color: orange; left:5px; top:5px;}
+            to   {background-color: blue; left:0px; top:0px;}      /* default 100% */
+
+        }
+
+        .testdiv_2109.sub1 {
+
+            position: relative;
+
+            animation-name: example;
+            animation-delay: 2s;        /* start of animation */
+            animation-duration: 4s;
+
+            animation-iteration-count: 2; /* how many should it play, infinite*/
+            animation-direction: alternate; /* what sequence should it repeat, normal in steps or reverse, or alternate(1 normal/1 reverse), alternate-reverse  */
+
+            animation-timing-function: linear; /* ease(s f s) linear( - - ), ease-in (s -), ease-out( - s), ease-in-out ( s s ), cubic-bezier(n,n,n,n) */
+
+            animation-fill-mode: forwards; /* none, forwards (style of last keyframe), backwards(style of first keyframe and retain during delay period), both(get valuse from first keyframe before animation starts and retain form last keyframe when animaton ends */
+
+            /*  name delay timing duration count direction */
+
+            animation-play-state: paused /* running or paused */
+
+        }
+    }
+
+/*------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*/
+
+/*
+The mix-blend-mode property specifies how an element's content 
+should blend with its direct parent background.
+
+The background-blend-mode CSS property sets how an element's background 
+images should blend with each other and with the element's background color.
+
+
+//mix//
+multiply, source x destination = destination at least as dark
+x black = black
+x white = original color
+(transparent film overlapping)
+
+screen, 
+destination at least as dark either of the two constituent colors
+screening with white = white
+screening with black = original color
+(projection screen overlapping)
+
+overlay,
+source overlay while preserving the dest. highlights and shadows
+mixed not replaced 
+The final color is the result of multiply if the bottom color is darker, 
+or screen if the bottom color is lighter. This blend mode is equivalent 
+to hard-light but with the layers swapped.
+(dark behind, lighter infront with some transparency)
+
+hard-light:
+Multiplies or screens the colors, depending on the source color value.
+
+
+
+//background//
 
 */
 
-@keyframes example {
 
-    from {background-color: red; left:0px; top:0px;}       /* default 0% */
-    25%  {background-color: green; left:10px; top:10px;}
-    50%  {background-color: orange; left:5px; top:5px;}
-    to   {background-color: blue; left:0px; top:0px;}      /* default 100% */
 
-}
 
+
+
+/*------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*/
+
+/* blur glass effect
+The backdrop-filter property is used to apply a graphical effect to the area behind an element.
+blur, brightness%, opacity%, contrast%,
+*/
 .testdiv_2109.sub1 {
 
-    position: relative;
+    position: absolute;
+    top: -10;
 
-    animation-name: example;
-    animation-delay: 2s;        /* start of animation */
-    animation-duration: 4s;
+    border: 3px solid rgba(0, 0, 0, 0.075);
+    border-radius: 10px;
 
-    animation-iteration-count: 2; /* how many should it play, infinite*/
-    animation-direction: alternate; /* what sequence should it repeat, normal in steps or reverse, or alternate(1 normal/1 reverse), alternate-reverse  */
-
-    animation-timing-function: linear; /* ease(s f s) linear( - - ), ease-in (s -), ease-out( - s), ease-in-out ( s s ), cubic-bezier(n,n,n,n) */
-
-    animation-fill-mode: forwards; /* none, forwards (style of last keyframe), backwards(style of first keyframe and retain during delay period), both(get valuse from first keyframe before animation starts and retain form last keyframe when animaton ends */
-
-    /*  name delay timing duration count direction */
-
-    animation-play-state: paused /* running or paused */
+    background-color: rgba(0, 106, 255, 0.341);
+    backdrop-filter: blur(20px);
 
 }
+
+
+/*------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*/
