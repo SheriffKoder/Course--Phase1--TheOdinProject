@@ -159,6 +159,9 @@ the value of inline-size relates to the height of the element
 inline-size: 150px;
 writing-mode: vertical-rl;
 
+direction: rl; /*changes direction of alignment right to left*/
+
+
 /*-----------------------------------------------------------------------------*/
 /*
 margin
@@ -212,12 +215,23 @@ so in a writing-mode: vertical-lr; divs will align beside each other
 
 
 
+
+
+
+
+
+
 /* hide, not take space
 Display:none; element like <script> uses it as default, 
 common with KS to hide/show elements without really deleting and recreating them
 
 /* hide, take space
 visibility:none;
+
+
+
+
+
 
 
 /*-----------------------------------------------------------------------------*/
@@ -267,8 +281,8 @@ float: left; (after box clear:left;)
     width: 200px;
 }
 .flex-column {
-    flex: 1;        /* remaining space split 1/1*/
-}
+    flex: 1;        /* remaining space split 1/1
+}                   /* display:flex with flex: 1 take rest of container */
 
 
 /*layout3
@@ -277,6 +291,10 @@ flex: none;     /* no remaining space division just the content
 flex: 1 ( 1/1 remaining container space split 1/1 50/50, 1/2=33/66% )
 flex: 1
 
+
+align-content: flex-start; 
+/* align-content modifies the behavior of flex-wrap. It is similar to align-items, but instead of aligning Flex Items, it aligns Flex Lines */
+/* aligns but removes spaces between wrap lines */
 
 
 /*Fixing layout on screen size change
@@ -460,24 +478,48 @@ p#Para {
 
 
 .main.testdiv_2109 { 
-    height: 200px; 
-    width: auto; 
-    background-color: lightblue; 
+    height: 300px; 
+    background-color: rgb(109, 109, 109);
     display: flex;
+
+    width: 500px;  !important;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+
+    color: white;
+    position: relative;
+
+/*    align-content is similar to align-items in values
+    but it is related to "flex-wrap" lines
+*/
+
+}
+
+.testdiv_2109.main:before {
+    position: absolute;
+    top: 0;
+    left: 20%;
+}
+
+.testdiv_2109 {
+    width: 200px;
+    height: 100px;
 
 }
 
 .testdiv_2109.sub1 { 
-    background-color: red;
+    background-color: rgb(209, 91, 91);
     display: inline-block;
     vertical-align: top;
     flex: initial; /* grow 0 shrink 1 */
+
     
     
 }
 
 .testdiv_2109.sub2 { 
-    background-color: blue;
+    background-color: rgb(112, 112, 231);
     display: inline-block;
     vertical-align: top;
     flex: none;     /* no remaining space division just the content*/
@@ -485,18 +527,15 @@ p#Para {
 }
 
 .testdiv_2109.sub3 { 
-    background-color: green;
+    background-color: rgb(148, 192, 145);
     display: inline-block;
     vertical-align: top;
-    flex: 1;        /* remaining space split 1/1*/
 
 }
 
 .testdiv_2109.sub4 { 
-    background-color: purple;
-    display: inline-block;
+    background-color: rgb(199, 95, 199);
     vertical-align: top;
-    flex: 1;
 
 }
 
@@ -510,3 +549,42 @@ chain can be reversed
 }
 
 */
+
+
+/*------------------------------------------------------------------------*/
+
+/*
+Animation then use keyframes
+
+
+*/
+
+@keyframes example {
+
+    from {background-color: red; left:0px; top:0px;}       /* default 0% */
+    25%  {background-color: green; left:10px; top:10px;}
+    50%  {background-color: orange; left:5px; top:5px;}
+    to   {background-color: blue; left:0px; top:0px;}      /* default 100% */
+
+}
+
+.testdiv_2109.sub1 {
+
+    position: relative;
+
+    animation-name: example;
+    animation-delay: 2s;        /* start of animation */
+    animation-duration: 4s;
+
+    animation-iteration-count: 2; /* how many should it play, infinite*/
+    animation-direction: alternate; /* what sequence should it repeat, normal in steps or reverse, or alternate(1 normal/1 reverse), alternate-reverse  */
+
+    animation-timing-function: linear; /* ease(s f s) linear( - - ), ease-in (s -), ease-out( - s), ease-in-out ( s s ), cubic-bezier(n,n,n,n) */
+
+    animation-fill-mode: forwards; /* none, forwards (style of last keyframe), backwards(style of first keyframe and retain during delay period), both(get valuse from first keyframe before animation starts and retain form last keyframe when animaton ends */
+
+    /*  name delay timing duration count direction */
+
+    animation-play-state: paused /* running or paused */
+
+}
