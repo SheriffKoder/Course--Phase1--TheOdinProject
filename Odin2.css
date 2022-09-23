@@ -27,7 +27,7 @@ hyphen _
         //descendant selector, when element is a child and in this ancestor
 }
 
-.card:hover .card_text {    /* when hover on card this is applied to text
+.card:hover .card_text {    /* when hover on card(parent) this is applied to text(child)
 
 }
 
@@ -38,13 +38,9 @@ a[href^="http"] {       /* attribute selector
 /*
 
 /* .class .class > parent child relation cant be reversed
-chain can be reversed
+group can be reversed
 
 
-.nav {
-.remaining_of_the_container_container {
-
-}
 
 
 color: transparent;
@@ -168,6 +164,7 @@ If the writing mode is vertically oriented,
 the value of inline-size relates to the height of the element
 inline-size: 150px;
 writing-mode: vertical-rl;
+vertical-align: top or bottom;
 
 direction: rl; /*changes direction of alignment right to left*/
 
@@ -180,7 +177,7 @@ if two opposites are in negative, the container is shrink by allowing their valu
 but container's min height does not shrink,
 
 >Two positive margins will combine to become one margin. 
-Its size will be equal to the largest individual margin.
+Its size will be equal to the >largest individual margin.
 called Collapsing margins, is only relevant in the vertical direction.
 
 
@@ -220,7 +217,9 @@ Span, inline, group inline elements for styling, wrap with its content
 
 using the normal/default flow of elements, ensures that your content is readable even if the user's using a very limited browser or a device such as a screen reader that reads out the content of the page. 
 
-By default, block-level elements are laid out in the block flow direction, which is based on the parent's writing mode (initial: horizontal-tb).
+By default, block-level elements are laid out in the block flow direction, 
+in lines
+which is based on the parent's writing mode (initial: horizontal-tb).
 so in a writing-mode: vertical-lr; divs will align beside each other
 
 
@@ -230,13 +229,12 @@ so in a writing-mode: vertical-lr; divs will align beside each other
 
 
 
-
-/* hide, not take space
 Display:none; element like <script> uses it as default, 
+/* hide, not take space
 common with KS to hide/show elements without really deleting and recreating them
 
-/* hide, take space
 visibility:none;
+/* hide, take space
 
 
 
@@ -250,11 +248,11 @@ visibility:none;
 float: left;
 overflow: auto; (allows parent to contain the float, a fix)
 
-position: static; not positioned in any specific way
-position: relative; allows add top/left etc to adjust its normal position, if not specified same as static
-position: absolute; to its nearest 'positioned i.e relative' ancestor
-position: fixed; top/left relative to 'viewport', same place even if scrolled, top/left of view port window
-position: sticky;         /* stays in its place and move on scroll in the container only  */
+position: static;   not positioned in any specific way
+[ its position ]    position: relative; allows add top/left etc to adjust its normal position, if not specified same as static
+[ ancestor ]        position: absolute; to its nearest 'positioned i.e relative' ancestor
+[view port ]        position: fixed; top/left relative to 'viewport', same place even if scrolled, top/left of view port window
+[container scrl ]   position: sticky;         /* stays in its place and move on scroll in the container only  */
 
 /*Layout1
 make container relative
@@ -283,6 +281,19 @@ float: left; (after box clear:left;)
 
 }
 
+
+float allows horizontal position
+flex allows complete control over alignment, order, size, direction
+allows control from the parent
+
+> powerful when nest flex-containers inside each other to create layouts
+> most mobile layouts are a single column, while most desktop layouts 
+  stack elements horizontally, this is when changing to direction: column comes handy
+
+  flex-direction: row-reverse; //affects each row separately, not the whole order
+
+> separate HTML content from presentation 
+
 /*Layout 3
 .container {
     display: flex;
@@ -294,18 +305,96 @@ float: left; (after box clear:left;)
     flex: 1;        /* remaining space split 1/1
 }                   /* display:flex with flex: 1 take rest of container */
 
-
-/*layout3
-flex: initial; /* grow 0 shrink 1
-flex: none;     /* no remaining space division just the content
+/*
+flex: auto; /* flexible along the main axis 
+flex: initial; /* inflexible out but can shrink
+flex: none; /* inflexible in all situations shrink grow, just content
 flex: 1 ( 1/1 remaining container space split 1/1 50/50, 1/2=33/66% )
 flex: 1
+order: 1;
+order: -1;
+
+
 
 
 align-content: flex-start; 
-/* align-content modifies the behavior of flex-wrap. It is similar to align-items, but instead of aligning Flex Items, it aligns Flex Lines */
-/* aligns but removes spaces between wrap lines */
+/* align-content modifies the behavior of flex-wrap. It is similar to align-items, 
+but instead of aligning Flex Items, it aligns Flex Lines */
+/* aligns but removes spaces between wrap lines
 
+
+
+
+margin-right: auto;
+/* for a flex item it absorbs all the remaining space to this margin direction
+
+margin: auto; , margin: 0 auto;
+/* centers a div if its a flex item
+
+align-self:center;
+/* overrides parent's align-items/cross axis
+/* move item to end of container by itself
+
+//item-align: baseline
+
+Visibility:collapse; 
+the element will affect the Cross Size of the Flex Container, 
+but it will not be displayed nor will it consume any space on the Main Axis. 
+This will be useful for dynamically adding and removing Flex 
+Items without affecting the Flex Container’s Cross Size.
+
+
+
+/* layout
+Fixed (f:initial w width)) || flexible (flex:1) || Fixed (f:initial w width)
+
+flex: 1; > flex: 1 1 0 > grow shrink basis
+flex: auto; > flex: 1 1 auto
+flex-shrink: 0; no shrinking
+
+flex-basis: in row (width) in column direction (height)
+
+children neglect their width in relation to flex shrink/grow
+because of the flex-basis:0 ( default with flex: 1;)
+flex-basis: auto: tells to check for a width declaration (default without flex: 1;)
+so can use flex-grow alone, or specify flex: 1 1 auto;
+
+extra shorthands
+flex: 2; grow 2, shrink def, basis 0
+flex: 10em/30%/min-content << these values affect flex-basis only
+flex: 1 30px; grow 1, basis: 30px
+flex: 2 2   grow/shrink
+flex: 2 2 10% grow/shrink/basis
+
+default flex child has
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+
+//flex: direction-reverse handy in right-to-left language layouts
+
+gap: px;
+
+The items do not stretch on the main dimension, but can shrink.
+The items will stretch to fill the size of the cross axis.
+items main axis if they will not wrap but will instead overflow.
+
+
+/*------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------*/
+
+/*
+
+display: block, inline, inline-block, flex, inline-flex,
+grid, inline-grid, flow-root
+
+display: table, table-row, list-item
+
+display: block flow, inline flow, inline flow-root, block flex...
+
+
+
+*/
 
 /*Fixing layout on screen size change
 @media (min-width:600px) {  /*if more than 600px
@@ -351,7 +440,7 @@ align-content: flex-start;
 
 
 
-    /* counter style, clearfix, test_divs */
+    /* counter style, clearfix */
     @media (min-width:100px)  {
     
     
@@ -435,6 +524,10 @@ align-content: flex-start;
         }
 
         /*/////////////////////////////////////////////////////*/
+    }
+
+
+    @media (min-width:100px)  {
 
 
         .Para:first-of-type {
@@ -493,6 +586,9 @@ align-content: flex-start;
             background-color: red;
         }
 
+    }
+
+    @media (min-width:100px)  {
 
         .main.testdiv_2109 { 
             height: 300px; 
@@ -506,6 +602,8 @@ align-content: flex-start;
 
             color: white;
             position: relative;
+
+
 
         /*    align-content is similar to align-items in values
             but it is related to "flex-wrap" lines
@@ -539,7 +637,6 @@ align-content: flex-start;
             background-color: rgb(112, 112, 231);
             display: inline-block;
             vertical-align: top;
-            flex: none;     /* no remaining space division just the content*/
 
         }
 
@@ -547,7 +644,6 @@ align-content: flex-start;
             background-color: rgb(148, 192, 145);
             display: inline-block;
             vertical-align: top;
-
         }
 
         .testdiv_2109.sub4 { 
@@ -557,7 +653,7 @@ align-content: flex-start;
         }
     }
 
-
+}
 
 
 
@@ -572,10 +668,10 @@ Animation then use keyframes
 
         @keyframes example {
 
-            from {background-color: red; left:0px; top:0px;}       /* default 0% */
+            from {background-color: red; left:0px; top:0px;}       /* default 0% of duration (start) */
             25%  {background-color: green; left:10px; top:10px;}
             50%  {background-color: orange; left:5px; top:5px;}
-            to   {background-color: blue; left:0px; top:0px;}      /* default 100% */
+            to   {background-color: blue; left:0px; top:0px;}      /* default 100% of duration (end) */
 
         }
 
@@ -584,7 +680,7 @@ Animation then use keyframes
             position: relative;
 
             animation-name: example;
-            animation-delay: 2s;        /* start of animation */
+            animation-delay: 2s;        /* till start of animation */
             animation-duration: 4s;
 
             animation-iteration-count: 2; /* how many should it play, infinite*/
@@ -653,6 +749,8 @@ Multiplies or screens the colors, depending on the source color value.
 The backdrop-filter property is used to apply a graphical effect to the area behind an element.
 blur, brightness%, opacity%, contrast%,
 */
+
+/*
 .testdiv_2109.sub1 {
 
     position: absolute;
@@ -665,7 +763,12 @@ blur, brightness%, opacity%, contrast%,
     backdrop-filter: blur(20px);
 
 }
-
+*/
 
 /*------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*/
+
+/* Linking in-page */
+
+#id_name
+<a href=" #id_name   "> text </a>
