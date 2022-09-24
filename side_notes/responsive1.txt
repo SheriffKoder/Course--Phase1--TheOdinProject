@@ -89,3 +89,141 @@ if i can give relation to height/width vmax
 and 
 ****
 
+////////////////////////////////////////////////////////////////
+
+vh
+always matching the size of the view port height
+because % is always based on the parent element
+
+can use vh on padding, add a little bit of change
+
+
+header text with vw and will need media adjustment if v small/big screen
+giving a max or min size not preferable
+preferable to use vmin so it stop an not grow to much
+
+default rem ?
+
+@media (min-width: 40em) {
+    :root {
+        --fs-400: 2rem;
+        --fs-400: 1rem 
+    }
+}
+
+font: clamp (3.5rem, 12vw + 1rem, 12rem)
+              min / growth factor / max
+
+              allows the rem factor to affect also the vw for pinch zoom touch devices
+
+"all websites are perfectly responsive if you turn off the CSS. "
+
+
+
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+
+start by making the background color based on the device width
+
+/* Mobile Styles */
+@media only screen and (max-width: 400px) {
+  body {
+    background-color: #F09A9D; /* Red */
+  }
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+  body {
+    background-color: #F5CF8E; /* Yellow */
+  }
+}
+
+/* Desktop Styles media query */
+@media only screen and (min-width: 961px) {
+  body {
+    background-color: #B2D6FF; /* Blue */
+  }
+}
+
+only screen > media type, devices with screens not prints
+max-width > media feature
+
+
+other conditons like landscape, portrait, resolution, mouse or not
+
+mobile/tablet : fluid flex, anywhere between 300 and 500px devs
+desktop: fixed width,
+
+> mobile first (all boxes below each other)
+container flex, wrap 
+insides divs normal
+will be mobile,
+
+> tablet (make 2 sections per row)
+div1, div2, div3 {
+    width 50% /*doesn’t matter what the exact width of the screen is: this layout will fluidly respond to any width in the media query’s range */
+}
+
+>desktop
+container > width: fixed, margin:0 auto;
+fixed width and in center 
+
+divs > width: 33.3%;
+give height
+
+because the container is flex, can give flexible order
+
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+in HTML to allow mobile to use mobile layouts
+
+////////////////////////////////////////////////////////////////
+
+/* Nested within another conditional at-rule */
+@supports (display: flex) {
+  @media screen and (min-width: 900px) {
+
+
+all , print, screen  
+
+@media (400px <= width <= 700px) {
+
+    @media screen, print {
+
+
+you can apply specific styles to widescreen monitors, computers that use mice, or to devices that are being used in low-light conditions.
+
+@media (hover: hover) {
+    when the user's primary input mechanism (such as a mouse) can hover over elements:
+
+    @media screen and (min-width: 30em) and (orientation: landscape) {
+
+The not keyword inverts the meaning of an entire media query. It will only negate the specific media query it is applied to.
+@media (not (screen and (color))), print and (color) {
+    @media (not(hover)) { /* no hover capability */
+        @media (not (color)) or (hover) { /* monochrome and hove capability */
+
+
+            @media (hover: hover) { /*none, hover */
+                /* when hover is supported */
+                a:hover {
+                  color: white;
+                  background: black;
+                }
+              }
+              
+orientation: portrait or landscape
+
+
+@media (orientation: landscape) {
+    body {
+      flex-direction: row;
+    }
+  }
+  
+  @media (orientation: portrait) {
+    body {
+      flex-direction: column;
+    }
+  
