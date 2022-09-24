@@ -1,0 +1,91 @@
+/* Kevin responsive notes */
+
+
+HTML shortcuts 
+----------------
+div*2>p>
+enter
+2 divs of 2 paragraphs
+
+h2+p>Lorem15
+
+link:css
+ 
+shift+cmd+p
+emmet: wrap in abbreviation
+.container
+the selected part will be in a .container div
+
+
+
+*rem
+*min()
+
+CSS
+button , background, transparent
+----------------
+:root {
+--ff-primary-font:
+
+}
+
+body,
+borderbox, margins 0
+ font, 1.312rem
+line-height: 1.6; 
+
+
+padding: 3rem 0;
+
+container width: min(90%, 70.5rem);   //min and max
+container-narrow max-width: 50rem
+
+margin-inline: auto (center, left and right margins only)
+margin-block
+padding-inline
+
+img max-width: 100% (to not overflow) // wont stretch but will shrink if area is too small
+display block
+
+build on small screen then grow the way up with max-width and media
+
+@media (min-width: 40em) { 
+    //media per container as you go 
+    font-size: 1rem then 1.5rem
+}
+
+@media x (
+min-width //mobile-desktop direction
+max-width //desktop-mobile direction
+orientation: portrait
+orientation: landscape
+x can be nothing, screen, print
+
+
+.container > * {
+    flex-basis: 100% //stack on each other 
+}
+
+.container > * + * {
+        //any element that has something before it
+}
+
+
+
+1em about 16px
+em is in relation to the parent's font-size 
+even if parent has 1em it is
+
+rem, in relation to the  htmls elements font size
+
+padding, margin, width, heights
+
+margin em will be in relation to the container's font
+
+when change the font size, every thing grows in proportion
+
+****
+if i can give relation to height/width vmax
+and 
+****
+
