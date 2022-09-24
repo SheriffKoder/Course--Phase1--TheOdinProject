@@ -354,9 +354,11 @@ flex-shrink: 0; no shrinking
 
 flex-basis: in row (width) in column direction (height)
 
-children neglect their width in relation to flex shrink/grow
+
+because children neglect their width in relation to flex shrink/grow
 because of the flex-basis:0 ( default with flex: 1;)
-flex-basis: auto: tells to check for a width declaration (default without flex: 1;)
+> flex-basis: auto;
+tells to check for a width declaration (default without having to use flex: 1; which has grow in it)
 so can use flex-grow alone, or specify flex: 1 1 auto;
 
 extra shorthands
@@ -391,6 +393,27 @@ grid, inline-grid, flow-root
 display: table, table-row, list-item
 
 display: block flow, inline flow, inline flow-root, block flex...
+
+
+
+
+Float-based layouts / magazine style
+
+Layout starting position
+Float-based layouts have mostly been replaced with Flexbox in modern websites.
+ For over a decade, floats served as the foundation for the majority of websites
+
+page.container fixed width, margin: 0 auto;
+
+block elements take the available widths by default "1
+div1 h 100
+div2 h 300 unless width given "2, leaving a space here 4" adding float will make div2/3 on the same line "5
+div3 h 500 this will start in a new line "3 
+div4 h 200
+
+block elements positioning float: left, right or margin: 0 auto for center
+inline are positioned with text-align
+
 
 
 
@@ -760,7 +783,7 @@ blur, brightness%, opacity%, contrast%,
     border-radius: 10px;
 
     background-color: rgba(0, 106, 255, 0.341);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px); <<<
 
 }
 */
@@ -770,5 +793,9 @@ blur, brightness%, opacity%, contrast%,
 
 /* Linking in-page */
 
+/*
 #id_name
 <a href=" #id_name   "> text </a>
+*/
+
+
