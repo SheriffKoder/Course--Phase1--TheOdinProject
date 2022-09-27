@@ -1,0 +1,46 @@
+/*
+by default everything is responsive
+set values, certain issues are created
+
+lesson1: 
+% of the parent 
+body can be the view port
+so all depend on each other body>parent>child
+
+
+
+*/
+
+
+* {
+    box-sizing: border-box;
+}
+
+.body {
+    margin: 0;
+}
+
+
+.parent {
+    
+    margin: 0 auto;
+    background: #23424A;
+    padding: 50px;
+
+    width: 80%;
+
+
+
+}
+
+
+.child {
+
+    height: 150px;
+    
+    background: #38CFD9;
+    padding: 10px;
+
+    width: 50%;
+
+}
