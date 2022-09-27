@@ -58,15 +58,15 @@ and not cause float loading problems
 CSS Cascade (Priority) for the same style-property only, else is applied
 1.HTML inline                                           score 1000
 1.1 html header style
-2.Layer                                                 score 
 3.Direct specificity/Last specified
+2.Layer                                                 score 
 4.ID                                                   score 100
 5.Class/attribute(required, href=.. )/pseudo-selectors(::hover etc) score 10
 6.Type                                                  score 1
 * + > ~ _ || have no impact over specificity score      score 0
 
-.para:first-of-type << highest hit 4 4 (wins) -> color:white
-p.para << hit 4 5  -> color:red
+.para:first-of-type << highest hit 5 5 (wins) -> color:white
+p.para << hit 5 6  -> color:red
 
 #para -> color:red (now color:red has been enhanced by a hit so wins with this)
 
@@ -306,14 +306,17 @@ allows control from the parent
 }                   /* display:flex with flex: 1 take rest of container */
 
 /*
-flex: auto; /* flexible along the main axis 
-flex: initial; /* inflexible out but can shrink
-flex: none; /* inflexible in all situations shrink grow, just content
-flex: 1 ( 1/1 remaining container space split 1/1 50/50, 1/2=33/66% )
-flex: 1
+flex: auto; /* flexible along the main axis  > 1 1 auto
+flex: initial; /* inflexible out but can shrink > 0 1 auto
+flex: none; /* inflexible in all situations shrink grow, just content > 0 0 auto
+flex: 1 ( 1/1 remaining container space split 1/1 50/50, 1/2=33/66% ) > 1 1 0
+flex: 2 > 2 1 0
 order: 1;
 order: -1;
 
+Flex-rule; 
+all items will take the available cross axis area given by container or tallest item if not
+because initial align-items is stretch;
 
 
 
@@ -321,8 +324,12 @@ align-content: flex-start;
 /* align-content modifies the behavior of flex-wrap. It is similar to align-items, 
 but instead of aligning Flex Items, it aligns Flex Lines */
 /* aligns but removes spaces between wrap lines
+or gives them using
+align-content: space-between, which means that the available space is shared out between the flex lines,
 
 
+1.direction: rtl;
+2.gives justify content flex direction to start or end from for arabic layouts
 
 
 margin-right: auto;
@@ -337,7 +344,7 @@ align-self:center;
 
 //item-align: baseline
 
-Visibility:collapse; 
+Visibility:collapse; /*total shrink /
 the element will affect the Cross Size of the Flex Container, 
 but it will not be displayed nor will it consume any space on the Main Axis. 
 This will be useful for dynamically adding and removing Flex 
@@ -347,6 +354,10 @@ Items without affecting the Flex Container’s Cross Size.
 
 /* layout
 Fixed (f:initial w width)) || flexible (flex:1) || Fixed (f:initial w width)
+even horizontal spacing
+Fixed flexible (flex:1) || flexible (flex:1) || flexible (flex:1)
+
+
 
 flex: 1; > flex: 1 1 0 > grow shrink basis
 flex: auto; > flex: 1 1 auto
@@ -358,8 +369,9 @@ flex-basis: in row (width) in column direction (height)
 because children neglect their width in relation to flex shrink/grow
 because of the flex-basis:0 ( default with flex: 1;)
 > flex-basis: auto;
-tells to check for a width declaration (default without having to use flex: 1; which has grow in it)
+tells to check for a width declaration and will become the flex basis (default without having to use flex: 1; which has grow in it)
 so can use flex-grow alone, or specify flex: 1 1 auto;
+> flex-basis: 0 , items hgrow/shrink from a flex basis of 0
 
 extra shorthands
 flex: 2; grow 2, shrink def, basis 0
@@ -376,10 +388,24 @@ default flex child has
 //flex: direction-reverse handy in right-to-left language layouts
 
 gap: px;
+column-gap
+row-gap
 
 The items do not stretch on the main dimension, but can shrink.
 The items will stretch to fill the size of the cross axis.
 items main axis if they will not wrap but will instead overflow.
+
+flex-flow: direction wrap;
+
+flex:1 / flex: 0 can be used to make cards
+flex , margin-left(space) used for navigation splitting
+
+
+
+
+
+
+
 
 
 /*------------------------------------------------------------------------*/
@@ -403,7 +429,7 @@ Layout starting position
 Float-based layouts have mostly been replaced with Flexbox in modern websites.
  For over a decade, floats served as the foundation for the majority of websites
 
-page.container fixed width, margin: 0 auto;
+page.container fixed width, margin: 0 auto; no height <<<<
 
 block elements take the available widths by default "1
 div1 h 100
@@ -413,6 +439,29 @@ div4 h 200
 
 block elements positioning float: left, right or margin: 0 auto for center
 inline are positioned with text-align
+
+floated boxes are removed from the normal flow of the page
+and do not contribute to the vertical position of the div below
+so it is stick to the last unfloated element
+avoid this by putting in the div below 
+" clear:both "
+which allows it to have its space without floated elements
+but better still use
+" overflow: hidden " in the floated boxes container container
+which allows the floated elements to contribute to their container's height
+and allow the container container to have a background do to that
+
+float.html
+
+
+
+/* full-bleed layout 
+=======
+  | |
+=======
+
+header and footer are outside the .page which has a fixed width and margin
+
 
 
 
@@ -676,7 +725,7 @@ inline are positioned with text-align
         }
     }
 
-}
+
 
 
 
@@ -799,3 +848,10 @@ blur, brightness%, opacity%, contrast%,
 */
 
 
+ul {
+    padding:0;
+    display: flex; /* child be flex too */
+    gap: 0; /* alt to a:link margins */
+    align-items: center; /* not take full cross-axis */
+
+}
