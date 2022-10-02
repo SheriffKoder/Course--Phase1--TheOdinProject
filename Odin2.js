@@ -96,39 +96,94 @@ be descriptive, human readable good names, naming is an important skill
 
 
 //*--------------------*//*
+//*--------------------*//*
+
 declared with var, are either function-scoped or global-scoped. 
-variables skip the block they are in (function or loop)
+> they skip the block they are in, IF here for example
+and if in function variables skip the block they are in (function or loop)
+ 
 
 function sayHi () {
 
-  if (true) {
+  if (x=1) {
   var test = true; // use "var" instead of "let"
   }
 
-  alert(test); //outputs true , but if let will error not defined
+  alert(test); // out of declaration block and outputs true , but if let will error not defined
+              //outputs even if IF branch not execute
 
   for (var i = 0; i < 10; i++) {
   }
-  alert(i); //outputs i
+  alert(i); //outputs 10
+
+  //var test; //can be defined here also
+
 
 }
 
 sayHi();
 alert(test); //outputs undefined either ways
 
+
+var can be defined multiple times but let does not get declared more than once
+var user = ;
+var user = ;
+
+> var can be defined anywhere in the code and code will define it at code starts
+
+> var can be defined in a non executing branch if, etc
+
+* function go() { }(); // <-- can't call Function declaration
+
+best use let and const
+
+//*--------------------*//*
+//*--------------------*//*
+
++ addition, - subtraction, * multiplication, ** exponation, / division, % modulus, ++ increment, -- decrement
+operand +(operator) operand 
+
+let z = x ** 2;   // x power 2
+let z = Math.pow(x,2);
+
+>calculation is left to right 
+
+>precedence/flow of calculation
+parentheses ()
+then Multiplication (*) and division (/) have higher  
+then addition (+) and subtraction (-)
+
+numbers in js are 
+64-bit floating point, 
+integers 15 digit long precision 
+decimals are a maximum of number of 17 
+
+Floating point arithmetic is not always 100% accurate:
+To solve the problem above, it helps to multiply and divide:
+
+
+
+
+
 */
+
+var x=0;
 
 function sayHi () {
 
-  if (true) {
+  if (x=1) {
   var test = true; // use "var" instead of "let"
   }
 
-  alert(test); //outputs true , but if let will error not defined
+  alert(test); // out of declaration block and outputs true , but if let will error not defined
+              //outputs even if IF branch not execute
 
   for (var i = 0; i < 10; i++) {
   }
-  alert(i); //outputs i
+  alert(i); //outputs 10
+
+  //var test; //can be defined here also
+
 
 }
 
