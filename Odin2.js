@@ -146,6 +146,18 @@ operand +(operator) operand
 let z = x ** 2;   // x power 2
 let z = Math.pow(x,2);
 
+number + number = number
+
+JavaScript will try to convert strings to numbers in all numeric operations:
+* , / , - but not +
+
+so 
+number + string = string  // "10"+ 20  = 1020
+string + string = string // "10"+ "20" = 1020
+
+
+
+
 >calculation is left to right 
 
 >precedence/flow of calculation
@@ -161,31 +173,44 @@ decimals are a maximum of number of 17
 Floating point arithmetic is not always 100% accurate:
 To solve the problem above, it helps to multiply and divide:
 
+let x = 0xFF;   // FF Hexadecimal
 
 
+
+
+
+////////////////////////////
+//// NaN //////////////////
+let x = "10";
+let y = "10Apple";
+let z = x / y; //NaN
+let o = isNaN(z); //true
+
+console.log(o);
+
+
+let x2 = NaN; 
+// NaN + number = NaN
+//NaN+string = concatenate  
+
+let x3 = typeof NaN; //number
+let x4 = typeof Infinity; //number
+
+
+// Infinity //
+let myNumber = 2;
+while (myNumber != Infinity) { // Execute until Infinity
+    myNumber = myNumber * myNumber;
+}
+
+let x5 =  2 / 0; //Division by 0 = Infinity
+
+
+////////////////////////////
+////////////////////////////
 
 
 */
 
-var x=0;
-
-function sayHi () {
-
-  if (x=1) {
-  var test = true; // use "var" instead of "let"
-  }
-
-  alert(test); // out of declaration block and outputs true , but if let will error not defined
-              //outputs even if IF branch not execute
-
-  for (var i = 0; i < 10; i++) {
-  }
-  alert(i); //outputs 10
-
-  //var test; //can be defined here also
 
 
-}
-
-sayHi();
-alert(test); //outputs undefined either ways
