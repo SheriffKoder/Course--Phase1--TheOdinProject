@@ -73,6 +73,10 @@ let user = 'john', age = 25;    //can add multiple variables in one line
 let user = 'john',              //multiline break
     age = 25;
 
+//string line breaks using \n
+const text = "this text has a \n new line break";
+
+
 //*--------------------*//*
 name should be letters, digits, $, _ 
 and not start with a digit, not use -
@@ -143,6 +147,12 @@ best use let and const
 + addition, - subtraction, * multiplication, ** exponation, / division, % modulus, ++ increment, -- decrement
 operand +(operator) operand 
 
+8 % 3 (returns 2, as three goes into 8 twice, leaving 2 left over).
+
+cannot 3++;,  can var++;
+
+x+= 2, -=, *=, /= 
+
 let z = x ** 2;   // x power 2
 let z = Math.pow(x,2);
 
@@ -154,7 +164,8 @@ JavaScript will try to convert strings to numbers in all numeric operations:
 so 
 number + string = string  // "10"+ 20  = 1020
 string + string = string // "10"+ "20" = 1020
-
+solution
+number + Number(string)
 
 
 
@@ -175,6 +186,12 @@ To solve the problem above, it helps to multiply and divide:
 
 let x = 0xFF;   // FF Hexadecimal
 
+//converting from js decimal to octal, binary etc
+//myNumber2.toString(number_type_base); 
+
+//rounding a float number using .toFixed();
+const lotsOfDecimal = 1.766584958675746364;
+const twoDecimalPlaces = lotsOfDecimal.toFixed(2); // 1.77
 
 
 
@@ -191,7 +208,7 @@ console.log(o);
 
 let x2 = NaN; 
 // NaN + number = NaN
-//NaN+string = concatenate  
+//NaN+String = NaNString  
 
 let x3 = typeof NaN; //number
 let x4 = typeof Infinity; //number
@@ -209,8 +226,95 @@ let x5 =  2 / 0; //Division by 0 = Infinity
 ////////////////////////////
 ////////////////////////////
 
+////////////////////////////////////////////////////////
+// Working with Strings methods //
+
+const string_with_quotemark = 'this string\'ve got a quote mark';
+
+//combine a variable/number, with a string using template_literals
+const name = "Chris";
+const greeting = `Hello, ${name}`;
+console.log(greeting); // "Hello, Chris"
+
+${ (score / highestScore) * 100 } can calculate
+
+TL respects line breaks and puts them into output
+const output = 
+`I like the song.
+I gave it a score of 90%.`;
+
+
+//converting 
+Number(myString)
+toString(myString)
+
+let length_count = text.length;
+let text = "word of mouth";
+let part_of_text = text.slice(7); // text from 7 onwards
+let part_of_text = text.slice(7,10); // from 7-12, count starts at 0
+let part_of_text = text.slice(-10,-7); // counting from end of string, starts 1
+let part_of_text = text.slice(-7); // text from -7 backwards
+
+text.substring(7,10); //same as slice but does not support -ve numbers starts from 0
+text.substr(7,3);     //same as slice but the second parameter defines the length of the output string
+text.substr(7);       //
+
+let newText = text.replace("mouth", "mind"); //replaces the string part "mouth" with "mind"
+//replaces only the first match, new string is returned not modify the original
+
+let newText = text2.replace(/Mouth/i, "mind"); //replace case in-sensitive
+let newText2 = text2.replace(/Mouth/gi, "mind"); //global match, all matches AND case in-sensitive
+
+text.toUpperCase();
+text.toLowerCase();
+
+
+let text3 = text1.concat(" ", text2); //can be used instead of the + way
+
+
 
 */
 
+const text = "this text has a \n new line break";
+
+const string_with_quotemark = 'this string\'ve got a quote mark';
+console.log(text);
 
 
+let text2 = "word of mouth mouth";
+let part_of_text1 = text2.slice(-7); // from 7-12, count starts at 0
+let part_of_text2 = text2.substring(-7); // from 7-12, count starts at 0
+
+console.log(part_of_text1);
+console.log(part_of_text2);
+
+let newText = text2.replace(/Mouth/i, "mind"); //replace case in-sensitive
+let newText2 = text2.replace(/Mouth/gi, "mind"); //global match, all matches
+
+console.log(newText);
+console.log(newText2);
+
+console.log(text2);
+
+let text4 = "   Hello World of ZZ   A "
+console.log(text4);
+
+
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
