@@ -7,6 +7,11 @@ lesson1:
 body can be the view port
 so all depend on each other body>parent>child
 
+lesson2:
+try to avoid heights, let it be responsive 
+use padding better and better with em, 
+relative to root by default which is 16 by default
+
 
 
 */
@@ -26,21 +31,51 @@ so all depend on each other body>parent>child
     margin: 0 auto;
     background: #23424A;
     padding: 50px;
+    padding-bottom: 5em;
+    padding-top: 5em;
 
     width: 80%;
-
-
-
+    max-width: 700px;
 }
 
 
 .child {
 
-    height: 150px;
     
     background: #38CFD9;
     padding: 10px;
+    padding-top: 1em;
+    padding-bottom: 7em;
 
-    width: 50%;
+
+    width:80%;
+
+    margin: 0 auto;
 
 }
+
+/* 
+Day2: 
+em's multiply with nesting
+so better use rem which is more manageable is 16px by default
+can put in html { font-size: 62.5% } to adjust the default rem to 10px instead of 16px
+
+but 
+
+em's on anything than font size, reference to the 
+padding, link padding, margins
+font size of that element in this case the used rem
+to be consisted with the size of the font (if wanted)
+
+*/
+
+
+/*
+Day:3
+avoid reading across big screen sizes
+by limiting the max width
+
+
+
+
+*/
