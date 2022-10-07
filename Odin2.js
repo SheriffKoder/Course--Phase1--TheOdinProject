@@ -76,6 +76,17 @@ let user = 'john',              //multiline break
 //string line breaks using \n
 const text = "this text has a \n new line break";
 
+\0 null character
+\' , \"
+\\ backslash
+\r carriage return
+\v vertical tab
+\t tab
+\b backspace
+\f form feed
+\uXXXX
+
+
 
 //*--------------------*//*
 name should be letters, digits, $, _ 
@@ -238,7 +249,7 @@ console.log(greeting); // "Hello, Chris"
 
 ${ (score / highestScore) * 100 } can calculate
 
-TL respects line breaks and puts them into output
+template_literals `` respects line breaks and puts them into output
 const output = 
 `I like the song.
 I gave it a score of 90%.`;
@@ -266,38 +277,72 @@ let newText = text2.replace(/Mouth/i, "mind"); //replace case in-sensitive
 let newText2 = text2.replace(/Mouth/gi, "mind"); //global match, all matches AND case in-sensitive
 
 text.toUpperCase();
-text.toLowerCase();
+text.toLowerCase(); //toLocaleLowerCase("tr")
 
 
 let text3 = text1.concat(" ", text2); //can be used instead of the + way
+let text5 = text4.trim(); // removes white space "surrounding the string"
+let text5 = text4.trimStart(); // removes white space "beginning the string"
+let text5 = text4.trimEnd(); // removes white space "beginning the string"
+
+text.padStart(3, "x"); // xxtext
+text.padEnd(3, "x"); // xxtext
+
+to use a number in string method, convert to string toString(number);
+
+let text = "HELLO WORLD";
+let char = text.charAt(0); //returns H
+let char = text.charCodeAt(0); //returns the unicode UTF-16 i.e 72
+text[0] // returns H
 
 
+//convert a string into an array
+let text = "a b c d e f";
+const myArray = text.split(""); 
+myArray is an array
+
+text.split(" ")//split on , " ", | pipe, output before first occurrence of this condition
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+javascript treats strings as objects when executing methods and properties 
+
+
+
+strings written between "", '', ``, String("")
+or by a string object // let string4 = new String('string'); //type object
+
+a string can be treated as an array, string4[0];
+
+console.log(`${a} is greater than ${b}`)
+
+
+let s1 = "2 + 2";
+eval(s1); //returns 4
+
+let s1 = new String("2 + 2");
+eval(s1); //returns 2+2
+eval(s1.valueOf() )); //returns 4 // StrObj converted to primitive with valueOf() method.
+
+console.log("hello,\
+dude ");                   //continue string next line, nothing after the \ but enter
+
+\ude04 //emoji smile
+
+string.includes("h"); //true if has this h letter
+string.endsWith("h"); //true if ends with this letter //startsWith
+string.indexOf("h"); //returns location of h, or -1 if not found
+
+let s1 = null;
+let s2 = String(s1);
+console.log(s2); //"null"
 
 */
 
-const text = "this text has a \n new line break";
 
-const string_with_quotemark = 'this string\'ve got a quote mark';
-console.log(text);
-
-
-let text2 = "word of mouth mouth";
-let part_of_text1 = text2.slice(-7); // from 7-12, count starts at 0
-let part_of_text2 = text2.substring(-7); // from 7-12, count starts at 0
-
-console.log(part_of_text1);
-console.log(part_of_text2);
-
-let newText = text2.replace(/Mouth/i, "mind"); //replace case in-sensitive
-let newText2 = text2.replace(/Mouth/gi, "mind"); //global match, all matches
-
-console.log(newText);
-console.log(newText2);
-
-console.log(text2);
-
-let text4 = "   Hello World of ZZ   A "
-console.log(text4);
+console.log("hello,\
+dude");
 
 
 
