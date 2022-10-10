@@ -77,6 +77,11 @@ let user = 'john',              //multiline break
 const text = "this text has a \n new line break";
 
 \0 null character
+\ space
+
+\
+new line
+
 \' , \"
 \\ backslash
 \r carriage return
@@ -208,7 +213,7 @@ const twoDecimalPlaces = lotsOfDecimal.toFixed(2); // 1.77
 
 
 ////////////////////////////
-//// NaN //////////////////
+//// NaN ////////////////// not a number
 let x = "10";
 let y = "10Apple";
 let z = x / y; //NaN
@@ -285,6 +290,11 @@ let text5 = text4.trim(); // removes white space "surrounding the string"
 let text5 = text4.trimStart(); // removes white space "beginning the string"
 let text5 = text4.trimEnd(); // removes white space "beginning the string"
 
+string.includes("h"); //true if has this h letter
+string.endsWith("h"); //true if ends with this letter //startsWith
+string.indexOf("h"); //returns location of h, or -1 if not found
+
+
 text.padStart(3, "x"); // xxtext
 text.padEnd(3, "x"); // xxtext
 
@@ -330,19 +340,133 @@ dude ");                   //continue string next line, nothing after the \ but 
 
 \ude04 //emoji smile
 
-string.includes("h"); //true if has this h letter
-string.endsWith("h"); //true if ends with this letter //startsWith
-string.indexOf("h"); //returns location of h, or -1 if not found
 
 let s1 = null;
 let s2 = String(s1);
-console.log(s2); //"null"
+console.log(s2); //"null" // not use toString();
+
+let a = 1;
+Boolean(a); // true
+
+////////////////////////////////////////////////////////////////////
+
+////////////////////////
+//// null and undefined
+
+alert( '' == false ); // true
+alert( null === undefined ); // false  object/undefined
+alert( null == undefined ); // true
+
+when converted to a number, null becomes 0
+alert( null > 0 );  // (1) false, because comparisons convert it to 0
+alert( null == 0 ); // (2) false, because null in equality would be only equal to undefined
+alert( null >= 0 ); // (3) true
+
+when converted to a number, undefined becomes NaN
+alert( undefined > 0 ); // false (1)
+alert( undefined < 0 ); // false (2)
+alert( undefined == 0 ); // false (3)
+
+to avoid these tricks, use === with null/undefined, and do not use >= like comparisons
+
+////////////////////////
+
+When values of different types are compared, 
+they get converted to numbers (with the exclusion of a strict equality check).
+
+
+
+
+
+////////////////////////
+//// switch
+
+//if there is a match the relevant block will be executed if no matches then default
+// break out of the switch block,  otherwise will continue to next block, can be skipped in last case
+//default can be put in any line but watch for break;
+//If multiple cases matches a case value, the first case is selected.
+//switch cases use strict comparison
+
+
+switch(expression) {
+
+  case x:
+        // code block
+          break;
+
+  case y:
+  case z:                 //y and z use the same code
+        // code block
+        break;
+
+  default:
+        // code block
+
+}
+
+////////////////////////
+////////////////////////
+
+Logical Operators 
+|| (OR), && (AND), ! (NOT), ?? (Nullish Coalescing).
+
+
+
+let date1010 = new Date().getDay(); //gets the day number of today 0-6
+let day;
+
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+//letter comparison according to their unicode value
+alert( 'Z' > 'A' ); // true
+alert( 'Glow' > 'Glee' ); // true
+alert( 'Bee' > 'Be' ); // true
 
 */
 
 
-console.log("hello,\
-dude");
+//// OR chain 
+let value1;
+let value2 = "string2";
+let value3 = "string3";
+let value4 = "string4";
+let value5 = 0;
+let result = value1 || value2 || value3 || value4; 
+// output string2 only. left to right, once find it quits, original form
+//a chain of OR || returns the first truthy value or the last one if no truthy value is found.
+
+let result2 =  value1 || value1 || value5 || "Anonymous"; // output Anonymous
+//can be useful if all values not exist/false we output a string or a function/alert
+
+//console.log(result);
+//console.log(result2);
+
+let result3 = value2 && value2 && value1 && value3 & value5;
+//if all true outputs the last true value 
+//if all false otherwise the first value if all false 
+//if true and false, returns the first false
+
+console.log(result3);
+
+// a && b || c && d     // && executes before ||
+
+
+////logical instead of if
+//let x = 1;
+//(x > 0) && alert( 'Greater than zero!' );
+
+let val = 5;
+let result615 = !val;    //returns !true = false
+console.log(result615);
+
+result616 = (!!"string");
+console.log(result616);
+
 
 
 
