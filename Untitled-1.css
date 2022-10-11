@@ -1,0 +1,81 @@
+
+/*
+Positioning Center 
+Margin: 0 auto;
+element will take the width specified, then the remaining space
+> split evenly between the two margins,
+horizontally center that element within its container
+/* for a flex item it absorbs all the remaining space to this margin direction
+/* centers a div if its a flex item
+
+margin-right: auto;
+/* for a flex item it absorbs all the remaining space to this margin direction
+
+
+#1 float:left // #2 margin: #1 width , max-width
+#1 width 25% // #2 width 75%
+#1 width    // #2 flex: 1
+#1 Fixed (f:initial w width)) || #2 flexible (flex:1) || #3 Fixed (f:initial w width)
+
+
+left 50%, margin-left: -XXpx (Center)
+
+
+align-self:center;
+
+Methods:
+(flex parent) justify-content
+grid parent) place-content: center
+
+flex child ) margin: auto;
+grid child) margin: auto
+
+relative parent, absolute child top 50%, left 50%, transform: translate (-50%, -50%);
+
+
+page.container fixed width, margin: 0 auto; <<<<
+
+block elements positioning float: left, right or margin: 0 auto for center
+inline are positioned with text-align
+
+
+/*justify-self and margin-direction: autos */
+.test0910 {
+    height: 200px;
+    width: 200px;
+    background: #222;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.element2, .element3 {
+    justify-self: end; /*works on grid*/
+    color: white;
+    margin-left: auto;  /*works like justify self*/
+    margin-right: auto;  /*works like justify self*/
+    /*both directions center */
+    /*if used on two items, the remaining space will be split evenly responsive auto between them */
+
+}
+
+/* justification of an element within its containing block */
+/*self-end: The element is packed along its own ending edge, which depends on its direction.*/
+
+
+/* another way of bordering all children*/
+.test0910 > * {
+    outline: 2px solid limegreen;
+}
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+
+text-align //for inline aligning
+margin-inline //
+
+margin: vertical horizontal
+margin: 20px auto; //center horizontal
+works only when there is a width defined
