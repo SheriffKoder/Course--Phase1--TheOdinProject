@@ -416,7 +416,9 @@ let date1010 = new Date().getDay(); //gets the day number of today 0-6
 let day;
 
 
-
+if ("0") {
+  //true because only empty string is false and 0 is converted on comparison/equality
+}
 
 
 /*////////////////////////////////////////////////////////////////////*/
@@ -431,27 +433,31 @@ alert( 'Bee' > 'Be' ); // true
 
 
 //// OR chain 
-let value1;
-let value2 = "string2";
-let value3 = "string3";
-let value4 = "string4";
-let value5 = 0;
-let result = value1 || value2 || value3 || value4; 
-// output string2 only. left to right, once find it quits, original form
+//let value1;
+//let value2 = alert(1);
+//let value3 = "string3";
+//let value4 = "string4";
+//let value5 = 0;
+//let result = value1 || value2 || value3 || value4; 
+// executes value2 (but it returns undefined) so will output string3 only. left to right, once find it quits, original form
 //a chain of OR || returns the first truthy value or the last one if no truthy value is found.
 
-let result2 =  value1 || value1 || value5 || "Anonymous"; // output Anonymous
+//let result2 =  value1 || value1 || value5 || "Anonymous"; // output Anonymous
 //can be useful if all values not exist/false we output a string or a function/alert
 
 //console.log(result);
 //console.log(result2);
 
-let result3 = value2 && value2 && value1 && value3 & value5;
+//let result3 = value2 && value2 && value1 && value3 & value5;
 //if all true outputs the last true value 
 //if all false otherwise the first value if all false 
 //if true and false, returns the first false
 
-console.log(result3);
+//console.log(result3);
+
+
+//alert( alert(1) && alert(2) );// exe alert(1) then undefined(value of alert1 as it returns nothing) then stops
+//alert( null || 2 && 3 || 4 ); //returns 3
 
 // a && b || c && d     // && executes before ||
 
@@ -460,17 +466,60 @@ console.log(result3);
 //let x = 1;
 //(x > 0) && alert( 'Greater than zero!' );
 
-let val = 5;
-let result615 = !val;    //returns !true = false
-console.log(result615);
+//let val = 5;
+//let result615 = !val;    //returns !true = false
+//console.log(result615);
 
-result616 = (!!"string");
+//!!
+let result616 = (!!"string"); //true, can be used to check on strings
 console.log(result616);
 
 
+if (-1 || 0) alert( 'first' );  //-1 is true so it executes
+if (null || -1 && 1) alert( 'third' ); //executes false||true
 
 
-/*
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*12/10
+
+select_id.addEventListener('change', setWeather);
+const choice = select.value;
+
+
+//Ternary Operator
+// condition ? true run/return this code : false run/return this code instead
+
+let accessAllowed = age > 18 ? "adult" : "not adult";
+let message = (age < 3) ? 'Hi, baby!' :   (age < 18) ? 'adult!' : (age < 100) ? 'grown!';
+
+
+
+// greeting = isBirthday
+//   ? 'Happy birthday Mrs. Smith — we hope you have a great day!'
+//  : 'Good morning Mrs. Smith.';
+
+//if greeting = birthday, output this, else output this
+
+
+select_menu.addEventListener('change', () => select.value === 'black'
+  ? update_function('black', 'white')
+  : update_function('white', 'black')
+);
+
+function update_function (bgColor, textColor) {
+  html.style.backgroundColor = bgColor;
+  html.style.color = textColor;
+}
+
+calendar example 
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals
+
+
+
+
+
+*/
 
 
 
