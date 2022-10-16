@@ -546,6 +546,43 @@ regular expressions allows to check a string of characters like passwords
     [a-z] , range letters from a to z
     [a-zA-Z], lowercase range and  uppercase range
 
+    ////repetitions
+    [0-9][0-9][0-9] , three numbers from 0 to 9
+    [0-9]+ , any repetitions
+    [0-9]{3}, how many times would like it to repeat
+    [0-9]{5,8} 5 to 8 characters long
+    [0-9]{5,8} at least 5 characters long
+
+
+    ////metacharacters
+    \d match any digit character (like [0-9])
+    \w match any word character like (a-z A-Z also 0-9 and _)
+    \s match a whitespace character (spaces, tabs etc)
+    \t match a tab character only
+
+    / \d\s  / digit 0-9 then the second character a whitespace type
+
+
+
+    ////special characters
+    +   , at least one or more, any repetitions
+    []  , character set
+    [^] , anything except after the negate symbol
+    ?   , zero-or-one times, makes preceding char optional
+    .   , any character except new line/enter
+    *   , 0-or-more (something like +)  
+
+    \   , escapes the next character like in meta
+    if want to use a special character, use \ before it \*
+
+    / h?e?llo  /    => llo still a match
+    / a[a-z]?  /    => a, aa both match
+    / car.    /     => car (not match because its asking for a character) 
+                      card,cars (match)
+    
+    only want the specified length/expression
+    / ^[a-z]{3}$/ 3 letters not more
+    the beginning ^ and the end $ of the field
 
 
 
