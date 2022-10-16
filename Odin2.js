@@ -468,9 +468,10 @@ alert( 'Bee' > 'Be' ); // true
 
 //let val = 5;
 //let result615 = !val;    //returns !true = false
-//console.log(result615);
+//console.log(result615); //false
 
 //!!
+/*
 let result616 = (!!"string"); //true, can be used to check on strings
 console.log(result616);
 
@@ -507,6 +508,7 @@ select_menu.addEventListener('change', () => select.value === 'black'
   : update_function('white', 'black')
 );
 
+/*theme switch *//*
 function update_function (bgColor, textColor) {
   html.style.backgroundColor = bgColor;
   html.style.color = textColor;
@@ -521,14 +523,28 @@ https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/condit
 
 */
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+/*
+regular expressions allows to check a string of characters like passwords
 
 
+    ////wrapping//
+    /   / forward slash at start and end
+    / ninja / checks for matching the word ninja within a whole text
 
+    ////flags//
+    /g after final slash, all matches
+    /i case insensitive
 
+    ////including and excluding//
+    [ng]inja ,  square brackets means match n or g in first position
+    [^pe]inga ,   match everything instead p and e
 
-
-
-
+    ////ranges
+    [a-z] , range letters from a to z
+    [a-zA-Z], lowercase range and  uppercase range
 
 
 
