@@ -10,7 +10,7 @@ so all depend on each other body>parent>child
 lesson2:
 try to avoid heights, let it be responsive 
 use padding better and better with em, 
-relative to root by default which is 16 by default
+relative to root by default which is 16px by default
 
 
 
@@ -56,7 +56,7 @@ relative to root by default which is 16 by default
 
 /* 
 Day2: 
-em's multiply with nesting
+em's in fonts multiply with nesting
 so better use rem which is more manageable is 16px by default
 can put in html { font-size: 62.5% } to adjust the default rem to 10px instead of 16px
 
@@ -73,7 +73,14 @@ to be consisted with the size of the font (if wanted)
 /*
 Day:3
 avoid reading across big screen sizes
-by limiting the max width
+by limiting the max width of the container
+
+Day4:
+vh, vw, vmin, vmax
+different values for different screen sizes
+
+
+
 
 
 
