@@ -70,12 +70,13 @@ body{
         border-radius: 31.5px;
         height: 3em;
         width: 12rem;
-        font-family:sans-serif;
-        font-weight: 500;
         display: grid;
         place-items: center;
 
         mix-blend-mode: normal;
+
+        font-family: 'Roboto Condensed', sans-serif;
+
 
     }
 
