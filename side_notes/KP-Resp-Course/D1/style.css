@@ -46,8 +46,19 @@ body {
 
 }
 
-.intro-content2 {
-  max-width: 500px;
-  margin: 0 auto;
+
+.row { /*flex container */
+  display: flex;
+  flex-direction: row; /*by default*/
+}
+
+.col {
+  /* the container of each item of h3,p
+  when no h/was smallest possible size it could by default and fill the cross*/
+
+  border: 1px solid black;
+  margin: 10px;  
+  padding: 10px;
+
 
 }
