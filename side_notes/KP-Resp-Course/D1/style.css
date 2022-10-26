@@ -19,6 +19,7 @@
 body {
   margin: 0;
   font-family: sans-serif;
+  height: 1000px;
 }
 
 .container1 {
@@ -38,27 +39,61 @@ body {
 
 }
 
+
+/*////////////////////////////////////////////////////////*/
 .container2 {
   width: 100%;
   margin: 0 auto;
 
-  padding: 2em;
+  padding-top: 2em;
 
 }
 
-
+/*//////////////////*/
 .row { /*flex container */
   display: flex;
   flex-direction: row; /*by default*/
+  justify-content: center;
+
+
+  /*gap: 10px;*/
+
+
+}
+
+/* solution to margins in between without using gaps */
+.col + .col , .col1 + .col1{ /*selecting each col having a col before it  */
+  /*background-color: green;*/
+  margin-left: 10px;
 }
 
 .col {
   /* the container of each item of h3,p
   when no h/was smallest possible size it could by default and fill the cross*/
 
-  border: 1px solid black;
-  margin: 10px;  
+  /*border: 1px solid black;*/
+  /*margin: 10px*/
   padding: 10px;
+  text-align: center;
+  width: 30%;
 
+
+}
+
+/*//////////////////*/
+.row1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #0a686f;
+  width: 100%;
+  
+}
+
+.col1 {
+  padding: 10px;
+  text-align: center;
+  width: 40%;
+  color: white;
 
 }
