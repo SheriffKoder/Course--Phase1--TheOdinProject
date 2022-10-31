@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <style>
+
+      body {
+        width: 600px;
+        height: 600px;
+        margin: 0 auto;
+      }
+
+
+/*//////////////////////*/
+        .menu {
+        height: 100px;
+        background-color: #B2D6FF;    /* Medium blue */
+        }
+
+
+/*//////////////////////*/
+        .container {
+        overflow: hidden; /* allow float to contribute to height */
+        background-color: #EAEDF0;
+        }
+
+            .page {
+            width: 400px;
+            margin: 0 auto;
+            }
+
+                    .sidebar {
+                    float: left;
+                    width: 100px;
+                    height: 300px;
+                    background-color: #F09A9D;
+                    }
+
+                    .content {
+                    float: left;                  /* place horizontally with previous float */
+                    /*clear: both;*/
+                    width: 250px;
+                    height: 500px;
+                    background-color: #F5CF8E;
+
+                    }
+
+                    .content img {
+                      height: 150px;
+                      width: 100px;
+
+                      float: left;
+                      margin: 20px;
+
+                    }
+
+                    .content p {
+                      margin-bottom: 20px;
+
+                    }
+
+/*//////////////////////*/
+        .footer {
+        /*  clear: both;            /* Add this */
+        background-color: #D6E9FE;
+
+        overflow: hidden;     /* instead of height, allows accommodate any number of items */
+
+        }
+          .column {
+            float: left;
+            width: 31%;
+            margin: 20px 1.15%;
+            height: 160px;
+            background-color: #B2D6FF;    /* Medium blue */
+
+ 
+          }
+
+            .avatar {
+              float: left;
+              width: 60px;
+              height: 60px;
+              margin: 25px;
+              border-radius: 40px;
+              background-color: #5fa9ff;
+              background-image: url("https://www.internetingishard.com/html-and-css/floats/floats-for-grids-7ed8b0.png");
+              background-size: contain;
+              background-repeat: no-repeat;
+            }
+
+            .username {
+              margin-top: 30px;
+            }
+
+            .comment {
+              margin: 10px;
+              overflow: hidden; /*  breaks the magazine-style layout from the previous section, but in a very useful way. */
+            }
+
+            
+
+    </style>
+
+
+</head>
+
+
+
+<body>
+    <div class='menu'>Menu</div>
+  
+    <div class='container'>                 <!-- Add this -->
+      <div class='page'>
+
+        <div class='sidebar'>Sidebar</div>
+
+        <div class='content'>
+
+          <img src='https://images.unsplash.com/photo-1609560140261-4efaa689b6c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlJTIwcG9ydHJhaXR8ZW58MHx8MHx8&w=1000&q=80' class='article-image'/>
+
+          <p>Ad netus sagittis velit orci est non ut urna taciti metus donec magnis
+          hendrerit adipiscing mauris sit a proin ultrices nibh.</p>
+    
+          <p>Enim suspendisse ac scelerisque nascetur vestibulum parturient sed mi a
+          dolor eu non adipiscing non neque scelerisque netus ullamcorper sed
+          parturient integer.Eros dui risus non sodales ullamcorper libero a dis
+          cubilia a orci iaculis cursus.</p>
+    
+
+
+
+        </div>
+      </div>
+    </div>                                  <!-- Add this -->
+  
+    <div class='footer'>
+      <div class='column'></div>
+      <div class='column'></div>
+      <div class='column'></div>
+
+      <div class='column'></div>
+      <div class='column'></div>
+      <div class='column'></div>
+
+      <div class='avatar'></div>
+      <h3 class='username'>Bob Smith</h3>
+      <p class='comment'>Aptent vel egestas vestibulum aliquam ullamcorper volutpat
+      ullamcorper pharetra hac posuere a rhoncus purus molestie torquent. Scelerisque
+      purus cursus dictum ornare a phasellus. A augue venenatis adipiscing.</p>
+    </div>
+    
+
+
+    </div>
+
+  
+  </body>
+
+
+
+</html>

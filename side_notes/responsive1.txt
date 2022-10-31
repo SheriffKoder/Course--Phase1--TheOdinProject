@@ -24,30 +24,100 @@ the selected part will be in a .container div
 CSS
 button , background, transparent
 ----------------
-:root {
---ff-primary-font:
 
-}
+build on a small screen then grow the way up with max-width and media
+"all websites are perfectly responsive if you turn off the CSS. "
 
-body,
-borderbox, margins 0
- font, 1.312rem
-line-height: 1.6; 
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+in HTML to allow mobile to use mobile layouts
+
+start by making the background color based on the device width
+@media only screen and (max-width: 400px) {
+    body {
+      background-color: #F09A9D; /* Red */
+    }
+  }
+  
+  /* Tablet Styles */
+  @media only screen and (min-width: 401px) and (max-width: 960px) {
+    body {
+      background-color: #F5CF8E; /* Yellow */
+    }
+  }
+  
+  /* Desktop Styles media query */
+  @media only screen and (min-width: 961px) {
+    body {
+      background-color: #B2D6FF; /* Blue */
+    }
+  }
+  
+
+@media (400px <= width <= 700px) {
+@media screen, print {
+
+/* Nested within another conditional at-rule */
+@supports (display: flex) {
+@media screen and (min-width: 900px) {
+  
+    only screen > media type, devices with screens not prints
+    max-width > media feature
+    
+    
+    other conditons like landscape, portrait, resolution, mouse or not
+    you can apply specific styles to widescreen monitors, computers that use mice, or to devices that are being used in low-light conditions.
+
+    @media (hover: hover) {
+        when the user's primary input mechanism (such as a mouse) can hover over elements:
+    
+    @media screen and (min-width: 30em) and (orientation: landscape) {
+
+    @media (orientation: landscape) {
+        body {
+            flex-direction: row;
+        }
+    }
+        
+    @media (orientation: portrait) {
+        body {
+            flex-direction: column;
+    }
+        
+
+/*////////////////////////////////////////////////////////////////////*/
 
 
-padding: 3rem 0;
+    mobile/tablet : fluid flex, anywhere between 300 and 500px devs
+    desktop: fixed width,
+    
+    > mobile first (all boxes below each other)
+    container flex, wrap 
+    insides divs normal
+    will be mobile,
+    
+    > tablet (make 2 sections per row)
+    div1, div2, div3 {
+        width 50% /*doesn’t matter what the exact width of the screen is: this layout will fluidly respond to any width in the media query’s range */
+    }
+    
+    >desktop
+    container > width: fixed, margin:0 auto;
+    fixed width and in center 
+    
+    divs > width: 33.3%;
+    give height
+    
+    because the container is flex, can give flexible order
 
-container width: min(90%, 70.5rem);   //min and max
-container-narrow max-width: 50rem
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 
-margin-inline: auto (center, left and right margins only)
-margin-block
-padding-inline
 
-img max-width: 100% (to not overflow) // wont stretch but will shrink if area is too small
-display block
 
-build on small screen then grow the way up with max-width and media
+font: clamp (3.5rem, 12vw + 1rem, 12rem)
+              min / growth factor / max
+allows the rem factor to affect also the vw for pinch zoom touch devices
+
 
 @media (min-width: 40em) { 
     //media per container as you go 
@@ -61,6 +131,63 @@ orientation: portrait
 orientation: landscape
 x can be nothing, screen, print
 
+@media (min-width: 40em) {
+    :root {
+        --fs-400: 2rem;
+        --fs-400: 1rem 
+    }
+}
+
+
+::root {
+    --ff-primary-font: size;
+
+}
+
+
+body {
+    broderbox
+    margin: 0;
+    font: 1.312rem;
+    line-height: 1.6;
+
+}
+
+//paddings in relation to font size: rem;
+
+//page does not have to stretch infinitely, max with rem
+container { width: min(90%, 70.5rem); //min and max-width;
+container-narrow { max-width: 50rem }
+
+margin-inline: auto (center, left )
+margin-block
+padding-inline
+
+//container/img block, and max-width 100% (to not overflow)
+stretch and shrink in resized
+
+
+/*////////////////////////////////////////////////////////////////////*/
+
+// R/EM //
+1em about 16px by default
+em is in relation to the parent's font-size 
+even if parent has 1em it is
+rem, in relation to the  htmls elements font size
+padding, margin, width, heights
+margin em will be in relation to the container's font
+when change the font size, every thing grows in proportion
+
+// vh/% //
+because % is always based on the parent element
+vh, always matching the size of the view port height
+can use vh on padding, add a little bit of change
+
+header text with vw and will need media adjustment if v small/big screen
+giving a max or min size not preferable
+preferable to use vmin so it stop an not grow to much
+
+
 
 .container > * {
     flex-basis: 100% //stack on each other 
@@ -72,132 +199,6 @@ x can be nothing, screen, print
 
 
 
-1em about 16px
-em is in relation to the parent's font-size 
-even if parent has 1em it is
-
-rem, in relation to the  htmls elements font size
-
-padding, margin, width, heights
-
-margin em will be in relation to the container's font
-
-when change the font size, every thing grows in proportion
-
-****
-if i can give relation to height/width vmax
-and 
-****
-
-////////////////////////////////////////////////////////////////
-
-vh
-always matching the size of the view port height
-because % is always based on the parent element
-
-can use vh on padding, add a little bit of change
-
-
-header text with vw and will need media adjustment if v small/big screen
-giving a max or min size not preferable
-preferable to use vmin so it stop an not grow to much
-
-default rem ?
-
-@media (min-width: 40em) {
-    :root {
-        --fs-400: 2rem;
-        --fs-400: 1rem 
-    }
-}
-
-font: clamp (3.5rem, 12vw + 1rem, 12rem)
-              min / growth factor / max
-
-              allows the rem factor to affect also the vw for pinch zoom touch devices
-
-"all websites are perfectly responsive if you turn off the CSS. "
-
-
-
-////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////
-
-start by making the background color based on the device width
-
-/* Mobile Styles */
-@media only screen and (max-width: 400px) {
-  body {
-    background-color: #F09A9D; /* Red */
-  }
-}
-
-/* Tablet Styles */
-@media only screen and (min-width: 401px) and (max-width: 960px) {
-  body {
-    background-color: #F5CF8E; /* Yellow */
-  }
-}
-
-/* Desktop Styles media query */
-@media only screen and (min-width: 961px) {
-  body {
-    background-color: #B2D6FF; /* Blue */
-  }
-}
-
-only screen > media type, devices with screens not prints
-max-width > media feature
-
-
-other conditons like landscape, portrait, resolution, mouse or not
-
-mobile/tablet : fluid flex, anywhere between 300 and 500px devs
-desktop: fixed width,
-
-> mobile first (all boxes below each other)
-container flex, wrap 
-insides divs normal
-will be mobile,
-
-> tablet (make 2 sections per row)
-div1, div2, div3 {
-    width 50% /*doesn’t matter what the exact width of the screen is: this layout will fluidly respond to any width in the media query’s range */
-}
-
->desktop
-container > width: fixed, margin:0 auto;
-fixed width and in center 
-
-divs > width: 33.3%;
-give height
-
-because the container is flex, can give flexible order
-
-
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
-in HTML to allow mobile to use mobile layouts
-
-////////////////////////////////////////////////////////////////
-
-/* Nested within another conditional at-rule */
-@supports (display: flex) {
-  @media screen and (min-width: 900px) {
-
-
-all , print, screen  
-
-@media (400px <= width <= 700px) {
-
-    @media screen, print {
-
-
-you can apply specific styles to widescreen monitors, computers that use mice, or to devices that are being used in low-light conditions.
-
-@media (hover: hover) {
-    when the user's primary input mechanism (such as a mouse) can hover over elements:
-
-    @media screen and (min-width: 30em) and (orientation: landscape) {
 
 The not keyword inverts the meaning of an entire media query. It will only negate the specific media query it is applied to.
 @media (not (screen and (color))), print and (color) {
@@ -212,18 +213,22 @@ The not keyword inverts the meaning of an entire media query. It will only negat
                   background: black;
                 }
               }
-              
-orientation: portrait or landscape
 
 
-@media (orientation: landscape) {
-    body {
-      flex-direction: row;
-    }
-  }
-  
-  @media (orientation: portrait) {
-    body {
-      flex-direction: column;
-    }
-  
+
+min(value1,value2);
+which ever of these values is lowest will be used
+vmax and px etc
+
+equavilent
+width: 70%; /value2
+max-width: 500px; /value1
+
+can nest min (  value1+gf , max(20px,1em)  );
+growth factor can be % also to add a touch
+
+clamp(min, ideal size, max);
+
+font-size: calc (1vw + 0.5rem);
+
+max(); works like min but the opposite use

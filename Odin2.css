@@ -854,6 +854,27 @@ blur, brightness%, opacity%, contrast%,
 
 /*------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------*/
+/*//// Extra ////*/
+
+/* backgrounds*/
+/*
+background-image: repeating-conic-gradient(from 45deg, #111 0deg 90deg, #222 90deg 180deg );
+
+
+positioning absolute
+removes the item from its space, can be occupied by the normal layouts
+
+
+a:visited:active {
+  color: red;
+}
+
+
+
+
+
+
+
 
 /* Linking in-page */
 
@@ -894,3 +915,34 @@ Defaults
 . width of inline boxes based on its content
 
 em to scale with base Font size
+
+
+white-space: normal; //how white space inside an element is handled
+
+
+        .box {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, auto));
+          }
+          //like flex, wrap, column, basis 200px
+
+
+display: contents; // removes the parent shows the children
+
+
+
+
+
+*/
+
+#regex:valid {
+
+    border: 3px solid green;
+}
+
+#regex:invalid {
+
+    border: 3px solid red;
+}
+
+
