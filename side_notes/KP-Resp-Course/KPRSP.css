@@ -100,5 +100,11 @@ not use height on containers, just padding
 width % and max-width,
 
 
+optimize html by combining classes into one element if possible
+separating the responsibilities between two classes for better reuse and flexibility
+
+flex lets the elements take equal heights
+align items flex start lets ignore that and not stretch
+
 
 */
