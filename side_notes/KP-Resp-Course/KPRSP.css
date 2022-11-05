@@ -103,8 +103,18 @@ width % and max-width,
 optimize html by combining classes into one element if possible
 separating the responsibilities between two classes for better reuse and flexibility
 
+
+FLEX
 flex lets the elements take equal heights
 align items flex start lets ignore that and not stretch
 
+
+giving two items in a flex width 100% makes them grow/shrink equally
+because a flex will take the least possible space
+with 100% will try to take all the available and squish to fit equally
+but when put 30/70 for example they will adjust
+and will leave space if total less than 100%
+
+and control this space with justify space
 
 */

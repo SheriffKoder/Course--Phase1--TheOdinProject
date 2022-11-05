@@ -20,7 +20,7 @@ body{
     background: #23424A;
     width: 100%;
 
-    padding: 19vh 0px 10vh 15vh;
+    padding: 19vh 12vh 10vh 12vh;
 
     word-spacing: 0.1em;
 
@@ -30,12 +30,13 @@ body{
     .row1 {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
     }
 
     .content_container {
         border: 1px solid rgba(255, 0, 0, 0.046);
         height: 70%;
-        width: 60%;
+        width: 50%;
 
     }
 
@@ -86,8 +87,7 @@ body{
 
     .hero-img {
 
-        height: 150px;
-        width: 300px;
+        width: 30%;
 
         align-self: center;
 
