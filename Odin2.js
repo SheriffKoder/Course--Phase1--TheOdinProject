@@ -439,14 +439,10 @@ text[0] // returns H
 
 
 /*////////////////////////////////////////////////////////////////////*/
-/*
-
-
-
+/* Extras
 
 
 \ude04 //emoji smile
-
 
 
 let a = 1;
@@ -507,11 +503,15 @@ switch(expression) {
 
 
 
-////////////////////////
-////////////////////////
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* Logical Operators and truthy comparisons
 
-Logical Operators 
 || (OR), && (AND), ! (NOT), ?? (Nullish Coalescing).
+
+&& is higher priority than ||
 
 
 if ("0") {
@@ -526,7 +526,7 @@ alert( 'Bee' > 'Be' ); // true
 */
 
 
-//// OR chain 
+//// OR || chain 
 //let value1;
 //let value2 = alert(1);
 //let value3 = "string3";
@@ -542,6 +542,7 @@ alert( 'Bee' > 'Be' ); // true
 //console.log(result);
 //console.log(result2);
 
+////AND && chain, 
 //let result3 = value2 && value2 && value1 && value3 & value5;
 //if all true outputs the last true value 
 //if all false otherwise the first value if all false 
@@ -550,10 +551,24 @@ alert( 'Bee' > 'Be' ); // true
 //console.log(result3);
 
 
-//alert( alert(1) && alert(2) );// exe alert(1) then undefined(value of alert1 as it returns nothing) then stops
-//alert( null || 2 && 3 || 4 ); //returns 3
 
-// a && b || c && d     // && executes before ||
+
+
+
+
+//// Examples ////
+
+// alert( alert(1) && alert(2) );
+// executes  alert(1) then undefined(value of alert1 as it returns nothing) then stops
+// undefined && undefined
+
+
+// && executes before ||
+/// alert( null || 2 && 3 || 4 ); //returns 3
+// null(false) || 3(true) || 4(true)
+
+
+// a && b || c && d     
 
 
 ////logical instead of if
@@ -564,7 +579,8 @@ alert( 'Bee' > 'Be' ); // true
 //let result615 = !val;    //returns !true = false
 //console.log(result615); //false
 
-//!!
+
+//!! (not not) is !false, gives true
 /*
 let result616 = (!!"string"); //true, can be used to check on strings
 console.log(result616);
@@ -574,9 +590,23 @@ if (-1 || 0) alert( 'first' );  //-1 is true so it executes
 if (null || -1 && 1) alert( 'third' ); //executes false||true
 
 
+
+
+
+
+
+
+
+/*12/10*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
-/*12/10
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* ? operator and its chaining
+
 
 select_id.addEventListener('change', setWeather);
 const choice = select.value;
@@ -597,25 +627,6 @@ let message = (age < 3) ? 'Hi, baby!' :   (age < 18) ? 'adult!' : (age < 100) ? 
 //if greeting = birthday, output this, else output this
 
 
-select_menu.addEventListener('change', () => select.value === 'black'
-  ? update_function('black', 'white')
-  : update_function('white', 'black')
-);
-
-/*theme switch *//*
-function update_function (bgColor, textColor) {
-  html.style.backgroundColor = bgColor;
-  html.style.color = textColor;
-}
-
-calendar example 
-https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals
-
-
-
-
-
-*/
 
 
 /*////////////////////////////////////////////////////////////////////*/
@@ -631,11 +642,19 @@ regular expressions allows to check a string of characters like passwords
 
     ////flags//
     /g after final slash, all matches
-    /i case insensitive
+    /i after the final slash case insensitive
+
+    /   /g
+
 
     ////including and excluding//
     [ng]inja ,  square brackets means match n or g in first position
     [^pe]inga ,   match everything instead p and e
+
+
+    / [no][io]nja / i
+    //NInja case insenstive
+
 
     ////ranges
     [a-z] , range letters from a to z
@@ -648,6 +667,10 @@ regular expressions allows to check a string of characters like passwords
     [0-9]{5,8} 5 to 8 characters long
     [0-9]{5,8} at least 5 characters long
 
+    / [A-Z][A-Z]nja / i
+    //NInja case insenstive
+
+
 
     ////metacharacters
     \d match any digit character (like [0-9])
@@ -657,6 +680,8 @@ regular expressions allows to check a string of characters like passwords
 
     / \d\s  / digit 0-9 then the second character a whitespace type
 
+    / \w\w nja / i
+    //NInja case insenstive
 
 
     ////special characters
@@ -675,11 +700,17 @@ regular expressions allows to check a string of characters like passwords
     / car.    /     => car (not match because its asking for a character) 
                       card,cars (match)
     
-    only want the specified length/expression
-    / ^[a-z]{3}$/ 3 letters not more
+    / M?r?.?[A-Z][A-Z]nja / i
+    //Mr.NInja or NInja case insenstive
+
+    
+    ////only want the specified length/expression
+    / ^[a-z]{3}$  /         3 letters not more
     the beginning ^ and the end $ of the field
 
 
+
+    
 
 
 
