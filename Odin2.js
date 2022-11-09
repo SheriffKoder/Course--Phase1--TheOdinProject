@@ -270,6 +270,31 @@ while (myNumber != Infinity) { // Execute until Infinity
 let x5 =  2 / 0; //Division by 0 = Infinity
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*null and undefined
+
+alert( '' == false ); // true
+alert( null === undefined ); // false  object/undefined
+alert( null == undefined ); // true
+
+when converted to a number, null becomes 0
+alert( null > 0 );  // (1) false, because comparisons convert it to 0
+alert( null == 0 ); // (2) false, because null in equality would be only equal to undefined
+alert( null >= 0 ); // (3) true
+
+when converted to a number, undefined becomes NaN
+alert( undefined > 0 ); // false (1)
+alert( undefined < 0 ); // false (2)
+alert( undefined == 0 ); // false (3)
+
+to avoid these tricks, use === with null/undefined, 
+and do not use >= like comparisons
+
+
+
+
+
 
 
 
@@ -326,12 +351,53 @@ I gave it a score of 90%.`;
 
 
 
-//converting 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* STRING creation, converting and methods
+
+
+
+//Creating a string
+strings written between "", '', ``, 
+let x = String("");
+let string4 = new String('string'); //type object
+
+let s1 = new String("2 + 2");
+eval(s1); //returns 2+2
+eval(s1.valueOf() )); //returns 4 
+// string objects are converted to primitive with valueOf() method.
+
+
+//but
+let s1 = "2 + 2";
+eval(s1); //returns 4 directly
+
+
+/////////////////////////////////////////////////////
+//Converting
+
 Number(myString)
 toString(myString)
 
-let length_count = text.length;
+let s1 = null;
+let s2 = String(s1);
+console.log(s2); //"null" // not use toString();
+
+//convert a string into an array
+let text = "a b c d e f";
+const myArray = text.split(""); 
+myArray is an array
+
+text.split(" ")//split on , " ", | pipe, output before first occurrence of this condition
+
+
+/////////////////////////////////////////////////////
+//javascript treats strings as objects when executing 
+methods and properties 
+
+
 let text = "word of mouth";
+let length_count = text.length;
 let part_of_text = text.slice(7); // text from 7 onwards
 let part_of_text = text.slice(7,10); // from 7-12, count starts at 0
 let part_of_text = text.slice(-10,-7); // counting from end of string, starts 1
@@ -361,10 +427,10 @@ string.endsWith("h"); //true if ends with this letter //startsWith
 string.indexOf("h"); //returns location of h, or -1 if not found
 
 
-text.padStart(3, "x"); // xxtext
+//3 x's at the start
+text.padStart(3, "x"); // xxtext 
 text.padEnd(3, "x"); // xxtext
 
-to use a number in string method, convert to string toString(number);
 
 let text = "HELLO WORLD";
 let char = text.charAt(0); //returns H
@@ -372,91 +438,54 @@ let char = text.charCodeAt(0); //returns the unicode UTF-16 i.e 72
 text[0] // returns H
 
 
-//convert a string into an array
-let text = "a b c d e f";
-const myArray = text.split(""); 
-myArray is an array
-
-text.split(" ")//split on , " ", | pipe, output before first occurrence of this condition
-
 /*////////////////////////////////////////////////////////////////////*/
 /*
 
-javascript treats strings as objects when executing methods and properties 
 
 
 
-strings written between "", '', ``, String("")
-or by a string object // let string4 = new String('string'); //type object
-
-a string can be treated as an array, string4[0];
-
-console.log(`${a} is greater than ${b}`)
-
-
-let s1 = "2 + 2";
-eval(s1); //returns 4
-
-let s1 = new String("2 + 2");
-eval(s1); //returns 2+2
-eval(s1.valueOf() )); //returns 4 // StrObj converted to primitive with valueOf() method.
-
-console.log("hello,\
-dude ");                   //continue string next line, nothing after the \ but enter
 
 \ude04 //emoji smile
 
 
-let s1 = null;
-let s2 = String(s1);
-console.log(s2); //"null" // not use toString();
 
 let a = 1;
 Boolean(a); // true
 
-////////////////////////////////////////////////////////////////////
-
-////////////////////////
-//// null and undefined
-
-alert( '' == false ); // true
-alert( null === undefined ); // false  object/undefined
-alert( null == undefined ); // true
-
-when converted to a number, null becomes 0
-alert( null > 0 );  // (1) false, because comparisons convert it to 0
-alert( null == 0 ); // (2) false, because null in equality would be only equal to undefined
-alert( null >= 0 ); // (3) true
-
-when converted to a number, undefined becomes NaN
-alert( undefined > 0 ); // false (1)
-alert( undefined < 0 ); // false (2)
-alert( undefined == 0 ); // false (3)
-
-to avoid these tricks, use === with null/undefined, and do not use >= like comparisons
-
-////////////////////////
 
 When values of different types are compared, 
 they get converted to numbers (with the exclusion of a strict equality check).
 
 
+let date1010 = new Date().getDay(); //gets the day number of today 0-6
+let day;
 
 
 
-////////////////////////
-//// switch
 
-//if there is a match the relevant block will be executed if no matches then default
-// break out of the switch block,  otherwise will continue to next block, can be skipped in last case
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* switch
+
+//if there is a match the relevant block will be executed 
+//if no matches then default
+
+// break out of the switch block,  
+// otherwise will continue to next block, 
+// can be skipped in last case
+
 //default can be put in any line but watch for break;
 //If multiple cases matches a case value, the first case is selected.
-//switch cases use strict comparison
+//switch cases use strict equality comparison
 
+
+let expression = "22";
 
 switch(expression) {
 
-  case x:
+  case "22":
         // code block
           break;
 
@@ -470,6 +499,14 @@ switch(expression) {
 
 }
 
+
+
+
+
+
+
+
+
 ////////////////////////
 ////////////////////////
 
@@ -477,18 +514,9 @@ Logical Operators
 || (OR), && (AND), ! (NOT), ?? (Nullish Coalescing).
 
 
-
-let date1010 = new Date().getDay(); //gets the day number of today 0-6
-let day;
-
-
 if ("0") {
   //true because only empty string is false and 0 is converted on comparison/equality
 }
-
-
-/*////////////////////////////////////////////////////////////////////*/
-/*
 
 //letter comparison according to their unicode value
 alert( 'Z' > 'A' ); // true
