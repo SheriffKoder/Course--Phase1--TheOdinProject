@@ -11,7 +11,9 @@ btn.addEventListener('click', function x() {}  );
 //     btn.classList.add('button')
 
 
-[DOM Manoeuvering]
+/*////////////////////////////////////////////////////////////////////*/
+/* [DOM Manoeuvering]
+
 .lastElementChild //its last child
 .children[3] //its child #3
 .parentNode
@@ -37,7 +39,10 @@ function addClassFunction () {
 }
 
 
-/* List Switcher -----------------------------------------------------*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* List Switcher
 /*take the input-container, add to it an event listener on change, 
 this event will take the list and set to it a style of 
 event's target's value which is input-container */
@@ -51,38 +56,26 @@ container.addEventListener("change", (event) =>
 
                             );
 
-/* --------------------------------------------------------------------*/
 
 
-//moving the absolute position with js
-//CSS #943 html #353 Js #527
-/*
-var left = 0;
+/*////////////////////////////////////////////////////////////////////*/
+/* textNode
+the text for h1,p etc without using innerHTML */
 
-  function frame() {
-    var element = document.querySelector('.testdiv_1710');
-    left += 2;
-    element.style.left = left + 'px';
-    if (left >= 300) {
-      clearInterval(id);
-    }
-  }
-
-  var id = setInterval(frame, 10);
-
-  frame();
-
-
-/* textNode is the text for h1,p etc without using innerHTML */
 //const h1 = document.createElement('h1');
 //const TextNode = document.createTextNode('Hello World');
 //h1.appendChild(TextNode);
 //document.body.appendChild(h1);
 
 
-/*////////////////////////////////////////////////////////////////////*/
 
-/* //// javascript, adding new info ////
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* variable types and naming
+
 
 variables are storage containers
 var, let, const                 // var was used in old browsers, and almost the same as let will discuss later
@@ -92,23 +85,6 @@ let user = 'john', age = 25;    //can add multiple variables in one line
 let user = 'john',              //multiline break
     age = 25;
 
-//string line breaks using \n
-const text = "this text has a \n new line break";
-
-\0 null character
-\ space
-
-\
-new line
-
-\' , \"
-\\ backslash
-\r carriage return
-\v vertical tab
-\t tab
-\b backspace
-\f form feed
-\uXXXX
 
 
 
@@ -124,7 +100,7 @@ non-latin letters are allowed but not recommended
 
 
 //*--------------------*//*
-constant (unchanging), cannot be reassigned otherwise will cause error
+CONST Constant (unchanging), cannot be reassigned otherwise will cause error
 const 
 
 uppercase constants writing method, const COLOR_RED = "";
@@ -148,8 +124,9 @@ function sayHi () {
   var test = true; // use "var" instead of "let"
   }
 
-  alert(test); // out of declaration block and outputs true , but if let will error not defined
-              //outputs even if IF branch not execute
+  alert(test); // out of declaration block and outputs true , 
+               // but if let will error not defined
+               // outputs even if IF branch not execute
 
   for (var i = 0; i < 10; i++) {
   }
@@ -164,34 +141,52 @@ sayHi();
 alert(test); //outputs undefined either ways
 
 
-var can be defined multiple times but let does not get declared more than once
+VAR can be defined multiple times but LET does not get declared more than once
 var user = ;
 var user = ;
 
-> var can be defined anywhere in the code and code will define it at code starts
+SO:
+1) var can be defined/used anywhere in the code and code will define it at code starts
+2) var can be defined in a non executing branch if, etc
+3) var name can be re-defined
 
-> var can be defined in a non executing branch if, etc
+
 
 * function go() { }(); // <-- can't call Function declaration
 
-best use let and const
+best use let and const instead of var
 
-//*--------------------*//*
-//*--------------------*//*
 
-+ addition, - subtraction, * multiplication, ** exponation, / division, % modulus, ++ increment, -- decrement
+
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* Arithmetic operands
+
+
++ addition, - subtraction, * multiplication, 
+** exponation power, / division, % modulus, ++ increment, -- decrement
 operand +(operator) operand 
 
 8 % 3 (returns 2, as three goes into 8 twice, leaving 2 left over).
 
-cannot 3++;,  can var++;
+
+cannot 3++;,  
+can varName++; //which has a value of 3
 
 x+= 2, -=, *=, /= 
+number + number = number
+
 
 let z = x ** 2;   // x power 2
 let z = Math.pow(x,2);
 
-number + number = number
+
 
 JavaScript will try to convert strings to numbers in all numeric operations:
 * , / , - but not +
@@ -204,12 +199,13 @@ number + Number(string)
 
 
 
->calculation is left to right 
-
->precedence/flow of calculation
+//arithmetic priority
+>precedence/flow of calculation left to right
 parentheses ()
 then Multiplication (*) and division (/) have higher  
 then addition (+) and subtraction (-)
+
+
 
 numbers in js are 
 64-bit floating point, 
@@ -228,11 +224,23 @@ let x = 0xFF;   // FF Hexadecimal
 const lotsOfDecimal = 1.766584958675746364;
 const twoDecimalPlaces = lotsOfDecimal.toFixed(2); // 1.77
 
+to fixed of 2 floats
 
 
 
-////////////////////////////
-//// NaN ////////////////// not a number
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* NaN (not a number)
+
 let x = "10";
 let y = "10Apple";
 let z = x / y; //NaN
@@ -249,7 +257,11 @@ let x3 = typeof NaN; //number
 let x4 = typeof Infinity; //number
 
 
-// Infinity //
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* Infinity
+
+
 let myNumber = 2;
 while (myNumber != Infinity) { // Execute until Infinity
     myNumber = myNumber * myNumber;
@@ -258,25 +270,60 @@ while (myNumber != Infinity) { // Execute until Infinity
 let x5 =  2 / 0; //Division by 0 = Infinity
 
 
-////////////////////////////
-////////////////////////////
 
-////////////////////////////////////////////////////////
-// Working with Strings methods //
 
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* Strings and its methods
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* \
 const string_with_quotemark = 'this string\'ve got a quote mark';
+
+//string line breaks using \n
+const text = "this text has a \n new line break";
+
+\0 null character
+\ space
+
+\
+new line
+
+\' , \"
+\\ backslash
+\r carriage return
+\v vertical tab
+\t tab
+\b backspace
+\f form feed
+\uXXXX
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* template literals : ` ${var}`
 
 //combine a variable/number, with a string using template_literals
 const name = "Chris";
 const greeting = `Hello, ${name}`;
 console.log(greeting); // "Hello, Chris"
 
-${ (score / highestScore) * 100 } can calculate
 
-template_literals `` respects line breaks and puts them into output
+//can calculate
+${ (score / highestScore) * 100 } 
+
+
+//respects line breaks and puts them into output
 const output = 
 `I like the song.
 I gave it a score of 90%.`;
+
 
 
 //converting 
@@ -541,23 +588,6 @@ https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/condit
 
 
 */
-
-
-var left = 0;
-
-  function frame() {
-    var element = document.querySelector('.testdiv_1710');
-    left += 2;
-    element.style.left = left + 'px';
-    if (left >= 300) {
-      clearInterval(id);
-    }
-  }
-
-  var id = setInterval(frame, 100);
-
-  frame();
-
 
 
 /*////////////////////////////////////////////////////////////////////*/
