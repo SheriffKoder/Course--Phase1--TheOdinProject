@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        body{
+            font-family: arial;
+            color: #333;
+        }
+        h1{
+            font-weight: normal;
+            margin: 20px auto;
+            text-align: center;
+        }
+        form{
+            width: 500px;
+            margin: 20px auto;
+        }
+        input{
+            display: block;
+            padding: 8px 16px;
+            font-size: 2em;
+            margin: 10px auto;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 10px;
+            border: 3px solid #ccc;
+            outline: none !important;
+        }
+
+    </style>
+</head>
+<body>
+    
+
+    <h1>New User Signup</h1>
+    <form>
+
+        <input type="text" name="username" placeholder="username">
+        <p>Username must be  and contain 5 - 12 characters</p>
+
+        <input type="text" name="email" placeholder="email">
+        <p>Email must be a valid address, e.g. me@mydomain.com</p>
+
+        <input type="password" name="password" placeholder="password">
+        <p>Password must alphanumeric (@, _ and - are also allowed) and be 8 - 20 characters</p>
+
+        <input type="text" name="telephone" placeholder="telephone">
+        <p>Telephone must be a valid UK telephone number (11 digits)</p>
+
+        <input type="text" name="slug" placeholder="profile slug">
+        <p>Slug must contain only lowercase letters, numbers and hyphens and be 8 - 20 characters</p>
+
+    </form>
+
+    <script>
+
+        //method1
+        var reg = /[a-z]{5,12}/gi;
+
+        //method2
+        var reg2 = new RegExp(/[a-z]{5,12}/, 'i');
+
+        //css selector of all inputs
+        const inputs = document.querySelectorAll('input');
+
+        const patterns = {
+            // only, 11 digits
+            telephone: /^\d{11}$/ ,
+            username: /^[a-z\d]{5,12}$/i,  //a-z can also be digits
+            password: /^[\w@-]{8,20}$/,     //the pattern is repeated, looking for (a-z A-Z also 0-9 and _)or @ or -
+            slug: /^[a-z\d-]{8,20}$/,
+
+
+        }
+
+
+        function validate (field, regex) {
+            //console.log (regex.test(field.value)); //till it becomes valid(true) will be false
+            if (regex.test(field.value)) {
+                field.className = 'valid';
+            } else {
+                field.className = 'invalid';
+            }
+        }
+
+        //attach an event to each query
+        //arrow function (para) => {} or normal function
+        //keyup event
+        //the other parameter is a function using the event object
+        //eventobj.target."from attributes"."name property's .value"
+        inputs.forEach( (input) => {
+            input.addEventListener('keyup', (e) => {
+                //console.log(e.target.attributes.name.value);
+                validate(e.target, patterns[e.target.attributes.name.value])
+            });
+
+        }    );
+
+
+
+
+    </script>
+
+
+</body>
+</html>
