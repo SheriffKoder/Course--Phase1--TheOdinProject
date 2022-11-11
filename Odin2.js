@@ -843,4 +843,60 @@ console.table(dogs); //displays in a table
 
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*Functions
 
+imagine taking one of the scripts and bundling into a little package
+to be used over and over again
+
+*/
+
+
+//combine all array items together in a string
+const myArray = ['I', 'love', 'chocolate', 'frogs'];
+const madeAString = myArray.join(' '); //, by default
+console.log(madeAString);
+
+//
+function hello (name = "chris") {
+    //console.log(name);
+}
+
+
+//
+document.getElementById("regex");
+regex.addEventListener('keydown', logKey);
+
+function logKey (event) {
+    //console.log(`you pressed "${event.key}" `);
+}
+
+////variations: asynchronous and arrow
+//regex.addEventListener('keydown', function  (event) {} );
+//regex.addEventListener('keydown',           (event) => {});
+
+//ommiting the brackets if one line
+regex.addEventListener('keydown',           (event) => console.log(`you pressed "${event.key}" `) );
+
+
+//map() takes each item in the array in turn
+//takes the value returned by that function and adds it to a new array
+//here, return item * 2;
+const original_array = [1, 2, 3];
+const doubled_array = original_array.map( (item) => item * 2   );
+// item.length , each item's length  is returned in a new array
+
+
+console.log(doubled_array);
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+keep parts of code locked away in functions to avoid
+js files shadowing similar named variables and items
+
+*/
