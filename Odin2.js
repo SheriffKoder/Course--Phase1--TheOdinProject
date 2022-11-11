@@ -279,7 +279,7 @@ alert( null === undefined ); // false  object/undefined
 alert( null == undefined ); // true
 
 when converted to a number, null becomes 0
-alert( null > 0 );  // (1) false, because comparisons convert it to 0
+alert( null > 0 );  // (1) false, because co mparisons convert it to 0
 alert( null == 0 ); // (2) false, because null in equality would be only equal to undefined
 alert( null >= 0 ); // (3) true
 
@@ -290,6 +290,8 @@ alert( undefined == 0 ); // false (3)
 
 to avoid these tricks, use === with null/undefined, 
 and do not use >= like comparisons
+
+array[-1] or [length+x] undefined
 
 
 
@@ -628,7 +630,8 @@ let message = (age < 3) ? 'Hi, baby!' :   (age < 18) ? 'adult!' : (age < 100) ? 
 
 
 
-
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 
@@ -710,7 +713,68 @@ regular expressions allows to check a string of characters like passwords
 
 
 
-    
+
+
+    | means or
+    / [p|t|v]?flag /     //[p or t or v](optional) then flag
+
+*/
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+DOM change
+breakpoints
+add css pseudostate
+check sctipts from the resouces panel
+css properties in alphabetical order
+
+Done: 
+from the middle bar in dev tools, styles >
+> CSS add class
+> CSS add :hover etc
+> CSS change margins etc.
+> CSS view layers specifity layer-icon
+
+> to view only selected CSS
+from the middle bar in dev tools, computed
+show all, opaque is the inherited styles
+
+scroll down in style to see also styles
+and @supports 
+@scope which overrides the global css 
+
+
+
+... vertical dots
+type, show rendering > view print
+> type, Show Coverage > view used html,css,js coverage
+
+
+Right click the element
+Force state > hover
+press H and node is hidden, Del for Delete
+Copy > Copy JS path
+
+console
+
+
+Responsive
+... add device type, change to mobile(no-touch) for hover ability
+
+throttle for mid/low, lowers the 3G/cpu performance from your device's capability
+can throttle separately from network and performance
+
+Right ... button, more tools > sensors
+change geolocation and also orientation
+
+
 
 
 

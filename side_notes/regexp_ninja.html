@@ -34,6 +34,28 @@
             outline: none !important;
         }
 
+        input.valid {
+            border-color: #36cc36;
+        }
+        input.invalid {
+            border-color: orange;
+        }
+
+        input+p {       /* grab an input and style the p next to it */
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 10px;
+            color: orange;
+            opacity: 0;
+        }
+
+        input.invalid + p {
+            opacity: 1;
+        }
+
+
     </style>
 </head>
 <body>
@@ -76,9 +98,10 @@
             username: /^[a-z\d]{5,12}$/i,  //a-z can also be digits
             password: /^[\w@-]{8,20}$/,     //the pattern is repeated, looking for (a-z A-Z also 0-9 and _)or @ or -
             slug: /^[a-z\d-]{8,20}$/,
-
-
-        }
+            email: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})\.?([a-z]{2,8})?$/               //also dots \.
+                   // domain with . - .. @ .. domain .. dot .. com ..  .uk(optional)
+                    //        sheriff.koder@hotmail.com.uk
+        };
 
 
         function validate (field, regex) {
