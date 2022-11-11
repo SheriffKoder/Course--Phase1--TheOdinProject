@@ -731,8 +731,8 @@ regular expressions allows to check a string of characters like passwords
 
 DOM change
 breakpoints
-add css pseudostate
-check sctipts from the resouces panel
+add css pseudo state
+check scripts from the resources panel
 css properties in alphabetical order
 
 Done: 
@@ -765,7 +765,7 @@ Copy > Copy JS path
 console
 
 
-Responsive
+//Responsive
 ... add device type, change to mobile(no-touch) for hover ability
 
 throttle for mid/low, lowers the 3G/cpu performance from your device's capability
@@ -775,7 +775,74 @@ Right ... button, more tools > sensors
 change geolocation and also orientation
 
 
+//Sources tab
+contains navigator, file viewer, js console
+
+on js file, right click, open link in sources panel, will show script
+
+breakon, break on attribute notifications, will show the line causing that attribute
+
+
 
 
 
 */
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* console tricks
+
+//styling the console %, 2nd parameter
+console.log("%c i am a string", "font-size: 20px; color:red;");
+console.warn("Warning here"); //warning style
+console.error("error here"); //error style
+console.info("info here"); //info style
+console.assert(1===2, "that is wrong"); //on true no output, on false output this
+
+const p = document.querySelector("p");
+console.assert(p.classList.contains("ouch"), "wrong class");
+
+//console.clear(); //clear console
+
+console.dir(p); //showing the actual element
+
+
+const dogs = [{name:"snickers", age: 2}, {name:"popey", age: 3}];
+
+dogs.forEach(dog => {
+
+    console.group(`${dog.name}`); //groups console outputs by dog.name
+    //.groupCollapsed
+
+      console.log(`this is ${dog.name}`);
+      console.log(`${dog.name}`);
+
+    console.groupEnd(`${dog.name}`);
+
+});
+
+
+//how many used this console
+console.count('wes');
+console.count('wes');
+console.count('wes');
+
+
+// timing
+console.time('fetching data');
+fetch('https://api.github.com/users/sheriffkoder')
+  .then (data => data.json())
+  .then (data => {
+        console.timeEnd("fetching data");
+        console.log(data);
+  });
+
+
+console.table(dogs); //displays in a table
+
+
+
+
