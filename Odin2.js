@@ -899,4 +899,100 @@ console.log(doubled_array);
 keep parts of code locked away in functions to avoid
 js files shadowing similar named variables and items
 
+
+////if the text parameter is not passed, the value "no text given".
+
+//function showMessage(from, text = "no text given") {
+}
+
+////anotherFunction executed if text is not given
+//function showMessage( from, text = anotherFunction() )
+or check with if text===undefined, 
+or text = text || "not given"
+or alert(count ?? "not given"); //nullish coalescing operator
+
+
+//return; //causes function to exit immediately //undefined
+not use new line in return unless in parentheses in the first line
+
+
+a function should do exactly what is suggested by its name no more.
+separate actions, make names action informative
+
+
 */
+
+
+
+function checkAge(age) {
+  return (age > 18)? true : confirm('Did parents allow you?');
+  //return (age > 18) || false;
+}
+
+console.log(checkAge(20));
+
+
+function min (a,b) {
+  //return (a > b)? a : b;
+  return (a>b) || b;
+}
+
+console.log(min(2,3));
+
+console.log(power(2,2));
+//power is x ** p but use loops
+//math.pow(x,p)
+// pow = (x, p) => n ** n;
+
+function power (n, p) {
+
+  let y = n;
+  let i = 0;
+
+  while (i < (p-1) ) {
+    
+    y = y * n;
+    i++;
+  
+  }
+  
+  return y;
+}
+
+let power2 = function (n, p) {  //expression
+
+  let y = n;
+  let i = 0;
+
+  while (i < (p-1) ) {
+    
+    y = y * n;
+    i++;
+  
+  }
+  
+  return y;
+};
+
+
+
+////copy the function to another name
+let pow = power; //power can be a declaration or expression name
+let pow2 = power2; //power can be a declaration or expression name
+
+console.log("power resuse " + pow2(2,2));
+
+//function declarations can not have ; at the end
+//function expressions can have ; at the end, as its a variable declaration
+//but it actually did not matter on trying
+
+
+
+////passing a function Expression to another function
+function mathematics (power_expr) {
+  console.log("passed function " + power_expr(2,2));
+}
+mathematics(power2); //callbacks - function arguments
+//mathematics(function() {} );
+
+
