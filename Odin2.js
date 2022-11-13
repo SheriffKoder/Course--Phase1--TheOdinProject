@@ -1055,3 +1055,100 @@ console.log(window.let); // undefined
 
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* Problem solving /* take sticky-notes from here */
+/*
+
+high performance, scalability
+making lots of programs
+
+slowdown and think through the steps
+
+(1) understand the problem (write)
+paper, english, make sense, diagram it
+
+(2) plan (interface, output, input)
+what about the interface, 
+what is the desired output, 
+
+(3) input execution using pseudo code,
+the art of turning a problem into code without even knowing how to code.
+given inputs, what are the steps to return that output
+write code in readable language, 
+divide into smaller tasks
+work on one by one and if one you do not know can easily tackle
+as comments that will guide the production of real code
+
+When a user inputs a number
+Loop from 1 to the entered number
+If the current number is divisible by 3 then print "Fizz"
+If the current number is divisible by 5 then print "Buzz"
+If the current number is divisible by 3 and 5 then print "FizzBuzz"
+Otherwise print the current number
+
+
+//for numbers that divide by 3 without a remainder print Fizz
+if (i % 3 === 0) {
+
+
+
+have a framework of providing solutions
+valuable skill equal to code proficiency, debugging and system design
+
+
+1) understand 
+most hard problems are hard because you don't understand them
+you understand by explaining it in plain simple english  
+
+2) plan
+take time to analyze the problem and process information
+“Given input X, what are the steps necessary to return output Y?”
+
+3) Divide
+do not solve one big problem, break into sub problems
+sub-problem, that does not depend on others being solved
+
+
+4) reduce 
+reduce complexity for problem on focus and expand on success
+
+5) Stuck
+a. go step by step to check if something wrong
+debugging flow over your code written and check what it is executing 
+
+b. reassess, step back, look at the problem from another perspective
+anything can be abstracted to a more general approach ?
+i.e lost in details and overlook general principles that would solve the problem at a more general level
+b.1 another way to reassess is to start again from scratch
+
+c. Research for a solution
+even if you solved it, can learn new things
+
+
+////Practice problem solving
+daily challenges one at least on Coderbyte
+Each time, you’ll develop strength, wisdom, and perspective.
+
+
+Repetitive programming techniques
+
+
+*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+error messages provide developers with a treasure trove of knowledge
+and will tell everything about how to resolve
+
+parse error messages and warning without fear
+
+error is an object, 
+consisting of name/type and a message
+
+
+
+
+*/
