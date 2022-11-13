@@ -807,10 +807,10 @@ console.assert(p.classList.contains("ouch"), "wrong class");
 
 console.dir(p); //showing the actual element
 
-
+                    //this enters as dog
 const dogs = [{name:"snickers", age: 2}, {name:"popey", age: 3}];
 
-dogs.forEach(dog => {
+dogs.forEach( (dog) => {
 
     console.group(`${dog.name}`); //groups console outputs by dog.name
     //.groupCollapsed
@@ -996,3 +996,62 @@ mathematics(power2); //callbacks - function arguments
 //mathematics(function() {} );
 
 
+//function declarations are preferred to be used 
+//because of their un dependance flow of execution on and readability
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+/*
+
+Arrow functions
+
+let func = (arg1, arg2, ... ) = > expression
+let func = arg1 => expression
+let func = () => expression     //if no parameter
+
+func();
+
+
+//if age then use this function, else func is another function
+let func = (age > 18) ?
+    () => alert('hello'):
+    () => alert ('greetings');
+
+can ommit {} if one line
+
+
+
+////Ex
+let ask = (question, yes, no) => {
+    if (confirm(question)) yes();     //confirm alerts y/n
+    else no();
+}
+
+ask ("agree ? ", () => alert("you agreed"), () => alert("you not agree"));
+
+
+////Ex
+let lastLetter = (inText) => console.log(inText.charAt(inText.length-1));
+lastLetter("text");
+
+
+
+
+var, to the immediate function body (function scope)
+let, to the immediate enclosing block donated by {} block scope
+
+console.log(window.var); // var
+console.log(window.let); // undefined
+
+
+
+
+*/
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
