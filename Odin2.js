@@ -1092,7 +1092,8 @@ Otherwise print the current number
 if (i % 3 === 0) {
 
 
-
+/*////////////////////////////////////////////////////////////////////*/
+/*
 have a framework of providing solutions
 valuable skill equal to code proficiency, debugging and system design
 
@@ -1126,12 +1127,98 @@ c. Research for a solution
 even if you solved it, can learn new things
 
 
+
 ////Practice problem solving
 daily challenges one at least on Coderbyte
 Each time, you’ll develop strength, wisdom, and perspective.
 
 
-Repetitive programming techniques
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+////Repetitive programming techniques
+recursive approach  
+divide the small task into even more simpler pieces
+tell the computer how to solve the simplest problem then
+
+ex. make down up greetings print
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+////programming is 
+never about language
+not about memorizing
+not about math
+is about solving problems
+
+7 to 8 language universal concepts
+the secret is algorithms and data
+
+coding is not just writing code
+write out the concepts first then code later
+understand the problem before trying to solve
+
+comments are code
+to know algorithm is done is when you know you can execute each small part
+also then will know what language
+
+
+writing a new variable algorithm has to be in english no code allowed
+name, type, initVal
+new variable
+Name, what do we call this thing
+Type, what type of data does it contain
+InitVal, what is its starting value
+
+
+input, not the first line of your algorithm
+ask a question and a variable to catch the answer
+example : ask the user 'message' and store the answer in 'variable'
+
+
+the idea is how do you think well,
+write and think in algorithm order only 
+then convert into comments
+turn comments into code
+put code
+test
+failure is wonderful
+debug, did you "tell" it what to do incorrectly ?
+
+
+How to debug
+bad implementation can be googled
+bad algorithms cannot be googled, start there first
+do not start with a solution
+start by truly understanding the problem
+
+
+loops
+how does it start, how does it finish, how does it change
+
+while loop get out condition before code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 */
@@ -1148,6 +1235,41 @@ parse error messages and warning without fear
 error is an object, 
 consisting of name/type and a message
 
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+////Javascript code execution 
+/*
+when you run javascript program
+execute context is executed
+
+1)global execution context
+memory and code parts
+a)  memory creation phase
+    allocates memory to vars/func vars, for a value of undefined
+    allocates memory to def functionName, stores whole code
+  
+b) code execution phase 
+    executing each line
+    for var, places the assigned value to variables
+    for a def function, there is nothing to execute so its skipped
+    var function(undefined) = function invoke, new execution context is created for its environment
+        with a) memory and b) code parts
+        memory phase, like before, 
+        in code ex. phase, the argument is passed to the parameter
+          return returns value to the undefined func var
+          execution context is deleted
+  
+  the whole global execution context is deleted
+
+
+  call stack, execution/program/control/runtime/machine stack
+  order of execution of the execution context
+   
+  subsubfunction execution context
+  subfunction execution context
+  function1 execution context
+  global execution context
 
 
 
