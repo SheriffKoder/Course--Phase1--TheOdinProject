@@ -1337,7 +1337,7 @@ make the code readable for human first then compiler
 
 Self Documenting Code: take code as a documentation
 
-A professional programmer is prepared to bend her personal style 
+A professional programmer is prepared to bend their personal style 
 to reflect the needs of the team.
 
 
@@ -1400,6 +1400,10 @@ used to install various libraries and tools used in js envs
 /* 
 
 
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
 Arrays, 
 an ordered collection of items (strings, numbers or other things)
 type of object
@@ -1454,6 +1458,125 @@ const points = [40]; //error
 //to check wether is an array or not, returns true
 ArrayName.isArray(fruits);
 ArrayName instanceof Array;
+
+
+Array.pop/push();  //removes/adds last of array, changes original
+Array.shift();  //removes the first element, and the rest takes its place
+Array.unshift();  //add beginning of array
+delete array[0];    //not recommended, causes holes
+
+
+let Array3 = Array1.concat(Array2);
+let Array4 = Array1.concat(Array2, Array3);
+let Array3 = Array1.concat("string"); //outputs array
+
+
+
+Array.splice(2,0,"Lemon","Kiwi"); 
+//first position, items removed, to add, returns array with deleted iems
+//can be used to remove middle items without holes by having no additions
+
+Array.slice(3,4);
+//return array of items from this position
+//start and (not to) end
+//original not affected
+
+Array.toString(); //returns a comma separated string
+Object.toString();
+
+//still have next tutorial and complete reference
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* Array Loops
+
+
+collection of items want to do something with every item
+Array, Set, Map
+
+for (const item of array) {
+  item.
+}
+
+
+//output cat which is each item for each loop itr
+const cats = ['Leopard', 'Serval', 'Jaguar', 'Tiger', 'Caracal', 'Lion'];
+
+//console each(which is called cat) of cats
+for (const cat of cats) {
+  //console.log(cat);
+}
+
+
+function toUpper (input) {
+  return input.toUpperCase();
+}
+
+//map - apply function to each of cats and put into upperCats
+const upperCats = cats.map(toUpper);
+console.log(upperCats);
+
+
+//filter - if it returns true, then the item is added to the new array
+function LCat(input) {
+  return input.startsWith("L");
+}
+
+const filtered = cats.filter(LCat);
+const filtered2 = cats.filter( input => input.startsWith("L")  );
+
+
+console.log(filtered2);
+
+*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*  Loops
+
+
+let i = 1, use let for the counter to reassign each time the loop rounds
+visible only inside the loop header () cant be used in the loop lines
+
+conditions can be skipped to 
+for( ;; )
+
+
+for of is less buggy than normal for loop
+but normal for loop allows more control over iterations
+
+break;  //break out of the "loop entirely" to next line of code
+continue;   //skips to next "loop iteration"  ... 
+
+
+initialization
+while ( condition ) { //condition is converted to boolean
+
+
+  expression
+}
+
+
+in do/while condition comes after the code inside the loop.
+runs at least once
+
+initialization
+do {
+
+
+
+} while (condition)
+
+
+
+
+
+
+
+
 
 
 
