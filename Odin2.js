@@ -1332,7 +1332,7 @@ if you feel your code is too complex to understand without comments,
 the code is probably written in a bad way, it should not need comments
 make the code readable for human first then compiler
 
-1) code self explainatory
+1) code self explanatory
 2) comments for why written
 
 Self Documenting Code: take code as a documentation

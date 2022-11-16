@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        /* counter style, clearfix */
+        
+        
+
+        @counter-style x { symbol: }
+        list-style: x;
+        list-style-type: none;
+        background:
+
+        .button_blue {
+
+            color: white;
+            background-color: blue;
+
+        }
+
+
+        .thumb_list {
+            list-style-type: "\1F44D"; /*thumb icon as the list marker */
+        }
+
+        ul {
+            /*list-style-image: url('sqpurple.gif');*/
+
+        }
+
+
+        /* a way of adding an image to the list item 
+        and by padding make it seem like a marker */
+        .image_li_marker {
+            margin-left: -12px;
+            padding-left: 12px;
+
+            list-style-type: none;
+            background: url('images/arrow.png') 0 50% no-repeat;
+
+        }
+
+        .inside_li_marker {
+
+            list-style-position: inside;     /*placed with the text itself */
+            list-style: circle inside;
+
+        }
+
+        /* horizontal list */
+        li {
+            /*
+            display: inline-block; /* items on same line and markers removed */
+            
+            float: left;
+            margin-left: 30px;
+            /* items on same line and markers kept */
+
+        }
+
+        /*div containing 2 elements one of them get overflow because of flow property
+        clearfix */
+        .div_clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        
+        .div_clearfix2 {
+            overflow: auto;
+        }
+        
+        
+        /* lets define a counter/marker style that is not in the predefined set of styles */ 
+        /* more reading on application */
+        @counter-style thumbsUp {
+            system : cyclic; /* cyclic, numeric, alphabetic, symbolic, additive, or fixed. */
+            symbols: "\1F44D"; /* strings, images, or custom identifiers, can have multi symbols and will be placed in order */
+            suffix: " "; /*content space,),img ... that will be appended to the marker representation. also there is prefix*/
+            /*fallback: range: start end(infinite); speak-as */
+        }
+        /*https://www.w3.org/TR/predefined-counter-styles/, https://r12a.github.io/app-counters/*/
+
+        li {
+            list-style: thumbsUp;
+        }
+
+        p {
+            font-size: 50px;
+        }
+
+    /*/////////////////////////////////////////////////////*/
+
+
+
+    </style>
+</head>
+<body>
+
+
+<!--list switcher -->
+
+    <h4>
+        List Switcher
+    </h4>
+    
+    <ol>
+        <li>Apollo</li>
+        <li>Hubble</li>
+        <li>Chandra</li>
+        <li>Cassini-Huygens</li>
+        <li>Spitzer</li>
+      </ol>
+
+      <div class="container">
+
+        <label for="disc">
+          <input type="radio" id="disc" name="type" value="disc">disc
+        </label>
+        </div>
+
+
+        <script>
+            const container = document.querySelector(".container");
+    container.addEventListener("change", (event) => {
+      const list = document.querySelector("ol");
+      list.setAttribute("style", `list-style-type: ${event.target.value}`);
+    });
+    
+        </script>
+</body>
+</html>
