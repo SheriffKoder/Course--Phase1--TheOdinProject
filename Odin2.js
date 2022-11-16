@@ -727,7 +727,7 @@ regular expressions allows to check a string of characters like passwords
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
-/*
+/* Chrome Developer Tools
 
 DOM change
 breakpoints
@@ -1057,7 +1057,7 @@ console.log(window.let); // undefined
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
-/* Problem solving /* take sticky-notes from here */
+/* Problem solving /* add to the sticky-note from here */
 /*
 
 high performance, scalability
@@ -1226,24 +1226,12 @@ while loop get out condition before code
 
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
-/*
-error messages provide developers with a treasure trove of knowledge
-and will tell everything about how to resolve
-
-parse error messages and warning without fear
-
-error is an object, 
-consisting of name/type and a message
-
-
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
 ////Javascript code execution 
 /*
 when you run javascript program
 execute context is executed
 
-1)global execution context
+1)global/local function execution context
 memory and code parts
 a)  memory creation phase
     allocates memory to vars/func vars, for a value of undefined
@@ -1270,6 +1258,97 @@ b) code execution phase
   subfunction execution context
   function1 execution context
   global execution context
+
+
+
+*/
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+error messages provide developers with a treasure trove of knowledge
+and will tell everything about how to resolve
+
+parse error messages and warning without fear
+will enable to effectively debug applications
+
+error is an object, 
+consisting of name/type and a message/location in code
+
+
+ReferenceError, 
+refers to a variable that is not declared and/or initialized within the current scope.
+
+SyntaxError,
+when code trying to run is not written correctly
+in accordance with the grammatical rules of javascript
+
+TypeError,
+operand/argument passed to a function is incompatible with the type expected by that operator
+when attempting to modify a value that cannot be changed
+when attempting to use a value in an inappropriate way
+
+Read the error
+
+
+
+
+*/
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+clean code
+
+//working with main containers with a representative ID
+named after their destined content
+<div id="main-container"/ "header"/"logo"/ "main-menu"
+
+
+//Explanatory professional comments
+
+//right indenting
+
+//breakup large function into smaller ones
+
+//Naming functions and variables should be descriptive
+
+Each imported file is an HTTP request 
+that tampers with the performance of your application. 
+So apart from being a consideration for tidiness, 
+it is also a consideration for efficiency.
+
+there is a high need to keep up with standards 
+in order to maintain a code that’s readable in the future.
+
+
+//the code is self explaining, so comments should be 
+describing what the code does, why it's there
+but better is to make code explain itself through naming and spacing
+if you feel your code is too complex to understand without comments, 
+the code is probably written in a bad way, it should not need comments
+make the code readable for human first then compiler
+
+1) code self explainatory
+2) comments for why written
+
+Self Documenting Code: take code as a documentation
+
+A professional programmer is prepared to bend her personal style 
+to reflect the needs of the team.
+
+
+
+
+
+
+
+
+
+
 
 
 
