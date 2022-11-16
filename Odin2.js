@@ -1416,6 +1416,8 @@ myArray[2] = myCars;
 the array's real strength is in the built-in properties and methods
 
 
+array.length=2;   //this will give length and cut off the remaining items
+array.length=0;   //clears and array
 
 
 ///////////////////////////////////////////////////////
@@ -1453,6 +1455,17 @@ You should use arrays when you want the element names to be numbers.
 const points = new Array(40, 100);
 const points = [40]; //error
 
+multi dimensional arrays
+let matrix = [
+  [ 1,2,3 ],
+  [ 4,5,6 ],
+  [ 7,8,9 ],
+];
+
+matrix[1][1]; //5
+
+
+
 
 
 //to check wether is an array or not, returns true
@@ -1484,6 +1497,28 @@ Array.slice(3,4);
 Array.toString(); //returns a comma separated string
 Object.toString();
 
+if (String(Array) === '1,2,3')
+
+
+
+[]+1    and ""+1    // "1"
+[1]+1   and "1"+1   // "11"
+[1,2]+1 and "12"+1   //1,21
+
+not use arrays with == or === , false, comparing reference like objects
+or even > , <
+compare item by item using for..of
+*/
+
+//let arrayX = [1,2,3];
+//let arrayY = [1,2,3];
+//alert( String(arrayX) === '1,2,3'); //true
+//0 is false, '0' is a string know the difference
+//console.log( 0 == []); //true, [] converted to primitive becomes empty string '' which is false
+//console.log( '0' == []); //false
+
+
+
 //still have next tutorial and complete reference
 
 
@@ -1496,6 +1531,8 @@ Object.toString();
 collection of items want to do something with every item
 Array, Set, Map
 
+
+//preferable to be used on objects
 for (const item of array) {
   item.
 }
@@ -1548,39 +1585,123 @@ for( ;; )
 for of is less buggy than normal for loop
 but normal for loop allows more control over iterations
 
-break;  //break out of the "loop entirely" to next line of code
-continue;   //skips to next "loop iteration"  ... 
+break;  //break out of the "loop entirely" to next line of code, stays in nest, 
+continue;   //skips to next "loop iteration"  ... , cant be used with tenary?operator
 
 
 initialization
 while ( condition ) { //condition is converted to boolean
-
-
   expression
 }
 
 
-in do/while condition comes after the code inside the loop.
+////in do/while condition comes after the code inside the loop.
 runs at least once
 
 initialization
 do {
-
-
-
 } while (condition)
 
 
 
+//to break a specific loop, use labels
+outer: for (let i=0; i<3; i++) {
 
+  inner: for (let j = 0; j < 3; j++) {
 
-
-
-
-
-
-
-
-
+  if(!input) break outer; //otheriwse will break inner and cont outer
+}
 
 */
+
+//console.log(Boolean(0)); //false
+//++i / i++
+
+//for (let i = 0; i < 5; ++i) alert( i ); 
+//the increment is separated from the condition so no diff to i++
+
+
+//if number >100 or cancel
+/*
+let num;
+
+  do {
+  
+      num = prompt("Enter a number greater than 100?", 0);
+  
+  } while (num <= 100 && num);
+*/
+
+
+
+
+
+//////////////////////////////////////////////
+//array middle location
+let arrayX = new Array(3);
+
+let middle = (arrayX.length/2)+0.5; //3
+let middle2 = Math.floor((arrayX.length -1) /2);
+
+console.log(middle2);
+
+
+for (let i=0; i<arrayX.length; i++){
+
+    if (i == middle-1) {
+      arrayX[i]= " M ";
+
+    }
+    else {
+      arrayX[i]= "X";
+    }
+}
+
+console.log(arrayX);
+
+
+
+
+
+//////////////////////////////////////////////
+//
+/*
+
+////run forever/break
+while (true) {
+
+      let value = prompt();
+      // should we cancel?
+      if (value === "" || value === null || !isFinite(value)) break;
+}
+*/
+
+
+////store a function in an array and call it
+let arrayY =['a',' b' ,'c'];
+arrayY[2] = function () { console.log("hey");}
+
+console.log(arrayY);
+arrayY[2]();
+
+
+
+////alter array elements using for..in
+let arrayZ = ["1","2","3"];
+
+for (let item in arrayZ) {  //item is like i locations
+
+    console.log(arrayZ[item]);
+    arrayZ[item] = 0;
+}
+
+console.log(arrayZ);
+
+
+//for..in 
+//integer properties are sorted, others appear in creation order
+
+
+//Math.trunc(Number("1.2")) //gives 1, +49 gives 49
+
+
