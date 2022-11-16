@@ -1343,9 +1343,117 @@ to reflect the needs of the team.
 
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*
+chaining methods
+str.replace("k", "R").toUpperCase().substr(0,4); 
+
+// A quick utility function that does what it says:
+
+*/
+function titleCaseName(str) {
+    return str.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+}
+
+
+//using object's methods all together
+/*
+userControllerObj.findUser("test2@test2.com").formatName()
+.createLayout().displayUser();
+*/
+
+/*////////////////////////////////////////////////////////////////////*/
 
 
 
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* Nodejs
+
+runtime environment that allows run javascript outside the web browser
+
+nvm: node version manager
+easy change node versions and upgrade node
+
+npm: node package manager
+used to install various libraries and tools used in js envs
+
+
+
+
+
+*/
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* 
+
+
+Arrays, 
+an ordered collection of items (strings, numbers or other things)
+type of object
+
+can have variables of different types in the same array
+myArray[0] = Date.now;
+myArray[1] = myFunction;
+myArray[2] = myCars;
+
+the array's real strength is in the built-in properties and methods
+
+
+
+
+///////////////////////////////////////////////////////
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+let fLen = fruits.length;
+
+let text = "<ul>";
+
+//for (let i = 0; i < fLen; i++) {
+  text += "<li>" + fruits[i] + "</li>";
+}
+
+// fruits.forEach(myFunction);
+function myFunction(value) {
+  text += "<li>" + value + "</li>";
+}
+
+
+text += "</ul>";
+
+document.getElementById("demo").innerHTML = text;
+
+
+
+///////////////////////////////////////////////////////
+In JavaScript, arrays always use numbered indexes, no names
+If you use named indexes, JavaScript will redefine the array to an object.
+
+You should use objects when you want the element names to be strings (text).
+You should use arrays when you want the element names to be numbers.
+
+
+///////////////////////////////////////////////////////
+// Create an array with two elements:
+const points = new Array(40, 100);
+const points = [40]; //error
+
+
+
+//to check wether is an array or not, returns true
+ArrayName.isArray(fruits);
+ArrayName instanceof Array;
 
 
 
