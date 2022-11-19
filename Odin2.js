@@ -1714,7 +1714,7 @@ console.log(arrayZ);
 
 let Array1811 = ['4', '5'];
 
-//Array.forEach(function/arrorFunction)
+//Array.forEach(function/arrowFunction)
 Array1811.forEach(item => {
   //console.log(item);
 
@@ -1766,7 +1766,7 @@ for (let index in object1811) {
 
 //////////////////////////////////////////////
 
-
+//Example
 let menu1811 = {
   width: 200,
   height: 300,
@@ -1793,12 +1793,35 @@ for (let item1811 in menu1811) {
 
 
 /*////////////////////////////////////////////////////////////////////*/
+/*
+
+////arguments can be accessed as an array
+
+function func1 (a, b ,c)
+    let x = arguments[0];  //0,1,2
+    a = 123;
+    arguments[0] = 123;  //another way of accessing arguments
+
+    for (let i=0; i< arguments.length; i++) {
+      let inputLength = arguments[i].length;
+    }
+
+    arguments
+
+
+//must use argument, for arg[0] to work which will shadow the argument
+//but if put parameter value, arg[0] not used, the argument will be used "if found"
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*
 
-Fork an clone repos
+Fork and clone repos
 
 Fork = edit without affecting original
 clone = pull/contribute
@@ -1813,9 +1836,47 @@ clone will copy(the forked repo) to local computer
 code button, copy link, cd to desired location, 
 git clone paste-link
 
+
+
+//////////////////////////////////////////////
+/*using Nodejs*/
+/*
 cd to cloned directory
 run : npm install
+
+
+
+(testing files)
+open exercise directory
+run npm test "name.spec.js" file
+
+some exe have test conditions defined in their spec file as test.skip
+after pass test, rename the test.skip to test and test it
+
+jest may return an exit code of 1 if any tests fail with nmp ERR! message
+can un-view errors by npm test ex.spec.js --silent to suppress errors
+
+the output from the test command should tell what exactly went wrong
+
+
+Debugging: 
+run tests in vs studio code debugger terminal
+by clicking the run and debug icon / ctrl shift d
+
+
+
+
 
 */
 
 
+function funcWithDefault(...args) {
+  console.log(arguments);
+
+  args.forEach(arg => {
+    console.log(arg);
+
+  });
+
+}
+funcWithDefault(10,20); // 10
