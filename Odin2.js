@@ -1486,7 +1486,7 @@ let Array3 = Array1.concat("string"); //outputs array
 
 
 Array.splice(2,0,"Lemon","Kiwi"); 
-//first position, items removed, to add, returns array with deleted iems
+//first position, items removed, to add, returns array with deleted items
 //can be used to remove middle items without holes by having no additions
 
 Array.slice(3,4);
@@ -1705,3 +1705,88 @@ console.log(arrayZ);
 //Math.trunc(Number("1.2")) //gives 1, +49 gives 49
 
 
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+
+
+let Array1811 = ['4', '5'];
+
+//Array.forEach(function/arrorFunction)
+Array1811.forEach(item => {
+  //console.log(item);
+
+});
+
+
+for (const item of Array1811) {
+  //console.log(item);
+
+}
+
+
+let schedule = {"name": "name"};
+for (let key in schedule) {
+    // if the loop has started, there is a property
+    //console.log("item")  
+}
+
+
+//////////////////////////////////////////////
+
+let object1811 = {
+  "John": 100,
+  "Ann": 160,
+  "Peter": 130
+}
+
+//console.log(object1811["John"]);
+
+let sum1811 = 0;
+for (let index in object1811) {
+  //console.log(object1811[index]);
+  sum1811=sum1811+object1811[index];
+}
+
+console.log(sum1811);
+
+//ForEach works on array only
+//for..in works on array and object
+
+//index will output each item name
+//object[index] will output each item's value, object[name] = its value
+
+//index in array is value1, value2
+//index in object is value1, value2
+//object[value1] : value
+
+
+
+//////////////////////////////////////////////
+
+
+let menu1811 = {
+  width: 200,
+  height: 300,
+  title: "My menu"
+};
+
+//console.log(menu1811);
+
+for (let item1811 in menu1811) {
+  //console.log(Number(menu1811[item1811]));
+
+  if (!isNaN(Number(menu1811[item1811]))) {
+    menu1811[item1811] = menu1811[item1811] * 2;
+  }
+  else {
+    continue;
+    //console.log("this is a number");
+    //console.log(menu1811[item1811]);
+  }
+
+}
+
+console.log(menu1811);
