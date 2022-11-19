@@ -1750,7 +1750,7 @@ for (let index in object1811) {
   sum1811=sum1811+object1811[index];
 }
 
-console.log(sum1811);
+//console.log(sum1811);
 
 //ForEach works on array only
 //for..in works on array and object
@@ -1789,4 +1789,33 @@ for (let item1811 in menu1811) {
 
 }
 
-console.log(menu1811);
+//console.log(menu1811);
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+Fork an clone repos
+
+Fork = edit without affecting original
+clone = pull/contribute
+
+write access
+fork, make the fix, submit a pull request to project owner
+
+
+fork button will copy the repo to your github
+clone will copy(the forked repo) to local computer
+
+code button, copy link, cd to desired location, 
+git clone paste-link
+
+cd to cloned directory
+run : npm install
+
+*/
+
+
