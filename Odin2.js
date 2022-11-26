@@ -1847,3 +1847,88 @@ function f() {
 }
 */
 
+
+
+
+
+
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* 
+
+DOM - Document Object Model
+when html is parsed by a web browser, it is converted to DOM
+DOM manipulation changes the browser's render and dom tree not the html file
+
+parent, child, sibling
+
+
+*/
+
+
+const container2611 = document.querySelector("#testdiv_2109"); //first match
+//querySelectorAll //node list of all matches of the selector
+//use Array.From() to convert it to an array and use methods
+
+console.dir(container2611.firstElementChild);
+console.dir(container2611.previousElementSibling);
+
+
+
+
+
+const div2611 = document.createElement("div"); //allocates memory to be appended later in the DOM
+//parentNode.appendChild(childNode);    //append to last of children
+//parentNode.insertBefore(newNode, referenceNode);  //append before reference node in parent node
+//parentNode.removeChild(childname)
+
+
+
+
+
+
+
+div2611.style.color = "blue";
+div2611.style.cssText = "color: blue;   background: white;" ;  //add several styles
+div2611.setAttribute("style", "color: blue;   background: white;");
+
+//div2611.style.backgroundColor //to access b-c use camelCase and remove -
+//div2611.style["background-color"] //or use in brackets
+
+
+
+
+
+
+//div2611.setAttribute("id", "idName")
+//div2611.getAttribute("id")
+//div2611.removeAttribute("id")
+
+
+//div2611.classList.add("new");
+//div2611.classList.remove("new");
+//div2611.classList.toggle("new");
+
+
+//div2611.textContent
+//div2611.innerHTML
+
+
+//<script src="./name.js" defer> </script>
+//if put in the head element will be loaded after the html is parsed
+
+
+
+//add a p element after #container, that says hey im red
+
+let testContainer2611 = document.getElementById("container2611");
+let para26 = document.createElement("div");
+para26.innerHTML = "Hey, i'm red!";
+
+testContainer2611.appendChild(para26);
