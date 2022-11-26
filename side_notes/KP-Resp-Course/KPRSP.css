@@ -114,7 +114,18 @@ because a flex will take the least possible space
 with 100% will try to take all the available and squish to fit equally
 but when put 30/70 for example they will adjust
 and will leave space if total less than 100%
-
 and control this space with justify space
+
+
+add to all images selector to make all responsive
+will never exceed their default size and will shrink when needed
+
+img {
+    width: 100%;
+}
+
+
+
+
 
 */

@@ -1364,32 +1364,6 @@ userControllerObj.findUser("test2@test2.com").formatName()
 .createLayout().displayUser();
 */
 
-/*////////////////////////////////////////////////////////////////////*/
-
-
-
-
-
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/* Nodejs
-
-runtime environment that allows run javascript outside the web browser
-
-nvm: node version manager
-easy change node versions and upgrade node
-
-npm: node package manager
-used to install various libraries and tools used in js envs
-
-
-
-
-
-*/
-
 
 
 
@@ -1793,7 +1767,7 @@ for (let item1811 in menu1811) {
 
 
 /*////////////////////////////////////////////////////////////////////*/
-/*
+/* Arguments array
 
 ////arguments can be accessed as an array
 
@@ -1815,68 +1789,61 @@ function func1 (a, b ,c)
 
 
 
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*
+//ex
+function funcWithDefault() {
+  console.log(arguments);
 
-Fork and clone repos
+  arguments.forEach(arg => {
+    console.log(arguments); //not work, have to be convered to an array first using Array.from(arguments)
 
-Fork = edit without affecting original
-clone = pull/contribute
+  })
 
-write access
-fork, make the fix, submit a pull request to project owner
-
-
-fork button will copy the repo to your github
-clone will copy(the forked repo) to local computer
-
-code button, copy link, cd to desired location, 
-git clone paste-link
-
-
-
-//////////////////////////////////////////////
-/*using Nodejs*/
-/*
-cd to cloned directory
-run : npm install
-
-
-
-(testing files)
-open exercise directory
-run npm test "name.spec.js" file
-
-some exe have test conditions defined in their spec file as test.skip
-after pass test, rename the test.skip to test and test it
-
-jest may return an exit code of 1 if any tests fail with nmp ERR! message
-can un-view errors by npm test ex.spec.js --silent to suppress errors
-
-the output from the test command should tell what exactly went wrong
-
-
-Debugging: 
-run tests in vs studio code debugger terminal
-by clicking the run and debug icon / ctrl shift d
-
-
-
-
-
-*/
-
-
+}
+    //...args, or any name. its the "rest parameter" only once in end
+    //arg is an array can use length on
+//ex
 function funcWithDefault(...args) {
   console.log(arguments);
 
   args.forEach(arg => {
-    console.log(arg);
+    console.log(arg); //work
 
   });
 
 }
 funcWithDefault(10,20); // 10
+
+
+//ex
+function myConcat(separator) {
+  const args = Array.prototype.slice.call(arguments, 1);
+  return args.join(separator);//can be , : or even </li><li> to generate html
+}
+// returns "red, orange, blue"
+myConcat(', ', 'red', 'orange', 'blue');
+
+
+//access arguments forEach by using the ...args parameter
+
+
+////Array.from
+//Array.from(arrayLike, mapFn, thisArg);
+//console.log(Array.from([1, 2, 3], x => x + x) , n/a);
+// expected output: Array [2, 4, 6]
+//2,3 parameters are optional
+//arrow functions can be used
+//mapFn can get two arguments
+
+
+// Create an array based on a property of DOM Elements
+//const images = document.querySelectorAll('img');
+//const sources = Array.from(images, (image) => image.src);
+//const insecureSources = sources.filter((link) => link.startsWith('http://'));
+
+/*
+f(1,2,3);
+function f() {
+  return Array.from(arguments);
+}
+*/
+
