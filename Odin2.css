@@ -72,6 +72,9 @@ and not cause float loading problems
 /*-----------------------------------------------------------------------------*/
 /*
 
+/* p elements with id main and with classes a and b
+p#main.a.b {
+
 CSS Cascade (Priority) for the same style-property only, else is applied
 1.HTML inline                                           score 1000
 1.1 html header style
@@ -871,3 +874,7 @@ ul {
 }
 
 
+p1 {
+    border: 1px solid black;
+    display: block;
+}

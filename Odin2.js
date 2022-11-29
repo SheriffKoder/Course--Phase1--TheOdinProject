@@ -1964,6 +1964,12 @@ testContainer2611.appendChild(div2911);
 
 all three can use a functionCall();
 
+x.removeEventListener("click", Fn);
+
+propagation is useful
+when dont want an inner item click
+to activate an outer click event
+
 
 
 */
@@ -2005,3 +2011,75 @@ function logText(e) {
 }
 
 buttons.forEach( button => addEventListener("click", logText, {once:true}));
+//this click event happens only once
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+identifiers and values are leaves or nodes without children
+
+Node.TEXT_NODE  , node.nodeValue//holds the string text 
+Node.COMMENT_NODE
+Node.ELEMENT_NODE
+
+.children //contains only element children not other types of child like text/comment
+
+x.href
+x.alt
+
+
+let paras = document.body.getElementsByTagName("p1");
+document.body.insertBefore(paras[2], paras[0]);
+// .replaceChild removes
+
+
+let arrayish = {0: "one", 1: "two", length: 2};
+let array23 = Array.from(arrayish);
+console.log(array23); //one, two
+console.log(array23.map(s => s.toUpperCase()));
+
+
+
+
+
+//access size and position of an element, read only
+.offsetWidth
+.offsetHeight
+
+//access size and position of a child in an element with padding but ignoring borders
+.clientWidth
+.clientHeight
+
+.offsetParent //returns nearest ancestor
+.clientTop    //returns the width of the top border of an element
+.offsetLeft   //returns the left position in pixels relative to the parent
+
+x.getBoundingClientRect();
+finding precise position of an element to the screen
+top, bottom, left, right
+using rect.top.toFixed();
+
+
+to the document
+add the current scroll position, 
+window.pageXOffset, window.pageYOffset
+
+window.scrollBy(100,100);   //force scroll
+
+
+
+//ex. time taken by function input
+function time(name, action) {
+  let start = Date.now();
+  action();
+  console.log(name, "took", Date.now() - start , "ms");
+}
+
+
+requestAnimationFrame—it lets the browser know that we are done for now, and it can go ahead and do the things that browsers do, such as updating the screen and responding to user actions.
+
+
+
+
+*/
+
