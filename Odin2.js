@@ -1925,10 +1925,83 @@ div2611.setAttribute("style", "color: blue;   background: white;");
 
 
 
-//add a p element after #container, that says hey im red
-
+//Example : add items using DOM methods
+/*
 let testContainer2611 = document.getElementById("container2611");
-let para26 = document.createElement("div");
-para26.innerHTML = "Hey, i'm red!";
 
+let para26 = document.createElement("p");
+para26.innerHTML = "Hey, i'm red!";
 testContainer2611.appendChild(para26);
+
+let h3_2911 = document.createElement("h3");
+h3_2911.innerHTML = "i'm a blue h3!";
+testContainer2611.appendChild(h3_2911);
+
+let div2911 = document.createElement("h3");
+div2911.style.cssText = "border: 1px solid black; background: pink;"
+
+    let div2911_h1 = document.createElement("h1");
+    div2911_h1.innerHTML = "I'm a div";
+
+    let div2911_p = document.createElement("p");
+    div2911_p.innerHTML = "ME TOO";
+
+    div2911.appendChild(div2911_h1);
+    div2911.appendChild(div2911_p);
+
+testContainer2611.appendChild(div2911);
+*/
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* Events
+
+//HTML event, allows one "onclick" for example as an event per element 
+//onevent property, same issue
+//event listeners, allows multiple events
+
+all three can use a functionCall();
+
+
+
+*/
+
+
+let function2911 = function () {
+  alert ("hello world");
+}
+
+const btn2911 = document.querySelector("#btn2911");
+//btn2911.onclick = () => alert("Hello World");
+btn2911.addEventListener("click", () => {
+  alert ("hello world - eventListener");
+});
+
+btn2911.addEventListener("click", (e) => {
+  e.target.style.background="blue";
+});
+
+//e, object refrences the event itself
+//access to useful properties/function related
+
+//use forEach button to work with eventListener
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach( (button_test) => {
+  console.log(button_test);
+
+  button_test.addEventListener("click", (e) => {
+    e.target.style.background="blue";
+  });
+  
+});
+
+
+
+function logText(e) {
+  console.log(e.target.id);
+}
+
+buttons.forEach( button => addEventListener("click", logText, {once:true}));
