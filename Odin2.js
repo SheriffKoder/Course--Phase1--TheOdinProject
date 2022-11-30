@@ -2054,8 +2054,8 @@ console.log(array23.map(s => s.toUpperCase()));
 .clientTop    //returns the width of the top border of an element
 .offsetLeft   //returns the left position in pixels relative to the parent
 
-x.getBoundingClientRect();
-finding precise position of an element to the screen
+rect = x.getBoundingClientRect();
+returns precise position of an element to the screen
 top, bottom, left, right
 using rect.top.toFixed();
 
@@ -2078,6 +2078,153 @@ function time(name, action) {
 
 requestAnimationFrame—it lets the browser know that we are done for now, and it can go ahead and do the things that browsers do, such as updating the screen and responding to user actions.
 
+
+*/
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+Prevent Default
+
+
+events, default action like down arrow/browser scroll down
+right click/context menu
+
+preventDefault, to avoid calling before default behavior takes place because it has already been taken care of
+
+can be used to implement own keyboard shorcuts or context menu.
+and change what user expect
+however some events cant be intercepted for some browsers
+
+x.addEventListener("click", event => { 
+  console.log("this is the new action");
+  event.preventDefault();
+});
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+key presses
+
+window.addEventListener("keydown", event => { //keydown is when key on hold
+    if (event.key == "v") {
+      document.body.style.background = "violet";
+    }
+  });
+
+//shiftKey, ctrlKey, altKey, and metaKey(CMD)
+  if (event.key == "v" && event.ctrlKey) {  //ctrl+v
+
+
+focus:
+when nothing in particular has focus, 
+document.body acts as the target node
+
+this is where the key event originates
+most nodes other than links, buttons, form fields, input, textarea
+cannot have focus unles given a tabindex attribute
+
+virtual keyboards on android phones, old keyboards
+do not fire key events
+best read from a focused field
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+Pointer events:
+mice: mouse clicks, touchpads, trackballs
+touchsreens
+the two are different
+
+mice events happen to the DOM node below the mouse pointer when the event occurs
+
+a "click" event fires after a "mouseup"
+
+two clicks close together in an area, "dblclick" is fired
+
+mousedown on a para1, 
+then move pointer to para2 and release
+the click event will happen on the element that contains both para1, para2
+
+
+//ex: simple dot drawing
+window.addEventListener("click", event => {
+  let dot = document.createElement("div");
+  dot.className = "dot";
+  dot.style.left = (event.pageX - 4) + "px";
+  dot.style.top = (event.pageY - 4) + "px";
+  document.body.appendChild(dot);
+});
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* mouse motion
+
+mousemove //track position of the mouse
+mouse-dragging functionality
+
+left code = 1
+right code = 2
+middle code = 4
+left+right code = 3
+
+/////////////////////////////////////////////////////
+//Ex. change bar width by dragging it
+let lastX; // Tracks the last observed mouse X position
+let bar = document.querySelector("#barX");
+bar.addEventListener("mousedown", event => {
+  if (event.button == 0) {
+    lastX = event.clientX;
+    window.addEventListener("mousemove", moved);
+    event.preventDefault(); // Prevent selection
+  }
+});
+
+function moved(event) {
+  if (event.buttons == 0) {
+    window.removeEventListener("mousemove", moved);
+  } else {
+    let dist = event.clientX - lastX;
+    let newWidth = Math.max(10, bar.offsetWidth + dist);
+    bar.style.width = newWidth + "px";
+    lastX = event.clientX;
+  }
+}
+/////////////////////////////////////////////////////
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* touch events
+
+touchstart
+touchmove
+touchend
+
+touches property given to the event objects
+holds an array of points
+
+
+//ex: multi finger touch circle around
+function update(event) {
+    for (let dot; dot = document.querySelector("dot");) {
+      dot.remove();
+    }
+    for (let i = 0; i < event.touches.length; i++) {
+      let {pageX, pageY} = event.touches[i];
+      let dot = document.createElement("dot");
+      dot.style.left = (pageX - 50) + "px";
+      dot.style.top = (pageY - 50) + "px";
+      document.body.appendChild(dot);
+    }
+  }
+  window.addEventListener("touchstart", update);
+  window.addEventListener("touchmove", update);
+  window.addEventListener("touchend", update);
 
 
 
