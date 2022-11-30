@@ -2208,6 +2208,10 @@ touchend
 touches property given to the event objects
 holds an array of points
 
+may want to use preventDefault in touch event handlers
+to avoid scrolling, swiping mouse events etc
+
+
 
 //ex: multi finger touch circle around
 function update(event) {
