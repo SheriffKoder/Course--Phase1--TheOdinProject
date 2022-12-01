@@ -2234,3 +2234,136 @@ function update(event) {
 
 */
 
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* scroll events
+
+scroll event fired on a scrolled element
+what user currently looking at
+showing indication of progress, highlighting part of table of contents, page number
+
+
+//ex: progress-bar top/left of 0, border2px, 
+//% relative to page width
+let bar = document.querySelector("#progress");
+  window.addEventListener("scroll", () => {
+    let max = document.body.scrollHeight - innerHeight;
+    bar.style.width = `${(pageYOffset / max) * 100}%`;
+  });
+
+//innerHeight, innerWidth for the window width
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* focus events
+
+//gain: gain focus
+//blur: lose focus
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* web workers
+js process that runs alongside the main script on its own timeline
+workers do not share their global scope or any other data
+comm. with them by in/out messages
+
+
+
+
+
+*/
+
+/*
+let squareWorker = new Worker("code/squareworker.js");
+squareWorker.addEventListener("message", event => {
+    console.log("The worker responded:", event.data);
+});
+squareWorker.postMessage(10);
+squareWorker.postMessage(24); 
+//sends a message, cause "message" event to fire in receiver
+//the script that created thr worker sends and recv. messages through the worker object
+//worker talks to script by sending and listening directly on its global scope
+//only messages that can be represented as JSON can be sent as messages
+//the other side will receive a copy of them, not the value itself
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* Timers
+
+
+clearTimeout(setTimeOutReturned);  //stops the timeout
+
+cancelAnimationFrame works as clearTimeout
+when called on a value returned by requestAnimationFrame
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* Debouncing
+
+some events fire rapidly, 
+if done time-consuming,
+document slow
+
+
+//use timeout to make sure not doing it too often
+
+ex
+//user type react
+//not for every input event
+//wait until a pause occurs
+//instead of immediatly performing an action, use timeout
+//clear previous timeout (if any)
+//so when events occur close together than our timeout delay
+//timeout from the prev. event will be cancelled
+  let textarea = document.querySelector("textarea");
+  let timeout;
+  textarea.addEventListener("input", () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => console.log("Typed!"), 500);
+  });
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+document
+document.body //the body's html
+document.body.style.... //changes the dom live not the source file
+
+
+
+
+
+*/
+
+//console.dir(document);    //outputs the properties and methods can look at to use from
+//console.dir(document.location.pathname); 
+
+//console.dir(document.all[30]);  //.all output all elements as an array to select from
+//console.log(document.links);    //array of links
+
+//.innerText //respects style, textContent can be logged without respect to style display for example
+
+////$ in jquery is the doc.q in v-js
+//var header = $("#headerid");
+//var header = document.querySelector("#headerid");
+
+
+//var odd = document.querySelectorAll("li:nth-child(odd)");
+//odd[i].style.backgroundColor = "lightgrey";
+
+
+//contain html text, so have to be aware of html whitespaces i.e textnodes
+//childNodes,firstChild, nextSibling 
+
+//does not have html text like enters and spaces
+//children, first/LastElementChild 
+
