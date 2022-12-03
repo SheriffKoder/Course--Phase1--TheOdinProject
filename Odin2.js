@@ -2290,6 +2290,8 @@ squareWorker.postMessage(24);
 
 
 
+
+
 /*////////////////////////////////////////////////////////////////////*/
 /* Timers
 
@@ -2367,3 +2369,38 @@ document.body.style.... //changes the dom live not the source file
 //does not have html text like enters and spaces
 //children, first/LastElementChild 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*03/12
+
+newDiv.id = "id_name"; //give id
+
+document.createTextNode and append it  //textNode
+
+.insertBefore //to insert in the dom after creation and appending
+
+//use button click event to change by id/query document's styles
+
+console.log(e);   //all properties to use from e(event)
+e.type //type of event
+
+
+e.offsetX/Y     //position from the element itself
+
+console.log(e.altKey);  //will output true if clickevent+pressed_alt
+
+
+bos.style.backgroundColor = "rgb("+e.offsetX+","+e.offsetY+", 40)"
+innerHTML = "<h3>" +e.target.value+ "<h3>";
+
+.keypress //any press
+.oncut
+.onpaste
+
+
+form, onsubmit, preventDefault();
+
+
+
+
+
+*/
