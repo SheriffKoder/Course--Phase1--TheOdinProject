@@ -1,0 +1,29 @@
+
+
+
+
+.main_container {
+    border: 1px solid black;
+    width: 100%;
+    padding: 20px;
+
+}
+
+.buttons_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+button {
+    margin: 10px;
+
+}
+
+
+.user_selection_display, .computer_selection_display, .result_display, .total_display {
+    text-align: center;
+    margin: 5px;
+}
