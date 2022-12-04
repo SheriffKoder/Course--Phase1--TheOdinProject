@@ -2400,7 +2400,113 @@ innerHTML = "<h3>" +e.target.value+ "<h3>";
 form, onsubmit, preventDefault();
 
 
+/*///////////////////////////////*/
+/*
+
+
+
+
+
+
 
 
 
 */
+
+
+
+var form = document.getElementById("addForm");
+var itemList = document.getElementById("items");
+
+//Form submit event
+form.addEventListener("submit", addItem);
+
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+//Add item
+function addItem (e) {
+
+    e.preventDefault();   //avoid normal submit of form
+  ////////////////////////////////////////////////////////
+  //get input value
+    var newItem = document.getElementById("item").value; //input type
+
+  //create new li element
+    var li = document.createElement("li");
+    li.className = "list-group-item";
+  //add the input value
+    li.appendChild(document.createTextNode(newItem)); /**/
+
+
+
+  ////////////////////////////////////////////////////////
+  //create del button element
+  var deleteBtn = document.createElement("button");
+  deleteBtn.className= "btn btn-danger btn-sm float-right delete"; /**/
+  
+  //Append text Node
+  deleteBtn.appendChild(document.createTextNode("X"));
+
+  li.appendChild(deleteBtn);
+
+
+  ////////////////////////////////////////////////////////
+  itemList.appendChild(li);
+
+}
+
+
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+//removing an item after confirmation
+itemList.addEventListener("click", removeItem);
+
+function removeItem (e) {
+
+  if (e.target.classList.contains("delete")) {  /**///select the button only
+    console.log(1);
+
+    if (confirm("are you sure?")){
+      var li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+
+  } 
+}
+
+
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+
+var filter = document.getElementById("filter");
+
+filter.addEventListener("keyup", filterItems);
+
+function filterItems(e) {
+  //(1) get filter input, convert to lowercase as default
+  var text = e.target.value.toLowerCase();
+  //console.log(text);
+
+  //(2) grab all li's from item list
+  var items = itemList.getElementsByTagName("li");   /**///itemList. like doc.
+  //console.log(items);
+
+  //pass through all items
+  Array.from(items).forEach( item => {
+
+      var itemName = item.firstChild.textContent;
+      //console.log(itemName);
+
+      // find itemName in text but it has to return a match value
+      if(itemName.toLowerCase().indexOf(text) != -1) {
+        item.style.display = "block";
+
+      }
+
+      else {
+        item.style.display = "none";
+      }
+  });
+
+
+}

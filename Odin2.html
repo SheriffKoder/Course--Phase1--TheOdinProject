@@ -519,12 +519,37 @@ the <h1> , contribute to the page's document outline
 
     <p>Drag the bar to change its width:</p>
     <div id="barX" style="background: orange; width: 60px; height: 20px; margin-bottom: 200px;">
+    </div>
+
+<!--////////////////////////////////////////////////////////////////////////-->
+
+    <br>
+    <hr>
+    <br>
+
+    <input type="text" class="form-control" id="filter" placeholder="Search Items...">
 
 
+    <h2 class="title">Add Items</h2>
+
+    <form id="addForm" class="form-inline mb-3" >
+        
+        <input type="text" class="form-control mr-2" id="item" >
+        <input type="submit" class="btn btn-dark" value="Submit" >
+
+    </form>
 
 
+    <h2 class="title">Items</h2>
+    <ul id="items" class="list-group" >
+        <li class="list-group-item" >
+            Item 1
 
+            <button class="btn btn-danger btn-sm float-right delete" style="float: right;">
+                X
+            </button>
 
+        </li>
 
 
 
