@@ -101,6 +101,8 @@ for (button of buttons) {
     button.addEventListener("click", game);
 
 }
+
+
 //playRound();
 
 function playRound (e) {
