@@ -2406,14 +2406,10 @@ form, onsubmit, preventDefault();
 
 
 
-
-
-
-
-
 */
 
 
+function forumX () {
 
 var form = document.getElementById("addForm");
 var itemList = document.getElementById("items");
@@ -2508,5 +2504,7 @@ function filterItems(e) {
       }
   });
 
+
+}
 
 }
