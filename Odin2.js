@@ -2508,3 +2508,57 @@ function filterItems(e) {
 }
 
 }
+
+
+
+
+
+/*///////////////////////////////*/
+/*
+
+
+////Git branching
+alternate reality versions of files at the same time
+used also when sharing code with others and not want to change the main branch
+
+git config --global init.defaultBranch main
+//this is how we set the default branch for our repos at the beginning
+
+from the "main" branch will set out other branches
+multiple so can leave other branches as they are 
+and reserve main for working properly finished features
+
+each feature added using "feature branches"
+
+
+////Make new branches
+git branch <name>     //create branch
+git checkout  <name>  //switch to this named branch
+git branch -d <name>  //delete a not needed branch
+
+git checkout -b <name>  //create and switch
+git branch              //see all current branches 
+                        //with the current in *
+
+
+////Merging
+1 - git checkout main   //switch to main
+2 - git merge <name>    //takes from "name" and add to the current branch
+
+git push origin rps-ui  //push the current new added branch to github
+
+make sure you are on the right branch
+git push origin rps-ui      //use this now instead of > git push origin main
+
+
+
+
+
+
+
+
+
+
+
+*/
+
