@@ -1,9 +1,6 @@
-
-
 let number_of_pixels = 16;
 let intensity;
 
-function gamePlay () {
 
         //get the pixel_container and show its height for subDivs Size
         let px_container = document.querySelector(".pixel_container");
@@ -18,7 +15,7 @@ function gamePlay () {
 
 
 
-        /*////////////////////////////////////////////////////////////////////*/
+     /*////////////////////////////////////////////////////////////////////*/
         /*////////////////////////////////////////////////////////////////////*/
 
         //create a subDiv element with the new size as h/w and give border to show
@@ -72,96 +69,3 @@ function gamePlay () {
         }
         console.log((subDivs.length * subDivs[1].length)+ " pixels");
 
-
-
-
-        /*////////////////////////////////////////////////////////////////////*/
-        /*////////////////////////////////////////////////////////////////////*/
-
-        //with each div created has an id of pixel
-        //add an mouse-click event on the pixel container (to save cpu) //find another solution
-        //the pixel/mouseover gets a black color
-        //the pixel has to be clicked
-        
-        let pixels = document.querySelectorAll("#pixel");
-
-
-        px_container.addEventListener("mousedown", () => {
-            
-            //reset intensity each time container is clicked
-
-            intensity = 255;
-
-            pixels.forEach(pixel => {
-                pixel.addEventListener("mouseover", trailinFunction, intensity);
-                //pixel.addEventListener("mouseout", trailoutFunction);
-            
-            });
-
-        
-        });
-
-}
-
-
-function trailinFunction (e) {
-   //console.log(e);
-   
-    let current_pixel = e.target;
-    if(e.buttons) {     //clicked
-        current_pixel.style.backgroundColor = `rgb(${intensity},0,0)`;
-
-    }
-
-    //decrease intensity with each new pixel
-    intensity-=10;
-
-}
-
-function trailoutFunction (e) {
-    // console.log(e.target);
-    let current_pixel = e.target;
-    current_pixel.style.backgroundColor = "white";
-
-}
-
-
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-
-//add a button to prompt for number of pixels
-//maximum 32px
-//
-
-let buttonPixel = document.querySelector(".px_btn");
-buttonPixel.addEventListener("click", buttonClicked);
-
-function buttonClicked () {
-
-    let number_of_pixels2;
-
-    while ( (number_of_pixels2 > 32 || number_of_pixels2 == undefined) && number_of_pixels2 !== null) {
-        number_of_pixels2 = prompt("please enter pixel value less than 32");
-
-        //if (number_of_pixels2 == null) return 1;
-
-    }
-
-
-    console.log("number_of_pixels2 "+number_of_pixels2)
-    document.querySelector(".displayText").textContent = "mode : " + number_of_pixels2 + "px";
-    number_of_pixels = number_of_pixels2;
-
-    gamePlay();
-}
-
-
-
-
-//add a reset button
-let resetButton = document.querySelector(".reset_btn");
-resetButton.addEventListener("click", resetClicked);
-
-function resetClicked () {
-
-}
