@@ -1,0 +1,367 @@
+
+
+<!--
+whenever you use the Internet, you're looking at something that's stored on a server.
+this can be also company servers to store and share files internally
+
+operating system manages computer's memory and processes/ hardware and software
+coordinates each program needs of cpu and storage
+
+closed source program's codes cannot be viewed or modified
+
+-----------------------------------------------------------
+
+
+HTML : layoyt, structure, fundamental building block
+Hyper Markup Language
+
+CSS: style, screen size responsive, look and feel
+Cascading Style sheet
+BootStrap
+
+
+JS: interactivity
+
+Python
+Ruby; allows making everything to build a website with on Rails framework
+PHP: 
+SQL: Maintain and optimize large databases
+
+
+API, Application Programming Interface, 
+agreement between client requests and server sharing data
+
+The DOM tree, Document Object Model API (DOM), 
+getElementById()
+tree of nodes, 
+
+Node.js allows JS to work on server side
+
+~ let x = Number ();
+
+
+<head>   <base href="https://www.w3schools.com/" target="_blank">
+Specify a default URL and a default target for all links on a page:
+<body> <a href="tags/tag_base.asp">HTML base Tag</a>
+
+web servers will by default look for an index.html page
+doctype’s purpose is to tell the browser what version of HTML it should use
+lang="en" used for improving accessibility of the webpage
+
+in VSCode, !+enter brings a boiler plate
+
+ HTML character encoding is called ASCII
+UTF-8, supports many languages, compatible with ASCII, used by XML, less space
+
+lang, lang-subtag, lang-country_code,
+ru-Cyrl-BY
+
+header levels provide a hierarchy to the content
+
+
+<strong> useful for voice accessibility importance feature
+<b> without importance
+    
+
+/* LISTS --------------------------------------------------------------*/
+
+with the <ol> element, the order is meaningful.
+list-style-type" circle/disc/square/triangle/ '-'/decimal/upper-roman
+list-style-type: "\1F44D"; // thumbs up sign
+
+ol global attributes: reversed, start='1', type='a/A/i/I/1(one)'
+li value='9'
+solid dot. This solid dot is called the list item marker, and it can be changed using CSS.
+
+<dl> description list
+    <dt> description term element 
+        <dd> description element
+
+shows as >>
+    element
+            text for element
+
+
+nesting
+    <li>
+        <ul> <li>'s'..
+markers will change according to how deeply the list is nested.
+The <li> element may contain any normal element as desired
+
+<nav> is a block element like div,
+
+/* --------------------------------------------------------------------*/
+
+
+/* LINKS --------------------------------------------------------------*/
+
+protocol://domain/path  absolute
+./folder/page.html relative
+
+../ (stepping a step back in directories)
+
+The alt attribute is used to describe an image. 
+It will be used in place of the image if it cannot be loaded. It is also used with screen readers to describe what the image is to visually impaired users.
+
+in prev versions img used to be closed with /> but with HTML5 just use >
+
+%20 = space in links so better use _
+
+<a href='/'>home page</a>
+Root-relative link, server related
+
+Link attributes
+download: treat the linked url as a download
+href, can use tel:, mailto:, 
+ping
+refer
+rel
+target, _self(current context), _blank(new tab), _parent(parent of current context), _top(highest context that's an ancestor of the current one)
+charset
+type
+coords
+href lang
+shape
+rev
+name
+
+The content inside a link should indicate where the link goes, even out of context.
+
+
+Images
+jpg is not transparent
+png transparency
+svg vector based graphics format, scale without loss of quality
+
+defining height or width, one will make the other adjust
+width='75' unless you want to stretch can use both
+
+        &lt; &gt; and &amp;. //< > &
+        &ldquo; &rdquo; &lsquo; &rsquo; " " ' '
+
+        UTF-8 character set, any character directly into the HTML document
+        <meta charset='UTF-8'/>
+
+
+Commit every time you have a meaningful change in the code. 
+This will create a timeline of your progress
+
+commit messages should be concise and clear
+commit message shows whether a developer is a good collaborator.
+what information the message should/should not contain
+style: Markup syntax, wrap margins, grammar, capitalization, punctuation, simplicity
+
+> 50 chars first line as a(subject line) summarizing the change
+> capitalize the subject line first letter, no period
+blank like
+> around 72 characters body
+>Result
+
+take a look at changes:
+git show, git diff, git log -p
+
+prints out just the subject line:
+git log --oneline, git shortlog
+
+
+> Make context of header, blank line, Body in outside note and copy it
+
+Shortcuts:
+Q to quit, 
+Z to end of log
+
+> use imperative mood in the subject line, like Clean your room, Close the door
+If applied, this commit will (your subject line here)
+
+Accessing your html file online with Github
+Github > repo > settings > pages > branch(none>main)
+
+
+Extra 
+
+
+<em> and <strong> are used by the html markup to define the type of content
+and can be changed, but <i> <b> are used for presentation purposes like css
+
+avoid using <br/> <hr/> beside each other much as they convey meaning, instead use css for that task
+self closing elements
+
+The trailing slash (/) in all empty HTML elements is entirely optional.
+like br and hr
+
+
+// Semantic HTML, idea all HTML markup //
+convey the underlying meaning of content not appearance
+search engines, screen readers identify different parts of website
+
+
+sectioning elements, divs but with a meaning
+
+<header> <nav>
+<aside>
+<article> <figure>
+<footer>
+
+
+<article> is a mini webpage within your document
+    it has its own headers, footers, document outline isolated from rest of site's outline
+    blog posts can be wrapped inside articles
+    shows for the engines and apps as a self contained unit
+
+<section> like articles but doesn't make sense for apps etc
+    it has its own headers, footers, document outline isolated from rest of site's outline
+    to contain and wrap for layout purposes, only
+    and descriptive than div
+    should contain at least one heading otherwise its untitled
+
+    <section>
+        content and tags here
+    <section>
+
+    <section>
+        content and tags here
+    <section>
+
+
+the <h1> , contribute to the page's document outline
+    but not <p>
+
+    this is the outline, it subs the less level elements
+    <h1>
+        <h2>
+            <h3>
+            <h3>
+        <h2>
+
+    <article>
+        <section> inside it in html
+
+    /////////////////////////////////////////////////////
+    <nav> 
+    various navigation sections
+    main site, links, related pages in sidebar, tables of content
+    any group of links
+    can include multiple nav elements if have different sets of related links
+
+    <nav>
+        <ul>
+            <li><li><li>
+        <ul>
+    </nav
+
+
+    /////////////////////////////////////////////////////
+    <header>
+    introductory content for a section, article, entire web page
+    for different parts of the document
+    from company's logo to navigational aids or author info
+    put in it website's logo, name, main navigation
+
+    <article> <header> <h1> <p>
+
+
+    /////////////////////////////////////////////////////
+    <footer>
+    same as headers, come at end of an article/website
+    copyright notices, footer navigation, author bios in an article
+    for different parts of the document
+
+    /////////////////////////////////////////////////////
+    <aside>
+    contents of parts that don't want to make it take part
+    like an ad or something
+
+    /////////////////////////////////////////////////////
+    <div>
+    for layout purposes and flexing
+    to contain what is above
+    used when semantic tags are not 
+
+    /////////////////////////////////////////////////////
+    <time>
+    time of day or a calendar date
+    tells search engines that the article was published on this date
+
+    <time datetime='2017-1-3 15:00-0800'>January 3rd</time>
+    year-month-day time:time-timezone
+
+
+    <article>
+      <header>
+            <h1>Semantic HTML</h1>
+            <p>By Troy McClure. Published 
+                <time datetime='2017-1-3'>January 3rd</time>
+            </p>
+        </header>
+
+    
+
+
+-->
+
+
+<!DOCTYPE HTML>
+
+<HTML lang="en">
+
+
+    <head>
+
+        <title>
+            Etch-A-Sketch
+        </title>
+
+        <meta charset="UTF-8">
+        <meta name="description"   content="online course tool" />
+        <meta name="keywords"   content="courses" />
+        <meta name="author"   content="victor" />
+
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="etch.css">
+
+
+
+
+
+
+    </head>
+
+
+
+
+
+    <body>
+
+        <div class="pixel_container">
+
+        </div>
+
+        <button class="px_btn">
+            Add Pixels
+        </button>
+
+        <button class="reset_btn">
+            Reset
+        </button>
+
+        <p class="displayText">
+
+        </p>
+
+
+
+
+
+
+
+        <script src="etch.js">
+
+        </script>
+
+
+    </body>
+
+</HTML>
+

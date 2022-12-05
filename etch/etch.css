@@ -1,0 +1,36 @@
+
+
+html {
+
+
+}
+
+*, *::before, *::after {
+
+    margin: 0; 
+    padding: 0;
+
+}
+
+
+.pixel_container {
+
+    height: 320px;
+    width: 320px;
+    border: 1px solid blue;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+
+}
+
+.subDiv {
+
+    border: 0.1px dotted none;
+    box-sizing: border-box;
+    background-color: none;
+
+
+}
