@@ -69,3 +69,53 @@ let intensity;
         }
         console.log((subDivs.length * subDivs[1].length)+ " pixels");
 
+
+        /*////////////////////////////////////////////////////////////////////*/
+        /*////////////////////////////////////////////////////////////////////*/
+
+        //with each div created has an id of pixel
+        //add an mouse-click event on the pixel container (to save cpu) //find another solution
+        //the pixel/mouseover gets a black color
+        //the pixel has to be clicked
+        
+        let pixels = document.querySelectorAll("#pixel");
+
+
+        px_container.addEventListener("mousedown", () => {
+            
+            //reset intensity each time container is clicked
+
+            intensity = 255;
+
+            pixels.forEach(pixel => {
+                pixel.addEventListener("mouseover", trailinFunction, intensity);
+                //pixel.addEventListener("mouseout", trailoutFunction);
+            
+            });
+
+        
+        });
+
+}
+
+
+function trailinFunction (e) {
+   //console.log(e);
+   
+    let current_pixel = e.target;
+    if(e.buttons) {     //clicked
+        current_pixel.style.backgroundColor = `rgb(${intensity},0,0)`;
+
+    }
+
+    //decrease intensity with each new pixel
+    intensity-=10;
+
+}
+
+function trailoutFunction (e) {
+    // console.log(e.target);
+    let current_pixel = e.target;
+    current_pixel.style.backgroundColor = "white";
+
+}
