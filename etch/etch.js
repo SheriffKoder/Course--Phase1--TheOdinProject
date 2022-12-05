@@ -1,6 +1,9 @@
+
+
 let number_of_pixels = 16;
 let intensity;
 
+function gamePlay () {
 
         //get the pixel_container and show its height for subDivs Size
         let px_container = document.querySelector(".pixel_container");
@@ -15,7 +18,7 @@ let intensity;
 
 
 
-     /*////////////////////////////////////////////////////////////////////*/
+        /*////////////////////////////////////////////////////////////////////*/
         /*////////////////////////////////////////////////////////////////////*/
 
         //create a subDiv element with the new size as h/w and give border to show
@@ -70,6 +73,8 @@ let intensity;
         console.log((subDivs.length * subDivs[1].length)+ " pixels");
 
 
+
+
         /*////////////////////////////////////////////////////////////////////*/
         /*////////////////////////////////////////////////////////////////////*/
 
@@ -121,7 +126,6 @@ function trailoutFunction (e) {
 }
 
 
-
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 
@@ -148,5 +152,16 @@ function buttonClicked () {
     document.querySelector(".displayText").textContent = "mode : " + number_of_pixels2 + "px";
     number_of_pixels = number_of_pixels2;
 
+    gamePlay();
 }
 
+
+
+
+//add a reset button
+let resetButton = document.querySelector(".reset_btn");
+resetButton.addEventListener("click", resetClicked);
+
+function resetClicked () {
+
+}
