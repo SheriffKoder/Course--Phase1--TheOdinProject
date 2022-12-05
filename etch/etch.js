@@ -119,3 +119,34 @@ function trailoutFunction (e) {
     current_pixel.style.backgroundColor = "white";
 
 }
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+//add a button to prompt for number of pixels
+//maximum 32px
+//
+
+let buttonPixel = document.querySelector(".px_btn");
+buttonPixel.addEventListener("click", buttonClicked);
+
+function buttonClicked () {
+
+    let number_of_pixels2;
+
+    while ( (number_of_pixels2 > 32 || number_of_pixels2 == undefined) && number_of_pixels2 !== null) {
+        number_of_pixels2 = prompt("please enter pixel value less than 32");
+
+        //if (number_of_pixels2 == null) return 1;
+
+    }
+
+
+    console.log("number_of_pixels2 "+number_of_pixels2)
+    document.querySelector(".displayText").textContent = "mode : " + number_of_pixels2 + "px";
+    number_of_pixels = number_of_pixels2;
+
+}
+
