@@ -2513,7 +2513,10 @@ function filterItems(e) {
 
 
 
-/*///////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 /*
 
 
@@ -2552,13 +2555,235 @@ git push origin rps-ui      //use this now instead of > git push origin main
 
 
 
+You can add files, commit to this branch, and push changes to your repo, 
+just like you would with the main branch. Everything is the same 
+except when you push the changes, you’d use git push origin rps-ui 
+instead of git push origin main
+
+
+Steps to creating, editing, merging a branch
+git checkout -b rps-ui          //create new branch beside main
+git add .
+git commit -m
+git push origin rps-ui
+git checkout main               //switch to main
+git merge rps-ui                //merge current(main) with rps
+when asks for commit msg: press i, put message, esc, :wq, enter
+git push origin main            //normal push
+git branch -d rps-ui            //delete the branch from local repo
+git push --delete origin rps-ui //delete from repo on github
+
+
+//content uploaded from local branch to remote branch
+git push -u origin <local-branch-name>   
+git push -u <remote-repo> <local-branch-name> 
+-u : creates a tracking reference for every branch pushed, auto linking
+//auto link local branch you push with the remote one
+//allows use commands like git pull without arguments
+//remote-repo is origin on local system
+//remote-repo can be url
+//branch: the remote repository branch
+
+
+
+*/
 
 
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+creating objects
+accessing object properties
+multiple object operators
+powerful array functions
+
+
+data types, eight are primitive
+their values contain only a single thing
+
+////creating objects
+let user = new Object();    //object constructor
+let user = {};              //object literal
+
+let user = {
+  key/name/identifier: value,   //this line is property
+  "two word": value,            //multi words are quoted
+
+};
+
+uer.key;
+user["two word"];
+
+let key2 = "two word";
+user[key2];   //user["two word"]
+
+alert(key in user);   //true as key exists in user
+
+
+////creating object using prompt
+
+let name = prompt("enter fruit name", "apple");
+
+let bag = {
+  [name]: 5,
+  [name+"nameExtension"]: 5,
+  0 : "test",    //0 is converted to "" when calling
+  __proto__: "test",    //will cause issues
+
+  subObject: {
+    first: name,
+    second: type,
+  },
+
+
+
+
+
+}
+
+alert(bag.john);   //5 if name = john
+alert(bag.namenameExtension);
+
+bag[0] //correct call
+bag["0"] //correct call
+
+bag.subObject.first;
+
+
+
+
+////returning objects
+
+function makeUser (name,age) {
+  return {
+    name: name,
+    age: age,
+  }
+    or
+  return {
+    name,
+    age,
+  }
+
+}
+
+
+////
+
+for (let keys in user) {
+
+  alert(keys);
+
+}
+
+
+
+//ex
+function isEmpty (obj) {
+
+  for (let x in obj) {
+    return false; //if the loop did exist, then its not empty
+  }
+
+  return true;
+
+}
+console.log(isEmpty(user));
+
+
+//ex
+function multiplyNumeric(obj) {
+
+  for (let x in obj) {
+
+    console.log(x);
+    console.log(obj[x]);
+
+    if (!isNaN(Number(obj[x]))) {
+      obj[x]=obj[x]*2;
+    }
+  }
+
+  console.log(obj);
+
+}
+
+ 
+
+//transfer a series of structured related data
+//sending a request to the server to be put into a database
+//in a single object
+
+
+"" used for two words
+
+
+but
+[] used to access an unset variable
+let x="first";
+person.x; doesnt work
+person[x]; 
+
+function logProperty(propertyName) {
+  console.log(person[propertyName]["1"]);
+}
+
+//adding custom on the fly
+const myDataName = "height";
+const myDataValue = "1.75m";
+person[myDataName] = myDataValue;
+
+
+
+//object constructors
+//written with first capital 
+
+function createPerson(name) {
+  const obj = {};
+  obj.name = name;
+  obj.introduceSelf = function () {
+    console.log(`Hi! I'm ${this.name}.`);
+  };
+  return obj;
+}
+const salva = createPerson("Salva");
+salva.name;
+salva.introduceSelf();
+
+
+function Person(name) {
+  this.name = name;
+  this.introduceSelf = function () {
+    console.log(`Hi! I'm ${this.name}.`);
+  };
+}
+const salva = new Person("Salva");
+salva.name;
+salva.introduceSelf();
 
 
 
 
 */
+
+
+
+const person = {
+  name: ["Bob", "Smith"],
+  age: [31, 22],
+};
+
+function logProperty(propertyName) {
+  console.log(person[propertyName]["1"]);
+}
+
+logProperty("name");
+// ["Bob", "Smith"]
+logProperty("age");
+// 32
 

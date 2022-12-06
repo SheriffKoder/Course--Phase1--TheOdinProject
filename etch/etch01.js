@@ -5,6 +5,8 @@ let intensity;
 
 function gamePlay () {
 
+        console.time('fetching data');
+
         //get the pixel_container and show its height for subDivs Size
         let px_container = document.querySelector(".pixel_container");
         //query selector to work on class better than get by class name
@@ -100,6 +102,8 @@ function gamePlay () {
 
         
         });
+
+        console.timeEnd('fetching data');
 
 }
 

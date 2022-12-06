@@ -108,6 +108,8 @@ function eventStart () {
         });
 
         console.log("now you can draw");
+        console.timeEnd('fetching data');
+
 
 
 }
@@ -145,6 +147,7 @@ function eventStart () {
         if (GameObject["gameStart"]=== 0) {
 
         
+            console.time('fetching data');
 
             let number_of_pixels2;
 
