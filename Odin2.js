@@ -2802,21 +2802,33 @@ document.AnAvailableDocumentMethod
     //arrow function on a condition only no if no code, return true 
 
 
+    ////////////////////////////////////////
+    ////////////////////////////////////////
+
 
     ////map returns the array with each inventor changed to this stringconcat.
     const fullNames = inventors.map(inventor => (inventor.first + " " +inventor.last))
+
+
+    ////////////////////////////////////////
+    ////////////////////////////////////////
 
 
     ////sort
     //for each 2 items, a/b, if a > b , return1/put a before, 
     const ordered = inventors.sort ( (a,b) => a.year > b.year ? 1 : -1);
 
+
+    ////////////////////////////////////////
+    ////////////////////////////////////////
+
+
     //reduce
     //to calculate each life-span of each inventor in our array
     //build something on every single one
     //parameters 
-    //(what you returned from the function last time, each-inventor)
-    //the 0 is a parameter the starting total to build on
+    //(what you returned from the function last time every time, each-inventor)
+    //the 0 the total's value to start with
 
     let totalYears = inventors.reduce((total, inventor)=> 
           {return total+(inventor.passed - inventor.year)
@@ -2830,7 +2842,35 @@ document.AnAvailableDocumentMethod
     });
 
 
+    ////////////////////////////////////////
 
+
+    // ex. Reduce Exercise
+    // Sum up the instances of each of these
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const transportation = data.reduce(function(obj, item) {
+
+      //console.log(item);
+
+      if (!obj[item]){    //2.if obj not have this item
+        obj[item] = 0;    //put it in obj
+      }
+
+      obj[item]++;        //increase the this called item in obj
+
+      return obj; 
+
+
+    }, {
+        //1.leave initial empty as we dont know what is in the array
+    });
+
+    console.log(transportation);
+
+
+    ////////////////////////////////////////
+    ////////////////////////////////////////
 
 
     // ex. create a list of Boulevards in Paris that contain 'de' anywhere in the name
@@ -2846,6 +2886,101 @@ document.AnAvailableDocumentMethod
     //then filter the mapped to return what matches the text
     const de = links.map(link => link.textContent)
                     .filter(place => place.includes("Wall")); 
+
+
+    ////////////////////////////////////////
+    ////////////////////////////////////////
+
+
+
+    // ex. sort Exercise
+    // Sort the people alphabetically by last name
+    const alpha = people.sort(fnName4);
+
+    function fnName4 (lastOne, nextOne) {
+
+      const [aLast, afirst] = lastOne.split(", ");  
+      //rather than return a full array, return in two variables
+      const [bLast, bfirst] = lastOne.split(", ");  
+
+      return aLast > bLast ? 1 : -1;
+
+    }
+
+    ////////////////////////////////////////
+    ////////////////////////////////////////
+
+  //some checks for every item that we have 
+  //at least one item in your array has what you are looking for
+    //const isAdult = people.some(someFn);
+
+    const isAdult = people.some(person => (
+      (new Date()).getFullYear() - person.year >=19
+    ));
+    
+    //function returns true on person meeting this requirement
+    console.log({isAdult}); 
+    //putting between parenthesis, shows the item in question not just true
+
+
+    ////////////////////////////////////////
+
+    //every checks for every item that we have 
+    //all of them must have what you are looking for
+
+        const AllAdult = people.every(person => (
+      (new Date()).getFullYear() - person.year >=19
+    ));
+    console.log(AllAdult);
+
+
+    ////////////////////////////////////////
+    ////////////////////////////////////////
+
+    ////array.find() //array of objects with property id
+    //like filter, but returns the first item that it finds
+
+    const comment = comments.find(comment => comment.id === 823423);
+
+    function fnFind (comment) {
+
+      if (comment.id === 823423) {
+        return true;
+      }
+
+    };
+
+    console.log(comment);
+
+
+    ////////////////////////////////////////
+    ////////////////////////////////////////
+
+
+    //Array.findIndex
+    //find where something is inside an array
+
+    const index = comments.findIndex(comment => comment.id === 823423);
+
+    console.log(index);
+
+    ////////////////////////////////////////
+
+
+    //output into two arrays
+    //start 0 go until index, start index+1 and go until the end
+    //add ... to spread into one array
+    const newComments = [
+      ...comments.slice(0,index),  
+      ...comments.slice(index+1)
+
+    ];
+
+
+    ////////////////////////////////////////
+    ////////////////////////////////////////
+
+
 
 
 
