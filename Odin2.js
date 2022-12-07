@@ -2595,7 +2595,7 @@ git push -u <remote-repo> <local-branch-name>
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
-/*
+/* Objects
 
 creating objects
 accessing object properties
@@ -2769,21 +2769,87 @@ salva.introduceSelf();
 
 
 
+every time string is created it becomes an instance of String
+thus has several common methods and properties available on it
+
+myString.AnAvailableStringMethod
+document.AnAvailableDocumentMethod
+
+
+
 */
 
+/*////////////////////////////////////////////////////////////////////*/
+/* 06/12
+
+    //array.filter
+    //filter passes through each item in array containing objects
+    //as an inventor(each) to decide keep it or not
+    const fifteen = inventors.filter(functionName1);
+
+    function functionName1 (inventor) {
+      if (inventor.year >= 1500 && inventor.year < 1600) {
+        //arrayObjitem.property
+        return true;
+      }
+
+    }
+
+    //.table on an object returns a nice looking table representation
+    console.table(fifteen);
+
+    const fifteen = inventors.filter( inventor => (inventor.year >= 1500 && inventor.year < 1600) );
+    //arrow function on a condition only no if no code, return true 
 
 
-const person = {
-  name: ["Bob", "Smith"],
-  age: [31, 22],
-};
 
-function logProperty(propertyName) {
-  console.log(person[propertyName]["1"]);
-}
+    ////map returns the array with each inventor changed to this stringconcat.
+    const fullNames = inventors.map(inventor => (inventor.first + " " +inventor.last))
 
-logProperty("name");
-// ["Bob", "Smith"]
-logProperty("age");
-// 32
+
+    ////sort
+    //for each 2 items, a/b, if a > b , return1/put a before, 
+    const ordered = inventors.sort ( (a,b) => a.year > b.year ? 1 : -1);
+
+    //reduce
+    //to calculate each life-span of each inventor in our array
+    //build something on every single one
+    //parameters 
+    //(what you returned from the function last time, each-inventor)
+    //the 0 is a parameter the starting total to build on
+
+    let totalYears = inventors.reduce((total, inventor)=> 
+          {return total+(inventor.passed - inventor.year)
+    },0);
+
+    const oldest = inventors.sort(function(a,b) {
+        const lastGuy = a.passed - a.year;
+        const nextGuy = a.passed - a.year;
+        
+        return lastGuy > nextGuy ? -1 : 1;
+    });
+
+
+
+
+
+    // ex. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+    // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+
+
+    //go to webpage, check the items container's class which is mw-category
+    //get dom elements out of the page
+    const category = document.querySelector(".mw-category"); //a
+    const links = [...category.querySelectorAll("a")]; //"spread" every single item into an array
+
+    //de is a link changed to textContent only
+    //then filter the mapped to return what matches the text
+    const de = links.map(link => link.textContent)
+                    .filter(place => place.includes("Wall")); 
+
+
+
+
+*/
+
 
