@@ -6,7 +6,7 @@
     --button-text:rgba(246,250,251,255);
     --button-text-shadow: rgba(191,196,196,255);
     --button-2:rgba(145,190,50,255);
-    --button-background:rgba(68,68,66,255);
+    --button-background:rgb(121, 130, 131) ;
     
 
 
@@ -136,7 +136,7 @@
     width: 85%;
     border: 1px solid greenyellow;
     height: 88%;
-    margin-top:2% ;
+    margin-top: 3% ;
 
 
 
@@ -145,6 +145,35 @@
 .calc_buttons table tr td {
     border: 1px solid yellow;
     text-align: center;
-    padding-left: 2%;
+    padding: 0px;
 
+    height: 15%;
+    width: 15%;
+
+}
+
+.calc_buttons table tr td button {
+    margin-top: -7%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 75%;
+    width: 90%;
+    border-radius: 14%;
+    border: 2px solid black;
+    box-sizing: border-box;
+    background-color: var(--button-background);
+    color: var(--button-text);
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.calc_buttons table tr td button.ac_button, .calc_buttons table tr td button.del_button  {
+    background-color: var(--button-2);
+    font-size: 80%;
+    padding: 0;
+    padding-bottom: 2%;
 }
