@@ -1,0 +1,74 @@
+
+:root {
+
+    --lcd-font:rgba(53,74,113,255);
+    --button:rgba(121,120,125,255);
+    --button-text:rgba(246,250,251,255);
+    --button-text-shadow: rgba(191,196,196,255);
+    --button-2:rgba(145,190,50,255);
+    --button-background:rgba(68,68,66,255);
+    
+
+
+
+}
+
+
+.main_container {
+
+    height: 100vh;
+    width: 100vw;
+    background-image: url("./images/back.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+}
+
+
+.calc_container {
+    height: 84vh;
+    width: 40vh;
+    position: relative; /*allow image to be positioned 0 */
+
+    background-image: url("./images/cal.png");
+    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+/*
+.calc_container img {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+}
+*/
+
+.calc_head, .calc_lcd, .calc_empty, .calc_buttons {
+    width: 100%;
+    border: 1px solid red;
+    flex: 1;
+}
+
+.calc_head {
+    flex: 0.4;
+
+}
+.calc_lcd {
+    flex: 0.6;
+}
+
+.calc_empty {
+    flex: 1.05;
+}
+
+.calc_buttons {
+    flex: 0.95;
+}
