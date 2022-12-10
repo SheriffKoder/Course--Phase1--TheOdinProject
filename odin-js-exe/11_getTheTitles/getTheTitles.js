@@ -1,3 +1,9 @@
+/*
+const getTheTitles = function(array) {
+  return array.map(book => book.title);
+};
+*/
+
 const getTheTitle = function(input) {
 
     console.log(input[0].title);

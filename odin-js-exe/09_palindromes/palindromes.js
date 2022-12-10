@@ -1,3 +1,19 @@
+
+/*
+
+const palindromes = function(string) {
+  const processedString = string.toLowerCase().replace(/[^a-z]/g, "");
+  return (
+    processedString
+      .split("")
+      .reverse()
+      .join("") == processedString
+  );
+};
+
+
+*/
+
 const palindromes = function (input) {
 
     //make the input all letters only
@@ -55,3 +71,4 @@ const palindromes = function (input) {
 // Do not edit below this line
 
 module.exports = palindromes;
+
