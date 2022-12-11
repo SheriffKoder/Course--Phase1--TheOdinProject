@@ -1,0 +1,273 @@
+
+:root {
+    --box-Color: #0ff7;
+    --floor: 500px;             /**/
+    --perspective: -40vh;      /*angle -40vh*/
+    --border-color: rgb(0,0,0,0);
+    --calc-background:rgba(75,75,75,255);
+
+    --font-size: 20vh;          /*size of cube*/
+    --cube-width: 2em;
+    --cube-height: 4.2em;
+
+
+    --sides_percent: 5%;       /*thickness% from a cube*/
+    --sides: 5em;              /*same%value*/
+    --sides2: calc((var(--sides) / 100));
+    --basic: calc(var(--cube-width) - var(--sides2));
+    --remaining: calc(var(--cube-width) - var(--basic));
+
+    --basic2: calc(var(--cube-height) - var(--sides2) - 0.0em); /*for top and bottom */
+    --remaining2: calc(var(--cube-height) - var(--basic2) - 0.0em);
+
+
+}
+
+body {
+
+    background-color: none;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+
+}
+
+.objectcontainer1 {
+
+        height: 100vh;
+        width: 100vw;
+        background-image: url("./images/back.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        
+    }
+
+}
+
+
+.window { /*camera*/
+    perspective: 1300px;
+    perspective-origin: 50% var(--perspective);
+
+
+}
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+.scene {
+    position: relative;
+    font-size: var(--font-size);
+    transform-style: preserve-3d;
+
+    top: -2.5vh;
+
+}
+
+
+.scene:hover, .scene:focus {
+    animation: sceneRotate 2s 1 forwards linear;
+
+}
+
+.scene {
+    animation: entry 1.5s 1 forwards linear;
+    animation-delay: 1s ;
+
+}
+
+
+@keyframes sceneRotate {
+    0% { transform: rotateY(0deg); }
+    90% { transform: rotateY(-330deg); }
+    100% { transform: rotateY(-360deg) rotateX(0deg) rotateZ(0deg); }
+
+
+}
+
+@keyframes entry {
+    0% { 
+        top: -2.5vh;
+        left: 5vh;
+        transform: rotateY(-30deg) rotateX(45deg) rotateZ(15deg);
+        }
+    100% {
+        top: -2.5vh;
+        left: 0vh;
+        transform: rotateY(-0deg) rotateX(0deg) rotateZ(0deg);
+
+    }
+}
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
+.floor {
+    height: var(--floor);
+    width: var(--floor);
+    background: rgba(61, 61, 61, 0.0);
+    position: absolute;
+    transform: translate(-50%,-50%) rotateX(90deg) translateZ(0em);
+}
+
+.cube {
+    width: var(--cube-width);
+    height: var(--cube-height);
+
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translateX(calc(var(--cube-width)/-2)) translateY(calc(var(--cube-width)/-1));
+
+
+
+}
+
+/*
+.cube2 {
+    width: var(--cube-width);
+    height: var(--cube-height);
+
+    position: absolute;
+    transform-style: preserve-3d;
+    transform:  translateX(calc((calc(var(--cube-width)/-1)*2))) 
+                translateY(calc((calc(var(--cube-width)/-1)*1)))
+                translateZ(calc((calc(var(--cube-width)/1)*0.5)))
+                rotateY(45deg);
+    
+
+
+}
+*/
+/*////////////////////////////////////////*/
+
+.front, .back {
+    border-radius: calc(var(--font-size)/4);
+
+}
+
+.front, .back {
+
+    background: var(--box-Color);
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+}
+
+.front {
+
+    /*the width, basic 1em %*/
+    transform: rotateY(0deg) translateZ(var(--remaining));
+    border: 1px solid var(--border-color);
+
+}
+.back {
+
+    /*the width, basic 1em %*/
+    transform: rotateY(180deg) translateZ(var(--remaining));
+    border: 1px solid var(--border-color);
+
+}
+
+
+
+/*////////////////////////////////////////*/
+
+
+.left, .right {
+
+    background: var(--box-Color);
+
+    position: absolute;
+    height: 90%;
+    width: calc(var(--sides_percent) - 0.025em);
+
+}
+
+.left {
+    /*cube - the its width, basic 1em%*/
+    transform: rotateY(90deg) translateZ(calc(var(--basic) + 0.02em)) translateY(0.2em);
+    border: 1px solid var(--border-color);
+
+}
+.right {
+
+    /*the remaining from left, basic1em */
+    transform: rotateY(-90deg) translateZ(calc(var(--remaining) - 0.00em)) translateY(0.2em);
+    border: 1px solid var(--border-color);
+
+}
+
+
+.top, .bottom {
+
+    background: var(--box-Color);
+
+    position: absolute;
+    height: calc(var(--sides)/50);
+    width: 85%;
+
+}
+
+.top {
+        /*the remaining from bottom, basic1em */
+
+    transform: rotateX(90deg) translateZ(var(--remaining2)) translateX(0.17em);
+}
+
+.bottom {
+        /*cube - its width, basic 1em%*/
+    transform: rotateX(-90deg) translateZ(var(--basic2)) translateX(0.17em);
+
+}
+
+
+
+.top, .bottom, .left, .right, .back {
+    background: var(--calc-background);
+    
+}
+
+.front {
+    background: var(--calc-background);
+
+}
+
+.back {
+    box-shadow: inset 0px 0px 20px rgb(25, 25, 25);
+}
+
+
+.front2 {
+    transform: rotateY(0deg) translateZ(0.06em);
+    background-image: url(./images/cal.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+
+
+.front2 {
+    border: 1px solid var(--test-border);
+    display: flex;
+    flex-direction: column;
+
+}
+
