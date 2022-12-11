@@ -2981,10 +2981,221 @@ document.AnAvailableDocumentMethod
     ////////////////////////////////////////
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+//if a parameter is not specified, give a value
+function myFunction(x, y=5) {
+
+
+function sum(...args) 
+//infinite number of arguments as an array
+
+function findMax() 
+// arguments[i]
+
+
+
+    //
+
+
+
+// Revision on Reduce method //
+
+
+const inventors = [
+  { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+  { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+
+];
+//object is the first in test if not defined
+//so the next current person will be returned and will be the oldest
+//and what is returned is stored in the oldest (initial factor)
+
+//array.reduce(fn, values) , array.reduceRight
+//returns single value
+//initial value is first[0] item in array and iteration from array[1]
+//if value supplied iteration starts from array[0]
+
+
+const findTheOldest = inventors.reduce((oldest, currentPerson) => {
+
+    const currentAge = currentPerson.yearOfBirth - currentPerson.yearOfDeath;
+    const oldestAge = oldest.yearOfBirth - oldest.yearOfDeath;
+
+    if (oldestAge > currentAge) {
+      return oldest
+    }
+    else {
+      return currentPerson;
+    }
+    
+    
+  });
+
+  console.log(findTheOldest);
+
+
+*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+understanding the backend
+the browser cares about whether it has been sent a 
+properly formatted html, css, and javascript files
+
+HTTP request and send out some HTML
+
+if running on cloud, you may be restricted to those languages
+that your cloud provided has installed on their platform
+
+and avoid having the servers "borrowing" from can't understand your code
+
+languages like: PHP, C#, Ruby, Python, Java
+all those languages perform the same functions just using different syntax
+
+front-end languages live in the browser itself, so not need installation
+back-end languages must be installed to run
+
+we also installed nodejs previously
+
+
+////Frontend////
+JS is used to communicate with the back-end through API's
+for more advanced functionality
+
+Angular or React are used front end to make easier app building
+to focus more on the unique aspects of the web app
+
+also these skills are needed for front-end:
+Communicating with APIs (Application Programming Interfaces)
+Front-end web frameworks like Angular.js or React.js
+Cross-browser optimization
+Knowledge of user experience (UX) design for websites or web apps
+
+
+
+////Backend////
+application logic and data management
+
+Server: computer receives requests
+App: application running on the server that 
+      listens for requests
+      retrieves information from the database
+      sends a response
+Database: used to organize and persist data
+
+
+
+working with applications, databases, servers 
+to handle the application logic and data management functionality of a web app
+
+//Applications
+these technologies interact with the front end using APIs
+APIs developed using the back end languages 
+by backend developers for front end developers to integrate with them
+
+logic about how to respond to requests based on the http verb
+and the uniform resource identifier URI
+pairing these is called a route/routing
+using frameworks like Express or Ruby on Rails
+
+
+
+
+//Databases
+back-end developers interact with database management systems
+like PostgreSQL, SQL Server or MySQL
+Structured Query Language to read, write, modify and delete data
+at least know the basics even if using NoSQL database like MongoDB
+sorting all the date for the application
+
+//Servers
+Web Applications and databases are typically deployed on a server
+such as Apache or NGINX
+providing computing resources, data storage capabilities for running the app
+needs basic linux os knowledge to maintain the servers
+computer listens for incoming requests
+
+status codes indicate what happened when the server received the request
+
+
+
+
+//frameworks
+Django, flask offer basic capabilities for accepting http requests
+building web page templates and more
+
+
+so the back-end developer skills are:
+. backend language like python, java, php, js
+. building and maintaining APIs
+. backend frameworks like flask or django
+. SQL
+. knowledge of database management systems
+. common algorithms and data structures
+. basic server management
+
+
+it’s important to consider which aspect of web development 
+is a better fit for your talents, interest and passions
+as the numbers differ but not that much.
+
+backend learning ofter starts with learning front end as well
+to better collaborate
+
+backend skills can be me with js for front-end developers
+if it does not affect the interface
+
+////Full Stack Development
+web technology stacks include
+MEAN: MongoDB, Express, angular and Node
+LAMP: Linux, Apache, MySQL and PHP/Python
+JAMstack: javaScript, APIs and Markup
+
+
+*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+Modern websites are dynamic
+content generated on the fly, 
+one of more scripts that run on the web server each time the page is accessed
+scripts generate the content of the page
+sent to the user's web browser
+
+-processing incoming webpage request
+-running a script to generate HTML
+-accessing data from a database using SQL queries
+-storing or updating records in a database
+-encrypting and decrypting data
+-handling file uploads and downloads
+-processing user input via javascript
+
+
+code runs on the server
+receives requests from the clients
+contains the logic to send to the appropriate data back to the client
+
+clients: 
+browsers that make requests for the HTML and js codes to use
+mobile application, application running on another server, web enabled smart appliance
+
+
+
+
+
+
+
+
 
 
 
 
 */
-
 
