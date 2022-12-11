@@ -1,4 +1,3 @@
-
 :root {
 
     --lcd-font:rgba(76, 84, 190, 0.9);
@@ -9,56 +8,25 @@
     --button-background:rgb(121, 130, 131) ;
     
 
+    --test-border: none;
+    --test-border2: none;
+    --test-border3: none;
+    --test-border4: none;
 
-
-}
-
-
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-
-
-.main_container {
-
-    height: 100vh;
-    width: 100vw;
-    background-image: url("./images/back.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    
-}
-
-
-.calc_container {
-    height: 84vh;
-    width: 40vh;
-    position: relative; /*allow image to be positioned 0 */
-
-    background-image: url("./images/cal.png");
-    background-size: 100%;
-    display: flex;
-    flex-direction: column;
+    /*
+    --test-border: red;
+    --test-border2: none;
+    --test-border3: rgb(52, 241, 0);
+    --test-border4: yellow;
+    */
 
 }
-
-/*
-.calc_container img {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: -1;
-}
-*/
 
 .calc_head, .calc_lcd, .calc_empty, .calc_buttons {
     width: 100%;
-    border: 1px solid red;
+    border: 1px solid var(--test-border);
     flex: 1;
+    font-size: 10px;
 }
 
 
@@ -87,7 +55,7 @@
 
 
 .display_space {
-    border: 1px solid none;
+    border: 1px solid var(--test-border2);
     height: 60%;
     width: 76%;
     margin: auto;
@@ -107,7 +75,7 @@
 
     .writing_space, .result_space {
         width: 100%;
-        border: 1px solid none;
+        border: 1px solid var(--test-border2);
         flex: 1;
         padding-left: 1%;
 
@@ -134,7 +102,7 @@
 
 .calc_buttons table {
     width: 85%;
-    border: 1px solid greenyellow;
+    border: 1px solid var(--test-border3);
     height: 88%;
     margin-top: 3% ;
 
@@ -143,7 +111,7 @@
 }
 
 .calc_buttons table tr td {
-    border: 1px solid yellow;
+    border: 1px solid var(--test-border4);
     text-align: center;
     padding: 0px;
 
