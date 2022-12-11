@@ -3108,6 +3108,7 @@ using frameworks like Express or Ruby on Rails
 
 
 
+
 //Databases
 back-end developers interact with database management systems
 like PostgreSQL, SQL Server or MySQL
@@ -3123,6 +3124,9 @@ needs basic linux os knowledge to maintain the servers
 computer listens for incoming requests
 
 status codes indicate what happened when the server received the request
+might serve up an HTML file, send data as JSON
+or send back only an HTTP status code like 404
+indicating what happened when the server received the request
 
 
 
@@ -3187,11 +3191,65 @@ browsers that make requests for the HTML and js codes to use
 mobile application, application running on another server, web enabled smart appliance
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+API, collection of clearly defined methods of communication
+between different software components
+
+defined by the types of requests that it can handle
+which is determined by the routes that it defines
+and the types of responses that the client can expect 
+to receive after hitting those routes
 
 
+major websites with users all over the world 
+will have many different servers, 
+and direct users to the server closest to them
+
+1) url of product
+2) server redirection
+3) request received
+4) event listeners to HTTP verb GET of this product are triggered
+code runs on server between request and response, middleware
+
+5) server code makes a database query for info about this product
+6) server receives the data needed and ready to send
+the response header will contain an http status code 200 
+to indicate request success
+
+7) response travels across the internet to the client's computer
+9) client's computer receives the response and uses it to render
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*
+frameworks
 
+code libraries
+preventing code repetition, 
+gives organization and order to files using hierarchy
+standardize how developers write their code
+
+thus helping others understand out code
+focus on the features rather than the configurations
+
+typically open source
+
+frontend
+backend
+CSS
+
+choosing a ui framework
+comes to preference in appearance, goals of the site
+
+frontend frameworks
+in most cases written in javascript
+functionality, interactivity of your website
+
+backend
+different languages
 
 
 
