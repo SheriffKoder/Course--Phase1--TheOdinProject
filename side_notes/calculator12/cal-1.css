@@ -1,0 +1,179 @@
+
+:root {
+
+    --lcd-font:rgba(76, 84, 190, 0.9);
+    --button:rgba(121,120,125,255);
+    --button-text:rgba(246,250,251,255);
+    --button-text-shadow: rgba(191,196,196,255);
+    --button-2:rgba(145,190,50,255);
+    --button-background:rgb(121, 130, 131) ;
+    
+
+
+
+}
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+.main_container {
+
+    height: 100vh;
+    width: 100vw;
+    background-image: url("./images/back.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+}
+
+
+.calc_container {
+    height: 84vh;
+    width: 40vh;
+    position: relative; /*allow image to be positioned 0 */
+
+    background-image: url("./images/cal.png");
+    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+/*
+.calc_container img {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+}
+*/
+
+.calc_head, .calc_lcd, .calc_empty, .calc_buttons {
+    width: 100%;
+    border: 1px solid red;
+    flex: 1;
+}
+
+
+.calc_head {
+    flex: 0.4;
+
+}
+.calc_lcd {
+    flex: 0.6;
+}
+
+.calc_empty {
+    flex: 1.01;
+}
+
+.calc_buttons {
+    flex: 0.99;
+}
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
+
+.display_space {
+    border: 1px solid none;
+    height: 60%;
+    width: 76%;
+    margin: auto;
+
+    margin-top: 9%;
+
+    color: var(--lcd-font);
+    font-family: monospace;
+    font-weight: 500;
+
+    text-transform: uppercase;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+    .writing_space, .result_space {
+        width: 100%;
+        border: 1px solid none;
+        flex: 1;
+        padding-left: 1%;
+
+
+
+    }
+
+    .result_space {
+        text-align: end;
+        padding-right: 1%;
+    }
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+.calc_buttons {
+    display: flex;
+    justify-content: center;
+
+}
+
+.calc_buttons table {
+    width: 85%;
+    border: 1px solid greenyellow;
+    height: 88%;
+    margin-top: 3% ;
+
+
+
+}
+
+.calc_buttons table tr td {
+    border: 1px solid yellow;
+    text-align: center;
+    padding: 0px;
+
+    height: 15%;
+    width: 15%;
+
+}
+
+.calc_buttons table tr td button {
+    margin-top: -7%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 75%;
+    width: 90%;
+    border-radius: 14%;
+    border: 2px solid black;
+    box-sizing: border-box;
+    background-color: var(--button-background);
+    color: var(--button-text);
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.calc_buttons table tr td button.ac_button, .calc_buttons table tr td button.del_button  {
+    background-color: var(--button-2);
+    font-size: 80%;
+    padding: 0;
+    padding-bottom: 2%;
+}

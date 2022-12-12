@@ -21,7 +21,7 @@ relative to root by default which is 16px by default
     box-sizing: border-box;
 }
 
-.body {
+body {
     margin: 0;
 }
 
