@@ -207,10 +207,46 @@ its human readable
 xml can be inserted within html code
 and treated with css
 
+used for simple images not high textures
+
+/*/////////////////////////////////*/
+Tags:
+xmlns
+xml namespace, necessary to render svgs correctly
+
+viewbox 
+bounds of the used svg
+aspect ratio and origin of the svg
+
+class,id
+
+elements 
+such as circle, rect, path, text 
+basic building blocks
 
 
+*Embedding SVG's*
+can be linked 
+using url like a normal image but the contents wont be accessible 
+
+inline
+using full potential 
+but if complex code can take time to load or harder to read and page less cacheable
+these drawbacks can be avoided using React or build tool like webpack
+use inline when want to tweak
 
 
+SVG filters tutorial
+Animations with SMIL in SVG
+Creating fonts in SVG
+
+SVG supports gradients, rotations, filter effects, 
+animations, interactivity with JavaScript
+
+
+The SVG file can be referenced with an object/iframe elements:
+<object data="image.svg" type="image/svg+xml"></object>
+<iframe src="image.svg"></iframe>
 
 
 
@@ -230,8 +266,52 @@ and treated with css
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
+    <link rel="stylesheet" href="Odin3.css">
+
 <body>
     
+<!--////////////////////////////////////////////////////////////////////////-->
+<!-- svg -->
+        <svg viewBox="0 0 50 70" xmlns="http://www.w3.org/2000/svg">
+        <circle id="myCircle" cx="5" cy="5" r="4" stroke="lightblue" />
+
+        <filter id="filter1">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+        </filter>
+        <use href="#myCircle" x="10" fill="blue" />
+        <use href="#myCircle" x="20" fill="white" stroke="red" filter="url(#filter1)" />
+        <animate
+      attributeName="rx"
+      values="0;5;0"
+      dur="10s"
+      repeatCount="indefinite" />
+        <!--for use tag
+            clip-path, clip-rule, color, color-interpolation, 
+            color-rendering, cursor, display, fill, fill-opacity, 
+            fill-rule, filter, mask, opacity, pointer-events, 
+            shape-rendering, stroke, stroke-dasharray, 
+            stroke-dashoffset, stroke-linecap, stroke-linejoin, 
+            stroke-miterlimit, stroke-opacity, stroke-width, 
+            transform, vector-effect, visibility
+
+        animate tag
+
+        g tag to group elements together
+
+
+        -->
+        <br>
+        <span class="material-symbols-outlined">
+            menu
+            </span>
+
+
+            
+
+
+
+
+
+
 </body>
 </html>
