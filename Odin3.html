@@ -67,11 +67,29 @@ url source of it given using the cite attribute
 
 
 
-
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 Emmet
 
+x>y                 child
+y.class-name        add class name
+class-name$         $ numbered
+y|t                 trim
+{text},{$#}         inner text
++                   inner child
+.yyyy               div
+[title=]            attribute
 ul>li*5 
+$#                  of selected text
+XX 01               space and double $$
++                   sibling
+>                   child
+^                   endchild tree/new line
+(x>y)+z             group
+
+
 
 
 wrap text in emmet code
@@ -96,9 +114,76 @@ ul >
     li title=content > content >img[alt=content]
 
 
+/*/////////////////////////////////*/
+
+
+ul>li*>{$#}+.
+
+ul of li's with same-text-content and div
+
+
+changed emmet remove to : shift+r
+changed emmet wrap-abbreviation to : shift+w
+changed emmet select/balance to : cmd+i or o
+cmd+/ for comment out
+~evaluate math expression in html
+
+write the TAG.class press enter !!
+button + enter
+a + enter
+div or just . + enter
+
+
+2 classes one id
+div.class1.class2#one_id
+
+to create a div
+just write
+.class
+[attr=]
+
+xDivs of type=one attr
+[type=one]*
+
+
+
+
+
+header>nav>ul.list>li*5#button{button $$}
+
+header.one>nav^header.two
+(header.one>nav)+header.two
+
+form with post method, with div(group) with label and input
+form:post>(.group>label+input:text)+(.group>label+input:number)
+
+
+link:css
+link:touch
+
+input:password
+
+
+CSS
+w10%        width of 10%
+w10         width of 10px
+bgc         background-color
+pos:a
+bg+
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
+
+
 -->
-
-
 
 
 
