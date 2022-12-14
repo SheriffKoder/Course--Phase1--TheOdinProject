@@ -4,8 +4,27 @@ Metadata, information about the page
 styles, scripts, data to help search-engines/browsers etc 
 use and render the page
 
-<base> the base url to use for all relative URL's in a document
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+<base href="https://example.com"> in header
+the base url to use for all relative links in the html document
 only one base
+if no base element, then the base uri defaults to location.href
+
+<base href="images/" />
+<img src="logo.png" alt="logo" width="200"
+//does not exist in the root directory in images dir
+//images is infront of all relative links
+
+
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+<link>
+used for stylesheets, also favicon, also home screen app mobile devices icon
+
+
+
 
 
 Content Sectioning Elements identify sections of content
@@ -29,15 +48,22 @@ navigation links either within the document or to other documents
 like ...,indexes and menus
 
 <section>
-generic standalone section of a document
-not have a more specific semantic element to represent it
+represents a generic standalone section of a document
+that not have a more specific semantic element to represent it
 should always have a heading
+
+
 
 
 Text content
 ////////////////////////////////////////////////////////
 to organize blocks or sections of content placed within the body
 important for accessibility and SEO
+
+<blockqoute>
+indicates that the enclosed text is an extended quotation
+url source of it given using the cite attribute
+
 
 
 
