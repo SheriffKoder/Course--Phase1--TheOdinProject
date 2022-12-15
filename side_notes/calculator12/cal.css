@@ -7,18 +7,18 @@
     --button-2:rgba(145,190,50,255);
     --button-background:rgb(121, 130, 131) ;
     
-
+/*
     --test-border: none;
     --test-border2: none;
     --test-border3: none;
     --test-border4: none;
-
-    /*
+*/
+    
     --test-border: red;
     --test-border2: none;
     --test-border3: rgb(52, 241, 0);
     --test-border4: yellow;
-    */
+    
 
 }
 
@@ -75,9 +75,10 @@
 
     .writing_space, .result_space {
         width: 100%;
-        border: 1px solid var(--test-border2);
+        border: 1px solid var(--test-border3);
         flex: 1;
         padding-left: 1%;
+        font-size: calc(var(--cube-width)/1.2);
 
 
 
@@ -121,17 +122,19 @@
 }
 
 .calc_buttons table tr td button {
-    margin-top: -7%;
+    margin-top: -12%;
     margin-left: auto;
     margin-right: auto;
-    height: 75%;
-    width: 90%;
+    height: calc(var(--cube-width)/1.15);
+    width: calc(var(--cube-width)*1.1);
     border-radius: 14%;
     border: 2px solid black;
     box-sizing: border-box;
     background-color: var(--button-background);
     color: var(--button-text);
 
+    font-size: calc(var(--cube-width)/1.2);
+    overflow-x: hidden;
 
     display: flex;
     justify-content: center;
@@ -141,7 +144,8 @@
 
 .calc_buttons table tr td button.ac_button, .calc_buttons table tr td button.del_button  {
     background-color: var(--button-2);
-    font-size: 80%;
+    font-size: calc(var(--cube-width)/1.2);
     padding: 0;
     padding-bottom: 2%;
+
 }
