@@ -77,3 +77,6 @@ caption-side: top/bottom/left/right
 }
 */
 
+table, tr, th, td {
+    border: 1px solid black;
+  }

@@ -172,6 +172,24 @@ pos:a
 bg+
 
 
+-->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Odin3.css">
+
+<body>
+    
+<!--////////////////////////////////////////////////////////////////////////-->
+<!-- SVG
 
 
 /*////////////////////////////////////////////////////////////////////*/
@@ -280,35 +298,8 @@ document.documentElement.style.cssText =
 filters like: blur, contrast, hue-rotate
 
 
-
-
-
-
-*/
-
-
-
-
-
-
 -->
 
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="Odin3.css">
-
-<body>
-    
-<!--////////////////////////////////////////////////////////////////////////-->
-<!-- svg -->
 
 <!--
         <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
@@ -341,9 +332,127 @@ filters like: blur, contrast, hue-rotate
         -->
         <br>
 
-        <p>hi</p>
 
+
+<!-- TABLES
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+>colspan, rowspan attrs (space)
+>colgroup tag   (styling)
+>caption tag    (text)
+> thead, tbody, tfoot tags (order and grouping)
+> scope attr for th (accessibility)
+>. th id, td header attrs
+
+tables should not be used as a layout
+for accessibilit, 
+tables are sized according to their content by default
+
+td with no tr will be aligned beside each other
+
+table, table rows inc table headers/datas
+
+colspan, rowspan
+
+
+<table>
+    <colgroup>
+            <col />                                //first column
+        <col style="background-color: yellow" />  //specifies the second col for style
+    </colgroup>
+    then your tr and td's
+
+
+<thead></trhead>
+<tbody></
+<tfoot>
+align order of rows, use tbody{} in css
+
+
+scope attribute, which can be added to the <th> element to 
+tell screen readers exactly what cells the header is a header for
+and allows to read out the entire column or row at once
+
+<th scope="col"> <th scope="col"> <th scope="col">
+<th scope="row"> <td> <td> ..
+    scope colgroup, rowgroup
+
+
+UX tips:
+avoid center alignment, word duplication
+align words to left
+digits, align to right, monospace
+dates/postal/phones can be left aligned
+
+
+-->
+
+
+
+        <table>
+            <caption>
+                Table Caption
+              </caption>
+            <colgroup>
+                <col style="background-color: yellow" />
+                <col />
+              </colgroup>
+
+              <tbody>
+                <tr>
+                    <th>Hi, I'm your first first cell.</th>
+                    <td>I'm your second second cell.</td>
+                </tr>
+              </tbody>
+                
+              <thead>
+                <tr>
+                    <th scope="col">Hi, I'm your first cell.</th>
+                    <th scope="colgroup">I'm your second cell.</th>
+                </tr>
+            </thead>
+                
+                <tr>
+                    <th>Hi, I'm your first cell.</th>
+                    <td>I'm your second cell.</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">I'm your third cell.</td>
+
+                </tr>
+                    
+
+        </table>
             
+        <!-- table id/header associations 
+        alternative to using scope-->
+        <table>
+            <thead>
+                <tr>
+                  <th id="purchase">Purchase</th>
+                  <th id="location">Location</th>
+                  <th id="date">Date</th>
+                  <th id="evaluation">Evaluation</th>
+                  <th id="cost">Cost (€)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th id="haircut">Haircut</th>
+                  <td headers="location haircut">Hairdresser</td>
+                  <td headers="date haircut">12/09</td>
+                  <td headers="evaluation haircut">Great idea</td>
+                  <td headers="cost haircut">30</td>
+                </tr>
+              
+                …
+              </tbody>
+        </table>
 
 
 
