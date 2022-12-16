@@ -1,0 +1,79 @@
+/*
+
+will learn:
+speech
+UI
+pseudo class
+abs/relative measurement
+angles
+time
+frequency
+speech, cue:
+angles: deg, grad, rad, turn
+
+
+
+need to know:
+border-image*
+overflow-style: marquee-line / marqueeblock
+text-outline
+text-align-last
+white-space-collapse: preserve/collapse/pre-servebreaks/discard
+white-space: normal/pre/nowrap/pre-wrap/pre-line;
+text-emphasis: accent, dot,circle,dist, before,after
+text-indent: length/%
+text-justify: inter-word / interideograph / inter-cluster / distribute / kasinda / tibetan
+text-wrap: unresrricted / suppress
+animation > rotation: angle/rotation-point
+::first-letter
+::first-line
+colors > flavor/currentColor
+Attrubute selector
+General Sibiling
+bookmark-label
+image-resolution
+
+
+
+in case you didn't know:
+background-position: top center;
+background-repeat: repeat-x;
+background-attachement: scroll/fixed;
+overflow-x: scroll/visible/hidden/no-display/no-content
+font-size: xx-small; (n)ex //of elements font height 
+text-align: justify;
+word-break: keep-all/loose/break-strict/break-all
+list-style-type/position/image
+animation-play-state: running/paused
+vm //smaller of the h or w
+
+
+table> empty-cells: show/hide;
+border-spacing: length, length
+table-layout: fixed;
+caption-side: top/bottom/left/right
+
+
+
+
+
+
+
+
+
+
+
+*/
+
+/*////////////////////////////////////////////////////////////////////*/
+/*SVG*/
+
+/* fills and replaces all circle svg tags with red
+ Only the attributes x, y, width, height and href 
+ on the use element will override those set on the referenced element.
+
+ circle {
+    fill: red;
+}
+*/
+

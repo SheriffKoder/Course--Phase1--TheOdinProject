@@ -250,6 +250,43 @@ The SVG file can be referenced with an object/iframe elements:
 
 
 
+<svg width="200" height="200" viewBox="0 0 100 100">…</svg>
+
+These 200x200 pixels display an area that starts 
+at user unit (0,0) and spans 100x100 user units to the right 
+and to the bottom. This effectively zooms in on the 100x100 
+unit area and enlarges the image to double size.
+
+can also specify an external stylesheet for your CSS rules
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+16/12
+
+svg fonts are supported in safari and android browser only
+
+custom svg animations are developed using figma
+
+
+On macOS: Command+Shift+P
+search > Show Animations
+
+
+document.documentElement.style.cssText = 
+`--dark-color:${randomfn()};`
+
+
+filters like: blur, contrast, hue-rotate
+
+
+
+
+
+
+*/
+
+
 
 
 
@@ -272,7 +309,9 @@ The SVG file can be referenced with an object/iframe elements:
     
 <!--////////////////////////////////////////////////////////////////////////-->
 <!-- svg -->
-        <svg viewBox="0 0 50 70" xmlns="http://www.w3.org/2000/svg">
+
+<!--
+        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
         <circle id="myCircle" cx="5" cy="5" r="4" stroke="lightblue" />
 
         <filter id="filter1">
@@ -301,10 +340,8 @@ The SVG file can be referenced with an object/iframe elements:
 
         -->
         <br>
-        <span class="material-symbols-outlined">
-            menu
-            </span>
 
+        <p>hi</p>
 
             
 
