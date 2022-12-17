@@ -151,3 +151,19 @@
     padding-bottom: 2%;
 
 }
+
+.calc_buttons table tr td button.top-left {
+    border-top-left-radius: 30px;
+}
+
+.calc_buttons table tr td button.top-right {
+    border-top-right-radius: 30px;
+}
+
+.calc_buttons table tr td button.bottom-right {
+    border-bottom-right-radius: 30px;
+}
+
+.calc_buttons table tr td button.bottom-left {
+    border-bottom-left-radius: 30px;
+}
