@@ -18,6 +18,8 @@
     --test-border2: none;
     --test-border3: rgb(52, 241, 0);
     --test-border4: yellow;
+
+    --button-edge-curve: calc(var(--font-size)/15);
     
 
 }
@@ -105,7 +107,8 @@
     width: 85%;
     border: 1px solid var(--test-border3);
     height: 88%;
-    margin-top: 3% ;
+    margin-top: 2.5% ;
+    margin-left: +1.5%;
 
 
 
@@ -114,10 +117,18 @@
 .calc_buttons table tr td {
     border: 1px solid var(--test-border4);
     text-align: center;
-    padding: 0px;
+
+    position: relative;
+    left: -1.2%;
 
     height: 15%;
     width: 15%;
+
+}
+
+/*img alignment : buttons space are pushed to left except the last two as is */
+.calc_buttons table tr td + td + td + td {
+    left: 0%;
 
 }
 
@@ -153,17 +164,18 @@
 }
 
 .calc_buttons table tr td button.top-left {
-    border-top-left-radius: 30px;
+    border-top-left-radius: var(--button-edge-curve);
 }
 
 .calc_buttons table tr td button.top-right {
-    border-top-right-radius: 30px;
+    border-top-right-radius: var(--button-edge-curve);
 }
 
 .calc_buttons table tr td button.bottom-right {
-    border-bottom-right-radius: 30px;
+    border-bottom-right-radius: var(--button-edge-curve);
+
 }
 
 .calc_buttons table tr td button.bottom-left {
-    border-bottom-left-radius: 30px;
+    border-bottom-left-radius: var(--button-edge-curve);
 }
