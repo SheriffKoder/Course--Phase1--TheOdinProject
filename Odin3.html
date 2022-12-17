@@ -23,6 +23,59 @@ if no base element, then the base uri defaults to location.href
 <link>
 used for stylesheets, also favicon, also home screen app mobile devices icon
 
+<link rel="icon" href="favicon.ico" />
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="114x114"
+  href="apple-icon-114.png"
+  type="image/png" />
+
+can also provide media scope
+<link
+  href="mobile.css"
+  rel="stylesheet"
+  media="screen and (max-width: 600px)" />
+
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+<meta>
+
+charset: 
+document's character encoding
+
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+<style>
+
+//style with media query
+<style media="all and (max-width: 500px)">
+    p {
+        color: blue;
+        background-color: yellow;
+    }
+</style>
+
+
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+<title>
+for SEO a longer, descriptive title performs 
+better than short or generic titles.
+it affects search results
+
+
+more than 2 words
+keep between 55-60 chars otherwise its not displayed if not put earlier
+
+example
+<title>Menu - Blue House Chinese Food - FoodYum: Online takeout today!</title>
+
+
+
 
 
 
@@ -352,10 +405,10 @@ filters like: blur, contrast, hue-rotate
 >caption tag    (text)
 > thead, tbody, tfoot tags (order and grouping)
 > scope attr for th (accessibility)
->. th id, td header attrs
+>. th id, td header attrs (linking)
 
 tables should not be used as a layout
-for accessibilit, 
+for accessibility, 
 tables are sized according to their content by default
 
 td with no tr will be aligned beside each other
@@ -367,8 +420,8 @@ colspan, rowspan
 
 <table>
     <colgroup>
-            <col />                                //first column
-        <col style="background-color: yellow" />  //specifies the second col for style
+        <col />                                     //first column
+        <col style="background-color: yellow" />    //specifies the second col for style
     </colgroup>
     then your tr and td's
 
@@ -466,10 +519,57 @@ dates/postal/phones can be left aligned
 <!--////////////////////////////////////////////////////////////////////////-->
 <!--////////////////////////////////////////////////////////////////////////-->
 <!--////////////////////////////////////////////////////////////////////////-->
+<!--
+Default Browser Styles
 
+
+Some takeouts
+
+hr {
+    display: block;
+    -webkit-margin-before: 0.5em;
+    -webkit-margin-after: 0.5em;
+    -webkit-margin-start: auto;
+    -webkit-margin-end: auto;
+    border-style: inset;
+    border-width: 1px
+}
+
+
+    -webkit-appearance: textfield/button/slider-horizontal/sliderthumb-horizontal/menulist/meter/progress-bar;
+    -webkit-appearance: inner-spin-button;
+    align-self: stretch;
+    -webkit-user-select: none;
+    -webkit-user-modify: read-only !important;
+    pointer-events: none;
+    -webkit-text-security: disc !important;
+
+    input[type="button" i] {
+
+    }
+
+
+    some use a CSS reset file, like Meyer Reset, Mormalize.css
+
+     A CSS reset would apply new padding to that element, so that all browsers are consistent about what they apply.
+
+
+
+
+-->
+
+
+<!--////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////-->
 <!--
 
-    
+
+
+
+
+
 -->
 
 
