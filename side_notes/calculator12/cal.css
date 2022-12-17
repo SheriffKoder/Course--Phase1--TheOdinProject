@@ -15,7 +15,7 @@
 */
     
     --test-border: red;
-    --test-border2: none;
+    --test-border2: rgba(255, 255, 255, 0.588);
     --test-border3: rgb(52, 241, 0);
     --test-border4: yellow;
 
@@ -95,7 +95,7 @@
 
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
-
+/* number buttons */
 
 .calc_buttons {
     display: flex;
@@ -144,7 +144,6 @@
     background-color: var(--button-background);
     color: var(--button-text);
 
-    font-size: calc(var(--cube-width)/1.2);
     overflow-x: hidden;
 
     display: flex;
@@ -179,3 +178,104 @@
 .calc_buttons table tr td button.bottom-left {
     border-bottom-left-radius: var(--button-edge-curve);
 }
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
+.calc_empty {
+    display: flex;
+    justify-content: center;
+
+}
+
+.calc_empty table {
+    width: 85%;
+    border: 1px solid var(--test-border3);
+    height: 90%;
+    margin-top: 5% ;
+    margin-left: 1%;
+
+
+
+}
+
+
+.calc_empty table tr td {
+    border: 1px solid var(--test-border2);
+    text-align: center;
+
+    position: relative;
+    left: 0;
+
+    height: 10%;
+    width: 10%;
+
+}
+
+.calc_empty table tr:nth-child(even) {
+
+}
+
+/*img alignment : buttons space are pushed to left except the last two as is */
+.calc_empty table tr td + td + td + td {
+    left: 0%;
+
+}
+
+.calc_empty table tr td button {
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+     /* height: calc(var(--cube-width)/3);
+    width: calc(var(--cube-width)/1); */
+    border-radius: 14%;
+    border: 2px solid black;
+    box-sizing: border-box;
+    background-color: var(--button-background);
+    color: var(--button-text);
+
+    overflow-x: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: calc(var(--font-size)/16);
+
+    display: none;
+
+
+}
+
+.calc_empty table tr td button.column-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+.calc_empty table tr td button.top-left {
+    border-top-left-radius: var(--button-edge-curve);
+}
+
+.calc_empty table tr td button.top-right {
+    border-top-right-radius: var(--button-edge-curve);
+}
+
+.calc_empty table tr td button.bottom-right {
+    border-bottom-right-radius: var(--button-edge-curve);
+
+}
+
+.calc_empty table tr td button.bottom-left {
+    border-bottom-left-radius: var(--button-edge-curve);
+}
+
+
+
