@@ -43,25 +43,55 @@ console.log(buttons);
 buttons.forEach(button => {
     button.addEventListener("click", (e)=>{
 
-        let valueGot = e.target.innerHTML;
-        
-        if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) ) {
-            //not and equal and is number or arithmetic
-            if ((!signBefore(text_string)) || ((signBefore(text_string)) && Number(valueGot)) )  {     
-                //no sign was put before, if sign before accept only digits
-                console.log(valueGot);
-                text_string += valueGot;
-                text_space.textContent = text_string;
-            }
-        }
-        else if (valueGot == "=") {     //an equal
-            console.log("its an equal");
-        }
-        else if (valueGot == "ANS") {   //calc buttons
-            console.log("its an ANS");
-        }
+        //let valueGot = e.target.innerHTML;
+        buttonSwitch(e.target.innerHTML);
     })
 });
+
+window.addEventListener("keydown", (e) => {
+
+    buttonSwitch(e.key);
+});
+
+
+/*////////////////////////////////////////////////////////////////////*/
+
+
+function buttonSwitch (valueGot) {
+
+    if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) ) {
+        //not and equal and is number or arithmetic
+        
+        
+        if ((!signBefore(text_string)) || ((signBefore(text_string)) && Number(valueGot)) )  {     
+            //no sign was put before, if sign before accept only digits
+            console.log(valueGot);
+            text_string += valueGot;
+            text_space.textContent = text_string;
+        }
+    
+    
+    }
+
+
+
+    else if (valueGot == "=") {     //an equal
+        console.log("its an equal");
+    }
+    else if (valueGot == "ANS") {   //calc buttons
+        console.log("its an ANS");
+    }
+
+
+}
+
+
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
+
+
 
 
 
@@ -90,9 +120,11 @@ function signBefore(text) {
 
 }
 
-let text = "+";
-console.log(text[text.length-1]);
-console.log(signBefore(text));
+
+
+//let text = "+";
+//console.log(text[text.length-1]);
+//console.log(signBefore(text));
 
 //console.log(checkNaN("DEL"));
 //console.log(checkArith("DEL"));
