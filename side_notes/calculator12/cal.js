@@ -34,9 +34,11 @@ window.addEventListener("load", () =>{
 
 
 
-const buttons = document.querySelectorAll(".calc_buttons table tr td button");
+const buttons = document.querySelectorAll(".calc_buttons table tr td button, .calc_fn table tr td button");
+
 let text_string = "";
 let arithmetic = ["ONE","+","-","/","X","."];
+let brackets = ["ONE",")"];
 
 console.log(buttons);
 
@@ -59,12 +61,12 @@ window.addEventListener("keydown", (e) => {
 
 function buttonSwitch (valueGot) {
 
-    if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) ) {
-        //not and equal and is number or arithmetic
+    if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) || isBracket(valueGot)) {
+        //its a not-a-number/arithmetic OR number/not-arithmetic OR bracket
         
         
         if ((!signBefore(text_string)) || ((signBefore(text_string)) && Number(valueGot)) )  {     
-            //no sign was put before, if sign before accept only digits
+            //no sign/start was put before, if sign-before/start accept only digits
             console.log(valueGot);
             text_string += valueGot;
             text_space.textContent = text_string;
@@ -73,13 +75,26 @@ function buttonSwitch (valueGot) {
     
     }
 
+    //inserting a safe - open bracket (
+    else if ((valueGot === "(") && safeBracketOpening(text_string) && signBefore(text_string)) {
+        text_string += valueGot;
+        text_space.textContent = text_string;
+    }
+
+    else if ((valueGot === ")") && safeBracketClosing(text_string)) {
+        text_string += valueGot;
+        text_space.textContent = text_string;
+
+    }
 
 
     else if (valueGot == "=") {     //an equal
         console.log("its an equal");
     }
-    else if (valueGot == "ANS") {   //calc buttons
-        console.log("its an ANS");
+    else if (valueGot == "AC") {   //calc buttons
+        text_string = "";
+        text_space.textContent = text_string;
+
     }
 
 
@@ -105,6 +120,11 @@ function checkNaN (n) {
 function checkArith(n) {
     return (arithmetic.indexOf(n) > 0 );
 }
+
+function isBracket(n) {
+    return (brackets.indexOf(n) > 0 );
+}
+
 function checkEqual(n) {
     return (n === "=")
 }
@@ -119,7 +139,53 @@ function signBefore(text) {
     }
 
 }
+/*
+function ArithBefore (text) {
+    if (!checkArith(text[text.length-1]) || text == "" ) {
+        return false;
+    }
+    else {
+        return true;
+    }
 
+}
+*/
+
+function safeBracketOpening (text) {
+
+    //find finds the first it finds,
+    //find from last index to start so we reversed
+    let bracketClosed = text.split("").reverse().find((i)=> i == ")");
+    let bracketOpened = text.split("").reverse().find((i)=> i == "(");
+    
+    if (bracketClosed || !bracketOpened) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+
+function safeBracketClosing (text) {
+    let bracketClosed = text.indexOf(")");
+    let bracketOpened = text.indexOf("(");
+    let Arith = checkArith(text[text.length-1]);
+    let NumBefore = Number(text[text.length-1]);
+
+    if ((bracketOpened < bracketClosed) && !Arith && NumBefore) {
+        return true;
+    }    
+    else {
+        return false;
+    }
+
+
+}
+
+let text = "(123)+(9)";
+console.log(safeBracketClosing(text));
 
 
 //let text = "+";
