@@ -1,4 +1,13 @@
 /*
+*Index*
+New
+SVG
+CSS Units
+Colors
+Fonts
+Shadows
+Borders
+
 
 will learn:
 speech
@@ -80,3 +89,145 @@ caption-side: top/bottom/left/right
 table, tr, th, td {
     border: 1px solid black;
   }
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+CSS Units
+Absolute units, like px
+cm, in preferably used in print setups
+
+1cm = 37.8px = 25.2/64in
+1in = 2.54cm = 96px
+
+
+
+
+Relative units
+em
+1rem is the font-size of the root element (either :root or html).
+
+ex: x-height of the element's font.
+lh: Line height of the element. rlh(root)
+
+vb, vi
+svw/h, lvw/h, dvw/h
+
+font-size percentage, will be percentage of parent's font size;
+width percentage, will be percentage of parent's width;
+
+
+Viewport Units
+useful for full-screen app-like interfaces.
+
+/* video: full-width * aspect-ratio
+.full-width {
+    width: 100vw;
+    height: calc(100vw * (9/16));
+  }
+
+
+
+
+  
+
+/* colors */
+/*
+<div class="wrapper">
+  <div class="box">I am a box with opacity</div>    //trsp to back
+</div> 
+
+
+hsl(188, 97%, 28%)
+Hue: The base shade of the color. This takes a value between 0 and 360, 
+representing the angles around a color wheel.
+
+Saturation: How saturated is the color? This takes a value from 0–100%, 
+where 0 is no color (it will appear as a shade of grey), 
+and 100% is full color saturation
+
+Lightness: How light or bright is the color? 
+This takes a value from 0–100%, where 0 is no light 
+(it will appear completely black) and 100% is full light 
+(it will appear completely white)
+
+
+  background-position: right 40px;  //40px from top
+  width: calc(30% + 100px);
+
+  functions in CSS
+  like rgb(), hsl(), url(), calc()
+
+
+
+  
+*/
+  
+
+/*////////////////////////////////////////////////////////////////////*/
+/* fonts 
+
+
+
+// font grows 1px for every 100px of viewport width
+font-size: calc(16px + 1vw);
+line-height: calc(1.2em + 1vw);
+
+can also use complex calculations like
+font-size: calc(16px + 6 * ((100vw - 320px) / 680));
+
+3 Types of using external fonts
+1) using link in style tag
+2) using @import in css file
+3) using @font-face to name a family and its src file
+
+
+letter-spacing: -0.15em;
+line-height: 
+text-transform
+
+//adding dots in end of overflowing text
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+*/
+/*////////////////////////////////////////////////////////////////////*/
+/* borders 
+
+
+
+border: thick double #32a1ce;
+border-style: dashed groove none dotted; // clockwise
+ridge and groove
+outset and inset
+double
+
+border-radius: 40% 20% 50% 40%; //blob shape
+border-radius: 50% 40%;
+
+border-radius: 10% / 50%;   //curved l/r shape (__)
+border-radius: 10px 100px / 120px;  //vista shape
+
+
+/* shadows
+
+
+//box-shadow: x y blur spread;
+inset: inwards above the bg but below the content
+To specify multiple shadows, provide a comma-separated list of shadows.
+
+
+
+
+
+
+*/
