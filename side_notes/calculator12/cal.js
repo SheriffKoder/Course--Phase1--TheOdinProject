@@ -51,7 +51,7 @@ buttons.forEach(button => {
 });
 
 window.addEventListener("keydown", (e) => {
-
+    console.log(e.key);
     buttonSwitch(e.key);
 });
 
@@ -62,11 +62,12 @@ window.addEventListener("keydown", (e) => {
 function buttonSwitch (valueGot) {
 
     if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) || isBracket(valueGot)) {
-        //its a not-a-number/arithmetic OR number/not-arithmetic OR bracket
+        //its a not-a-number/is arithmetic OR is number/not-arithmetic OR bracket
         
         
         if ((!signBefore(text_string)) || ((signBefore(text_string)) && Number(valueGot)) )  {     
-            //no sign/start was put before, if sign-before/start accept only digits
+            //no sign/start was put before (for arithmetics), 
+            //if sign-before/start accept only digits
             console.log(valueGot);
             text_string += valueGot;
             text_space.textContent = text_string;
@@ -96,7 +97,14 @@ function buttonSwitch (valueGot) {
         text_space.textContent = text_string;
 
     }
+    else if (valueGot == "DEL" || valueGot == "Backspace") {   //calc buttons
+        //console.log(text_string.length);
+        text_string = text_string.slice(0, -1);
+        //console.log(text_string.length);
 
+        text_space.textContent = text_string;
+
+    }
 
 }
 
