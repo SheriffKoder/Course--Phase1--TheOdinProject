@@ -38,7 +38,7 @@ const buttons = document.querySelectorAll(".calc_buttons table tr td button, .ca
 
 let text_string = "";
 let arithmetic = ["ONE","+","-","/","X","."];
-let brackets = ["ONE",")"];
+let brackets = ["ONE"];
 
 console.log(buttons);
 
@@ -51,7 +51,6 @@ buttons.forEach(button => {
 });
 
 window.addEventListener("keydown", (e) => {
-    console.log(e.key);
     buttonSwitch(e.key);
 });
 
@@ -61,11 +60,11 @@ window.addEventListener("keydown", (e) => {
 
 function buttonSwitch (valueGot) {
 
-    if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) || isBracket(valueGot)) {
+    if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) ) {
         //its a not-a-number/is arithmetic OR is number/not-arithmetic OR bracket
         
         
-        if ((!signBefore(text_string)) || ((signBefore(text_string)) && Number(valueGot)) )  {     
+        if ( !ArithBefore(text_string) || ((ArithBefore(text_string)) && Number(valueGot)) )  {     
             //no sign/start was put before (for arithmetics), 
             //if sign-before/start accept only digits
             console.log(valueGot);
@@ -78,11 +77,14 @@ function buttonSwitch (valueGot) {
 
     //inserting a safe - open bracket (
     else if ((valueGot === "(") && safeBracketOpening(text_string) && signBefore(text_string)) {
+        console.log("opened");
         text_string += valueGot;
         text_space.textContent = text_string;
     }
 
     else if ((valueGot === ")") && safeBracketClosing(text_string)) {
+        //console.log(safeBracketClosing(text_string));
+        
         text_string += valueGot;
         text_space.textContent = text_string;
 
@@ -98,10 +100,7 @@ function buttonSwitch (valueGot) {
 
     }
     else if (valueGot == "DEL" || valueGot == "Backspace") {   //calc buttons
-        //console.log(text_string.length);
         text_string = text_string.slice(0, -1);
-        //console.log(text_string.length);
-
         text_space.textContent = text_string;
 
     }
@@ -139,17 +138,17 @@ function checkEqual(n) {
 
 function signBefore(text) {
     
-    if (Number(text[text.length-1]) || text == "" ) {
-        return false;
+    if (ArithBefore(text) || text == "" || (text[text.length-1] == "(" ) ) {
+        return true;
     }
     else {
-        return true;
+        return false;
     }
 
 }
-/*
+
 function ArithBefore (text) {
-    if (!checkArith(text[text.length-1]) || text == "" ) {
+    if (!checkArith(text[text.length-1]) ) {
         return false;
     }
     else {
@@ -157,7 +156,7 @@ function ArithBefore (text) {
     }
 
 }
-*/
+
 
 function safeBracketOpening (text) {
 
@@ -169,11 +168,34 @@ function safeBracketOpening (text) {
     if (bracketClosed || !bracketOpened) {
         return true;
     }
+    else if (text === "") {
+        return true;
+
+    }
+    else if (text[text.length-1] == "(" ){
+        return true;
+
+    }
     else {
         return false;
     }
 
 }
+
+
+function NumberAfterLastOpened (text) {
+    let TextReverse = text.split("").reverse();
+    let bracketOpened = TextReverse.indexOf("(");
+    let lastIndex = TextReverse[bracketOpened-1];
+     
+    if (!isNaN(lastIndex) || lastIndex == "+" || lastIndex == "-") {
+        return true;
+    }
+}
+
+let text = "(2+1";
+
+console.log(NumberAfterLastOpened(text));
 
 
 function safeBracketClosing (text) {
@@ -181,20 +203,42 @@ function safeBracketClosing (text) {
     let bracketOpened = text.indexOf("(");
     let Arith = checkArith(text[text.length-1]);
     let NumBefore = Number(text[text.length-1]);
+    let OpenedCount = text.match(/[(]/g);
+    let ClosedCount = text.match(/[)]/g);
+    
+    //console.log("bracket opened at " + bracketOpened + " bracket closed at " + bracketClosed + " Arith " + Arith + " Numbefore "+ NumBefore);
 
-    if ((bracketOpened < bracketClosed) && !Arith && NumBefore) {
-        return true;
-    }    
+    if (!Arith && (OpenedCount !== null) && NumberAfterLastOpened(text) ) {
+        console.log(true);
+
+        if ( ((bracketClosed < 0) || (bracketOpened < bracketClosed)) && NumBefore) {
+            return true;
+        }
+        else if ((OpenedCount.length > 0) && ClosedCount == null) {
+            return true;
+        }
+        else if (OpenedCount.length > ClosedCount.length) {
+            return true;
+        }  
+        else {
+            return false;
+        }
+    }
     else {
+        console.log(false);
         return false;
     }
+    
+
 
 
 }
 
-let text = "(123)+(9)";
-console.log(safeBracketClosing(text));
+//console.log(safeBracketClosing(text));
+//let OpenedCount = text.match(/[(]/g);
+//let ClosedCount = text.match(/[(]/g);
 
+//console.log("Opened " + OpenedCount.length + "Closed " + ClosedCount.length);
 
 //let text = "+";
 //console.log(text[text.length-1]);
