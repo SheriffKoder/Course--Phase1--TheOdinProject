@@ -271,7 +271,7 @@ that send and receive
 
 
 GET - retrieve a specific/collection resources b id
-POST - create a new resource
+POST - create a new resource/update resource on the server
 PUT - update a specific resource by id
 DELETE - remove a specific resource by id
 
@@ -319,6 +319,10 @@ JavaScript libraries (such as jQuery, React.js, and Zepto.js)
 and frameworks (such as Angular, Vue, Backbone, and Ember) 
 for faster and easier web development.
 
+automation frameworks
+jest, enzyme, chai
+
+
 
 Backend Frameworks
 Ruby (Ruby on Rails)
@@ -329,6 +333,153 @@ Scala (Play)
 
 Node.js, a JavaScript runtime, is also used for backend programming.
 
+
+
+to develop a web application
+select: sever, database, programming language, framework
+and front-end tools
+
+realize what you are planning to build in order to puck the appropriate tools
+tool set provides unique advantages for you web application
+
+complexity, loads, latency
+Integration with third-party solutions
+Developer availability
+test easiness
+Developer salaries depending on technologies they work with
+Security apps
+Horizontal scalability > number of users growth
+Vertical scalability > new components adding without damaging its performance
+
+
+facilitate the development process and significantly reduce TTM
+Time to market
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+server side web frameworks, web application frameworks
+
+make it easier to write, maintain, scale web applications
+tools and libraries that simplify common web development tasks
+
+routing urls to appropriate handles
+interacting with databases
+supporting sessions and user authorization
+formatting output e.g html, json, xml
+improving security against web attacks
+
+frameworks > code > to work with https requests and responses
+
+interacting with easier hight level code
+rather than lower level networking primitives
+
+a framework provide simple mechanisms to map url patterns to specific handler functions
+as different resources accessible through distinct urls would be hard to maintain
+because you can change the url used to deliver a particular feature 
+without having to change the underlying code
+
+django can pass info encoded in the structure of the url by
+defining capture patterns in the url mapper
+
+
+
+
+
+abstraction layer is referred as an ORM
+object relational mapper
+database layer that abstracts database read, write, query and delete operations
+
+
+can replace the underlying database without necessarily needing
+to change the code that uses it
+
+basic validation of data can be implemented within the framework
+easier and safer to check that data is correct type of database field
+
+
+
+
+
+
+
+
+to consider when choosing a web framework
+effort to learn
+productivity  (purpose, opinionated, tools given, encouraging dev practices)
+performance
+caching support for high requests
+scalability
+web security
+
+
+Django - python
+rapid and clean development
+tools included
+fast, secure, very scalable
+easy to read and maintain
+good for blogs and news articles
+
+Flask - python
+flask is good for embedded items
+
+Express - nodejs/javascript
+fast, unopinionated, flexible
+browserless env for running js
+
+
+Deno - javascript
+built ontop of chrome v8 and rust
+support for webAssembly
+
+
+Ruby on Rails
+similar design and philosophy to django
+routing urls, accessing database, generating html, formatting data as JSON or XML
+do not repeat yourself patten
+mvc 
+
+Laravel - PHP
+ASP.NET
+Mojolicious - perl
+Spring boot -java
+
+
+
+
+LAMP (Linux, Apache, MySQL, PHP/Perl/Python) 
+is a package that contains a web server (Apache). 
+
+Frameworks are libraries help you develop faster
+
+
+
+learning how to program is much more than just learning a language
+its about learning 
+how to research, 
+solve difficult problems
+building an engineering mindset
+working on complex problems and code bases
+communicating effectively with other developers
+much more
+
+
+think about the task at hand as a programming problem, 
+not a language problem.
+
+
+
+
+
+*/
+
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*13/12
 
 
 
