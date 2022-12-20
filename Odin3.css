@@ -7,6 +7,10 @@ Colors
 Fonts
 Shadows
 Borders
+overflow using overflow, text-overflow, overflow-wrap, 
+                word-break, white-space, hyphens
+
+
 
 
 will learn:
@@ -225,9 +229,123 @@ border-radius: 10px 100px / 120px;  //vista shape
 inset: inwards above the bg but below the content
 To specify multiple shadows, provide a comma-separated list of shadows.
 
+*/
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* overflow
+
+overflow-x, overflow: x y;
+
+visible : not clipped
+hidden/clip : clipped no scroll pards
+scroll: scroll bar always visible
+auto: will provide scrollbars if content overlows
+overlay: like auto but the scroll bar is over the content to not take space
+
+the container must have height or white-space: nowrap
+
+
+
+
+/* text-overflow
+
+text-overflow: //how text is displayed when it over flow
+used with overlow:hidden or whitespace: nowrap
+
+end of the line for the specified text direction
+  direction: rtl;
+
+
+text-overflow: left-end right-end;
+
+clip //use "" empty string to avoid character clipping
+ellipsis
+fade() with a passed length/percentage
+"string"
+
+
+
+overflow-wrap: 
+normal; a long word can overflow, break only at normal points like space
+anywhere; any word can be broken, but soft breaking points are considered
+break-word; any word can be broken, but soft breaking points not considered
+
+
+word-break: own line
+normal and break-word
+keep-all
+break-all
+
+
+white-space: white space behavior
+normal;
+nowrap; suppresses line breaks
+pre; white space collapsed and broken at <br>
+pre-wrap; white space and only broken at <br> and necessary breaks to fill the boxes
+pre-line; white space collapsed and broken at <br> and necessary breaks to fill the boxes
+break-spaces;
+
+how words should be hyphenated when text wraps across multiple lines.
+hyphens -
+none
+manual
+auto
+
+
+*/
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+opacity: 1
+the back element is hidden
+
+is the opposite to transparency:0
+the back element is shown
+
+
+
+
+*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+Pseudo-elements
+> child
++ adjacent sibiling
+~ general sibiling
+
+
+Pseudo-classes
+
 
 
 
 
 
 */
+
+
+
+
+
+
+
+
+
+
+.testDiv {
+  height: 50vh;
+  width: 90vw;
+  border: 1px solid grey;
+  padding: 10px;
+}
