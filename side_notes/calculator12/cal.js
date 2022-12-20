@@ -269,10 +269,6 @@ function safeBracketClosing (text) {
 
 function ProhibitedStart (text, valueGot) {
 
-
-    console.log(text[text.length-1]);
-    console.log(valueGot);
-
     if ( (text[text.length-1] == "(" || text == "") && (ProhibitedStartSigns.indexOf(valueGot) > 0) ) {
         return true;
     } 
@@ -282,11 +278,60 @@ function ProhibitedStart (text, valueGot) {
 
 }
 
-let text = "(";
-console.log(ProhibitedStart(text, "/"));
+//let text = "(";
+//console.log(ProhibitedStart(text, "/"));
 
 
 
 
 
 console.timeEnd('fetching data');
+
+
+
+
+
+
+
+let text = "1+(3+(4X5/2+(-3+4))";
+
+//find last opened bracket
+
+let LastOpenedBracket = text.lastIndexOf("(");
+console.log("> " + LastOpenedBracket);
+
+//find first opened bracket after this location
+
+let newText = text.slice(LastOpenedBracket);
+let FirstOpenedBracket = newText.indexOf(")");
+
+console.log("> " + newText);
+console.log("> " + FirstOpenedBracket);
+
+let start = LastOpenedBracket+1;
+let end = LastOpenedBracket+FirstOpenedBracket;
+
+console.log(text[LastOpenedBracket+1]);
+console.log(text[(LastOpenedBracket+FirstOpenedBracket)]);
+
+let currentEquation = text.slice(start,end);
+console.log(currentEquation);
+
+//calculateEq(currentEquation);
+
+
+
+
+let text2 = "1/1";
+calculateEq(text2);
+
+function calculateEq (input) {
+
+    console.log(input);
+    //find division
+    let x = input.indexOf("/");
+
+    console.log(x);
+    
+
+}
