@@ -36,9 +36,8 @@ window.addEventListener("load", () =>{
 
 const buttons = document.querySelectorAll(".calc_buttons table tr td button, .calc_fn table tr td button");
 
-let text_string = "";
-let arithmetic = ["ONE","+","-","/","X","."];
-let brackets = ["ONE"];
+let text_string = "";   //start
+let arithmetic = ["ONE","+","-","/","X",".","x","*"];
 
 console.log(buttons);
 
@@ -64,12 +63,18 @@ function buttonSwitch (valueGot) {
         //its a not-a-number/is arithmetic OR is number/not-arithmetic OR bracket
         
         
-        if ( !ArithBefore(text_string) || ((ArithBefore(text_string)) && Number(valueGot)) )  {     
+        if ( (!ArithBefore(text_string)
+        || ((ArithBefore(text_string)) && Number(valueGot)))
+        && (!ProhibitedStart(text_string, valueGot))
+        ) {     
             //no sign/start was put before (for arithmetics), 
             //if sign-before/start accept only digits
+            //not a X or / after a start or open bracket
+                
             console.log(valueGot);
             text_string += valueGot;
             text_space.textContent = text_string;
+        
         }
     
     
@@ -195,9 +200,9 @@ function NumberAfterLastOpened (text) {
     }
 }
 
-let text = "(2+1";
+//let text = "(2+1";
 
-console.log(NumberAfterLastOpened(text));
+//console.log(NumberAfterLastOpened(text));
 
 
 function safeBracketClosing (text) {
@@ -249,6 +254,27 @@ function safeBracketClosing (text) {
 //console.log(checkNaN("DEL"));
 //console.log(checkArith("DEL"));
 //console.log(checkEqual("DEL"));
+
+
+function ProhibitedStart (text, valueGot) {
+
+    let signs2 = ["ONE", "/", "X","x","*"];
+
+
+    console.log(text[text.length-1]);
+    console.log(valueGot);
+
+    if ( (text[text.length-1] == "(" || text == "") && (signs2.indexOf(valueGot) > 0) ) {
+        return true;
+    } 
+    else {
+        return false;
+    }
+
+}
+
+let text = "(";
+console.log(ProhibitedStart(text, "/"));
 
 
 
