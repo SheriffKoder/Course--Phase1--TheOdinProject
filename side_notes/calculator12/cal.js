@@ -37,7 +37,8 @@ window.addEventListener("load", () =>{
 const buttons = document.querySelectorAll(".calc_buttons table tr td button, .calc_fn table tr td button");
 
 let text_string = "";   //start
-let arithmetic = ["ONE","+","-","/","X",".","x","*"];
+let arithmetic = ["ONE","+","-","/","X",".","x","*","^"];
+let ProhibitedStartSigns = ["ONE", "/", "X","x","*", "^"];
 
 console.log(buttons);
 
@@ -59,6 +60,16 @@ window.addEventListener("keydown", (e) => {
 
 function buttonSwitch (valueGot) {
 
+    //detect overflow and allow right ...ellipsis to text
+    if (text_space.offsetWidth < text_space.scrollWidth) {
+        text_space.style.cssText = "direction: rtl;"
+    }
+    else if (text_space.offsetWidth > text_space.scrollWidth) {
+        text_space.style.cssText = "direction: ltr;"
+
+    }
+
+    
     if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) ) {
         //its a not-a-number/is arithmetic OR is number/not-arithmetic OR bracket
         
@@ -258,13 +269,11 @@ function safeBracketClosing (text) {
 
 function ProhibitedStart (text, valueGot) {
 
-    let signs2 = ["ONE", "/", "X","x","*"];
-
 
     console.log(text[text.length-1]);
     console.log(valueGot);
 
-    if ( (text[text.length-1] == "(" || text == "") && (signs2.indexOf(valueGot) > 0) ) {
+    if ( (text[text.length-1] == "(" || text == "") && (ProhibitedStartSigns.indexOf(valueGot) > 0) ) {
         return true;
     } 
     else {

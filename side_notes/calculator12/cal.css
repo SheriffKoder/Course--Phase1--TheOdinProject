@@ -91,6 +91,10 @@
         padding-right: 1%;
     }
 
+    .writing_space {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
 
 
 /*////////////////////////////////////////////////////////////////////*/
