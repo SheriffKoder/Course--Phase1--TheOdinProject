@@ -188,6 +188,8 @@ function NumberAfterLastOpened (text) {
     let bracketOpened = TextReverse.indexOf("(");
     let lastIndex = TextReverse[bracketOpened-1];
      
+    //closing tag accepted if there is a number/+ or -
+    //after the last open tag
     if (!isNaN(lastIndex) || lastIndex == "+" || lastIndex == "-") {
         return true;
     }

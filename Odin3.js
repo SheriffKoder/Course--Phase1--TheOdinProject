@@ -479,9 +479,37 @@ not a language problem.
 
 
 /*////////////////////////////////////////////////////////////////////*/
-/*13/12
+/*20/12
+
+// Scroll each paragraph so the start is also hidden
+const paras = document.querySelectorAll("p");
+
+for (const para of paras) {
+  para.scroll(100, 0);
+}
+
+/ * scrolling with overflow
+The JavaScript Element.scrollTop/scrollLeft property may be used 
+to scroll an HTML element even when overflow is set to hidden.
+property gets or sets the number of pixels that an element's 
+content is scrolled vertically.
 
 
+div.addEventListener("scroll", (event) => {
+  console.log(div.scrollTop);
+});
+
+function isOverflowing(element) {
+      return element.scrollWidth > element.offsetWidth;
+}
+
+
+element.scrollTo({
+  top: 100,
+  left: 100,
+  behavior: 'smooth'/'instant'
+});
 
 
 */
+
