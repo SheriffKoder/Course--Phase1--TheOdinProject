@@ -17,7 +17,7 @@ use and render the page
 <base href="https://example.com"> in header
 the base url to use for all relative links in the html document
 only one base
-if no base element, then the base uri defaults to location.href
+if no base element, then the base url defaults to location.href
 
 <base href="images/" />
 <img src="logo.png" alt="logo" width="200"
@@ -89,14 +89,10 @@ example
 
 
 Content Sectioning Elements identify sections of content
-////////////////////////////////////////////////////////
-
-> and opens info
-
-  <details ontoggle="alert('one');">
-      <summary> more info </summary>
-      <p> info here </p>
-  </details>
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 
 
 <address> 
@@ -132,6 +128,43 @@ important for accessibility and SEO
 <blockqoute>
 indicates that the enclosed text is an extended quotation
 url source of it given using the cite attribute
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+/* > and opens info * /
+  <details ontoggle="alert('one');">
+      <summary> more info </summary>
+      <p> info here </p>
+  </details>
+
+
+
+
+
+/*container : figure */
+  <figure>  //self contained contents like photos, diagrams etc, not relevant to the flow of the document
+    <figcaption>
+//part of the document/article without being in the flow of the document
+
+
+
+
+
+/*progress bars*/
+<label for="file">Downloading progress:</label>
+<progress id="file" value="40" max="100"> 40% </progress>
+//and change the value using js 
+//and be nice with transition 
+<meter id="disk_d" value="0.6">60%</meter>
+<meter id="disk_c" value="2" min="0" max="10">2 out of 10</meter><br>
+
+
+
+
 
 
 
