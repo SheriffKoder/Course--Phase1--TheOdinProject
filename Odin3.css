@@ -319,13 +319,53 @@ the back element is shown
 /*////////////////////////////////////////////////////////////////////*/
 /*
 
-Pseudo-elements
+article h2 //descendant selector, can be nested in other elements
+article > h2 //direct descendant, must be directly after article
+
+h2 ~ p // a p that "follow" h2  and share same parent of h2
+h2 + p //"direct follow"
+
+input:checked + label {}
+
+
+
+
+
+Pseudo-elements  (0, 0, 0, 1) specifity
 > child
 + adjacent sibiling
 ~ general sibiling
 
+::marker    //for Li
+input::file-selector=button
+::placeholder   //input writing text
 
 
+::first-letter, ::first-line
+::selection //highlight
+::before, ::after
+
+::backdrop    //fullscreen background
+::cue         //captions
+
+
+
+
+
+/* Attribute Selectors (0,0,1,0) score 10 
+
+[attribute]
+selector[attribute] //just if an attribute exists
+[attribute="value"]
+
+attributes with .jpg for example
+img[src$=".jpg"i] //looks from end for .jpg, case insenstive and s for case senstive
+^= //match from start
+$= //match from end
+*= //match from start or end, at least one occurance
+
+~= //white space separated text and has value
+|= //value or value- en-US and begins with the stated value
 
 
 
@@ -352,7 +392,7 @@ anchor element button
 :default //for checkboxes, radio, select/option
 :checked
 
-:indeterminate    //  inputs[i].indeterminate = true;
+:indeterminate    //  inputs[i].indeterminate = true; default unchecked radio/check
 :blank
 :valid / :invalid / :user-invalid
 
@@ -374,7 +414,7 @@ parent:target-within //Selects a parent when one of its descendants is a target
 
 :nth-child(-n+3) //-0+3 //-1+3 etc
 // (odd) (7)//7th
-:nth-last-child() //selects backwards
+:nth-last-child(n) //selects backwards
 :first-child , :last-child, :only-child
 dd:nth-of-type(even) //selects among dd siblings not child this time
 
@@ -395,6 +435,15 @@ h1:has(+ h2) {  //an h1 with an h2 directly after it
 
 selector:pseudo-class:pseudo-class:pseudo-class 
 
+
+:link //unvisted
+:visited //visited
+:hover
+:active //interaction like click
+:focus //
+
+:enabled  //default
+:disabled //disabled attribute tied to it, has default css
 
 
 
