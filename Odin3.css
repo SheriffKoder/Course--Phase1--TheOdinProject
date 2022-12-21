@@ -325,7 +325,7 @@ h2 + p //"direct follow"
 
 input:checked + label {}
 
-div.row * // all elements that are children of row
+div.row * // all elements that are children of div AND row
 
 
 
@@ -357,7 +357,7 @@ content: "(" attr(href) ")";
 
 [attribute]
 selector[attribute] //just if an attribute exists
-[attribute="value"]
+[attribute="value"][attribute="value"] //chain
 
 attributes with .jpg for example
 img[src$=".jpg"i] //looks from end for .jpg, case insenstive and s for case senstive
@@ -368,6 +368,7 @@ $= //match from end
 ~= //white space separated text and has value
 |= //value or value- en-US and begins with the stated value
 
+  background: url(pdf.jpg) no-repeat left 50%;
 
 
 
@@ -424,6 +425,12 @@ or just the id in the href
 :nth-last-child(n) //selects backwards
 :first-child , :last-child, :only-child
 dd:nth-of-type(even) //selects among dd siblings not child this time
+p:last-of-type
+p:only-child
+P:only-of-type // only child of its parent with the same element
+
+
+
 
 :focus   //clicked or use tab
 :focus-visible
