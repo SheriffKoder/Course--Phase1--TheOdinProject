@@ -320,7 +320,7 @@ the back element is shown
 article h2 //descendant selector, can be nested in other elements
 article > h2 //direct descendant, must be directly after article
 
-h2 ~ p // a p that "follow" h2  and share same parent of h2
+h2 ~ p // all p's that "follow" h2  and share same parent of h2
 h2 + p //"direct follow"
 
 input:checked + label {}
@@ -423,7 +423,7 @@ or just the id in the href
 :nth-child(-n+3) //-0+3 //-1+3 etc **
 // (odd) (7)//7th
 :nth-last-child(n) //selects backwards
-:first-child , :last-child, :only-child
+:first-child , :last-child, :only-child //to the element itself child:first-child
 dd:nth-of-type(even) //selects among dd siblings not child this time
 p:last-of-type
 p:only-child
@@ -508,7 +508,8 @@ selector:pseudo-class:pseudo-class:pseudo-class
 
 }
 
-
+/*empty block, 2nd block will be after it
+the first block has before 00 100% (overlay), after -1em (x-bt) */
 @layer FigOverlay {
   /* Unopened lightbox */
 .lightbox {
@@ -525,14 +526,6 @@ selector:pseudo-class:pseudo-class:pseudo-class
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Lightbox content */
-.lightbox figcaption {
-  width: 25rem;
-  position: relative;
-  padding: 1.5em;
-  background-color: lightpink;
 }
 
 /* Close button */
@@ -570,6 +563,14 @@ selector:pseudo-class:pseudo-class:pseudo-class
   cursor: default;
 }
 
+/* Lightbox content */
+.lightbox figcaption {
+  width: 25rem;
+  position: relative;
+  padding: 1.5em;
+  background-color: lightpink;
+}
+
 }
 
 
@@ -577,6 +578,71 @@ selector:pseudo-class:pseudo-class:pseudo-class
 .testDiv:focus-within {
   background-color: rgb(249, 249, 249);
 }
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* 22/12
+
+position:relative     
+//access to top/bottom etc but disturbs, 
+//relative to its position in dom
+
+position:absolute     
+//element not with document flow
+//position free without disturbing elements around it
+//relative to the document 
+//or relative to its "relative" parent
+//margins are added to the offset
+//the element established a new block formatting context for its contents
+
+
+fixed
+//relative to the document "only"//
+//except when one of its ancestors has a transform, perspective, or filter property set to something other than none or the will-change property is set to transform
+
+sticky
+//by default its relative//
+//and fixed to its defined position//
+
+//"sticks" to its nearest ancestor that has a "scrolling mechanism" 
+//(created when overflow is hidden, scroll, auto, or overlay), 
+//even if that ancestor isn't the nearest actually scrolling ancestor.
+
+//relatively positioned until its containing block crosses a 
+//specified threshold (such as setting top
+//or the container it scrolls within
+
+
+
+
+
+
+
+
+
+inspect > element > computed (will show all properties)
+ 
+
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
