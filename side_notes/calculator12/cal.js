@@ -299,11 +299,11 @@ console.log("text is " + textOriginal);
 
 
 
-/*
-checkForBrackets(textOriginal);
-checkForBrackets(textOriginal);
-checkForBrackets(textOriginal);
-*/
+
+//checkForBrackets(textOriginal);
+//checkForBrackets(textOriginal);
+//checkForBrackets(textOriginal);
+
 
 //check for brackets
 function checkForBrackets (textInput) {
@@ -365,25 +365,36 @@ let tempText = text.slice(LastOpenedBracket+1,firstClosedBracket );
 
 //compute the between string
 //console.log(computeString (tempText));
-let inBetween = computeString (tempText);
+//let inBetween = computeString (tempText);
+let inBetween = 1;
 
 
-//slice the before and after parts from the main string
-let String1 = text.slice(0,LastOpenedBracket);
-//console.log(String1);
+let returnValue = ComposeString(text , LastOpenedBracket , inBetween, firstClosedBracket);
 
-let String2 = text.slice(firstClosedBracket+1);
-//console.log(String2);
-
-let newString = `${String1}${inBetween}${String2}`;
-//console.log(newString);
-
-return newString;
+return returnValue;
 
 }
 
 
-let text22 = "1-1+44/222+1*1"
+
+function ComposeString (inputText,firstSignOccurance,calculated,lastSignOccurance) {
+    //slice the before and after parts from the main string
+    let String1 = inputText.slice(0,firstSignOccurance);
+    //console.log(String1);
+    
+    let String2 = inputText.slice(lastSignOccurance+1);
+    //console.log(String2);
+    
+    let newString = `${String1}${calculated}${String2}`;
+    //console.log(newString);
+    
+    return newString;
+    
+    
+    }
+
+
+let text22 = "1-1+100/200+1*1"
 
 computeString(text22);
 
@@ -396,8 +407,20 @@ function computeString (input) {
         let SignIndex = input.indexOf("/");
         console.log("at ", SignIndex);
 
-        let x = getBefore_After(input, SignIndex);
-        console.log(x);
+        //will return before and after also the signs indexes
+        let BeforeAfter = getBefore_After(input, SignIndex);
+        console.log(BeforeAfter);
+
+        let BeforeAftercalculation = BeforeAfter[0] / BeforeAfter[1];
+        console.log(BeforeAftercalculation);
+        let BeforeSign = BeforeAfter[2]+1;
+        let AfterSign = SignIndex+BeforeAfter[3];
+        
+        //let zz = input.slice(x[2]+1,SignIndex+x[3]+1);
+        //console.log(zz);
+
+        let output = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
+        console.log(output);
 
 
     }
@@ -482,7 +505,8 @@ function getBefore_After (input, SignIndex) {
     let secondSplit = AfterSignCheckSplit.slice(0,nextSignPosition);
     //console.log("second Split " + secondSplit);
 
-    return [firstSplit,secondSplit];
+    //return the prev/next numbers for our sign and the last/next sign positions to be used later
+    return [firstSplit,secondSplit,lastSignPosition,nextSignPosition];
 }
 
 //find first opened bracket after this location
