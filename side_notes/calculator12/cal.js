@@ -383,7 +383,7 @@ return newString;
 }
 
 
-let text22 = "1+4/2"
+let text22 = "1-1+44/222+1*1"
 
 computeString(text22);
 
@@ -393,6 +393,13 @@ function computeString (input) {
 
     if (input.indexOf("/")>0) {
         console.log("found a / ");
+        let SignIndex = input.indexOf("/");
+        console.log("at ", SignIndex);
+
+        let x = getBefore_After(input, SignIndex);
+        console.log(x);
+
+
     }
 
     else if (input.indexOf("*")>0) {
@@ -410,10 +417,73 @@ function computeString (input) {
     }
 
 
-
-
 }
 
+
+function checkLocationOfPreviousSign (inputString) {
+    let signsPlaces = [];
+
+    arithmetic.forEach(sign => {
+        let x = inputString.lastIndexOf(sign);
+        if (x > 0) {
+        signsPlaces.push(x);
+        }
+
+    });
+    signsPlaces = signsPlaces.sort();
+
+    //console.log(signsPlaces);
+    //console.log(signsPlaces[signsPlaces.length-1]);
+    return signsPlaces[signsPlaces.length-1];
+}
+
+
+function checkLocationOfNextSign (inputString) {
+    let signsPlaces = [];
+
+    arithmetic.forEach(sign => {
+        let x = inputString.indexOf(sign);
+        if (x > 0) {
+            signsPlaces.push(x);
+        }
+
+    });
+    signsPlaces = signsPlaces.sort();
+
+    //console.log(signsPlaces);
+    //console.log(signsPlaces[0]);
+    return signsPlaces[0];
+}
+
+    
+
+function getBefore_After (input, SignIndex) {
+    ////firstSplit
+    //get the string before this sign to find the last sign
+    let BeforeSignCheckSplit = input.slice(0,SignIndex);
+    //console.log(BeforeSignCheckSplit);
+    
+    //get the last sign position
+    let lastSignPosition = checkLocationOfPreviousSign(BeforeSignCheckSplit);
+
+    //the number1 is from the last sign till end (the sign index)
+    let firstSplit = BeforeSignCheckSplit.slice(lastSignPosition+1);
+    //console.log("first Split " + firstSplit);
+
+
+    ///secondSplit
+    let AfterSignCheckSplit = input.slice(SignIndex+1);
+    //console.log(AfterSignCheckSplit);
+
+    //get the first sign position
+    let nextSignPosition = checkLocationOfNextSign(AfterSignCheckSplit);
+
+    //the number2 is from the sign index position[0] sign till next sign
+    let secondSplit = AfterSignCheckSplit.slice(0,nextSignPosition);
+    //console.log("second Split " + secondSplit);
+
+    return [firstSplit,secondSplit];
+}
 
 //find first opened bracket after this location
 /*
