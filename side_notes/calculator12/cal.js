@@ -7,7 +7,7 @@ const result_space = document.querySelector(".result_space");
 result_space.textContent = "Result";
 
 
-
+console.dir(text_space); //check properties incl. scroll height
 
 /*
 window.addEventListener("load", () =>{
@@ -290,18 +290,106 @@ console.timeEnd('fetching data');
 
 
 
+let text = "1+3+(4X5/2+(-3+4))";
+let text22 = [1,1,2];
+/*
+console.log("text is " + text);
+
+Brackets(text);
+console.log("text is " + text);
+Brackets(text);
+console.log("text is " + text);
+*/
 
 
+checkForBrackets(text);
+//check for brackets
+function checkForBrackets (text) {
 
-let text = "1+(3+(4X5/2+(-3+4))";
+    let Opened =0;
+    let Closed =0;
+    for (let index in text ) {
+        if (text[index] === ")") {
+            console.log(")");
+            Closed++;
+        }
+        else if (text[index] === "(") {
+            console.log("(");
+            Opened++;
+        }
+    }
+
+    //tell if there is a missing bracket
+    if (Opened > Closed ) {
+        console.log("opened is greater than closed");
+    }
+    else if (Opened > Closed ) {
+        console.log("closed is greater than opened");
+    }
+    //tell if there are no brackets at all
+    else if (Opened =="0" && Closed =="0") {
+        console.log("there is no bracket");
+        //compute
+    }
+    else {
+        console.log("text is " + text);
+        Brackets(text);
+        console.log("text is " + text);
+        Brackets(text);
+        console.log("text is " + text);
+
+    }
+
+
+}
+
+
+function Brackets (text) {
+
 
 //find last opened bracket
 
 let LastOpenedBracket = text.lastIndexOf("(");
-console.log("> " + LastOpenedBracket);
+//console.log("( opened at " + LastOpenedBracket);
+
+//find first closed bracket after it
+
+let firstClosedBracket = text.indexOf(")",LastOpenedBracket);
+//console.log(") closed at " + firstClosedBracket);
+
+//take the string in between out
+let tempText = text.slice(LastOpenedBracket+1,firstClosedBracket );
+//console.log(tempText);
+
+
+//compute the between string
+//console.log(computeString (tempText));
+let inBetween = computeString (tempText);
+
+
+//slice the before and after parts from the main string
+let String1 = text.slice(0,LastOpenedBracket);
+//console.log(String1);
+
+let String2 = text.slice(firstClosedBracket+1);
+//console.log(String2);
+
+let newString = `${String1}${inBetween}${String2}`;
+//console.log(newString);
+
+text = newString;
+
+}
+
+
+
+function computeString (input) {
+    return 1;
+}
+
 
 //find first opened bracket after this location
-
+/*
 let newText = text.slice(LastOpenedBracket);
 let FirstOpenedBracket = newText.indexOf(")");
 
@@ -332,6 +420,104 @@ function calculateEq (input) {
     let x = input.indexOf("/");
 
     console.log(x);
-    
+
 
 }
+
+*/
+/*
+let text2312 = "1+(3+(4X5/2+(-3+4))";
+let StringObject = {
+    numbers: [],
+
+}
+let StartingNumbersString = 0;
+/*
+StringObject.numbers[0] = [];
+StringObject.numbers[0].push(0);
+console.log(StringObject.numbers[0]);
+StringObject.numbers[0].push(1);
+console.log(StringObject.numbers[0]);
+*/
+/*
+function findAllSignLocations (inputString) {
+
+    console.log(inputString);
+    inputString = "01+1";
+
+    StringObject.numbers[StartingNumbersString]=[];
+
+    for (i=0; i<inputString.length; i++) {
+
+        console.log(inputString[i]);
+
+        let current = inputString[i];
+
+        if (!isNaN(current)) {
+            console.log("its a number");
+            StringObject.numbers[StartingNumbersString].push(i);
+            console.log(StringObject.numbers[StartingNumbersString]);
+        }
+
+        else if (isNaN(current)) {
+            StartingNumbersString++;
+            StringObject.numbers[StartingNumbersString] = [];
+            console.log("current array is in location "+ StartingNumbersString);
+        }
+    
+
+    }
+
+    console.log(StringObject.numbers);
+
+}
+
+//findAllSignLocations(text2312);
+
+
+let text2312528 = "3";
+let temp;
+
+function checkSign(beforebefore, before, number) {
+
+    if (!isNaN(number)) {
+
+        if (isNaN(before) && (beforebefore==undefined || beforebefore=="(")) {
+            temp = `${before}${number}`;
+            console.log(temp);
+
+
+        }
+        else {
+            temp = text2312528[i];
+            console.log(temp);
+
+        }
+
+
+
+}
+
+
+}
+for (i=0; i<text2312528.length; i++) {
+        if (!isNaN(text2312528[i])) {
+            console.log(text2312528[i]);
+            console.log(text2312528[i-1]);
+            console.log(text2312528[i-2]);
+
+            if (isNaN(text2312528[i-1]) && (text2312528[i-2]==undefined || text2312528[i-2]=="(")) {
+                temp = `${text2312528[i-1]}${text2312528[i]}`;
+                console.log(temp);
+            }
+            else {
+                temp = text2312528[i];
+                console.log(temp);
+ 
+            }
+
+        }
+}
+
+
+*/
