@@ -290,31 +290,33 @@ console.timeEnd('fetching data');
 
 
 
-let text = "1+3+(4X5/2+(-3+4))";
-let text22 = [1,1,2];
-/*
-console.log("text is " + text);
+let textOriginal = "1+3+(4X5/2+(-3+4))";
+let temp = "";
+console.log("text is " + textOriginal);
 
-Brackets(text);
-console.log("text is " + text);
-Brackets(text);
-console.log("text is " + text);
+
+
+
+
+
+/*
+checkForBrackets(textOriginal);
+checkForBrackets(textOriginal);
+checkForBrackets(textOriginal);
 */
 
-
-checkForBrackets(text);
 //check for brackets
-function checkForBrackets (text) {
+function checkForBrackets (textInput) {
 
     let Opened =0;
     let Closed =0;
-    for (let index in text ) {
-        if (text[index] === ")") {
-            console.log(")");
+    for (let index in textInput ) {
+        if (textInput[index] === ")") {
+            //console.log(")");
             Closed++;
         }
-        else if (text[index] === "(") {
-            console.log("(");
+        else if (textInput[index] === "(") {
+            //console.log("(");
             Opened++;
         }
     }
@@ -328,15 +330,14 @@ function checkForBrackets (text) {
     }
     //tell if there are no brackets at all
     else if (Opened =="0" && Closed =="0") {
-        console.log("there is no bracket");
+        console.log("there are no brackets");
         //compute
     }
     else {
-        console.log("text is " + text);
-        Brackets(text);
-        console.log("text is " + text);
-        Brackets(text);
-        console.log("text is " + text);
+
+        temp = ReplacingBrackets(textOriginal);
+        textOriginal = temp;
+        console.log("text now is " + textOriginal);
 
     }
 
@@ -344,7 +345,7 @@ function checkForBrackets (text) {
 }
 
 
-function Brackets (text) {
+function ReplacingBrackets (text) {
 
 
 //find last opened bracket
@@ -377,14 +378,40 @@ let String2 = text.slice(firstClosedBracket+1);
 let newString = `${String1}${inBetween}${String2}`;
 //console.log(newString);
 
-text = newString;
+return newString;
 
 }
 
 
+let text22 = "1+4/2"
+
+computeString(text22);
 
 function computeString (input) {
-    return 1;
+
+    //find / then if not *,+,-
+
+    if (input.indexOf("/")>0) {
+        console.log("found a / ");
+    }
+
+    else if (input.indexOf("*")>0) {
+        console.log("found a * ");
+    }
+
+
+    else if (input.indexOf("+")>0) {
+        console.log("found a + ");
+    }
+
+    else if (input.indexOf("-")>0) {
+        console.log("found a - ");
+
+    }
+
+
+
+
 }
 
 
