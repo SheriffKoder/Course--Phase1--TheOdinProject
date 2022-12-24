@@ -115,6 +115,7 @@ with 100% will try to take all the available and squish to fit equally
 but when put 30/70 for example they will adjust
 and will leave space if total less than 100%
 and control this space with justify space
+when no width element will try to overcome the other's percentage
 
 
 add to all images selector to make all responsive
@@ -123,6 +124,29 @@ will never exceed their default size and will shrink when needed
 img {
     width: 100%;
 }
+
+
+
+
+
+*/
+
+/*
+Day 11
+
+<main>
+    <div>
+        <section/article>
+        <aside>
+
+    if you do not know what tag to use, use a div
+    but it is a good practice to use representative tags
+
+
+
+
+
+
 
 
 

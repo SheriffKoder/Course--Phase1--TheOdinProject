@@ -586,22 +586,30 @@ the first block has before 00 100% (overlay), after -1em (x-bt) */
 /*////////////////////////////////////////////////////////////////////*/
 /* 22/12
 
+position: static;
+//default
+
 position:relative     
-//access to top/bottom etc but disturbs, 
-//relative to its position in dom
+//access to top/bottom etc but disturbs, and overlaps its neighbors
+//relative to its own position in dom
 
 position:absolute     
 //element not with document flow
 //position free without disturbing elements around it
 //relative to the document 
-//or relative to its "relative" parent
+//or relative to its "relative/absolute" parent (useful to not specify that on a parent sometimes and use if for the html itself like a closing button or back to top)
 //margins are added to the offset
 //the element established a new block formatting context for its contents
 
+>giving left/right without width will fill the available space
+>can be used in a padded scroll parent
+> sticky elements will pass to each other
 
 fixed
 //relative to the document "only"//
 //except when one of its ancestors has a transform, perspective, or filter property set to something other than none or the will-change property is set to transform
+scroll-margin-top: 5rem;  //for headers and hashtags overlap
+
 
 sticky
 //by default its relative//
@@ -617,9 +625,16 @@ sticky
 
 
 
+will-change: scroll-position / contents / transform /opacity /left,top;
 
+css property, element expected to change, 
+utilized optimizations increase responsivness of page
+use as last resort and toggle using script code for memory resources
 
-
+el.addEventListener('mouseenter', hintBrowser);
+  fn {   this.style.willChange = 'transform, opacity';
+el.addEventListener('animationEnd', removeHint);
+  fn {  this.style.willChange = 'auto';
 
 
 
@@ -632,17 +647,119 @@ inspect > element > computed (will show all properties)
 */
 
 
+/* sticky pass to each other */
+dl {
+  margin-bottom: 500px;
+}
+
+dt {
+  background: #b8c1c8;
+  color: #fff;
+  position: sticky;
+  top: 0px;
+}
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* functions
+
+css does not allow us to create our own functions
+
+calc();
+
+min(x,y);
+min(1rem, 50%, 10vw), the browser calculates which of these relative units is the smallest
+background-size: min(600px, 100%);
+
+width: min(80ch, 100vw - 2rem); //works
+
+max(x,y,z..);
+if y or z smaller than 100px, size will be 100px
+will not exceed these at any given time
+
+clamp()
+  width: clamp(45ch, 50%, 75ch);
+clamp to 45characters 
+50% originally but this 50% wont exceed 75ch or be less than 45ch i.e 0.5emw/1emh
+tan(),sin(),cos()
+
+  font-size: max(16px, 1rem); //ios input zoom fix
+
+
+
+*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+.modal {
+  --color-name: red;
+}
+
+color: var(--color-name, optional);
+//optional : incase invalid or not declared
+//value or var
+
+scope: selector and its descendants
+
+:root selector is same as html but has higher specificity
+scope is now for all html descendants
+
+
+
+:root.dark {
+    --var1
+}
+
+:root.solid {
+    --var1
+
+}
+//will be selected depending on which class is currently present on the root element
+// var theme toggle ex in .js file
+
+@media (prefers-color-scheme: dark) {
+  //when the user has their browser theme dark, website use this query
+  //dark or light only
+  //does not allow user to change it
+  :root {
+    --color
+  }
+
+
+p {
+  color: blue;  //lower specificity but will be used due to invalidity
+                //but in vars, the default will be used, no blue
+}
+
+p {
+  color: 16px;
+}
+
+
+// get variable from inline style
+element.style.getPropertyValue("--my-var");
+
+// get variable from wherever
+getComputedStyle(element).getPropertyValue("--my-var");
+
+// set variable on inline style
+element.style.setProperty("--my-var", jsVar + 4);
 
 
 
 
 
-
-
-
-
-
-
+*/
 
 
 

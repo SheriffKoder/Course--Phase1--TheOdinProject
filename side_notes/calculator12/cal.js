@@ -394,9 +394,12 @@ function ComposeString (inputText,firstSignOccurance,calculated,lastSignOccuranc
     }
 
 
-let text22 = "1-1+100/200+1*1"
-
+//let text22 = "1-1+100/200+1+1";
+let text22 = "1-4*4+1";
+text22 = "1+1+1";
 computeString(text22);
+//computeString(text22);
+
 
 function computeString (input) {
 
@@ -420,18 +423,62 @@ function computeString (input) {
         //console.log(zz);
 
         let output = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
-        console.log(output);
+        //console.log(output);
+        text22 = output;
+        console.log(text22);
+
 
 
     }
 
     else if (input.indexOf("*")>0) {
         console.log("found a * ");
+        let SignIndex = input.indexOf("*");
+        console.log("at ", SignIndex);
+
+        //will return before and after also the signs indexes
+        let BeforeAfter = getBefore_After(input, SignIndex);
+        console.log(BeforeAfter);
+
+        let BeforeAftercalculation = BeforeAfter[0] * BeforeAfter[1];
+        console.log(BeforeAftercalculation);
+        let BeforeSign = BeforeAfter[2]+1;
+        let AfterSign = SignIndex+BeforeAfter[3];
+        
+        //let zz = input.slice(x[2]+1,SignIndex+x[3]+1);
+        //console.log(zz);
+
+        let output = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
+        //console.log(output);
+        text22 = output;
+        console.log(text22);
+        
     }
 
 
     else if (input.indexOf("+")>0) {
         console.log("found a + ");
+        let SignIndex = input.indexOf("+");
+        console.log("at ", SignIndex);
+
+
+        //will return before and after also the signs indexes
+        let BeforeAfter = getBefore_After(input, SignIndex);
+        console.log(BeforeAfter);
+
+        let BeforeAftercalculation = Number(BeforeAfter[0]) + Number(BeforeAfter[1]);
+        console.log(BeforeAftercalculation);
+        let BeforeSign = BeforeAfter[2]+1;
+        let AfterSign = SignIndex+BeforeAfter[3];
+        
+        //let zz = input.slice(x[2]+1,SignIndex+x[3]+1);
+        //console.log(zz);
+
+        let output = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
+        //console.log(output);
+        text22 = output;
+        console.log(text22);
+
     }
 
     else if (input.indexOf("-")>0) {
@@ -442,6 +489,24 @@ function computeString (input) {
 
 }
 
+function CalculateAndGenerateNewString (input, SignIndex) {
+    //will return before and after also the signs indexes
+    let BeforeAfter = getBefore_After(input, SignIndex);
+    console.log(BeforeAfter);
+
+    let BeforeAftercalculation = BeforeAfter[0] / BeforeAfter[1];
+    console.log(BeforeAftercalculation);
+    let BeforeSign = BeforeAfter[2]+1;
+    let AfterSign = SignIndex+BeforeAfter[3];
+    
+    //let zz = input.slice(x[2]+1,SignIndex+x[3]+1);
+    //console.log(zz);
+
+    let output = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
+    console.log(output);
+    return output;
+
+    }
 
 function checkLocationOfPreviousSign (inputString) {
     let signsPlaces = [];
@@ -484,26 +549,28 @@ function getBefore_After (input, SignIndex) {
     ////firstSplit
     //get the string before this sign to find the last sign
     let BeforeSignCheckSplit = input.slice(0,SignIndex);
-    //console.log(BeforeSignCheckSplit);
+    console.log(BeforeSignCheckSplit);
     
     //get the last sign position
     let lastSignPosition = checkLocationOfPreviousSign(BeforeSignCheckSplit);
+    console.log(lastSignPosition);
 
     //the number1 is from the last sign till end (the sign index)
     let firstSplit = BeforeSignCheckSplit.slice(lastSignPosition+1);
-    //console.log("first Split " + firstSplit);
+    console.log("first Split " + firstSplit);
 
 
     ///secondSplit
     let AfterSignCheckSplit = input.slice(SignIndex+1);
-    //console.log(AfterSignCheckSplit);
+    console.log(AfterSignCheckSplit);
 
     //get the first sign position
     let nextSignPosition = checkLocationOfNextSign(AfterSignCheckSplit);
+    console.log(nextSignPosition);
 
     //the number2 is from the sign index position[0] sign till next sign
     let secondSplit = AfterSignCheckSplit.slice(0,nextSignPosition);
-    //console.log("second Split " + secondSplit);
+    console.log("second Split " + secondSplit);
 
     //return the prev/next numbers for our sign and the last/next sign positions to be used later
     return [firstSplit,secondSplit,lastSignPosition,nextSignPosition];
