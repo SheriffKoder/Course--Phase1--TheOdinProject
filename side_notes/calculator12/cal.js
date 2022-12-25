@@ -37,7 +37,8 @@ window.addEventListener("load", () =>{
 const buttons = document.querySelectorAll(".calc_buttons table tr td button, .calc_fn table tr td button");
 
 let text_string = "";   //start
-let arithmetic = ["ONE","+","-","/","X",".","x","*","^"];
+let arithmetic = ["ONE","+","-","/","X",".","x","*","^", " "];
+//add space to be used as an indication of a string end to be checked when computing a last number
 let ProhibitedStartSigns = ["ONE", "/", "X","x","*", "^"];
 
 console.log(buttons);
@@ -60,20 +61,18 @@ window.addEventListener("keydown", (e) => {
 
 function buttonSwitch (valueGot) {
 
-    //detect overflow and allow right ...ellipsis to text
-    if (text_space.offsetWidth < text_space.scrollWidth) {
-        text_space.style.cssText = "direction: rtl;"
-    }
-    else if (text_space.offsetWidth > text_space.scrollWidth) {
-        text_space.style.cssText = "direction: ltr;"
 
-    }
 
-    
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    /* accept the right types */
+    //only accept inputs in type of numbers or defined arithmetic signs
     if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) ) {
-        //its a not-a-number/is arithmetic OR is number/not-arithmetic OR bracket
+        //its a not-a-number/is arithmetic OR is number/not-arithmetic
         
-        
+        //check passes accepted inputs arithmetic and numbers
+        //if arithmetic has to not have a sign before and some arithmetics cannot be a starting point like x or /
+        //but if there is a sign before it has to be a number
         if ( (!ArithBefore(text_string)
         || ((ArithBefore(text_string)) && Number(valueGot)))
         && (!ProhibitedStart(text_string, valueGot))
@@ -91,7 +90,13 @@ function buttonSwitch (valueGot) {
     
     }
 
+    /*opened and closed brackets conditions */
     //inserting a safe - open bracket (
+    ////safe opening if: 
+    //there is a bracket closed before in the string or are no opened brackets
+    //it is a start, there is a bracket opened before (not yet closed)
+    ////arithmetic before starting point or another opened bracket
+
     else if ((valueGot === "(") && safeBracketOpening(text_string) && signBefore(text_string)) {
         console.log("opened");
         text_string += valueGot;
@@ -106,18 +111,38 @@ function buttonSwitch (valueGot) {
 
     }
 
-
+    /////////////////////////////////////////////////////////////
+    /* other buttons */
+    //to be used with a calculating function on the final string
     else if (valueGot == "=") {     //an equal
         console.log("its an equal");
     }
+    //AC cleans the string value and display
     else if (valueGot == "AC") {   //calc buttons
         text_string = "";
         text_space.textContent = text_string;
 
     }
+    //(Delete or backspace) removes one value from the end of the string
     else if (valueGot == "DEL" || valueGot == "Backspace") {   //calc buttons
         text_string = text_string.slice(0, -1);
         text_space.textContent = text_string;
+
+    }
+
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+
+
+
+    /////////////////////////////////////////////////////////////
+    //detect overflow and allow right ...ellipsis to text
+    //placed here so when the string has an extra value added its activated
+    if (text_space.offsetWidth < text_space.scrollWidth) {
+        text_space.style.cssText = "direction: rtl;"
+    }
+    else if (text_space.offsetWidth > text_space.scrollWidth) {
+        text_space.style.cssText = "direction: ltr;"
 
     }
 
@@ -152,6 +177,7 @@ function checkEqual(n) {
     return (n === "=")
 }
 
+// arithmetic before starting point or another opened bracket
 function signBefore(text) {
     
     if (ArithBefore(text) || text == "" || (text[text.length-1] == "(" ) ) {
@@ -173,7 +199,9 @@ function ArithBefore (text) {
 
 }
 
-
+//safe opening if: 
+//there is a bracket closed before in the string or are no opened brackets
+//it is a start, there is a bracket opened before (not yet closed)
 function safeBracketOpening (text) {
 
     //find finds the first it finds,
@@ -216,6 +244,11 @@ function NumberAfterLastOpened (text) {
 //console.log(NumberAfterLastOpened(text));
 
 
+
+//close accepted when there is sign before, no opened brackets and its a number
+//also when there are more opened brackets than closed brackets 
+//also when there are more opened brackets but no closed brackets yet
+//no brackets closed or if there are brackets closed a bracket opened has to be yet opened not closed also checks for validity of this opened bracket to be safe*extra?
 function safeBracketClosing (text) {
     let bracketClosed = text.indexOf(")");
     let bracketOpened = text.indexOf("(");
@@ -290,6 +323,13 @@ console.timeEnd('fetching data');
 
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
 let textOriginal = "1+3+(4X5/2+(-3+4))";
 let temp = "";
 console.log("text is " + textOriginal);
@@ -305,7 +345,10 @@ console.log("text is " + textOriginal);
 //checkForBrackets(textOriginal);
 
 
-//check for brackets
+//check for how many opened and closed brackets in the string
+//if one greater than the other react upon that (because not valid yet to compute)
+//no brackets then compute
+//else(i.e brackets counts are equal) then also compute
 function checkForBrackets (textInput) {
 
     let Opened =0;
@@ -331,10 +374,11 @@ function checkForBrackets (textInput) {
     //tell if there are no brackets at all
     else if (Opened =="0" && Closed =="0") {
         console.log("there are no brackets");
-        //compute
+        //compute (code not exist yet)
     }
     else {
 
+        //compute (code exist)
         temp = ReplacingBrackets(textOriginal);
         textOriginal = temp;
         console.log("text now is " + textOriginal);
@@ -345,6 +389,9 @@ function checkForBrackets (textInput) {
 }
 
 
+//compute starts with taking the most nested opened/closed bracket
+//giving it a dummy value "1" (inbetween) variable
+//and compose string returns the original text with the bracket removed and inbetween value inserted
 function ReplacingBrackets (text) {
 
 
@@ -376,7 +423,7 @@ return returnValue;
 }
 
 
-
+//the function responsible for removing the old part(most nested till now) and inserting the computed value (inbetween) the text for the new text
 function ComposeString (inputText,firstSignOccurance,calculated,lastSignOccurance) {
     //slice the before and after parts from the main string
     let String1 = inputText.slice(0,firstSignOccurance);
@@ -394,25 +441,36 @@ function ComposeString (inputText,firstSignOccurance,calculated,lastSignOccuranc
     }
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
 //let text22 = "1-1+100/200+1+1";
-let text22 = "1-4*4+1";
-text22 = "1+1+1";
-computeString(text22);
+//let text22 = "1-4*4+1";
 //computeString(text22);
 
+let text22 = "1+1*100/100";
+computeString(text22);
+computeString(text22);
+computeString(text22);
 
+
+//finding from left to right 
+// / first then * then + then -
+//
 function computeString (input) {
 
     //find / then if not *,+,-
+    input = input + " ";    //add space to be used as an indication of a string end
 
     if (input.indexOf("/")>0) {
-        console.log("found a / ");
+        console.log("found a / ");          //dummy
         let SignIndex = input.indexOf("/");
-        console.log("at ", SignIndex);
+        console.log("at ", SignIndex);      //dummy
 
         //will return before and after also the signs indexes
         let BeforeAfter = getBefore_After(input, SignIndex);
-        console.log(BeforeAfter);
+        console.log("BeforeAfter " + BeforeAfter);
 
         let BeforeAftercalculation = BeforeAfter[0] / BeforeAfter[1];
         console.log(BeforeAftercalculation);
@@ -487,30 +545,18 @@ function computeString (input) {
     }
 
 
+
+
 }
 
-function CalculateAndGenerateNewString (input, SignIndex) {
-    //will return before and after also the signs indexes
-    let BeforeAfter = getBefore_After(input, SignIndex);
-    console.log(BeforeAfter);
 
-    let BeforeAftercalculation = BeforeAfter[0] / BeforeAfter[1];
-    console.log(BeforeAftercalculation);
-    let BeforeSign = BeforeAfter[2]+1;
-    let AfterSign = SignIndex+BeforeAfter[3];
-    
-    //let zz = input.slice(x[2]+1,SignIndex+x[3]+1);
-    //console.log(zz);
 
-    let output = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
-    console.log(output);
-    return output;
 
-    }
-
+//used in getBefore_After
 function checkLocationOfPreviousSign (inputString) {
     let signsPlaces = [];
 
+    //checks on the arithmetic values array defined at the begining of code
     arithmetic.forEach(sign => {
         let x = inputString.lastIndexOf(sign);
         if (x > 0) {
@@ -520,12 +566,13 @@ function checkLocationOfPreviousSign (inputString) {
     });
     signsPlaces = signsPlaces.sort();
 
-    //console.log(signsPlaces);
-    //console.log(signsPlaces[signsPlaces.length-1]);
+    console.log("signsPlaces prev " + signsPlaces);
+    console.log("signsPlaces prev value " + signsPlaces[signsPlaces.length-1]);
     return signsPlaces[signsPlaces.length-1];
 }
 
 
+//used in getBefore_After
 function checkLocationOfNextSign (inputString) {
     let signsPlaces = [];
 
@@ -538,16 +585,21 @@ function checkLocationOfNextSign (inputString) {
     });
     signsPlaces = signsPlaces.sort();
 
-    //console.log(signsPlaces);
-    //console.log(signsPlaces[0]);
+    if (signsPlaces[0] == undefined) {
+        //console.log("end of string, the added space will be used ");
+    }
+
+    console.log("signsPlaces next " + signsPlaces);
+    console.log("signsPlaces next value " + signsPlaces[0]);
     return signsPlaces[0];
 }
 
     
 
 function getBefore_After (input, SignIndex) {
-    ////firstSplit
-    //get the string before this sign to find the last sign
+    
+    /* firstSplit */
+    //get the whole string before this sign, to find the last sign next
     let BeforeSignCheckSplit = input.slice(0,SignIndex);
     console.log(BeforeSignCheckSplit);
     
@@ -560,7 +612,7 @@ function getBefore_After (input, SignIndex) {
     console.log("first Split " + firstSplit);
 
 
-    ///secondSplit
+    /* secondSplit */
     let AfterSignCheckSplit = input.slice(SignIndex+1);
     console.log(AfterSignCheckSplit);
 
