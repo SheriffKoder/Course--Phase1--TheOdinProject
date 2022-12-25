@@ -742,6 +742,97 @@ hr {
 </div>
 
 
+
+<!--////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////-->
+
+<!-- forms
+
+  HTML forms and inputs
+  need to specify the proper types of inputs for each possible data
+  since there are often multiple ways to collect a piece of data
+
+  form element wraps all the inputs a user will interact with on a form
+
+  has two essential attributes
+  action; where data is sent
+  method; which http request method like GET and POST
+
+  GET, gets info
+  POST, like making an account or payment
+
+  
+  give "label" to inputs to tell what kind of data is asked
+  for attribute for the id of the input
+  and adds more clicking space
+
+  inputs
+  text; first and last names
+
+  email; will provide @symbol on mobile devices to make entering and email easier
+  also will validate that the user has entered a correctly formatted email address
+
+  password
+
+  number; will accept numbers only and ignore any other value
+
+  date
+
+
+
+  <textarea> not an input type but can accept text that 
+    spans multiple lines like user comments
+    also can be resized
+    accepts attributes of rows,cols to give size - still resizable
+
+
+
+  attributes
+  type
+  placeholder
+  name; what this input represents, reference for the backend
+  its value is how its represented
+  if not declared, it will be ignored on submit
+  
+
+
+
+
+
+-->
+
+
+<div class="testDiv">
+  <form action="http://httpbin.org/post" method="post">
+
+    <div>
+      <label for="first_name" >First name</label>
+      <input type="text" id="first_name" placeholder="name..." name="firstname2">
+    </div>
+
+    <div>
+      <label for="user_email">Email Address:</label>
+      <input type="email" id="user_email" name="email" placeholder="you@example.com">
+    </div>
+
+    <button type="submit">Submit</button>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount">
+
+    <label for="user_password">Password:</label>
+    <input type="password" id="user_password" name="password">
+
+    <textarea rows="2" cols="20"></textarea>
+
+  
+  </form>
+</div>
+
+
+
+
+
 <script src="Odin3.js"></script>
 
 </body>
