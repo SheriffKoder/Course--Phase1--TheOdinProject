@@ -783,13 +783,148 @@ iOS iPadOS chrome still use WebKit
 
 connecting DOM nodes and visual information to create the render tree
 
+ 
+*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* Frameworks and Preprocessors
+
+Frameworks
+bundle of css can use and access
+like bootstrap, bulma, foundation
+Tailwind CSS, Materialize
+
+save time instead of starting from a blank document
+collection of stylesheets ready to use
+for in common situations
+in teams they standardize layouts/names for a smoother development cycle, communication
+
+it is recommended to learn the language first then use the framework to enhance speed
+because of the already provided documentation
+so one can debug and tweak the css better in the long run
+once you learn it, will find similarities across many websites
+and as its difficult to override, 
+will cause less uniqueness and creativity to the website and skills practiced
+
+useful for creating the common across websites
+and save time for the actual concept to be developed
+
+develop own css code guidelines, documented pattern library or style guide
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+Preprocessors aka precompilers
+allow write loops, join multiple stylesheets and nest classes
+decreases the amount of CSS needed to write a project useful in large projects
+don't repeat yourself
+extensions to vanilla css
+functionality like nesting, mixins, variables, operators, interpolations, functions
+like SASS, LESS, Styles
+learn them if there is a feature you need
+
+helps us to use complex logical syntax like
+variables, functions, mixins, code nesting, and inheritance to name a few, 
+supercharging your vanilla CSS
+
+automate menial tasks, build reusable code snippets, avoid code repetition
+write nested code blocks that are well organized and easy to read
+
+pre syntax compiled into native css syntax to be interpreted by the browsers
+
+cons, 
+not allow you to have absolute direct control over css
+code wont be deployment ready at all times due to the compilation step except if live preprocessors are used
+
+Preprocessors have a compilation step, meaning that CSS line numbers 
+are irrelevant when trying to debug our code. But debugging is twice 
+as hard as programming
+compilation takes time
+large css files
+
+we can mimick variables and mixins by using comma-delimited css selectors in css
+selector, another selector {
+  common rules
+}
+
+
+
+
+
+
+SASS,
+written in Ruby language, 
+is a style sheet language
+LibSass allows it to be parsed in other languages
+written using sass or scss syntaxes
+used by bootstrap, zapier, uber, airbnb and kickstarter
+
+scss, 
+not based on indentation
+has curly braces and semicolons
+easier to read
+
+
+LESS,
+written in js
+strongest competitor to sass
+cons, does not support functions and uses @ to declare variables
+pros, easier to add to projects using NPM or less.js file
+used by Indiegogo, Patreon, WeChat
+
+
+Stylus,
+written with node.js
+armed with extremely powerful built-in functions and is capable of handling heavy computing
+supports native CSS
+allows brackets colons and smicolons
+uses assignment operators to indicate a variable declaration
+used by Accenture, HackerEarth, Coursera. and frameworks like Bais and Kouto Swiss
+
+
+preprocessor compilers
+compile into css using 3rd party compilers or code editor extensions
+like 
+,Live Sass
+compiles in real-tome, enables live browers to reload and display changes automatically
+so allows not lear code editor window
+
+
+,Prepros
+can compile the 3 major css pre processors
+live browser reload, free
+offers better cross browser compatibility, making sure website is rendered in a consistent manner across different browsers
+with LambdaTest, can perform cross browser testing on 3000 real browsers running over real operating systems on-cloud
+multi os support
+
+,CodeKit
+mac support
+packed with image optimizer, minified, Cache buster, 
+built-in NPM and several CSS frameworks along with debugging tools.
+
+also Pleeease, CSS-crush, myth, Garden, Rework
 
 
 
 
 */
+
+
+
+
+
 
 
 
