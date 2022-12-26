@@ -16,6 +16,53 @@ body{
     width: 100vw;
 }
 
+/*////////////////////////////////////////////////////////////////////*/
+
+.nav {
+  background: #23424A;
+}
+
+.nav_list {
+  margin: 0;
+  list-style: none;
+
+
+  display: flex;
+  align-items: center;
+
+  padding: 30px 0 0 50px;
+
+}
+
+.nav_item {
+  margin: 0 10px;
+
+}
+
+.nav_item.sign {
+  background-color: #38CFD9;
+  height: 30px;
+  width: 70px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.nav_link {
+  color: white;
+  text-decoration: none;
+}
+
+
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+
 .container1 {
     background: #23424A;
     width: 100%;
