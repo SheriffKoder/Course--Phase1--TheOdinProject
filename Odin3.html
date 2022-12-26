@@ -727,7 +727,7 @@ hr {
 
   <br>
   
-  <div>
+  <div class="validation">
     <label for="fname">First name *: </label>
     <input id="fname" name="fname" type="text" pattern=[a-z]{3} required />
     <span></span>
@@ -835,6 +835,19 @@ hr {
 
 <!-- forms
 
+  allow users to enter data sent to a web server for processing and storage
+  client-side to update the interface in some way, add another item to a list or show or hide a ui feature
+
+  a web form is made up of one or more form controls - widgets
+  and additional elements help structure the overall form
+
+  accept specific formats or values to be entered using validation
+
+  keep forms simple to keep users focus
+
+
+
+
   HTML forms and inputs
   need to specify the proper types of inputs for each possible data
   since there are often multiple ways to collect a piece of data
@@ -862,7 +875,7 @@ hr {
   and adds more clicking space
 
   ////input types
-  .text; first and last names
+  .text; first and last names, single line browser removes breaks before sending to server
   .email; will provide @symbol on mobile devices to make entering and email easier
   also will validate that the user has entered a correctly formatted email address
   .password
@@ -871,6 +884,13 @@ hr {
   .radio, the name attribute group radio inputs for a 1-selection
   .checkbox
   .button
+  .hidden, not shown to user/not spoken it needs a name and a value (can be changed with js, an example is giving a time to the order)
+  .search
+  .url
+  ,tel
+  .image, behaves as a button, given alt, src, height/width - the clicked coordinates are what sent as pos.x, pos.y
+  .file //accept and multiple attributes
+
 
   //input attributes
   .type
@@ -879,6 +899,14 @@ hr {
   if not declared, it will be ignored on submit
   .value is how its viewed, 
   .checked  //for radio
+
+  readonly
+  disabled
+  size      //physical size of box
+  maxlength //max number of characters
+  spellcheck
+
+
 
   <textarea> not an input type but can accept text that 
     spans multiple lines like user comments
@@ -893,7 +921,7 @@ hr {
     </optgroup>
 
   selection attributes
-  value, sent to server**
+  value, sent to server** only when checked
   selected, set as default
 
   ////button types
@@ -922,91 +950,200 @@ hr {
 -->
 
 
-<div class="testDiv">
-  <form action="http://httpbin.org/post" method="post">
+<div class="testDiv form1">
+  <div>
+    <label for="first_name" >First name</label>
+    <input type="text" id="first_name" placeholder="name..." name="firstname2">
+  </div>
 
-    <div>
-      <label for="first_name" >First name</label>
-      <input type="text" id="first_name" placeholder="name..." name="firstname2">
+  <div>
+    <label for="user_email">Email Address:</label>
+    <input type="email" id="user_email" name="email" placeholder="you@example.com">
+  </div>
+
+  <div>
+  <label for="amount">Amount:</label>
+  <input type="number" id="amount" name="amount">
+  </div>
+
+  <div>
+  <label for="user_password">Password:</label>
+  <input type="password" id="user_password" name="password">
+  </div>
+
+  <div>
+  <textarea rows="2" cols="20"></textarea>
+  </div>
+
+  <div>
+  <select name="Car">
+    <optgroup label="Clothing">
+      <option value="t_shirt">T-Shirts</option>
+      <option value="sweater">Sweaters</option>
+      <option value="coats">Coats</option>
+    </optgroup>
+    <optgroup label="Foot Wear">
+      <option value="sneakers">Sneakers</option>
+      <option value="boots">Boots</option>
+      <option value="sandals">Sandals</option>
+    </optgroup>
+  </select>
+  </div>
+
+  <fieldset>
+    <legend>radios</legend>
+
+    <input type="radio" id="child" name="ticket_type" value="child"checked>
+    <label for="child">name</label>
+
+    <input type="radio" id="child" name="ticket_type" value="child">
+    <label for="child">name</label>
+
+    <input type="radio" id="child" name="ticket_type" value="child">
+    <label for="child">name</label>
+
+    <input type="radio" id="child" name="ticket_type" value="child">
+    <label for="child">name</label>
+  </fieldset>
+
+  <div>
+      <label class="form-control">
+        <input type="checkbox" id="onions" name="topping" value="onions">
+        onions
+      </label>
+
+      <label class="form-control">
+        <input type="checkbox" id="onions" name="topping" value="onions">
+        onions
+      </label>
     </div>
 
-    <div>
-      <label for="user_email">Email Address:</label>
-      <input type="email" id="user_email" name="email" placeholder="you@example.com">
+    <div class="writing">
     </div>
 
-    <div>
-    <label for="amount">Amount:</label>
-    <input type="number" id="amount" name="amount">
-    </div>
 
-    <div>
-    <label for="user_password">Password:</label>
-    <input type="password" id="user_password" name="password">
-    </div>
+  <fieldset>
+    <legend>Contact Details</legend>
 
-    <div>
-    <textarea rows="2" cols="20"></textarea>
-    </div>
-
-    <div>
-    <select name="Car">
-      <optgroup label="Clothing">
-        <option value="t_shirt">T-Shirts</option>
-        <option value="sweater">Sweaters</option>
-        <option value="coats">Coats</option>
-      </optgroup>
-      <optgroup label="Foot Wear">
-        <option value="sneakers">Sneakers</option>
-        <option value="boots">Boots</option>
-        <option value="sandals">Sandals</option>
-      </optgroup>
-    </select>
-    </div>
-
-    <fieldset>
-      <legend>radios</legend>
-
-      <input type="radio" id="child" name="ticket_type" value="child"checked>
-      <label for="child">name</label>
-
-      <input type="radio" id="child" name="ticket_type" value="child">
-      <label for="child">name</label>
-
-      <input type="radio" id="child" name="ticket_type" value="child">
-      <label for="child">name</label>
-
-      <input type="radio" id="child" name="ticket_type" value="child">
-      <label for="child">name</label>
-    </fieldset>
-
-    <div>
-        <label class="form-control">
-          <input type="checkbox" id="onions" name="topping" value="onions">
-          onions
-        </label>
-
-        <label class="form-control">
-          <input type="checkbox" id="onions" name="topping" value="onions">
-          onions
-        </label>
-      </div>
-
-      <div class="writing">
-      </div>
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
 
 
-    <fieldset>
-      <legend>Contact Details</legend>
+  </fieldset>
+</div>
 
-      <button type="submit">Submit</button>
-      <button type="reset">Reset</button>
+<!--
+ 
+  a form is a container of inputs
 
+  can use input/button tags to create buttons
+  but the button tag allows custom html to be put
 
-    </fieldset>
+  no form nesting
+  usable and accessible
+
+  legend, used by assistive technologies as part of the each label
   
+  nest radio buttons inside a <fieldset> container
+  along with <label>
+  labels let the inputs be spoken and adds space
+
+
+  If possible, each time you build a form, try to listen to 
+  how a screen reader interprets it, like voice over in mac
+
+
+  //best way to nest labels
+  <div>
+    2 <label for="username">Name: <span aria-label="required">*</span></label>
+    <input id="username" type="text" name="username" />
+  </div>
+
+  2 spoken as: name required edit text
+
+  Lists are recommended for structuring multiple checkboxes or radio buttons.
+  H1>H2, and sectioning to structure complex forms
+
+  for security
+  host any pages involving forms over a secure connection 
+  (i.e. located at an https:// address), so the data is encrypted 
+  before it is sent.
+
+
+
+
+
+-->
+
+<div class=" form2">
+  <form action="/my-handling-form-page" method="post">
+
+    <section class="form2_part1">
+      <h2>Contact information</h2>
+
+      <ul>
+        <li>  <!--or <p> -->
+          <label for="name">
+            <span>Name: </span>
+            <strong><span aria-label="required">*</span></strong>
+          </label>
+          <input type="text" id="name" name="username" />
+        </li>
+      
+        <li>
+          <label for="email">Email
+            Required field
+            <strong><span aria-label="required">*</span></strong>.
+      
+          </label>
+          <input type="email" id="email" name="user_name">
+        </li>
+        <section>
+          <li>
+            <label for="message">Message</label>
+            <textarea id="message" name="user_name"></textarea>
+          </li>
+        </section>
+        <li class="button">
+          <button type="submit">Send your message</button>
+        </li>
+      </ul>
+    </section>
+
+    <section class="form2_part2">
+      <h2>Choice information</h2>
+      <fieldset>
+        <legend>Title</legend>
+        <ul>
+          <li>
+            <label for="title_1">
+              <input type="radio" id="title_1" name="title" value="K" />
+              King
+            </label>
+          </li>
+          <li>
+            <label for="title_2">
+              <input type="radio" id="title_2" name="title" value="Q" />
+              Queen
+            </label>
+          </li>
+          <li>
+            <label for="title_3">
+              <input type="radio" id="title_3" name="title" value="J" />
+              Joker
+            </label>
+          </li>
+        </ul>
+      </fieldset>
+    </section>
+
+    <section>
+      <p>
+        <button type="submit">Validate the payment</button>
+      </p>
+    </section>
     
-  
+
   </form>
 </div>
 
