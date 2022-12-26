@@ -1,4 +1,8 @@
 /*
+
+inspect > element > computed (will show all properties)
+
+
 *Index*
 New
 SVG
@@ -603,10 +607,9 @@ position:absolute
 
 >giving left/right without width will fill the available space
 >can be used in a padded scroll parent
-> sticky elements will pass to each other
 
 fixed
-//relative to the document "only"//
+//positioned to the document "only"//
 //except when one of its ancestors has a transform, perspective, or filter property set to something other than none or the will-change property is set to transform
 scroll-margin-top: 5rem;  //for headers and hashtags overlap
 
@@ -622,6 +625,8 @@ sticky
 //relatively positioned until its containing block crosses a 
 //specified threshold (such as setting top
 //or the container it scrolls within
+> sticky elements will pass to each other
+
 
 
 
@@ -638,7 +643,6 @@ el.addEventListener('animationEnd', removeHint);
 
 
 
-inspect > element > computed (will show all properties)
  
 
 
@@ -920,6 +924,126 @@ also Pleeease, CSS-crush, myth, Garden, Rework
 
 
 */
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+checkbox
+
+accent-color: red;
+color applied to checkbox, radio, range, progress tag
+
+
+*/
+
+
+form div, form fieldset {
+  display: block;
+  margin: 5px;
+}
+
+form div #onions {
+
+
+}
+
+
+@layer customCheckbox {
+
+/*  the box does not scale along with the font-size so we create a custom one*/
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.1;
+
+  /* change the size of the check box*/
+  display: grid;
+  grid-template-columns: 1.2em auto;
+  gap: 0.5em;
+
+  /*puts the content in center*//*
+  place-content: center;  
+  */
+
+}
+
+/*to remove the check box */
+input[type="checkbox"] {
+  -webkit-appearance: none;
+
+}
+
+/* custom appearance */
+input[type="checkbox"] {
+
+  background-color: #fff;
+
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.2em;
+
+  transform: translateY(-0.075em);
+  position: relative;
+
+
+}
+
+/*for making an inside click box */
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 0.65em;
+  height: 0.65em;
+  top: 49%;
+  left: 49%;
+  transform: scale(0) translate(-50%,-50%);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em red;
+  /*Use of box-shadow instead of background-color will enable the state of the radio to be visible when printed*/
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1) translate(-50%,-50%);
+}
+
+/* outer border on focus */
+input[type="checkbox"]:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}
+
+/* adding a custom pen path from a clip path maker*/
+.writing {
+  height: 20px;
+  width: 20px;
+  background-color: red;
+  
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+
+  cursor: not-allowed;
+}
+
+
+/*
+https://moderncss.dev/pure-css-custom-styled-radio-buttons/
+*/
+
+
+}
+
+
 
 
 
