@@ -100,10 +100,37 @@ Content Sectioning Elements identify sections of content
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 
+Semantic HTML
+markup should convey the underlying meaning of your content not its appearance
+tags called sectioning elements
+a document is a large article with headers, main and footers
+with other articles in it
+along with hav sidebars/headers
+some would be just sections/asides
 
-<address> 
-element indicates that the enclosed html provides 
-contact information for a person or people
+make it with divs then change ?
+
+it makes it easier for search engines, screen readers
+identify different parts of the website
+view hierarchy of the content on the page
+
+keeps site organized and easier to maintain
+
+
+don’t use semantic elements just for the sake of using them. 
+Implementing them incorrectly is worse than not using them at all, 
+so if you’re ever in doubt, use a <div> instead.
+
+
+section, article, aside, footer, header, nav {
+  display: block;
+}
+//makes semantic elements behave as div elements
+
+<header>
+introductory content for any part
+for a section, article or entire web page
+for search engines and screen readers to know that first <p> was separate from the main content of the article.
 
 <article> article style
 <aside> undirectly related to document
@@ -117,14 +144,74 @@ element represents the dominant content of the body of a document
 <nav>
 navigation links either within the document or to other documents
 like ...,indexes and menus
+main side navigation, links to related pages in a side board
+tables of content and any group of links
+
+
+
 
 <section>
+like article tag but does not convey semantic meaning to engines
+but helps keep things organized
 represents a generic standalone section of a document
 that not have a more specific semantic element to represent it
 should always have a heading
 
+<aside>
+also not part of the semantic scheme
+like ads and sponsors
+extra information to an aritcle
 
 
+<footer>
+same as headers, come at the end of an aritcle/website
+
+
+<div>
+for wrapping a whole content or sub content inside a container to use it
+presentation purposes
+
+---------------------------------------------
+
+
+<time>
+time is a kind of language, so the tag parses any time format to be rendered
+put in : article > header > h1 > p > text + time
+
+year - month - date - time - timezone
+<p>By Troy McClure. Published <time datetime='2017-1-3'>January 3rd</time></p>
+
+
+<address> 
+element indicates that the enclosed html provides 
+contact information for a person or people
+put in footer > p > text + address
+ex
+<address>
+  Please contact <a href='mailto:troymcclure@example.com'>Troy
+  McClure</a> for questions about this article.
+</address>
+styled by default as em
+
+
+<figure> / <figcaption>
+self-contained figure or a diagram illustration, code snippet
+figcaption is details about figure ints contained in 
+
+section > figure > img + figcaption
+
+Schema.org microdata lets you alter the appearance of your site in search engine results.
+Twitter cards define how your web page is displayed in tweets.
+Open Graph metadata changes how Facebook shares your content.
+
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 
 Text content
 ////////////////////////////////////////////////////////
@@ -829,6 +916,10 @@ hr {
   </form>
 </div>
 
+
+<h2>Inline Semantic HTML</h2>
+<p>The <code>&lt;time&gt;</code> element is semantic, but it’s not
+   sectioning content.</p>
 
 
 
