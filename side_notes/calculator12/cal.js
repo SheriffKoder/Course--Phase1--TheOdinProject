@@ -37,7 +37,7 @@ window.addEventListener("load", () =>{
 const buttons = document.querySelectorAll(".calc_buttons table tr td button, .calc_fn table tr td button");
 
 let text_string = "";   //start
-let arithmetic = ["ONE","+","-","/","X",".","x","*","^", " "];
+let arithmetic = ["ONE","+","-","/","X","x","*","^", " "]; //removed .
 //add space to be used as an indication of a string end to be checked when computing a last number
 let ProhibitedStartSigns = ["ONE", "/", "X","x","*", "^"];
 
@@ -388,9 +388,9 @@ function checkForBrackets (textInput) {
 
 }
 
-
-//compute starts with taking the most nested opened/closed bracket
-//giving it a dummy value "1" (inbetween) variable
+//if brackets are checked will come here
+//computing starts with taking the most nested opened/closed bracket
+//giving it a dummy value "1" (inbetween) variable for now
 //and compose string returns the original text with the bracket removed and inbetween value inserted
 function ReplacingBrackets (text) {
 
@@ -449,31 +449,102 @@ function ComposeString (inputText,firstSignOccurance,calculated,lastSignOccuranc
 //let text22 = "1-4*4+1";
 //computeString(text22);
 
-let text22 = "1+1*100/100";
+let text22 = "1-2/2";
+
+
 computeString(text22);
-computeString(text22);
-computeString(text22);
+
+
+
+//computeString(text22);
+//computeString(text22);
+//computeString(text22);
+
+//check("/","200/2");
+//function to allow less code reused in compute string
+function check (signFound,input) {
+
+    //input = input + " ";    //add space to be used as an indication of a string end
+
+    console.log(`found a ${signFound} `);          //dummy
+    let SignIndex = input.indexOf(signFound);
+    console.log("at ", SignIndex);      //dummy
+
+    //will return before and after also the signs indexes
+    let BeforeAfter = getBefore_After(input, SignIndex);
+    console.log("BeforeAfter " + BeforeAfter);
+
+    let BeforeAftercalculation = signCalculator (signFound, BeforeAfter[0],BeforeAfter[1]);
+    console.log("BeforeAftercalculation is " + BeforeAftercalculation);
+    let BeforeSign = BeforeAfter[2]+1;
+    let AfterSign = SignIndex+BeforeAfter[3];
+
+    input = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
+    //console.log("output " + output);
+    //input = output;
+    console.log("Result>>>>" + input);
+    return input;
+
+
+}
+
+
+
+
+//console.log(signCalculator("/",2,1));
+//function does calculation depending on the sign provided and inputs
+function signCalculator (inputSign, beforePart, afterPart) {
+
+    switch(inputSign) {
+    case "/":
+        return Number(beforePart) / Number(afterPart);
+        break;
+    
+    case "*":
+        return Number(beforePart) * Number(afterPart);
+        break;
+
+    case "+":
+        return Number(beforePart) + Number(afterPart);
+        break;
+    case "-":
+        console.log("subracting ", beforePart, afterPart);
+        return Number(beforePart) - Number(afterPart);
+        break;
+    }
+
+
+}
 
 
 //finding from left to right 
 // / first then * then + then -
 //
-function computeString (input) {
+function computeString (inputpassed) {
+
+    let input = inputpassed + " ";    //add space to be used as an indication of a string end
+    let calculation = "";
+
+    //console.log("input>>>>" + input);
+
+    while(calculation !== "end") {
 
     //find / then if not *,+,-
-    input = input + " ";    //add space to be used as an indication of a string end
-
     if (input.indexOf("/")>0) {
+
+        input = check("/",input);
+
+/*
         console.log("found a / ");          //dummy
         let SignIndex = input.indexOf("/");
-        console.log("at ", SignIndex);      //dummy
+        //console.log("at ", SignIndex);      //dummy
 
         //will return before and after also the signs indexes
         let BeforeAfter = getBefore_After(input, SignIndex);
-        console.log("BeforeAfter " + BeforeAfter);
+        //console.log("BeforeAfter " + BeforeAfter);
 
         let BeforeAftercalculation = BeforeAfter[0] / BeforeAfter[1];
-        console.log(BeforeAftercalculation);
+        //console.log(BeforeAftercalculation);
         let BeforeSign = BeforeAfter[2]+1;
         let AfterSign = SignIndex+BeforeAfter[3];
         
@@ -481,25 +552,29 @@ function computeString (input) {
         //console.log(zz);
 
         let output = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
-        //console.log(output);
-        text22 = output;
-        console.log(text22);
+        //console.log("output" + output);
+        input = output;
+        console.log("Result>>>>" + input);
 
-
+*/
 
     }
 
+
     else if (input.indexOf("*")>0) {
+        input = check("*",input);
+
+        /*
         console.log("found a * ");
         let SignIndex = input.indexOf("*");
-        console.log("at ", SignIndex);
+        //console.log("at ", SignIndex);
 
         //will return before and after also the signs indexes
         let BeforeAfter = getBefore_After(input, SignIndex);
-        console.log(BeforeAfter);
+        //console.log(BeforeAfter);
 
         let BeforeAftercalculation = BeforeAfter[0] * BeforeAfter[1];
-        console.log(BeforeAftercalculation);
+        //console.log(BeforeAftercalculation);
         let BeforeSign = BeforeAfter[2]+1;
         let AfterSign = SignIndex+BeforeAfter[3];
         
@@ -508,13 +583,17 @@ function computeString (input) {
 
         let output = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
         //console.log(output);
-        text22 = output;
-        console.log(text22);
+        input = output;
+        console.log("Result>>>>" + input);
+        */
         
     }
 
 
     else if (input.indexOf("+")>0) {
+
+        input = check("+",input);
+/*
         console.log("found a + ");
         let SignIndex = input.indexOf("+");
         console.log("at ", SignIndex);
@@ -534,16 +613,24 @@ function computeString (input) {
 
         let output = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
         //console.log(output);
-        text22 = output;
-        console.log(text22);
-
+        input = output;
+        console.log("Result>>>>" + input);
+*/
     }
 
     else if (input.indexOf("-")>0) {
-        console.log("found a - ");
+
+        input = check("-",input);
 
     }
 
+    else {
+        console.log(input);
+        calculation = "end";
+        
+    }
+
+}
 
 
 
@@ -566,8 +653,8 @@ function checkLocationOfPreviousSign (inputString) {
     });
     signsPlaces = signsPlaces.sort();
 
-    console.log("signsPlaces prev " + signsPlaces);
-    console.log("signsPlaces prev value " + signsPlaces[signsPlaces.length-1]);
+    //console.log("signsPlaces prev " + signsPlaces);
+    //console.log("signsPlaces prev value " + signsPlaces[signsPlaces.length-1]);
     return signsPlaces[signsPlaces.length-1];
 }
 
@@ -589,8 +676,8 @@ function checkLocationOfNextSign (inputString) {
         //console.log("end of string, the added space will be used ");
     }
 
-    console.log("signsPlaces next " + signsPlaces);
-    console.log("signsPlaces next value " + signsPlaces[0]);
+    //console.log("signsPlaces next " + signsPlaces);
+    //console.log("signsPlaces next value " + signsPlaces[0]);
     return signsPlaces[0];
 }
 
@@ -601,11 +688,11 @@ function getBefore_After (input, SignIndex) {
     /* firstSplit */
     //get the whole string before this sign, to find the last sign next
     let BeforeSignCheckSplit = input.slice(0,SignIndex);
-    console.log(BeforeSignCheckSplit);
+    console.log("BeforeSignCheckSplit " + BeforeSignCheckSplit);
     
     //get the last sign position
     let lastSignPosition = checkLocationOfPreviousSign(BeforeSignCheckSplit);
-    console.log(lastSignPosition);
+    console.log("lastSignPosition " + lastSignPosition);
 
     //the number1 is from the last sign till end (the sign index)
     let firstSplit = BeforeSignCheckSplit.slice(lastSignPosition+1);
@@ -614,17 +701,18 @@ function getBefore_After (input, SignIndex) {
 
     /* secondSplit */
     let AfterSignCheckSplit = input.slice(SignIndex+1);
-    console.log(AfterSignCheckSplit);
+    console.log("AfterSignCheckSplit "+ AfterSignCheckSplit);
 
     //get the first sign position
     let nextSignPosition = checkLocationOfNextSign(AfterSignCheckSplit);
-    console.log(nextSignPosition);
+    console.log("nextSignPosition "+nextSignPosition);
 
     //the number2 is from the sign index position[0] sign till next sign
     let secondSplit = AfterSignCheckSplit.slice(0,nextSignPosition);
     console.log("second Split " + secondSplit);
 
     //return the prev/next numbers for our sign and the last/next sign positions to be used later
+    console.log("firstSplit ", firstSplit, "secondSplit ", secondSplit, "lastSignPosition ", lastSignPosition, "nextSignPosition ", nextSignPosition);
     return [firstSplit,secondSplit,lastSignPosition,nextSignPosition];
 }
 
