@@ -97,6 +97,14 @@ function buttonSwitch (valueGot) {
     //it is a start, there is a bracket opened before (not yet closed)
     ////arithmetic before starting point or another opened bracket
 
+    else if (valueGot == "." && text_string[text_string.length-1] !== ".") {
+        console.log(valueGot);
+        text_string += valueGot;
+        text_space.textContent = text_string;
+
+    }
+
+
     else if ((valueGot === "(") && safeBracketOpening(text_string) && signBefore(text_string)) {
         console.log("opened");
         text_string += valueGot;
@@ -243,9 +251,7 @@ function NumberAfterLastOpened (text) {
 
 //console.log(NumberAfterLastOpened(text));
 
-
-
-//close accepted when there is sign before, no opened brackets and its a number
+//close accepted when there is sign before, no opened brackets and its a number and no dot before
 //also when there are more opened brackets than closed brackets 
 //also when there are more opened brackets but no closed brackets yet
 //no brackets closed or if there are brackets closed a bracket opened has to be yet opened not closed also checks for validity of this opened bracket to be safe*extra?
@@ -256,10 +262,11 @@ function safeBracketClosing (text) {
     let NumBefore = Number(text[text.length-1]);
     let OpenedCount = text.match(/[(]/g);
     let ClosedCount = text.match(/[)]/g);
+    let dotBefore = text[text.length-1] == ".";
     
     //console.log("bracket opened at " + bracketOpened + " bracket closed at " + bracketClosed + " Arith " + Arith + " Numbefore "+ NumBefore);
 
-    if (!Arith && (OpenedCount !== null) && NumberAfterLastOpened(text) ) {
+    if (!Arith && (OpenedCount !== null) && NumberAfterLastOpened(text) && !dotBefore ) {
         console.log(true);
 
         if ( ((bracketClosed < 0) || (bracketOpened < bracketClosed)) && NumBefore) {
@@ -449,7 +456,7 @@ function ComposeString (inputText,firstSignOccurance,calculated,lastSignOccuranc
 //let text22 = "1-4*4+1";
 //computeString(text22);
 
-let text22 = "1-2/2";
+let text22 = "1-.5";
 
 
 computeString(text22);
