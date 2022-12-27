@@ -513,8 +513,20 @@ element.scrollTo({
 
 */
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+// get variable from inline style
+//element.style.getPropertyValue("--my-var");
+
+// get variable from wherever
+//getComputedStyle(element).getPropertyValue("--my-var");
+
+// set variable on inline style
+//element.style.setProperty("--my-var", jsVar + 4);
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 // var theme toggle
 function setTheme() {
       const root = document.documentElement;
@@ -525,3 +537,17 @@ function setTheme() {
     }
     
     document.querySelector('.theme-toggle').addEventListener('click', setTheme)
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+//show range input slider value
+const price = document.querySelector("#price");
+const output = document.querySelector(".price-output");
+
+output.textContent = price.value;
+
+price.addEventListener("input", () => {
+  output.textContent = price.value;
+})
