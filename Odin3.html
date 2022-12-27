@@ -781,8 +781,6 @@ hr {
 
   <br><br><br>
 
-  <label for="fileUpload">Upload file</label>
-  <input type="file" id="fileUpload" accept="image/png, image/jpeg">
 
   <br><br><br>
 
@@ -874,23 +872,28 @@ hr {
   for attribute for the id of the input
   and adds more clicking space
 
-  ////input types
+  ////input types : will validate that the user has entered a correctly formatted email address
   .text; first and last names, single line browser removes breaks before sending to server
   .email; will provide @symbol on mobile devices to make entering and email easier
-  also will validate that the user has entered a correctly formatted email address
+  built-in client-side error validation, performed by the browser before the data gets sent to the server.
   .password
-  .number; will accept numbers only and ignore any other value
-  .date
+  .number; will accept numbers only and ignore any other value, numeric keyboard on phones
+  .date .month .time . week //min/max/step
   .radio, the name attribute group radio inputs for a 1-selection
   .checkbox
   .button
   .hidden, not shown to user/not spoken it needs a name and a value (can be changed with js, an example is giving a time to the order)
-  .search
+  .search //browser text saving mechanism
   .url
-  ,tel
+  ,tel  //phones display keyboard, used inst of number if not want spinner
   .image, behaves as a button, given alt, src, height/width - the clicked coordinates are what sent as pos.x, pos.y
-  .file //accept and multiple attributes
+  .file //accept and multiple attribute
+  .range  //number slider with min/max/step/value(initial)
+  .color  //return hex
 
+  dropdown input selection
+  <datalist><option> with id matched in input with list="datalist-id"
+  can wrap options in label>select for older browsers
 
   //input attributes
   .type
@@ -899,6 +902,21 @@ hr {
   if not declared, it will be ignored on submit
   .value is how its viewed, 
   .checked  //for radio
+  .step //for number type, how much the spinner increases, can be decimal 
+
+  .autofocus    //only one item can have it
+  .form         //associate a form control with a form it is outside of even if in different form element
+
+  aria-label/aria-labelledby attributes can be used to define a string that labels the interactive accessible element on which it is set. 
+  used if the tag has no appropriate text visible in the DOM that could be referenced as a label content like svg or *
+  accessible names button>its html, form>its labels image>its alt attr
+  if aria declared it will take precedence over them
+  aria-describedby or aria-description, to describe text
+
+
+  .accept="image/*";  ="image/jpg"; accept="image/*;capture=camera/camcorder/microphone"
+  .multiple //used on email, file etc
+
 
   readonly
   disabled
@@ -908,27 +926,39 @@ hr {
 
 
 
-  <textarea> not an input type but can accept text that 
+  <textarea> not an input type but can accept text that
+    attr: cols,rows, wrap(soft-default/hard/off)
+    (css)resize: both(default), horizontal, vertica, none, block, inline(directions)
+
     spans multiple lines like user comments
     also can be resized
     accepts attributes of rows,cols to give size - still resizable
+    can be submitted
+    can put html, css and js
+    can press enter not like normal text inputs
+    (Using contenteditable on non-form controls provides an API for capturing HTML/"rich" content instead of plain text).
 
 
+
+    
   ////selection elements
   <select>
-    <optgroup>          //grouping
+    <optgroup label="">          //on dropdown grouping
       <option value="">
     </optgroup>
 
   selection attributes
   value, sent to server** only when checked
   selected, set as default
+  size, how many options displayed when not clicked
+  multiple, allow selection of multiple options using cmd
 
   ////button types
   .submit //default button type
   .reset  //clears form
   .button //generic for js interactions
 
+  can also have an input type button but will have no custom html content
 
   /*/////////////////////////////////*/
   organizing form elements
@@ -1021,13 +1051,16 @@ hr {
     <div class="writing">
     </div>
 
+    <div>  <br>
+      <label for="fileUpload">Upload file</label>
+      <input type="file" id="fileUpload" accept="image/png, image/jpeg">
+    </div> <br>
 
   <fieldset>
     <legend>Contact Details</legend>
 
     <button type="submit">Submit</button>
     <button type="reset">Reset</button>
-
 
   </fieldset>
 </div>
@@ -1039,12 +1072,12 @@ hr {
   can use input/button tags to create buttons
   but the button tag allows custom html to be put
 
-  no form nesting
-  usable and accessible
+  avoid form nesting
+  make forms usable and accessible (pro accessibility)
 
-  legend, used by assistive technologies as part of the each label
   
   nest radio buttons inside a <fieldset> container
+  legend, used by assistive technologies as part of the each label
   along with <label>
   labels let the inputs be spoken and adds space
 
@@ -1061,7 +1094,7 @@ hr {
 
   2 spoken as: name required edit text
 
-  Lists are recommended for structuring multiple checkboxes or radio buttons.
+  <li> Lists are recommended for structuring multiple checkboxes or radio buttons.
   H1>H2, and sectioning to structure complex forms
 
   for security
@@ -1146,6 +1179,47 @@ hr {
 
   </form>
 </div>
+
+
+<div class="testDiv">
+
+  <form>
+    
+    <ul>
+      <li>
+        <label for="myFruit">What's your favorite fruit?</label>
+        <input type="text" name="myFruit" id="myFruit" list="mySuggestion" />
+        <datalist id="mySuggestion">
+          <option>Apple</option>
+          <option>Banana</option>
+          <option>Blackberry</option>
+          <option>Blueberry</option>
+          <option>Lemon</option>
+          <option>Lychee</option>
+          <option>Peach</option>
+          <option>Pear</option>
+        </datalist>
+      </li>
+      
+      <li>
+        <input
+        type="date"
+        name="myDate"
+        min="2022-06-01"
+        max="2022-08-31"
+        step="7"
+        id="myDate" />
+      
+      </li>
+
+    </ul>
+
+
+
+  </form>
+
+</div>
+
 
 
 <h2>Inline Semantic HTML</h2>
