@@ -255,6 +255,12 @@ url source of it given using the cite attribute
 <meter id="disk_d" value="0.6">60%</meter>
 <meter id="disk_c" value="2" min="0" max="10">2 out of 10</meter><br>
 
+//adds color to specific ranges
+//green from min-low
+//yellow from low-high
+//red from high-max
+//optimum defines where the colors should be divided, this tag is divided evenly
+<meter min="0" low="33" optimum="32" high="66" max="100" value="35">75</meter>
 
 
 
@@ -894,6 +900,7 @@ hr {
   dropdown input selection
   <datalist><option> with id matched in input with list="datalist-id"
   can wrap options in label>select for older browsers
+  if datalist is supported, any other element than option will be ignored
 
   //input attributes
   .type
@@ -1187,11 +1194,23 @@ hr {
     
     <ul>
       <li>
-        <label for="myFruit">What's your favorite fruit?</label>
-        <input type="text" name="myFruit" id="myFruit" list="mySuggestion" />
+        <input
+        type="date"
+        name="myDate"
+        min="2022-06-01"
+        max="2022-08-31"
+        step="7"
+        id="myDate" />
+      
+      </li>
+      
+      <!-- ex datalist of range or color -->
+      <li>
+        <label for="myFruit"> </label>
+        <input type="range" name="myFruit" id="myFruit" list="mySuggestion" />
         <datalist id="mySuggestion">
-          <option>Apple</option>
-          <option>Banana</option>
+          <option value="0" label="Apple"></option>
+          <option value="100" label="banana"></option>
           <option>Blackberry</option>
           <option>Blueberry</option>
           <option>Lemon</option>
@@ -1202,15 +1221,11 @@ hr {
       </li>
       
       <li>
-        <input
-        type="date"
-        name="myDate"
-        min="2022-06-01"
-        max="2022-08-31"
-        step="7"
-        id="myDate" />
-      
+        <!--display % of files downloaded or questions answered-->
+        <progress max="100" value="75">75/100</progress>
       </li>
+
+      <li><input type="search"></li>
 
     </ul>
 
