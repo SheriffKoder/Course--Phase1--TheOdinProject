@@ -52,6 +52,7 @@ buttons.forEach(button => {
 });
 
 window.addEventListener("keydown", (e) => {
+    console.log(e.key);
     buttonSwitch(e.key);
 });
 
@@ -122,13 +123,17 @@ function buttonSwitch (valueGot) {
     /////////////////////////////////////////////////////////////
     /* other buttons */
     //to be used with a calculating function on the final string
-    else if (valueGot == "=") {     //an equal
+    else if (valueGot == "=" ||valueGot == "Enter") {     //an equal
         console.log("its an equal");
+        console.log(text_string);
+        let result = checkForBracketsAndCompute(text_string);
+        result_space.textContent = result;
     }
     //AC cleans the string value and display
-    else if (valueGot == "AC") {   //calc buttons
+    else if (valueGot == "AC" || valueGot == "Meta") {   //calc buttons
         text_string = "";
-        text_space.textContent = text_string;
+        text_space.textContent = ">";
+        result_space.textContent = "...";
 
     }
     //(Delete or backspace) removes one value from the end of the string
@@ -337,9 +342,8 @@ console.timeEnd('fetching data');
 
 
 
-let textOriginal = "1+3+(4X5/2+(-3+4))";
-let temp = "";
-console.log("text is " + textOriginal);
+let textOriginal = "(1+1)/4*2";
+//console.log("text is " + textOriginal);
 
 
 
@@ -347,7 +351,7 @@ console.log("text is " + textOriginal);
 
 
 
-//checkForBrackets(textOriginal);
+//checkForBracketsAndCompute(textOriginal);
 //checkForBrackets(textOriginal);
 //checkForBrackets(textOriginal);
 
@@ -356,7 +360,9 @@ console.log("text is " + textOriginal);
 //if one greater than the other react upon that (because not valid yet to compute)
 //no brackets then compute
 //else(i.e brackets counts are equal) then also compute
-function checkForBrackets (textInput) {
+function checkForBracketsAndCompute (textInput) {
+
+    let temp = "";
 
     let Opened =0;
     let Closed =0;
@@ -375,25 +381,53 @@ function checkForBrackets (textInput) {
     if (Opened > Closed ) {
         console.log("opened is greater than closed");
     }
-    else if (Opened > Closed ) {
+    else if (Opened < Closed ) {
         console.log("closed is greater than opened");
     }
-    //tell if there are no brackets at all
+    //tell if there are no brackets at all (compute)
     else if (Opened =="0" && Closed =="0") {
         console.log("there are no brackets");
-        //compute (code not exist yet)
+        console.log("and will compute "+ textInput);
+        //compute
+        temp = computeString(textInput);
+        textInput = temp;
+        console.log("text now is textInput final zero is " + textInput);
+        return textInput;
     }
+    //brackets are equal (compute)
     else {
 
         //compute (code exist)
-        temp = ReplacingBrackets(textOriginal);
-        textOriginal = temp;
-        console.log("text now is " + textOriginal);
+        temp = ReplacingBrackets(textInput);
+        textInput = temp;
+        console.log("text now is textInput " + textInput);
+        return textInput;
+
 
     }
 
 
 }
+
+let text2812 = "1+1+(1+1)";
+//text2812 = ReplacingBrackets(text2812);
+//ReplacingBrackets(text2812);
+//ReplacingBrackets(text2812);
+
+function checkSignCount (inputText) {
+
+    let count = 0;
+
+    for (let item in inputText) {
+        if (arithmetic.indexOf(inputText[item])>0) {
+            count++;
+        }
+    }
+   //console.log("count is "+ count);
+   return count;
+
+}
+
 
 //if brackets are checked will come here
 //computing starts with taking the most nested opened/closed bracket
@@ -401,46 +435,74 @@ function checkForBrackets (textInput) {
 //and compose string returns the original text with the bracket removed and inbetween value inserted
 function ReplacingBrackets (text) {
 
-
-//find last opened bracket
-
-let LastOpenedBracket = text.lastIndexOf("(");
-//console.log("( opened at " + LastOpenedBracket);
-
-//find first closed bracket after it
-
-let firstClosedBracket = text.indexOf(")",LastOpenedBracket);
-//console.log(") closed at " + firstClosedBracket);
-
-//take the string in between out
-let tempText = text.slice(LastOpenedBracket+1,firstClosedBracket );
-//console.log(tempText);
+console.log("Brackets " + text);
+let returnValue = "";
 
 
-//compute the between string
-//console.log(computeString (tempText));
-//let inBetween = computeString (tempText);
-let inBetween = 1;
+while (checkSignCount(text)>0) {
+    if (text.indexOf("(") === -1 ) {
+        console.log("there is no bracket");
+
+        text = computeString(text);
+        console.log("and the no bracket equals to ", text);
+
+    }
+
+    else {
+    //find last opened bracket
+    let LastOpenedBracket = text.lastIndexOf("(");
+    console.log("( opened at " + LastOpenedBracket);
 
 
-let returnValue = ComposeString(text , LastOpenedBracket , inBetween, firstClosedBracket);
+    //find first closed bracket after it
+    let firstClosedBracket = text.indexOf(")",LastOpenedBracket);
+    console.log(") closed at " + firstClosedBracket);
 
-return returnValue;
+    //take the string in between out
+    let tempText = text.slice(LastOpenedBracket+1,firstClosedBracket );
+    console.log("text to be computed " + tempText);
+
+
+    //compute the between string
+    let inBetween = computeString (tempText);
+    console.log("string after compution " + inBetween);
+    //let inBetween = 1;
+
+
+    returnValue = makeString(text , LastOpenedBracket , inBetween, firstClosedBracket);
+    console.log("returnValue " + returnValue);
+    text = returnValue;
+
+
+    console.log("Replacing brackets return value", text);
+    }
+
+}
+console.log("calc finished");
+return text;
 
 }
 
 
-//the function responsible for removing the old part(most nested till now) and inserting the computed value (inbetween) the text for the new text
-function ComposeString (inputText,firstSignOccurance,calculated,lastSignOccurance) {
+//the function responsible for removing the old part(most nested till now) 
+//and inserting the computed value (inbetween) the text for the new text
+function makeString (inputText,firstSignOccurance,calculated,lastSignOccurance) {
     //slice the before and after parts from the main string
+
+    //console.log("length" , inputText.length-1);
+    inputText = inputText.trim();   //remove the added space to output the string correctly
+    console.log("text is," + inputText + ",");
+
     let String1 = inputText.slice(0,firstSignOccurance);
-    //console.log(String1);
+    console.log("will take," + String1);
     
+    console.log("and put," + calculated + ",");
+
     let String2 = inputText.slice(lastSignOccurance+1);
-    //console.log(String2);
+    console.log("then," + String2 + ",");
     
     let newString = `${String1}${calculated}${String2}`;
-    //console.log(newString);
+    console.log(newString);
     
     return newString;
     
@@ -459,7 +521,7 @@ function ComposeString (inputText,firstSignOccurance,calculated,lastSignOccuranc
 let text22 = "1-.5";
 
 
-computeString(text22);
+//computeString(text22);
 
 
 
@@ -471,25 +533,29 @@ computeString(text22);
 //function to allow less code reused in compute string
 function check (signFound,input) {
 
-    //input = input + " ";    //add space to be used as an indication of a string end
+    console.log("// check function //");
+    console.log("checking for " + input);
+    input = input + " ";    //add space to be used as an indication of a string end
 
-    console.log(`found a ${signFound} `);          //dummy
+    //console.log(`found a ${signFound} `);          //dummy
     let SignIndex = input.indexOf(signFound);
-    console.log("at ", SignIndex);      //dummy
+    //console.log("at ", SignIndex);      //dummy
 
     //will return before and after also the signs indexes
     let BeforeAfter = getBefore_After(input, SignIndex);
-    console.log("BeforeAfter " + BeforeAfter);
+    //console.log("BeforeAfter " + BeforeAfter);
 
     let BeforeAftercalculation = signCalculator (signFound, BeforeAfter[0],BeforeAfter[1]);
-    console.log("BeforeAftercalculation is " + BeforeAftercalculation);
+    //console.log("BeforeAftercalculation is " + BeforeAftercalculation);
     let BeforeSign = BeforeAfter[2]+1;
     let AfterSign = SignIndex+BeforeAfter[3];
 
-    input = ComposeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
+    input = makeString (input,BeforeSign,BeforeAftercalculation,AfterSign);
     //console.log("output " + output);
     //input = output;
-    console.log("Result>>>>" + input);
+    //console.log("Result>>>>" + input);
+    console.log("// end of check function //");
+
     return input;
 
 
@@ -515,7 +581,7 @@ function signCalculator (inputSign, beforePart, afterPart) {
         return Number(beforePart) + Number(afterPart);
         break;
     case "-":
-        console.log("subracting ", beforePart, afterPart);
+        //console.log("subracting ", beforePart, afterPart);
         return Number(beforePart) - Number(afterPart);
         break;
     }
@@ -529,7 +595,7 @@ function signCalculator (inputSign, beforePart, afterPart) {
 //
 function computeString (inputpassed) {
 
-    let input = inputpassed + " ";    //add space to be used as an indication of a string end
+    let input = inputpassed;    //removed: add space to be used as an indication of a string end
     let calculation = "";
 
     //console.log("input>>>>" + input);
@@ -632,7 +698,8 @@ function computeString (inputpassed) {
     }
 
     else {
-        console.log(input);
+        //console.log(input);
+        return input;
         calculation = "end";
         
     }
@@ -695,31 +762,31 @@ function getBefore_After (input, SignIndex) {
     /* firstSplit */
     //get the whole string before this sign, to find the last sign next
     let BeforeSignCheckSplit = input.slice(0,SignIndex);
-    console.log("BeforeSignCheckSplit " + BeforeSignCheckSplit);
+    //console.log("BeforeSignCheckSplit " + BeforeSignCheckSplit);
     
     //get the last sign position
     let lastSignPosition = checkLocationOfPreviousSign(BeforeSignCheckSplit);
-    console.log("lastSignPosition " + lastSignPosition);
+    //console.log("lastSignPosition " + lastSignPosition);
 
     //the number1 is from the last sign till end (the sign index)
     let firstSplit = BeforeSignCheckSplit.slice(lastSignPosition+1);
-    console.log("first Split " + firstSplit);
+    //console.log("first Split " + firstSplit);
 
 
     /* secondSplit */
     let AfterSignCheckSplit = input.slice(SignIndex+1);
-    console.log("AfterSignCheckSplit "+ AfterSignCheckSplit);
+    //console.log("AfterSignCheckSplit "+ AfterSignCheckSplit);
 
     //get the first sign position
     let nextSignPosition = checkLocationOfNextSign(AfterSignCheckSplit);
-    console.log("nextSignPosition "+nextSignPosition);
+    //console.log("nextSignPosition "+nextSignPosition);
 
     //the number2 is from the sign index position[0] sign till next sign
     let secondSplit = AfterSignCheckSplit.slice(0,nextSignPosition);
-    console.log("second Split " + secondSplit);
+    //console.log("second Split " + secondSplit);
 
     //return the prev/next numbers for our sign and the last/next sign positions to be used later
-    console.log("firstSplit ", firstSplit, "secondSplit ", secondSplit, "lastSignPosition ", lastSignPosition, "nextSignPosition ", nextSignPosition);
+    //console.log("firstSplit ", firstSplit, "secondSplit ", secondSplit, "lastSignPosition ", lastSignPosition, "nextSignPosition ", nextSignPosition);
     return [firstSplit,secondSplit,lastSignPosition,nextSignPosition];
 }
 
