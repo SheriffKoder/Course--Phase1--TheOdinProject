@@ -404,7 +404,8 @@ anchor element button
 
 :in-range
 :out-of-range
-:required
+:required, input/select/textarea
+:optional (default)
 
 
 :dir(rtl)
@@ -981,6 +982,7 @@ input[type="checkbox"] {
 
 }
 
+
 /* custom appearance */
 input[type="checkbox"] {
 
@@ -1026,6 +1028,15 @@ input[type="checkbox"]:focus {
   outline-offset: max(2px, 0.15em);
 }
 
+/*
+https://moderncss.dev/pure-css-custom-styled-radio-buttons/
+*/
+
+
+}
+
+
+
 /* adding a custom pen path from a clip path maker*/
 .writing {
   height: 20px;
@@ -1038,13 +1049,6 @@ input[type="checkbox"]:focus {
   cursor: not-allowed;
 }
 
-
-/*
-https://moderncss.dev/pure-css-custom-styled-radio-buttons/
-*/
-
-
-}
 
 
 
@@ -1130,16 +1134,11 @@ datalist {
 
 }
 
-
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
-/*
-
-
-
-
-
-*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* Form CSS
 
 /* form elements have default css, so make it inherit from its parent 
 input type submit does not 
@@ -1171,7 +1170,7 @@ legend {
 
 
 /*
-appearance:none; property in safari
+appearance:none; property when used in safari
 stops any control applied from using system-level styling as much as possible
 starting with the borders
 
@@ -1187,7 +1186,9 @@ vertical-align: -2px;
 
 //select/option custom dropdown, place in a wrapping div:after to put custom content icon
 
+//file,  hide with css properties, use css on the label tag
 
+//can style drop down selection using tutorial
 
 */
 
@@ -1269,6 +1270,114 @@ input[type="search"] {
 }
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/* 29/12
+
+::before and ::after
+not visible to screen readers, not added to the DOM
+
+@layer inputValidationStyling {
+  /*
+<div>
+  <label for="fname">First name: </label>
+  <input id="fname" name="fname" type="text" required />
+  <span></span>
+</div>
+*//*
+
+//label and input sit on different lines because 100% width
+//but span will be on same line of input because it has flow 0
+fieldset > div {
+  margin-bottom: 20px;
+  display: flex;
+  flex-flow: row wrap; //100% width different lines, 0% same line
+}
+
+input + span {
+  position: relative;
+}
+
+//adding a label-box above the input
+input:required + span::after {
+  font-size: 0.7rem;
+  position: absolute;
+  content: "required";
+  color: white;
+  background-color: black;
+  padding: 5px 10px;
+  top: -26px;
+  left: -70px;
+}
+
+input:valid + span::before {
+  position: absolute;
+  right: -20px;
+  top: 5px;
+  content: "✓";
+  color: green;
+}
+
+input:out-of-range + span::after {
+  color: white;
+  background-color: red;
+  width: 155px;
+  content: "Outside allowable value range";
+  left: -182px;
+}
+
+}
+
+//:valid :invalid
+inputs with "required" no content > :invalid/:requried
+or no matching content like email/url types
+out of min/max > :invalid/:out-of-range :in-range
+//spinners just go to the valid range directly
+
+:read-only
+:read-write
+
+:default //radios/checkboxes checked by default i.e attr checked
+:indeterminate //radios/checkboxesjsindeterminate/progress.novalue neither checked/unchecked
+:checked
+
+:focus-visible //when tab-key not mouse or touch
+:placeholder-shown
+
+:user-invalid //only when the element loses focus and its invalid
+
+
+@layer animatedCheckBall {
+
+input[type="radio"]::before {
+  display: block;
+  content: " ";
+  width: 10px;
+  height: 10px;
+  border-radius: 6px;
+  background-color: red;
+  font-size: 1.2em;
+  transform: translate(3px, 3px) scale(0);
+  transform-origin: center;
+  transition: all 0.3s ease-in;
+}
+
+input[type="radio"]:checked::before {
+  transform: translate(3px, 3px) scale(1);
+  transition: all 0.3s cubic-bezier(0.25, 0.25, 0.56, 2);
+}
+
+}
+/*The advantage of using a transform rather than transitioning width/height is that you can use transform-origin to make it grow from the center of the circle, rather than having it appear to grow from the circle's corner.*/
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+
+
+*/
 
 
 
