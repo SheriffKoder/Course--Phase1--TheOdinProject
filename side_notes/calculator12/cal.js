@@ -67,18 +67,10 @@ function buttonSwitch (valueGot) {
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
     /* accept the right types */
-    //only accept inputs of defined arithmetic signs OR numbers
-    //its a not-a-number/is arithmetic OR is number/not-arithmetic
+    //only accept inputs if is number/not-arithmetic
     if (  !checkNaN(valueGot) && !checkArith(valueGot))  {
        // console.log("pass1");
 
-        //check passes accepted inputs arithmetic and numbers
-        //if arithmetic has to not have a sign before and some arithmetics cannot be a starting point like x or /
-        //but if there is a sign before it has to be a number
-            //no sign/start was put before (for arithmetics), 
-            //if sign-before/start accept only digits
-            //not a X or / after a start or open bracket
-           // console.log("pass2");
 
             console.log(valueGot);
             text_string += valueGot;
@@ -90,15 +82,13 @@ function buttonSwitch (valueGot) {
     }
 
     //entering a sign
+    //a NaN and from the arithmetic defined inputs
     else if ( checkNaN(valueGot) && checkArith(valueGot)) {
-        //check passes accepted inputs arithmetic and numbers
-        //if arithmetic has to not have a sign before and some arithmetics cannot be a starting point like x or /
-        //but if there is a sign before it has to be a number
+        //check passes accepted inputs if arithmetic has to not have a sign before 
+        //no dot before
+        //and some arithmetics cannot be a starting point like x or /
         if ( !ArithBefore(text_string) && !DotAtEnd(text_string) && !ProhibitedStart(text_string, valueGot)
         ) {     
-            //no sign/start was put before (for arithmetics), 
-            //if sign-before/start accept only digits
-            //not a X or / after a start or open bracket
                 
             console.log(valueGot);
             text_string += valueGot;
@@ -151,7 +141,8 @@ function buttonSwitch (valueGot) {
 
         if (notProhibitedEnd(text_string)) {
 
-            let result = checkForBracketsAndCompute(text_string);
+            //round output to 2 decimal digits
+            let result = Number(checkForBracketsAndCompute(text_string)).toFixed(2);
             result_space.textContent = result;
 
         }
