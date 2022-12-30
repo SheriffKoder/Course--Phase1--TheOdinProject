@@ -52,7 +52,7 @@ buttons.forEach(button => {
 });
 
 window.addEventListener("keydown", (e) => {
-    console.log(e.key);
+    //console.log(e.key);
     buttonSwitch(e.key);
 });
 
@@ -70,7 +70,6 @@ function buttonSwitch (valueGot) {
     //only accept inputs in type of numbers or defined arithmetic signs
     if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) ) {
         //its a not-a-number/is arithmetic OR is number/not-arithmetic
-        
         //check passes accepted inputs arithmetic and numbers
         //if arithmetic has to not have a sign before and some arithmetics cannot be a starting point like x or /
         //but if there is a sign before it has to be a number
@@ -99,10 +98,11 @@ function buttonSwitch (valueGot) {
     ////arithmetic before starting point or another opened bracket
 
     else if (valueGot == "." && text_string[text_string.length-1] !== ".") {
-        console.log(valueGot);
-        text_string += valueGot;
-        text_space.textContent = text_string;
-
+        
+            console.log(valueGot);
+            text_string += valueGot;
+            text_space.textContent = text_string;
+        
     }
 
 
@@ -124,10 +124,19 @@ function buttonSwitch (valueGot) {
     /* other buttons */
     //to be used with a calculating function on the final string
     else if (valueGot == "=" ||valueGot == "Enter") {     //an equal
-        console.log("its an equal");
-        console.log(text_string);
-        let result = checkForBracketsAndCompute(text_string);
-        result_space.textContent = result;
+
+        if (notProhibitedEnd(text_string)) {
+
+            console.log("its an equal");
+            console.log(text_string);
+            let result = checkForBracketsAndCompute(text_string);
+            result_space.textContent = result;
+
+        }
+
+        else {
+            console.log("prohibited end");
+        }
     }
     //AC cleans the string value and display
     else if (valueGot == "AC" || valueGot == "Meta") {   //calc buttons
@@ -322,6 +331,27 @@ function ProhibitedStart (text, valueGot) {
     }
 
 }
+
+
+let text3012 = "1+";
+console.log(notProhibitedEnd(text3012));
+
+function notProhibitedEnd (text) {
+
+    let lastDigit = text[text.length-1];
+    console.log(lastDigit);
+    if ( (lastDigit == "." || lastDigit == undefined || arithmetic.indexOf(lastDigit) > 0) ) {
+        return false;
+    } 
+    else {
+        return true;
+    }
+
+}
+
+
+
+
 
 //let text = "(";
 //console.log(ProhibitedStart(text, "/"));
