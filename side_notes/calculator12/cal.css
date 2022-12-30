@@ -92,8 +92,29 @@
     }
 
     .writing_space {
+        display: flex;
+        flex-direction: row;
+
+    }
+
+    .writing_space_input {
         overflow-x: hidden;
-        text-overflow: ellipsis;
+        /*text-overflow: ellipsis;*/
+    }
+
+    .overflowDotsBlink {
+        animation: blink 1s linear infinite alternate; 
+    }
+
+    @keyframes blink {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+        
     }
 
 

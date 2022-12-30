@@ -6,11 +6,11 @@ text_space.textContent = "Hello World";
 const result_space = document.querySelector(".result_space");
 result_space.textContent = "Result";
 
-const overFlowDots = document.querySelector(".overflowDots");
+const overFlowDots = document.querySelector("#overflowDots");
 overFlowDots.innerHTML = "";
 
 
-console.dir(text_space); //check properties incl. scroll height
+//console.dir(text_space); //check properties incl. scroll height
 
 /*20
 window.addEventListener("load", () =>{
@@ -187,6 +187,7 @@ function buttonSwitch (valueGot) {
         text_space.scrollTo(text_space.scrollWidth,0);
 
         overFlowDots.innerHTML = "..";
+        overFlowDots.classList.add("overflowDotsBlink");
 
     
 
@@ -194,6 +195,7 @@ function buttonSwitch (valueGot) {
     else  {
         //text_space.style.cssText = "direction: ltr;"
         overFlowDots.innerHTML = "";
+        overFlowDots.classList.remove("overflowDotsBlink");
 
     }
 
