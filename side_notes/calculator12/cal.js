@@ -1,15 +1,18 @@
 console.time('fetching data');
 
-const text_space = document.querySelector(".writing_space");
+const text_space = document.querySelector(".writing_space_input");
 text_space.textContent = "Hello World";
 
 const result_space = document.querySelector(".result_space");
 result_space.textContent = "Result";
 
+const overFlowDots = document.querySelector(".overflowDots");
+overFlowDots.innerHTML = "";
+
 
 console.dir(text_space); //check properties incl. scroll height
 
-/*
+/*20
 window.addEventListener("load", () =>{
 
     setTimeout(() => {
@@ -174,10 +177,21 @@ function buttonSwitch (valueGot) {
     //detect overflow and allow right ...ellipsis to text
     //placed here so when the string has an extra value added its activated
     if (text_space.offsetWidth < text_space.scrollWidth) {
-        text_space.style.cssText = "direction: rtl;"
+        //text_space.style.cssText = "direction: rtl;"
+        console.log("overflow");
+        console.log("text_space.offsetWidth " + text_space.offsetWidth);
+        console.log("text_space.scrollWidth " + text_space.scrollWidth);
+
+        text_space.scrollTo(text_space.scrollWidth,0);
+
+        overFlowDots.innerHTML = "..";
+
+    
+
     }
-    else if (text_space.offsetWidth > text_space.scrollWidth) {
-        text_space.style.cssText = "direction: ltr;"
+    else  {
+        //text_space.style.cssText = "direction: ltr;"
+        overFlowDots.innerHTML = "";
 
     }
 
