@@ -874,6 +874,12 @@ hr {
 
 
 
+
+
+
+  
+
+
   give "label" to inputs to tell what kind of data is asked
   for attribute for the id of the input
   and adds more clicking space
@@ -907,9 +913,11 @@ hr {
   .placeholder
   .name; what this input represents, reference for the backend**
   if not declared, it will be ignored on submit
-  .value is how its viewed, 
+  .value is how its viewed, true/false in check boxes
   .checked  //for radio
-  .step //for number type, how much the spinner increases, can be decimal 
+  .step //for number type, how much the spinner increases, can be decimal step=0.01
+  .min/max for number
+  .novalidate   //for form to turn off automatic validation for custom validation
 
   .autofocus    //only one item can have it
   .form         //associate a form control with a form it is outside of even if in different form element
@@ -919,17 +927,19 @@ hr {
   accessible names button>its html, form>its labels image>its alt attr
   if aria declared it will take precedence over them
   aria-describedby or aria-description, to describe text
-
+  .aria-live  //on a span following input to make sure custom error message will be presented to everyone and read out to screen reader
 
   .accept="image/*";  ="image/jpg"; accept="image/*;capture=camera/camcorder/microphone"
-  .multiple //used on email, file etc
+  .multiple //used on email, file etc, separated by comma
 
 
-  readonly
+  readonly //useful when checking on shipping details when confirming on a checkout
   disabled
   size      //physical size of box
-  maxlength //max number of characters
+  maxlength/minlength //max/min number of characters validation
   spellcheck
+  pattern=""
+  
 
 
 
