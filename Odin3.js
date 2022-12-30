@@ -595,8 +595,64 @@ document.addEventListener(
 /*
 client-side validation
 
-Built-in form validation uses HTML normal form validation
-not as customizable as JavaScript validation.
+Built-in form validation 
+- uses HTML normal form validation (type or required or pattern)
+- not as customizable as JavaScript validation.
+- if user tries to send data, the browser will block the form and display an error message
+
+when "Required" the input will be invalid till suitable input is put
+
+regex:
+a
+abc
+ab?c  //a, optional b, c
+ab*c  //a, 0->unlimited b, c
+a|b   //a or b not both
+[Bb]anana|[Cc]herry
+
+HTML Validation:
+the type
+required attribute
+pattern
+maxlength/minlength
+max/min on numbers
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/* JS validation and customizing messages
+
+for button,fieldset,input,output,select,textarea
+
+.validationMessage //returns message describing validation concerns
+.validity  //returns a validityState //has many states to check online*
+.valid //returns true if element meets all its validation
+.valueMissing  //true if required attribute but no value
+.willValidate //true if element will be validated when form is submitted
+
+.checkValidity();
+.reportValidity();  //reports invalid fields using events useful with preventDefault() in an onSubmit event handler
+.setCustomValidity(message);  //element is invalid if set this message and the specified error is displayed
+
+
+
+//ex//check validity
+const email = document.getElementById("mail");
+
+email.addEventListener("input", (event) => {
+  if (email.validity.typeMismatch) {
+    email.setCustomValidity("I am expecting an email address!");
+  } else {
+    email.setCustomValidity("");
+  }
+});
+//end//
+
+
+
+
 
 
 */
+
+
+
