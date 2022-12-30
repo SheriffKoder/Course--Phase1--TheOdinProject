@@ -67,15 +67,34 @@ function buttonSwitch (valueGot) {
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
     /* accept the right types */
-    //only accept inputs in type of numbers or defined arithmetic signs
-    if ( (checkNaN(valueGot) && checkArith(valueGot)) || (!checkNaN(valueGot) && !checkArith(valueGot)) ) {
-        //its a not-a-number/is arithmetic OR is number/not-arithmetic
+    //only accept inputs of defined arithmetic signs OR numbers
+    //its a not-a-number/is arithmetic OR is number/not-arithmetic
+    if (  !checkNaN(valueGot) && !checkArith(valueGot))  {
+       // console.log("pass1");
+
         //check passes accepted inputs arithmetic and numbers
         //if arithmetic has to not have a sign before and some arithmetics cannot be a starting point like x or /
         //but if there is a sign before it has to be a number
-        if ( (!ArithBefore(text_string)
-        || ((ArithBefore(text_string)) && Number(valueGot)))
-        && (!ProhibitedStart(text_string, valueGot))
+            //no sign/start was put before (for arithmetics), 
+            //if sign-before/start accept only digits
+            //not a X or / after a start or open bracket
+           // console.log("pass2");
+
+            console.log(valueGot);
+            text_string += valueGot;
+            text_space.textContent = text_string;
+        
+        
+    
+    
+    }
+
+    //entering a sign
+    else if ( checkNaN(valueGot) && checkArith(valueGot)) {
+        //check passes accepted inputs arithmetic and numbers
+        //if arithmetic has to not have a sign before and some arithmetics cannot be a starting point like x or /
+        //but if there is a sign before it has to be a number
+        if ( !ArithBefore(text_string) && !DotAtEnd(text_string) && !ProhibitedStart(text_string, valueGot)
         ) {     
             //no sign/start was put before (for arithmetics), 
             //if sign-before/start accept only digits
@@ -90,6 +109,8 @@ function buttonSwitch (valueGot) {
     
     }
 
+
+
     /*opened and closed brackets conditions */
     //inserting a safe - open bracket (
     ////safe opening if: 
@@ -97,7 +118,7 @@ function buttonSwitch (valueGot) {
     //it is a start, there is a bracket opened before (not yet closed)
     ////arithmetic before starting point or another opened bracket
 
-    else if (valueGot == "." && text_string[text_string.length-1] !== ".") {
+    else if (valueGot == "." && text_string[text_string.length-1] !== "." && text_string[text_string.length-1] !== ")") {
         
             console.log(valueGot);
             text_string += valueGot;
@@ -125,10 +146,11 @@ function buttonSwitch (valueGot) {
     //to be used with a calculating function on the final string
     else if (valueGot == "=" ||valueGot == "Enter") {     //an equal
 
+        console.log("its an equal");
+        console.log(text_string);
+
         if (notProhibitedEnd(text_string)) {
 
-            console.log("its an equal");
-            console.log(text_string);
             let result = checkForBracketsAndCompute(text_string);
             result_space.textContent = result;
 
@@ -336,11 +358,23 @@ function ProhibitedStart (text, valueGot) {
 let text3012 = "1+";
 console.log(notProhibitedEnd(text3012));
 
+function DotAtEnd (text) {
+
+    if (text[text.length-1] == ".") {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+
 function notProhibitedEnd (text) {
 
     let lastDigit = text[text.length-1];
-    console.log(lastDigit);
-    if ( (lastDigit == "." || lastDigit == undefined || arithmetic.indexOf(lastDigit) > 0) ) {
+    //console.log(lastDigit);
+    if ( (DotAtEnd(text) || lastDigit == undefined || arithmetic.indexOf(lastDigit) > 0) ) {
         return false;
     } 
     else {
