@@ -120,7 +120,9 @@ function buttonSwitch (valueGot) {
     }
 
 
-    else if ((valueGot === "(") && safeBracketOpening(text_string) && signBefore(text_string)) {
+    /*else if ((valueGot === "(") && safeBracketOpening(text_string) && signBefore(text_string)) {*/
+    else if (valueGot === "(") {
+
         console.log("opened");
         text_string += valueGot;
         text_space.textContent = text_string;
@@ -251,6 +253,7 @@ function ArithBefore (text) {
 //safe opening if: 
 //there is a bracket closed before in the string or are no opened brackets
 //it is a start, there is a bracket opened before (not yet closed)
+//not used: actually allow opening anywhere and will calculate
 function safeBracketOpening (text) {
 
     //find finds the first it finds,
@@ -261,7 +264,7 @@ function safeBracketOpening (text) {
     if (bracketClosed || !bracketOpened) {
         return true;
     }
-    else if (text === "") {
+     if (text === "") {
         return true;
 
     }
@@ -411,10 +414,67 @@ console.timeEnd('fetching data');
 
 
 
-let textOriginal = "(1+1)/4*2";
-//console.log("text is " + textOriginal);
+let textOriginal = "(1+1)2";
 
+//checkAdjacentBrackets(textOriginal);
+//console.log(checkAdjacentBrackets(textOriginal));
 
+//console.log(checkAdjacentBrackets(textOriginal));
+
+//function puts * in between any adjacent 2()2 combinations
+//used before calulating
+function checkAdjacentBrackets (text) {
+
+    //console.log(text);
+
+    //loop over the whole input string characters
+    for (let index in text) {
+        //console.log(text[index]);
+
+        //if there is an open adjacent to a close, but * in between
+        if(text[index] == "(" && text[index-1] == ")") {
+            console.log("will insert");
+            let part1 = text.slice(0,index);
+            console.log("part1 " + part1);
+
+            let part2 = text.slice(index);
+            console.log("part2 " + part2);
+
+            text = part1 + "*" + part2;
+
+            //text[index] = "*("; //did not work, slice?
+
+        }
+
+        //and if there is a number then a "(" after it, but * in between
+        else if(!isNaN(text[index-1]) && text[index] == "(" ) {
+            console.log("there is a number before ( ");
+            let part1 = text.slice(0,index);
+
+            let part2 = text.slice(index);
+
+            text = part1 + "*" + part2;
+
+        }
+
+        //and if there is a ")" then a number after it, but * in between
+        else if (text[index-1] == ")" && !isNaN(text[index]) ) {
+            console.log("there is a number after ) ");
+            let part1 = text.slice(0,index);
+            console.log(part1);
+            let part2 = text.slice(index);
+            console.log(part2);
+            text = part1 + "*" + part2;
+            
+        }
+
+        else {
+            text = text;
+        }
+    }
+    console.log("text result " +text);
+    return text;
+}
 
 
 
@@ -431,6 +491,8 @@ let textOriginal = "(1+1)/4*2";
 //else(i.e brackets counts are equal) then also compute
 function checkForBracketsAndCompute (textInput) {
 
+    textInput = checkAdjacentBrackets(textInput);
+    //console.log("text now is2 " + textInput);
     let temp = "";
 
     let Opened =0;
@@ -445,6 +507,7 @@ function checkForBracketsAndCompute (textInput) {
             Opened++;
         }
     }
+
 
     //tell if there is a missing bracket
     if (Opened > Closed ) {
