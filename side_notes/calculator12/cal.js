@@ -3,10 +3,12 @@ console.time('fetching data');
 const text_space = document.querySelector(".writing_space_input");
 text_space.textContent = "Hello World";
 
-const result_space = document.querySelector(".result_space");
+const result_space = document.querySelector(".result_space_output");
 result_space.textContent = "Result";
 
 const overFlowDots = document.querySelector("#overflowDots");
+const overFlowDots2 = document.querySelector("#overflowDots2");
+
 overFlowDots.innerHTML = "";
 
 
@@ -196,6 +198,27 @@ function buttonSwitch (valueGot) {
         //text_space.style.cssText = "direction: ltr;"
         overFlowDots.innerHTML = "";
         overFlowDots.classList.remove("overflowDotsBlink");
+
+    }
+
+    if (result_space.offsetWidth < result_space.scrollWidth) {
+        //text_space.style.cssText = "direction: rtl;"
+        console.log("overflow");
+        console.log("result_space.offsetWidth " + result_space.offsetWidth);
+        console.log("result_space.scrollWidth " + result_space.scrollWidth);
+
+        result_space.scrollTo(0,0);
+
+        overFlowDots2.innerHTML = "..";
+        overFlowDots2.classList.add("overflowDotsBlink");
+
+    
+
+    }
+    else  {
+        //text_space.style.cssText = "direction: ltr;"
+        overFlowDots2.innerHTML = "";
+        //overFlowDots2.classList.remove("overflowDotsBlink");
 
     }
 

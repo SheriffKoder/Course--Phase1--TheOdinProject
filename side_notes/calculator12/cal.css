@@ -91,13 +91,13 @@
         padding-right: 1%;
     }
 
-    .writing_space {
+    .writing_space, .result_space {
         display: flex;
         flex-direction: row;
 
     }
 
-    .writing_space_input {
+    .writing_space_input, .result_space_output {
         overflow-x: hidden;
         /*text-overflow: ellipsis;*/
     }
