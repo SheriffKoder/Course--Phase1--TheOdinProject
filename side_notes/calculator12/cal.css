@@ -97,10 +97,15 @@
 
     }
 
+    .result_space {
+        justify-content: flex-end;
+    }
+
     .writing_space_input, .result_space_output {
         overflow-x: hidden;
         /*text-overflow: ellipsis;*/
     }
+
 
     .overflowDotsBlink {
         animation: blink 1s linear infinite alternate; 

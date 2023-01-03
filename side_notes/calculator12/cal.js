@@ -7,7 +7,6 @@ const result_space = document.querySelector(".result_space_output");
 result_space.textContent = "Result";
 
 const overFlowDots = document.querySelector("#overflowDots");
-const overFlowDots2 = document.querySelector("#overflowDots2");
 
 overFlowDots.innerHTML = "";
 
@@ -67,6 +66,7 @@ window.addEventListener("keydown", (e) => {
 
 function buttonSwitch (valueGot) {
 
+    overFlowDots.innerHTML = "";
 
 
     /////////////////////////////////////////////////////////////
@@ -161,7 +161,11 @@ function buttonSwitch (valueGot) {
     //AC cleans the string value and display
     else if (valueGot == "AC" || valueGot == "Meta") {   //calc buttons
         text_string = "";
-        text_space.textContent = ">";
+
+        text_space.innerHTML = "";
+        overFlowDots.innerHTML = ">";
+        overFlowDots.classList.add("overflowDotsBlink");
+
         result_space.textContent = "...";
 
     }
@@ -170,6 +174,19 @@ function buttonSwitch (valueGot) {
         text_string = text_string.slice(0, -1);
         text_space.textContent = text_string;
 
+    }
+
+    else if (valueGot == "T" || valueGot == "t") {
+        text_string = text_string + "tan(";
+        text_space.textContent = text_string;
+
+        //accept tan input by T - done
+        //Tan( added to string - done
+        //sort the tan first after "=" input and return string
+            //evaluate number between tan and its closing (next bracket)
+            //evaluate this number in tan
+            //remove the number and tan bracket, and put this evaluation
+            //return new string to replace the text_string to be computed with checkforbrackets function normally
     }
 
     /////////////////////////////////////////////////////////////
@@ -182,9 +199,9 @@ function buttonSwitch (valueGot) {
     //placed here so when the string has an extra value added its activated
     if (text_space.offsetWidth < text_space.scrollWidth) {
         //text_space.style.cssText = "direction: rtl;"
-        console.log("overflow");
-        console.log("text_space.offsetWidth " + text_space.offsetWidth);
-        console.log("text_space.scrollWidth " + text_space.scrollWidth);
+        //console.log("overflow");
+        //console.log("text_space.offsetWidth " + text_space.offsetWidth);
+        //console.log("text_space.scrollWidth " + text_space.scrollWidth);
 
         text_space.scrollTo(text_space.scrollWidth,0);
 
@@ -195,32 +212,11 @@ function buttonSwitch (valueGot) {
 
     }
     else  {
-        //text_space.style.cssText = "direction: ltr;"
-        overFlowDots.innerHTML = "";
-        overFlowDots.classList.remove("overflowDotsBlink");
+        //overFlowDots.innerHTML = "";
+        //overFlowDots.classList.remove("overflowDotsBlink");
 
     }
 
-    if (result_space.offsetWidth < result_space.scrollWidth) {
-        //text_space.style.cssText = "direction: rtl;"
-        console.log("overflow");
-        console.log("result_space.offsetWidth " + result_space.offsetWidth);
-        console.log("result_space.scrollWidth " + result_space.scrollWidth);
-
-        result_space.scrollTo(0,0);
-
-        overFlowDots2.innerHTML = "..";
-        overFlowDots2.classList.add("overflowDotsBlink");
-
-    
-
-    }
-    else  {
-        //text_space.style.cssText = "direction: ltr;"
-        overFlowDots2.innerHTML = "";
-        //overFlowDots2.classList.remove("overflowDotsBlink");
-
-    }
 
 }
 
