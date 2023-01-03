@@ -30,7 +30,7 @@ if no base element, then the base url defaults to location.href
 //does not exist in the root directory in images dir
 //images is infront of all relative links
 
-
+land on the html element, enables screen readers to invoke the correct pronunciation and helps offer a translation of the page if needed
 
 /*/////////////////////////////////*/
 /*/////////////////////////////////*/
@@ -50,6 +50,10 @@ can also provide media scope
   href="mobile.css"
   rel="stylesheet"
   media="screen and (max-width: 600px)" />
+
+reference to another language site
+<link rel="alternate" title="Das Formularelement"
+  href="https://example.com/de/form" hreflang="de">
 
 
 /*/////////////////////////////////*/
@@ -865,8 +869,8 @@ hr {
   action; where data is sent
   method; which http request method like GET and POST
 
-  GET/HEAD, gets info, retrieve data
-  POST, like making an account or payment, submits an entity to the specified resource
+  GET/HEAD, default, gets info, retrieve data, data visible in the url and history, like search
+  POST, like making an account or payment, submits an entity to the specified resource, data not visible in the url, data is encrypted (if you use HTTPS), like sign in forms
   PUT, replaces all current representations of the target resource
   DELETE
   CONNECT
@@ -874,6 +878,7 @@ hr {
   TRACE
   PATCH, partial modifications to a resource
 
+  submit clicked > browser make an http request > backend script respond to request and process data
   An HTTP request consists of two parts: 
   a header that contains a set of global metadata about the browser's capabilities, and 
   a body that can contain information necessary for the server to process the specific request.
@@ -895,12 +900,22 @@ hr {
 
   common backend technologies for processing forms include Node.js, PHP, and Ruby on Rails,
 
+  Use AJAX queries to submit the form without leaving the page.
+
+
+
 
 
 <!--////////////////////////////////////////////////////////////////////////-->
 <!--
 
+  blank action: submit to same url, method:get , inspect contents of the form
 
+  Submitting to self creates in the browser url
+  speaker-submission.html?full-name=Rick&email=rick%40internetingishard.com&talk-type=workshop&t-shirt=l&abstract=Derp.&available=is-available
+  Everything after the ? represents the variables in our form
+  each variable is separated by an & character
+  Data can be manipulated this way
 
 
   give "label" to inputs to tell what kind of data is asked
@@ -908,14 +923,14 @@ hr {
   and adds more clicking space
 
   ////input types : will validate that the user has entered a correctly formatted email address
-  .text; first and last names, single line browser removes breaks before sending to server
+  .text; default, first and last names, single line browser removes breaks before sending to server
   .email; will provide @symbol on mobile devices to make entering and email easier
   built-in client-side error validation, performed by the browser before the data gets sent to the server.
   .password
   .number; will accept numbers only and ignore any other value, numeric keyboard on phones
   .date .month .time . week //min/max/step
   .radio, the name attribute group radio inputs for a 1-selection
-  .checkbox
+  .checkbox //Can wrap checkbox in a label tag
   .button
   .hidden, not shown to user/not spoken it needs a name and a value (can be changed with js, an example is giving a time to the order)
   .search //browser text saving mechanism
@@ -941,7 +956,8 @@ hr {
   .step //for number type, how much the spinner increases, can be decimal step=0.01
   .min/max for number
   .novalidate   //for form to turn off automatic validation for custom validation
-
+  .autocomplete //browsers to identify the data type solely name/id/type,  autocomplete="off" allow password managers to do their job
+      also using id="name", browsers will autofill names
   .autofocus    //choice options only one item can have it
   .form         //associate a form control with a form it is outside of even if in different form element
 
@@ -949,12 +965,11 @@ hr {
   used if the tag has no appropriate text visible in the DOM that could be referenced as a label content like svg or *
   accessible names button>its html, form>its labels image>its alt attr
   if aria declared it will take precedence over them
-  aria-describedby or aria-description, to describe text
+  aria-describedby or aria-description, to describe text, explain validation rule ="password-minlength"
   .aria-live  //on a span following input to make sure custom error message will be presented to everyone and read out to screen reader
 
   .accept="image/*";  ="image/jpg"; accept="image/*;capture=camera/camcorder/microphone"
   .multiple //used on email, file etc, separated by comma
-
 
   readonly //useful when checking on shipping details when confirming on a checkout
   disabled
@@ -963,6 +978,10 @@ hr {
   spellcheck
   pattern=""
   
+  //aria-described by
+<input required minlength="8" type="text" id="name" name="name" aria-describedby="name-validation">
+<span id="name-validation" class="validation-message">Please use at least eight characters.</span>
+//or fill span with js innerHTML/""
 
 
 
@@ -1142,6 +1161,14 @@ hr {
   (i.e. located at an https:// address), so the data is encrypted 
   before it is sent.
 
+Notes:
+PageSpeed provides a performance report
+Lighthouse helps you identify performance, search engine optimization (SEO), best practice, and accessibility issues.
+Use at least 1rem (which for most browsers has a default value of 16px) as the font-size for your form controls. This prevents a page zoom on iOS Safari when a form control is focused.
+reCAPTCHA performs various checks to find out if you are a human. also honeypot with aria-hidden="true", Akismet
+
+To ensure a secure sign-up form it may be better to use a third-party identity provider, instead of building your own authentication system.
+SMS message authentication one time code, verify phone numbers
 
 
 

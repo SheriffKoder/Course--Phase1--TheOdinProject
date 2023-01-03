@@ -638,7 +638,7 @@ for button,fieldset,input,output,select,textarea
 //ex//check validity
 const email = document.getElementById("mail");
 
-email.addEventListener("input", (event) => {
+email.addEventListener("input", (event) => {  //blur event, live validity
   if (email.validity.typeMismatch) {
     email.setCustomValidity("I am expecting an email address!");
   } else {
@@ -646,6 +646,13 @@ email.addEventListener("input", (event) => {
   }
 });
 //end//
+
+//define custom validation message
+const nameInput = document.querySelector('[name="name"]');
+
+nameInput.addEventListener('invalid', () => {
+    nameInput.setCustomValidity('Please enter your name.');
+ });
 
 
 
