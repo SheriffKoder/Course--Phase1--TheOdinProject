@@ -944,11 +944,12 @@ hr {
   .hidden, not shown to user/not spoken it needs a name and a value (can be changed with js, an example is giving a time to the order)
   .search //browser text saving mechanism
   .url //http/https validation
-  ,tel  //phones display keyboard, used inst of number if not want spinner
+  ,tel  //phones display keyboard, used inst of number if not want spinner, or text with inputmode=numeric
   .image, behaves as a button, given alt, src, height/width - the clicked coordinates are what sent as pos.x, pos.y
   .file //accept and multiple attribute
   .range  //number slider with min/max/step/value(initial)
   .color  //return hex
+  .output //a text result of a calculation or user action
 
   dropdown input selection
   <datalist><option> with id matched in input with list="datalist-id"
@@ -957,6 +958,7 @@ hr {
 
   //input attributes
   .type
+  .title, output a validation message beside the custom validation box
   .placeholder, better use a text below the input
   .required, prevent the submission of empty/unvalid fields
   .name; what this input represents, reference for the backend**
@@ -970,6 +972,9 @@ hr {
       also using id="name", browsers will autofill names
   .autofocus    //choice options only one item can have it
   .form         //associate a form control with a form it is outside of even if in different form element
+  .formaction	 //URL for submission on submit and image buttons
+  .novalidate //stop browser html validation
+  .formnovalidate //stop browser html validation added to submission button or image
 
   aria-label/aria-labelledby attributes can be used to define a string that labels the interactive accessible element on which it is set. 
   used if the tag has no appropriate text visible in the DOM that could be referenced as a label content like svg or *
@@ -1158,6 +1163,11 @@ hr {
 
   If possible, each time you build a form, try to listen to 
   how a screen reader interprets it, like voice over in mac
+
+
+  
+  avoid showing the error until the user has finished with the field and moved to the next field.
+
 
 
   //best way to nest labels
