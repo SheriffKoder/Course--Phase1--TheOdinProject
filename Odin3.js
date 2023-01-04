@@ -629,10 +629,10 @@ for button,fieldset,input,output,select,textarea
 .valueMissing  //true if required attribute but no value
 .willValidate //true if element will be validated when form is submitted
 
-.checkValidity();
+.checkValidity(); //checks whether any inputs are subject to constraint validation.
 .reportValidity();  //reports invalid fields using events useful with preventDefault() in an onSubmit event handler
 .setCustomValidity(message);  //element is invalid if set this message and the specified error is displayed
-
+.myform.noValidate = true; //disable default validation and error messages and validate function on submit event
 
 
 //ex//check validity
@@ -654,6 +654,65 @@ nameInput.addEventListener('invalid', () => {
     nameInput.setCustomValidity('Please enter your name.');
  });
 
+
+//
+    const message = event.target.validationMessage;
+
+
+
+
+
+
+/////////////////////////////////
+retrieve the value of a form control in js
+use the value property or getAttribute("value")
+one for current value and the other for initial value
+
+
+if (event.target.checked) {
+    // show additional below div field
+            additionalField.hidden = true;
+
+} else {
+   // hide additional below div field
+           additionalField.hidden = false;
+
+}
+
+
+/////////////////////////////////
+submit a form without leaving a page
+ onsubmit event, then use event.preventDefault() 
+ to prevent the default behavior, and send the FormData using the Fetch API.
+
+ const formElement = document.querySelector('form');
+
+if (formElement) {
+    formElement.addEventListener('submit', (event) => {
+        const formData = new FormData();
+
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        
+        event.preventDefault();
+    })
+}
+
+
+
+/////////////////////////////////
+Clicking on Show Password, changes the type attribute of the 
+password field from type="password" to type="text", and the <button> 
+text changes to 'Hide Password'.
 
 
 

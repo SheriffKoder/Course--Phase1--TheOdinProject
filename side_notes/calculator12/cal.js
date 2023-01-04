@@ -113,7 +113,7 @@ function buttonSwitch (valueGot) {
     //it is a start, there is a bracket opened before (not yet closed)
     ////arithmetic before starting point or another opened bracket
 
-    else if (valueGot == "." && text_string[text_string.length-1] !== "." && text_string[text_string.length-1] !== ")") {
+    else if (valueGot == "." && !DotAtEnd(text_string) && text_string[text_string.length-1] !== ")") {
         
             console.log(valueGot);
             text_string += valueGot;
@@ -125,7 +125,7 @@ function buttonSwitch (valueGot) {
     /*else if ((valueGot === "(") && safeBracketOpening(text_string) && signBefore(text_string)) {*/
     else if (valueGot === "(") {
 
-        console.log("opened");
+        //console.log("opened");
         text_string += valueGot;
         text_space.textContent = text_string;
     }
@@ -176,6 +176,7 @@ function buttonSwitch (valueGot) {
 
     }
 
+    //input is TAN() or T on keyboard
     else if (valueGot == "T" || valueGot == "t") {
         text_string = text_string + "tan(";
         text_space.textContent = text_string;
@@ -183,10 +184,11 @@ function buttonSwitch (valueGot) {
         //accept tan input by T - done
         //Tan( added to string - done
         //sort the tan first after "=" input and return string
-            //evaluate number between tan and its closing (next bracket)
-            //evaluate this number in tan
-            //remove the number and tan bracket, and put this evaluation
-            //return new string to replace the text_string to be computed with checkforbrackets function normally
+        //probably will reuse functions or make a new short function for tan/cos/sin/log/x^/ln etc
+            //evaluate number between tan and its closing (next bracket) (semi exist)
+            //evaluate this number in tan (exist: check(); )
+            //remove the number and tan bracket, and put this evaluation (exists: makestring(); )
+            //return new string to replace the text_string to be computed with checkforbrackets function normally (inline code)
     }
 
     /////////////////////////////////////////////////////////////
@@ -222,6 +224,11 @@ function buttonSwitch (valueGot) {
 
 
 /*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 
 
 
@@ -250,6 +257,7 @@ function checkEqual(n) {
 }
 
 // arithmetic before starting point or another opened bracket
+/*
 function signBefore(text) {
     
     if (ArithBefore(text) || text == "" || (text[text.length-1] == "(" ) ) {
@@ -260,6 +268,7 @@ function signBefore(text) {
     }
 
 }
+*/
 
 function ArithBefore (text) {
     if (!checkArith(text[text.length-1]) ) {
@@ -275,6 +284,7 @@ function ArithBefore (text) {
 //there is a bracket closed before in the string or are no opened brackets
 //it is a start, there is a bracket opened before (not yet closed)
 //not used: actually allow opening anywhere and will calculate
+/*
 function safeBracketOpening (text) {
 
     //find finds the first it finds,
@@ -298,7 +308,7 @@ function safeBracketOpening (text) {
     }
 
 }
-
+*/
 
 function NumberAfterLastOpened (text) {
     let TextReverse = text.split("").reverse();
@@ -427,15 +437,16 @@ console.timeEnd('fetching data');
 
 
 
-
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 
 
 
-let textOriginal = "(1+1)2";
+//let textOriginal = "(1+1)2";
 
 //checkAdjacentBrackets(textOriginal);
 //console.log(checkAdjacentBrackets(textOriginal));
@@ -665,13 +676,17 @@ function makeString (inputText,firstSignOccurance,calculated,lastSignOccurance) 
 
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 
 
 //let text22 = "1-1+100/200+1+1";
 //let text22 = "1-4*4+1";
 //computeString(text22);
 
-let text22 = "1-.5";
+//let text22 = "1-.5";
 
 
 //computeString(text22);

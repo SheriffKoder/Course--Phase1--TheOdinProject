@@ -2,6 +2,7 @@
 *Index*
 
 Html tags
+Semantic HTML Tags
 > and opens info (ex)
 Progress bar (ex)
 Svg
@@ -9,9 +10,17 @@ Emmet
 Tables
 Takeouts 
 Input validation (ex)
-Links style/scroll to the :target (ex)
 Fig caption overlay (ex)
+sticky (ex)
+Links style/scroll to the :target (ex)
 file upload (tag)
+
+Forms:
+-requests
+-input types
+-input attributes
+-input tags
+-form examples
 
 
 Metadata, information about the page
@@ -948,7 +957,8 @@ hr {
 
   //input attributes
   .type
-  .placeholder
+  .placeholder, better use a text below the input
+  .required, prevent the submission of empty/unvalid fields
   .name; what this input represents, reference for the backend**
   if not declared, it will be ignored on submit
   .value is how its viewed, true/false in check boxes
@@ -967,6 +977,8 @@ hr {
   if aria declared it will take precedence over them
   aria-describedby or aria-description, to describe text, explain validation rule ="password-minlength"
   .aria-live  //on a span following input to make sure custom error message will be presented to everyone and read out to screen reader
+  aria-live="polite", to notify passwords is shown/hidden
+  .aria-expanded, aria-controls
 
   .accept="image/*";  ="image/jpg"; accept="image/*;capture=camera/camcorder/microphone"
   .multiple //used on email, file etc, separated by comma
@@ -977,7 +989,10 @@ hr {
   maxlength/minlength //max/min number of characters validation
   spellcheck
   pattern=""
-  
+
+  inputmode, useful when want to change the on-screen keyboard type but not the input's behavior and validation rules on ios android
+  enterkeyhint, enter key on-screen keyboards next, done
+
   //aria-described by
 <input required minlength="8" type="text" id="name" name="name" aria-describedby="name-validation">
 <span id="name-validation" class="validation-message">Please use at least eight characters.</span>
@@ -1166,10 +1181,14 @@ PageSpeed provides a performance report
 Lighthouse helps you identify performance, search engine optimization (SEO), best practice, and accessibility issues.
 Use at least 1rem (which for most browsers has a default value of 16px) as the font-size for your form controls. This prevents a page zoom on iOS Safari when a form control is focused.
 reCAPTCHA performs various checks to find out if you are a human. also honeypot with aria-hidden="true", Akismet
-
+Browserling different browsers
 To ensure a secure sign-up form it may be better to use a third-party identity provider, instead of building your own authentication system.
 SMS message authentication one time code, verify phone numbers
 
+real user measurement (RUM). Implement goal funnels , A/B testing
+better to use a third-party identity provider for account authentication, and password management.
+use the API from Have I Been Pwned to detect compromised passwords
+You can add payment functionality by implementing Web Payments, or using a third-party payment platform.
 
 
 
