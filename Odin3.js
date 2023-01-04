@@ -635,6 +635,7 @@ for button,fieldset,input,output,select,textarea
 .myform.noValidate = true; //disable default validation and error messages and validate function on submit event
 
 
+
 //ex//check validity
 const email = document.getElementById("mail");
 
@@ -714,8 +715,30 @@ Clicking on Show Password, changes the type attribute of the
 password field from type="password" to type="text", and the <button> 
 text changes to 'Hide Password'.
 
-
-
+/////////////////////////////////
+// validate form on submission
+//and apply an invalid class to its parent element
+function validateForm(e) {
+  const form = e.target;
+  if (form.checkValidity()) {
+    // form is valid - make further checks
+  }
+  else {
+    // form is invalid - cancel submit
+    e.preventDefault();
+    // apply invalid class
+    Array.from(form.elements).forEach(i => {
+      if (i.checkValidity()) {
+        // field is valid - remove class
+        i.parentElement.classList.remove('invalid');
+      }
+      else {
+        // field is invalid - add class
+        i.parentElement.classList.add('invalid');
+      }
+    });
+  }
+};
 
 
 */
