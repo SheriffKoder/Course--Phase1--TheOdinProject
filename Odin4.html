@@ -193,6 +193,8 @@ year - month - date - time - timezone
 <address> 
 element indicates that the enclosed html provides 
 contact information for a person or people
+represent contact for its nearest article or body element ancestor
+uses italic by default
 put in footer > p > text + address
 address > a with href + describing text
 ex
@@ -276,15 +278,51 @@ url source of it given using the cite attribute
 
 
 
+-->
 
 
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Odin4.css">
+</head>
+<body>
+    
 
-
-
-
-
-
+<!--
+//Grid
 
 
 
 -->
+
+<div class="testDiv">
+    <div class="grid_container">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+        <div>Item 4</div>
+        <div>Item 5</div>
+        <div>Item 6</div>
+        <div>Item 7</div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <script src="Odin4.js"></script>
+</body>
+</html>

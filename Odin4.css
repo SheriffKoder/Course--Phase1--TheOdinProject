@@ -1,0 +1,98 @@
+/*
+//Grid
+One advantage for developers is if they start off with only one row of items, 
+they can simply add additional rows later.
+
+Grid can make items to match even size easier
+Grid does not replace flex, it has its used and can be used together
+
+gird works on 2 directions the horizontal and vertical
+flexbox works on one direction row or column
+
+grid can optionally wrap if we allow auto filling
+to fill a row and move on the new row
+the parent does all the work to children not like flexbox, children does their work
+good at overlapping
+aligns rows/columns as you tell it
+>layout
+
+flexbox,
+can align elements along a baseline
+can push things away using margin auto
+>alignment
+
+display:grid
+automatically all level one child elements will become grid items
+
+
+
+
+
+
+*/
+
+
+
+
+.parent {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr; /* Three columns, one three times as wide as the others */
+    grid-template-rows: 200px auto 100px; /* Three rows, two with explicit widths */
+    grid-template-areas:
+      "header header header"
+      ". main sidebar"
+      "footer . .";
+  }
+  
+  /*
+    Now, we can explicitly place items in the defined rows and columns.
+  */
+  .child-1 {
+    grid-area: header;
+  }
+  
+  .child-2 {
+    grid-area: main;
+  }
+  
+  .child-3 {
+    grid-area: sidebar;
+  }
+  
+  .child-4 {
+    grid-area: footer;
+  }
+
+
+
+  .grid_container {
+    display: grid;
+    grid-template-rows: 50px; /*quantity and height of rows */
+    grid-template-columns: 50px 70px 50px; /*quantity and width of columns */
+    /* grid template row/columns*/
+    /*grid-template: 50px 50px / 50px 50px 50px;*/
+    /*till here all children will be placed in the specified quantities
+    and more than defined children will occupy a new row according to the specified column-width above */
+  
+    /*add style for any new added row/columns automatically*/
+    grid-auto-rows: 50px;
+/*    grid-auto-columns: 50px;*/
+
+}
+
+
+
+
+
+
+
+
+
+
+.testDiv {
+    height: auto;
+    width: 90vw;
+    border: 1px solid rgb(0, 10, 204);
+    margin: 10px 0;
+    padding: 10px;
+  }
