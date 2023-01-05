@@ -1,0 +1,290 @@
+
+
+<!--
+index:
+Html tags
+Semantic HTML Tags
+> and opens info (ex)
+Progress bar (ex)
+
+
+Metadata, information about the page
+styles, scripts, data to help search-engines/browsers etc 
+use and render the page
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+<base href="https://example.com"> in header
+the base url to use for all relative links in the html document
+only one base
+if no base element, then the base url defaults to location.href
+
+<base href="images/" />
+<img src="logo.png" alt="logo" width="200"
+//does not exist in the root directory in images dir
+//images is infront of all relative links
+
+land on the html element, enables screen readers to invoke the correct pronunciation and helps offer a translation of the page if needed
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+<link>
+used for stylesheets, also favicon, also home screen app mobile devices icon
+
+<link rel="icon" href="favicon.ico" />
+
+<link
+  rel="apple-touch-icon-precomposed"
+  sizes="114x114"
+  href="apple-icon-114.png"
+  type="image/png" />
+
+can also provide media scope
+<link
+  href="mobile.css"
+  rel="stylesheet"
+  media="screen and (max-width: 600px)" />
+
+reference to another language site
+<link rel="alternate" title="Das Formularelement"
+  href="https://example.com/de/form" hreflang="de">
+
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+<meta>
+
+charset: 
+document's character encoding
+
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+<style>
+
+//style with media query
+<style media="all and (max-width: 500px)">
+    p {
+        color: blue;
+        background-color: yellow;
+    }
+</style>
+
+
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+<title>
+for SEO a longer, descriptive title performs 
+better than short or generic titles.
+it affects search results
+
+
+more than 2 words
+keep between 55-60 chars otherwise its not displayed if not put earlier
+
+example
+<title>Menu - Blue House Chinese Food - FoodYum: Online takeout today!</title>
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+
+<body>
+only one body element, must come 2nd tag
+accessed through document.body or HTMLBodyElement.
+
+
+body.onpopstate //user navigated session history
+body.onredo/onundo
+body.topmarin/right/left
+
+
+
+
+
+Content Sectioning Elements identify sections of content
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+Semantic HTML
+markup should convey the underlying meaning of your content not its appearance
+tags called sectioning elements
+a document is a large article with headers, main and footers
+with other articles in it
+along with hav sidebars/headers
+some would be just sections/asides
+
+make it with divs then change ?
+
+it makes it easier for search engines, screen readers
+identify different parts of the website
+view hierarchy of the content on the page
+
+keeps site organized and easier to maintain
+
+
+don’t use semantic elements just for the sake of using them. 
+Implementing them incorrectly is worse than not using them at all, 
+so if you’re ever in doubt, use a <div> instead.
+
+
+section, article, aside, footer, header, nav {
+  display: block;
+}
+//makes semantic elements behave as div elements
+
+<header>
+introductory content for any part
+for a section, article or entire web page
+for search engines and screen readers to know that first <p> was separate from the main content of the article.
+
+<article> article style
+<aside> undirectly related to document
+<header> header of document or element
+<footer> footer of document or element
+<h1>..<h6>
+
+<main>  
+element represents the dominant content of the body of a document
+
+<nav>
+navigation links either within the document or to other documents
+like ...,indexes and menus
+main side navigation, links to related pages in a side board
+tables of content and any group of links
+
+
+
+
+<section>
+like article tag but does not convey semantic meaning to engines
+but helps keep things organized
+represents a generic standalone section of a document
+that not have a more specific semantic element to represent it
+should always have a heading
+
+<aside>
+also not part of the semantic scheme
+like ads and sponsors
+extra information to an aritcle
+
+
+<footer>
+same as headers, come at the end of an aritcle/website
+
+
+<div>
+for wrapping a whole content or sub content inside a container to use it
+presentation purposes
+
+---------------------------------------------
+
+
+<time>
+time is a kind of language, so the tag parses any time format to be rendered
+put in : article > header > h1 > p > text + time
+
+year - month - date - time - timezone
+<p>By Troy McClure. Published <time datetime='2017-1-3'>January 3rd</time></p>
+
+
+<address> 
+element indicates that the enclosed html provides 
+contact information for a person or people
+put in footer > p > text + address
+address > a with href + describing text
+ex
+<address>
+  Please contact <a href='mailto:troymcclure@example.com'>Troy
+  McClure</a> for questions about this article.
+</address>
+styled by default as em
+
+
+<figure> / <figcaption>
+self-contained figure or a diagram illustration, code snippet
+figcaption is details about figure ints contained in 
+
+section > figure > img + figcaption
+
+Schema.org microdata lets you alter the appearance of your site in search engine results.
+Twitter cards define how your web page is displayed in tweets.
+Open Graph metadata changes how Facebook shares your content.
+
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+Text content
+////////////////////////////////////////////////////////
+to organize blocks or sections of content placed within the body
+important for accessibility and SEO
+
+<blockqoute>
+indicates that the enclosed text is an extended quotation
+url source of it given using the cite attribute
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+/* > and opens info * /
+  <details ontoggle="alert('one');">
+      <summary> more info </summary>
+      <p> info here </p>
+  </details>
+
+
+
+
+
+/*container : figure */
+  <figure>  //self contained contents like photos, diagrams etc, not relevant to the flow of the document
+    <figcaption>
+//part of the document/article without being in the flow of the document
+
+
+
+
+
+/*progress bars*/
+<label for="file">Downloading progress:</label>
+<progress id="file" value="40" max="100"> 40% </progress>
+//and change the value using js 
+//and be nice with transition 
+<meter id="disk_d" value="0.6">60%</meter>
+<meter id="disk_c" value="2" min="0" max="10">2 out of 10</meter><br>
+
+//adds color to specific ranges
+//green from min-low
+//yellow from low-high
+//red from high-max
+//optimum defines where the colors should be divided, this tag is divided evenly
+<meter min="0" low="33" optimum="32" high="66" max="100" value="35">75</meter>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
