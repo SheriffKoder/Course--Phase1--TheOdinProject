@@ -1,4 +1,30 @@
-console.time('fetching data');
+/*
+Index
+
+Part1: UI Interface
+Part2: assist UI Interface functions
+Part3: working on a string: resolving brackets within a string
+Part4: working on a string: calculate a string till no signs
+
+/*Part1: UI Interface//////////////////////////////////////////////*/
+/*Part2: assist UI Interface functions///////////////////////////////////*/
+/*Part3: working on a string: resolving brackets within a string////////*/
+/*Part4: working on a string: calculate a string till no signs//////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
+
+
+
+/*Part1: UI Interface//////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
 
 const text_space = document.querySelector(".writing_space_input");
 text_space.textContent = "Hello World";
@@ -11,7 +37,7 @@ const overFlowDots = document.querySelector("#overflowDots");
 overFlowDots.innerHTML = "";
 
 
-//console.dir(text_space); //check properties incl. scroll height
+console.dir(text_space); //check properties incl. scroll height
 
 /*20
 window.addEventListener("load", () =>{
@@ -65,6 +91,8 @@ window.addEventListener("keydown", (e) => {
 
 
 function buttonSwitch (valueGot) {
+
+    console.time('fetching data');
 
     overFlowDots.innerHTML = "";
 
@@ -202,11 +230,11 @@ function buttonSwitch (valueGot) {
     if (text_space.offsetWidth < text_space.scrollWidth) {
         //text_space.style.cssText = "direction: rtl;"
         //console.log("overflow");
-        //console.log("text_space.offsetWidth " + text_space.offsetWidth);
-        //console.log("text_space.scrollWidth " + text_space.scrollWidth);
+        console.log("text_space.offsetWidth " + text_space.offsetWidth);
+        console.log("text_space.scrollWidth " + text_space.scrollWidth);
 
         text_space.scrollTo(text_space.scrollWidth,0);
-
+        text_space.style.width = "90%"; /* allow to see last number in string that the dot does disturb displaying it on overvlow*/
         overFlowDots.innerHTML = "..";
         overFlowDots.classList.add("overflowDotsBlink");
 
@@ -216,13 +244,17 @@ function buttonSwitch (valueGot) {
     else  {
         //overFlowDots.innerHTML = "";
         //overFlowDots.classList.remove("overflowDotsBlink");
+        text_space.style.width = "100%";
+
 
     }
+
+    console.timeEnd('fetching data');
 
 
 }
 
-
+/*Part2: assist UI Interface functions////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
@@ -433,10 +465,9 @@ function notProhibitedEnd (text) {
 
 
 
-console.timeEnd('fetching data');
 
 
-
+/*Part3: working on a string: resolving brackets within a string//////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
@@ -674,6 +705,10 @@ function makeString (inputText,firstSignOccurance,calculated,lastSignOccurance) 
     }
 
 
+
+
+
+/*Part4: working on a string: calculate a string till no signs/////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
@@ -957,6 +992,15 @@ function getBefore_After (input, SignIndex) {
     //console.log("firstSplit ", firstSplit, "secondSplit ", secondSplit, "lastSignPosition ", lastSignPosition, "nextSignPosition ", nextSignPosition);
     return [firstSplit,secondSplit,lastSignPosition,nextSignPosition];
 }
+
+
+
+
+/*Drafts//////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 
 //find first opened bracket after this location
 /*
