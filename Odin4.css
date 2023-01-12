@@ -65,13 +65,23 @@ automatically all level one child elements will become grid items
 
 
 
+/*part 1*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+  /* // setting the grid parent properties // */
   .grid_container {
     display: grid;
+    /* display: inline-grid; */
+
     grid-template-rows: 100px 100px 100px; /*quantity and height of rows */
     grid-template-columns: repeat(3, 1fr); /*quantity and width of columns */
     /* also can use %ages or fr(fraction of the available space) for flexible sizes
-    20px repeat(3, 1fr 2fr); 20px followed by 3 1fr
-    20px repeat(3, 1fr 2fr); 20 px followd by 3 x 1fr 2fr
+    20px repeat(3, 1fr); 20px followed by 3 1fr
+    20px repeat(3, 1fr 2fr); 20 px followed by 3 x 1fr 2fr
     minmax(100px, auto);    //rows for example min of 100px and auto(remaining space) 
     */
     /* grid-template: row/columns*/
@@ -103,6 +113,7 @@ automatically all level one child elements will become grid items
     border: 1px solid blue;
 }
 
+  /* // setting the place/size of a child // */
 .box1 {
     /*grid has lines from ltr starts from border 1 to last border*/
     grid-column-start: 1;
@@ -110,14 +121,101 @@ automatically all level one child elements will become grid items
     /*similarly*/
     grid-column: 1/3;
 
+
     grid-row-start: 1;
     grid-row-end: 2;
+    /*similarly*/
+    grid-row: 1/2;
+
 
     /*can make a child also a grid*/
     display: grid;
 
+    /*
+    use the track definition of the parent grid.
+    grid-template-columns: subgrid;
+    */
+    background: #38CFD9;
+
+    /* control the order */
+    z-index: 2;
+
 }
 
+/*box2 overlaps box1*/
+.box2 {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    background: #23424A;
+
+    /* control the order */
+    z-index: 1;
+
+}
+
+/*part 2*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+grid tracks; single row or column on a grid
+
+
+*/
+
+  /* // another way for setting the place/size of a child // */
+
+.grid_container2 {
+
+    display: inline-grid;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(4, 100px);
+
+    grid-template-areas: 
+    "item1 item1 item2   "
+    "item1 item1 item2   "
+    "item3 item4 item5   " 
+    "item6 item7 .    "
+    ;
+    /* . is used to indicate an empty cell */
+
+}
+
+
+.grid_container2 > div {
+    border: 1px solid blue;
+}
+
+
+
+.box1-2 {
+grid-area: item1;
+}
+
+
+.box2-2 {
+    grid-area: item2;
+}
+
+.box3-2 {
+    grid-area: item3;
+}
+
+.box4-2 {
+    grid-area: item4;
+}
+
+.box5-2 {
+    grid-area: item5;
+}
+
+.box6-2 {
+}
+
+
+.box7-2 {
+}
 
 
 
