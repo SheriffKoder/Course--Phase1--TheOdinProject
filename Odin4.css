@@ -93,7 +93,7 @@ automatically all level one child elements will become grid items
     implicit will wrap to a new row */
 
     
-    /* allow implicit new children to be added in new columns not new rows */
+    /* allow implicit new children to be added in new columns not new rows,columns,dense, fills the blank cells */
     /* grid-auto-flow: column; */
 
 
@@ -288,6 +288,40 @@ align-content: start | end | center | stretch | space-around | space-between | s
 (align the whole grid within its borders according to column )
 
 place-content: center / center; (both justify/align-content using / or one word)
+
+
+grid: grid-template-rows | grid-template-columns | grid-template-areas | grid-auto-rows | grid-auto-columns | grid-auto-flow
+
+
+//Children//
+justify-self: against row
+align-self: against column
+place-self: row/column align
+
+//Sizing Keywords//
+fr
+px,rem,%
+min-content: minimum size of the content
+max-content: maximum size of the content
+auto: like fr but less reliable
+fit-content: use the space available
+minmax( min-value, max-value);
+min()
+max()
+repeat() with keywords like auto-fill(row), auto-fit(column)
+subgrid, used in children to inherit the grid properties from their parent
+masonry
+
+single line grid codes: 
+grid-auto-flow: column;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+
+
+
+
+
+
 
 
 
