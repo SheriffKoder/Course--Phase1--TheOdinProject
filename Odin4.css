@@ -305,28 +305,81 @@ min-content: minimum size of the content
 max-content: maximum size of the content
 auto: like fr but less reliable
 fit-content: use the space available
+
 minmax( min-value, max-value);
 min()
 max()
+clamp (min, ideal, max); will be ideal until less than min will use min, and max
+
+
 repeat() with keywords like auto-fill(row), auto-fit(column)
+repeat(...) open multiply
+repeat(2, ...); multiply
 subgrid, used in children to inherit the grid properties from their parent
 masonry
 
-single line grid codes: 
+
+example single line grid codes: 
 grid-auto-flow: column;
+or
 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
+resize: both; resize the container by clicking and dragging 
 
 
+// example on auto-fit/fill, good for responsive modes.//
+grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+handle column sizing and element wrapping for us so that the elements 
+will wrap into rows when width is not large enough to fit them in 
+without any overflow
+.the fr in minmax ensures that in case the width allows for a fraction of a column
+to fit but not a full column
+that space will instead be distributed over the column or columns that already fit
+making sure no empty space at the end of the row is left
 
+>auto fill, on expand adds empty columns
+fills the row-- with columns, if no more columns the empty space will have same size empty columns are the declared
+fills the row with as many columns as it can
+allow empty columns to occupy space in the row like their non-empty neighbors
+.the min says if we expand the container the items can have width of 250px and be put beside each other
 
+>auto fit, on expand expands the existing columns
+fits the currently available columns[-] by expanding them as the container grows
+fill the row with more columns as the viewport width increases,
+whatever columns you have fit into the available space.
 
-
-
-
-
+you can place the html tags inside a container just below each other
+for a mobile query
+then use grid on the container and them to position in a grid for desktop
 
 */
+
+/* auto-fit/fill example */
+.grid_container3 {
+
+    outline: 1px solid red;
+    outline-offset: 3px;
+    height: auto;
+
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: 100px;
+
+}
+
+.grid_container3 > div {
+    border: 1px solid blue;
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -336,6 +389,6 @@ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     height: auto;
     width: 90vw;
     border: 1px solid rgb(0, 10, 204);
-    margin: 10px 0;
+    margin: 50px 0;
     padding: 10px;
   }
