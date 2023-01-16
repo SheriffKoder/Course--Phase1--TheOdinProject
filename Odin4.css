@@ -15,18 +15,23 @@ the parent does all the work to children not like flexbox, children does their w
 good at overlapping using z-index
 aligns rows/columns as you tell it
 >layout
+>wrap using auto-fill keeps to defined column-width
 
 flexbox,
 can align elements along a baseline
 can push things away using margin auto
 >alignment
+>wrap stretches
 
 display:grid
 automatically all level one child elements will become grid items
 
 
+Content-First(flex) and Layout-First Design(grid)
 
-
+//flex-example
+on items flex:1 will fit wrapped items to take all space in the container
+with margin
 
 
 */
@@ -296,7 +301,7 @@ grid: grid-template-rows | grid-template-columns | grid-template-areas | grid-au
 //Children//
 justify-self: against row
 align-self: against column
-place-self: row/column align
+place-self: justify/align align
 
 //Sizing Keywords//
 fr
@@ -320,11 +325,18 @@ masonry
 
 
 example single line grid codes: 
-grid-auto-flow: column;
+grid-auto-flow: column; (allow placed buttons to be put at end of column)
 or
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); (responsive)
+with
+grid-template-columns: 1fr; (1column multiple lines)
 
-resize: both; resize the container by clicking and dragging 
+resize: both; resize the container by clicking and dragging
+
+//stretched width but height is according to content
+justify-items: center;
+with
+align-content: center;
 
 
 // example on auto-fit/fill, good for responsive modes.//
@@ -336,6 +348,7 @@ without any overflow
 to fit but not a full column
 that space will instead be distributed over the column or columns that already fit
 making sure no empty space at the end of the row is left
+good for adding items on the fly wrapped with keeping the margin proportions
 
 >auto fill, on expand adds empty columns
 fills the row-- with columns, if no more columns the empty space will have same size empty columns are the declared
@@ -351,6 +364,15 @@ whatever columns you have fit into the available space.
 you can place the html tags inside a container just below each other
 for a mobile query
 then use grid on the container and them to position in a grid for desktop
+
+//////////////////////////////////////
+display: contents
+on a grid child let this child's children act as if they are part of the grid
+and the child disappears
+
+
+
+
 
 */
 
