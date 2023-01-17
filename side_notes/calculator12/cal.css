@@ -41,12 +41,13 @@
 }
 
 .calc_fn {
-    flex: 1.01;
+    flex: 1.1;
 }
 
 .calc_buttons {
     flex: 0.99;
 }
+
 
 
 
@@ -62,7 +63,7 @@
     width: 76%;
     margin: auto;
 
-    margin-top: 9%;
+    margin-top: 12%;
 
     color: var(--lcd-font);
     font-family: monospace;
@@ -103,12 +104,18 @@
 
     .writing_space_input, .result_space_output {
         overflow-x: hidden;
-        /*text-overflow: ellipsis;*/
+        
+    }
+
+    .textOverflow {
+        flex: 7;
+
     }
 
 
     .overflowDotsBlink {
-        animation: blink 1s linear infinite alternate; 
+        animation: blink 1s linear infinite alternate;
+
     }
 
     @keyframes blink {
@@ -137,7 +144,7 @@
     width: 85%;
     border: 1px solid var(--test-border3);
     height: 88%;
-    margin-top: 2.5% ;
+    margin-top: 0.0% ;
     margin-left: +1.5%;
 
 
@@ -154,6 +161,11 @@
     height: 15%;
     width: 15%;
 
+}
+
+.calc_buttons table tr:nth-child(4) td {
+    position: relative;
+    top: calc(var(--font-size)*0.03);
 }
 
 /*img alignment : buttons space are pushed to left except the last two as is */
@@ -224,18 +236,17 @@
 
 .calc_fn table {
     width: 85%;
-    border: 1px solid var(--test-border3);
+    border: 2px solid yellow;
     height: 90%;
     margin-top: 5% ;
     margin-left: 1%;
-
 
 
 }
 
 
 .calc_fn table tr td {
-    border: 1px solid var(--test-border2);
+    border: 1px solid greenyellow;
     text-align: center;
 
     position: relative;
@@ -246,15 +257,31 @@
 
 }
 
-.calc_fn table tr:nth-child(even) {
+.mid-buttons td button{
+    height: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 
 }
 
-/*img alignment : buttons space are pushed to left except the last two as is */
-.calc_fn table tr td + td + td + td {
-    left: 0%;
+.calc_fn table tr:nth-child(2) td {
+    background-color: red;
+    height: 6%;
 
 }
+
+.calc_fn table tr:nth-child(3) td {
+    height: 12%;
+
+}
+
+.calc_fn table tr:nth-child(3) td {
+    height: 12%;
+
+}
+
 
 .calc_fn table tr td button {
     margin-top: 0;
@@ -309,3 +336,67 @@
 
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+/* adding the fn buttons using grid */
+
+.calc_fn {
+    padding-top: 7%;
+}
+
+
+/* the grid to place buttons on using its cell locations */
+.calc_fn .fn_button_container {
+
+    width: 87%;
+    border: 2px solid yellow;
+    height: 95%;
+    margin-left: 1%;
+    color: white;
+
+    display: grid;
+    grid-template-rows: 0.75fr 0.6fr 0.2fr 0.7fr 0.4fr 0.6fr 0.35fr 0.7fr 0.35fr 0.75fr;
+    grid-template-columns: 15.66% 17.66% 16.66% 16.66% 16.66% 16.66%;
+
+
+
+}
+
+/* general button style */
+.fn_button_container > button {
+/*    border-bottom: 0.1px solid blue;*/
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 80%;
+    width: 80%;
+    background-color: rgb(119, 119, 119);
+    font-weight: bold;
+    color: white;
+    font-size: calc(var(--font-size)/16);
+
+    
+}
+
+.open_column {
+    grid-column: 3 / span 1;
+    grid-row: 10 / span 1;
+
+    justify-self: center;
+    align-self: start;
+    border-radius: 15%;
+
+}
+
+.close_column {
+    grid-column: 4 / span 1;
+    grid-row: 10 / span 1;
+
+    justify-self: start;
+    align-self: start;
+    border-radius: 15%;
+
+}

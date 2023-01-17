@@ -1,4 +1,34 @@
 /*
+
+Introduction:
+
+this is a 3d model of a calculator
+that has buttons can be clicked on and a display screen
+for input and result
+and also accepts inputs from keyboard
+
+this project goes a step further than being a simple calculator
+as its is inspired by the more scientific calculators
+not just in the way it takes long strings, calculates multiples signs
+and accepts entries only if their place is right in the equation input
+but also calculates brackets within the input and nested within 
+other brackets with some exciting display animations to further emulate a casio calculator
+
+the design allows to easily add future features of calculating more advanced
+calculations like tan(),cos(),sin(), power etc.
+
+
+Features:
+- use any sign from * or X, / , + , -
+- accepts decimal numbers
+- use brackets 
+- nest brackets
+- side by side brackets
+- press DEL/keyboard backspace to remove from input
+- press =/keyboard-enter to display result
+- press AC/keyboard-CMD to reset
+
+
 Index
 
 Part1: UI Interface
@@ -61,10 +91,11 @@ window.addEventListener("load", () =>{
 
 
 
+let textBT = document.querySelector(".open_column");
+console.log(textBT.innerHTML);
 
 
-
-const buttons = document.querySelectorAll(".calc_buttons table tr td button, .calc_fn table tr td button");
+const buttons = document.querySelectorAll(".calc_buttons table tr td button, .calc_fn .fn_button_container button");
 
 let text_string = "";   //start
 let arithmetic = ["ONE","+","-","/","X","x","*","^", " "]; //removed .
