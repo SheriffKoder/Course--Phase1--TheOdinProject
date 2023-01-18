@@ -344,3 +344,107 @@ let apple1 = new Apple("red", "0.1");
 console.log(apple1.weight);
 console.log(apple1.eat());
 
+
+/*////////////////////////////////////////////////////////////////////*/
+/* closures with constructors */
+
+//initializing methods in the constructor) 
+//can take advantage of closures by making use of local variables 
+//defined within the constructor in your methods.
+
+var Dog = function(name) {
+  this.name = name;
+
+  var barkCount = 0;
+
+  this.bark = function() {
+      barkCount++;
+      alert(this.name + " bark");
+  };
+
+};
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/* use an outside object to hold the constr methods 
+to not copy every time on new creations 
+but better use prototypes to assign functions */
+
+const AnimalMethods = { //(2)
+
+  nameFn () {
+    console.log(this.name);
+  }
+
+};
+
+
+function Animals (name) {
+
+  //this.name = name;
+  //this.displayName = AnimalMethods.nameFn; //(1)
+  
+  //if will use many methods
+  //let AnimalCopied = Object.create(AnimalMethods); //(2)
+  //return AnimalCopied;
+
+  //what new assignment does
+  let AnimalCopied = Object.create(Animals.prototype); //(3)
+  AnimalCopied.name = name;
+  return AnimalCopied;
+}
+
+
+let Lion = new Animals("Leo"); //(1)
+//Lion.displayName(); //(1)
+//Lion.nameFn(); //(2)
+console.log(Lion.name); //(3)
+
+
+//Array.prototype or arr.__proto__ gives all its methods
+//arr.__proto__.__proto__ gives the object.prototype
+//arr.__proto__.__proto__.__proto__ gives null (first object)
+//this is the prototype chain
+
+let prototypeOfLeo = Object.getPrototypeOf(Lion);
+console.log(prototypeOfLeo);
+
+//new keyword cannot be used with arrow functions
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+function Animals2 (name, type) {
+  this.name = name;
+  this.type = type;
+}
+
+Animals2.prototype.spell = function (spell) {
+  console.log("spell " + spell);
+}
+
+function Dog (name, type, speed) {
+  Animals2.call(this, name, type);  //this calls from Animals2 without using this here or use extend/super in class constr
+  this.speed = speed;
+}
+
+Dog.prototype = Object.create(Animals2.prototype);
+//Dog.prototype.constructor = Dog; //to add any other methods to the Dog prototype that we want
+
+let newDog = new Dog ("jack", "golden", "101");
+console.log(newDog.name);
+newDog.spell("hiii");
+
+/*////////////////////////////////////////////////////////////////////*/
+
+//prototype inheritance is an important question
+
+//object2 inherits from object1, but looks in obj2 then looks in obj1
+object2.__proto__ = object1;
+
+//any function will have this prototype property now
+Function.prototype.mybind = function () {};
