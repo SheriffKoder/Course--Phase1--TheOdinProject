@@ -43,10 +43,31 @@ const itemsCopy = [...items];
 or convert an object to an array
 const objectname = [...foo]; //but not use when adding methods inline to it
 
+//use line breaks in multi line arrays
+const objectInArray = [
+  1,
+  {
+    id: 2,
+  },
+];
+
+
+//
+function getFullName(user) {
+  const { firstName, lastName } = user; // instead of const firstName = user.firstName;
+  return `${firstName} ${lastName}`;
+}
+
+//
+const [first, second] = arr; // first = arr[0], second = arr[1]
 
 
 
 
+
+
+
+check other stylings in this lesson
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*
@@ -72,7 +93,7 @@ automatically format the code according to a set of rules
 
 */
 
-
+console.log("///////////constructors");
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
@@ -108,6 +129,8 @@ the original prototype has access to all of its prototype's methods and properti
 prototypes are shared
 properties are copied with each new student
 
+objects have a prototype that inherit from its properties/methods, shared on creations not copied
+
 */
 
 Person.prototype.sayNameTwoTimes = function() {
@@ -121,20 +144,203 @@ player_one.sayNameTwoTimes();
 
 
 
-
 /* 
 Prototypal Inheritance 
-constructior prototype, create object of another object's prototype
+constructor prototype, create object of another object's prototype
 to use on the new constructor another's prototype which uses the same properties
 */
 function Employee (name2) {
     this.name = name2;
 }
 
-Employee.prototype = Object.create(Person.prototype);
+Employee.prototype = Object.create(Person.prototype); 
+//works to create from constructors or objects
+//creates a new object set to the prototype of Employee.prototype
 
 const mark = new Employee("mark");
 
 mark.sayNameTwoTimes();
 
-console.log(mark.constructor);
+
+
+ ////Object.create for objects
+
+const cat = {
+  makeSound: function () {
+    console.log(this.sound);
+  }
+}
+
+
+
+const kiko = Object.create(cat);
+//cat is a prototype of kiko
+kiko.sound = "mew";
+kiko.makeSound();
+
+
+//manual prototype assign
+function objectCreate (proto) {
+  const obj = {};
+  Object.setPrototypeOf(obj, proto);
+  return obj;
+}
+
+
+
+
+
+
+
+
+console.log("///////////constructor");
+/*////////////////////////////////////////////////////////////////////*/
+
+
+console.log(mark.constructor);  //output the Person?
+
+var userAccount = new Object ();
+// objects created with object literals and with the object constructor inherits from Object.prototype
+//like constructor, hasOWnProperty(), isPropertyOf(), propertyIsEnumerable (), toLocaleString (), toString (), and valueOf ().
+
+//Object.prototype is the prototype object of all objects created with new Object() or with {}
+//and does not inherit any methods or properties from any other object 
+
+console.log("///////////_proto_");
+/*////////////////////////////////////////////////////////////////////*/
+
+//literal object _proto_ //old way
+let animal = {
+    eats: true,
+    walk() {
+      console.log("Animal walk");
+    },
+
+    name: "John",
+    surname: "Smith",
+  
+    set fullName(value) {   //setter
+      [this.name, this.surname] = value.split(" ");
+    },
+  
+    get fullName() {        //getter
+      return `${this.name} ${this.surname}`;
+    },
+
+    sleep() {               //to be used for the two ear objects below
+        this.isSleeping = true;
+      }
+
+
+  };
+  
+  let rabbit = {
+    jumps: true,
+    __proto__: animal   //rabbit has animal
+  };
+  
+  let longEar = {
+    earLength: 10,
+    __proto__: rabbit   //longEar has rabbit which has animal
+  };
+  
+  let shortEar = {
+    earLength: 7,
+    __proto__: rabbit   //longEar has rabbit which has animal
+  };
+
+
+  // walk is taken from the prototype chain
+  longEar.walk(); // Animal walk
+  //console.log(longEar.jumps); // true (from rabbit)
+  console.log(longEar.fullName);
+
+
+longEar.sleep();
+console.log(longEar.isSleeping);
+console.log(shortEar.isSleeping); //object state is not shared, but the prototype's method is(its there but not changed by sleep() )
+
+// Object.keys only returns own keys/property names
+console.log(Object.keys(shortEar));   //earLength
+
+// for..in loops over both own and inherited keys, so use hasOwnProperty to filter for its properties
+// because its inherited from its "own" prototype methods
+for(let prop in shortEar) {
+    
+    if (shortEar.hasOwnProperty(prop)) {
+        console.log(prop); 
+    }
+}
+
+
+
+console.log("///////////strict, global");
+/*////////////////////////////////////////////////////////////////////*/
+
+
+undefined;
+function sum() {
+    //"use strict";   //makes this un-global for the below lines even in inner scopes except for arrow functions
+    this.myNumber = 20; // add 'myNumber' property to global object
+
+  }
+  // sum() is invoked as a function
+  // this in sum() is a global object (window)
+  console.log(window.myNumber); //undefined
+  sum();     // => 31
+  console.log(window.myNumber); //20, when sum is called the this's become global
+
+
+
+console.log("///////////class syntax");
+/*////////////////////////////////////////////////////////////////////*/
+
+//JavaScript allows to define constructors using class syntax:
+  class City {
+    constructor(name, traveled) {
+      this.name = name;
+      this.traveled = false;
+    }
+
+    sayName () {
+      return this.name;
+    }
+
+    }
+
+    const paris = new City('Paris', false);
+
+    console.log(City.name);
+
+  //use extends and super to take from a previous class's constructor
+  class Town extends City {
+    constructor (name) {
+      super(name)
+    }
+  }
+
+  const myTown = new Town("Cairo");
+  console.log(myTown.name);
+
+/*////////////////////////////////////////////////////////////////////*/
+
+//arrow functions takes this from the outer function where it is defined
+// better use function declaration
+
+//the constructors are from an Object parent which has no prototype(null)
+//when calling js checks the object then the prototype
+
+function Apple (color, weight) {
+  this.color = color;
+  this.weight = weight;
+}
+
+Apple.prototype = {
+  eat() {return this}, //this returns the new apples
+}
+
+let apple1 = new Apple("red", "0.1");
+
+console.log(apple1.weight);
+console.log(apple1.eat());
+
