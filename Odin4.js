@@ -62,6 +62,15 @@ function getFullName(user) {
 const [first, second] = arr; // first = arr[0], second = arr[1]
 
 
+//// another way of returning
+function processInput(input) {
+  // then a miracle occurs
+  return { left, right, top, bottom };
+}
+// the caller selects only the data they need
+const { left, top } = processInput(input);
+
+
 
 
 
