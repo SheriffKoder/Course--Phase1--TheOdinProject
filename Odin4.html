@@ -240,6 +240,32 @@ represents the text exactly as written in the html with white spaces written
 semantic alternative to ul and treated by browsers like a ul
 
 
+<bdi>
+  text contained is isolated from its surrounded text's directionality 
+  when using another language direction but it does not influence it
+  for example when a user/database will give an unknown direction, otherwise use the dir attr
+  :isolate in css has same effect but is not semantic
+
+
+<bdo>
+  overrides the current directionality of text so that the text within is rendered in a different direction
+  so different direction texts are not drawn backwards, rendered from starting point
+
+
+<br> a line break in text, useful in p tags etc.
+
+<cite> mark up the title of a cited creative work, reference link/text, italic
+
+<code> monospace text
+
+<data> links its content with a machine-readable translation
+      <li><data value="398">Mini Ketchup</data></li>
+
+
+
+
+
+
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
