@@ -87,6 +87,25 @@ const { left, top } = processInput(input);
 //   return `How are you, ${name}?`; better than   return 'How are you, ' + name + '?';
 
 
+//
+const newFunction = function DescriptiveFunctionNameHere () {
+}
+
+//wrap immediately invoked functions
+(function () {
+
+}();)
+
+
+//declare function names if will use in if/loops
+let test;
+if (currentUser) {
+  text = () => {};
+}
+
+//never name a parameter the name "arguments" not to take precedence over the arguments object
+
+
 
 
 check other stylings in this lesson
@@ -498,6 +517,7 @@ f instanceof C; // Is an instance of C!?!
 */
 
 //factory function
+//instead of using this. , give parameters and local definitions and return them as an object
 const personFactory = (name, age) => {
   const sayHello = () => console.log('hello!');
   return { name, age, sayHello };
@@ -573,20 +593,23 @@ function names () {
 //private scope
 
 (function () {
-  var myFunction = function () {
+  var _myFunction = function () {
     console.log("myFunction");
   }
-  myFunction();
+  _myFunction();
 })();
 
-//myFunction(); //error - its private
+//_myFunction(); //error - its private
+//private naming convention starting with _
 
 //public scope
 var test2001 = (function () {
+  //_private function that is not returned
   return { myFunction: function () {
     console.log("myFunction-public1");
     },
     myFunction : function () {
+      //use private function
       console.log("myFunction-public2");
     }
   }
@@ -596,11 +619,77 @@ var test2001 = (function () {
 test2001.myFunction(); //no error, public
 
 //
-//return {,}
+//return {,}, return { printString };
+
+console.log("///////////factory fn 2");
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+/////Closures in factory functions
+//are the returned functions from a public scope 
+//these function when passed around and called outside that scope
+//still have access to variables inside its main scope and can change them
 
 
-//
-const newFunction = function FunctionNameHere () {
-  
+
+
+//Object.assign(target,source)
+//copies/replaces to target objects from one or more source objects
+//from right to left
+
+const target = { a: 1, c: 2 };
+const source = { b: 4, c: 5 };
+
+const returnedTarget = Object.assign(target, source);
+//const copy = Object.assign({}, source); //cloning
+
+console.log(target);
+// Expected output: Object { a: 1, b: 4, c: 5 }
+
+console.log(returnedTarget === target);
+// Expected output: true?
+
+
+
+const Person2001 = (name) => {
+  const sayName = () => console.log(`my name is ${name}`);
+  return {sayName};
 }
+
+const Nerd = (name) => {
+  const prototype = Person2001(name);
+  const doSomethingNerdy = () => console.log('nerd stuff');
+
+  //return {sayName, doSomethingNerdy};
+  return Object.assign({}, prototype, {doSomethingNerdy});
+}
+
+const jeff2001 = Nerd("jeff");
+console.log(jeff2001);
+
+
+//////////////////////////////////////////
+//////////////////////////////////////////
+//inheritance using factory functions/Object.assign (Concatenative inheritance)
+const proto = {
+  hello () {
+    return `Hello, my name is ${ this.name }`;
+  }
+};
+
+//*greeter is/returned-to an object of {proto object+name property}
+/*
+const greeter = (name) => Object.assign(Object.create(proto), {
+  name
+});
+*/
+//see how using anonymous open objects as they are a thing
+const george = Object.assign({}, proto, {name: 'George'});
+
+
+const george = greeter('george');
+
+const msg = george.hello();
+
+console.log(msg);
 
