@@ -597,3 +597,10 @@ test2001.myFunction(); //no error, public
 
 //
 //return {,}
+
+
+//
+const newFunction = function FunctionNameHere () {
+  
+}
+
