@@ -466,18 +466,134 @@ newDog.spell("hiii");
 //prototype inheritance is an important question
 
 //object2 inherits from object1, but looks in obj2 then looks in obj1
-object2.__proto__ = object1;
+//object2.__proto__ = object1;
 
 //any function will have this prototype property now
 Function.prototype.mybind = function () {};
 
 
+console.log("///////////factory fn");
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
 
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
+it can be easy to introduce bugs into your code when using constructors
+
+adding prototype to instances break the .constructor / instanceof
+so can use factory functions will solve that but will not work as expected and not easy to trace errors 
+c instanceof C;  // instanceof no longer works!
+f instanceof C; // Is an instance of C!?!
+
+  instead of using new to create an object
+  set up and return the new object when you call the function
+
+
+
+*/
+
+//factory function
+const personFactory = (name, age) => {
+  const sayHello = () => console.log('hello!');
+  return { name, age, sayHello };
+};
+
+const jeff = personFactory('jeff', 27);
+
+console.log(jeff.name); // 'jeff'
+
+jeff.sayHello(); // calls the function and logs 'hello!'
+
+
+
+/*
+function close and scope
+
+context === this
+scope === variable access scope
+
+window.a is the global scope
+a is a local scope
+
+
+*/
+
+let a = 1;
+
+function foo () {
+  //var a = 3; //local scope
+  a = 2;
+
+  console.log( this === window);  //true
+
+}
+
+//foo();  //calling this function changes the global a,
+//console.log(a);
+
+//context
+let obj = {
+  sayFoo : function () {
+    console.log( this === window);  //false
+    console.log( this === obj);  //false
+
+  }
+}
+
+obj.sayFoo();
+obj.sayFoo.call(window,1,2); //changed the context to be in window, 2nd parameter+ is the passed arguments
+obj.sayFoo.apply(window,[1,2]); //changed, apply takes to arguments, the context, array or passed arguments
+
+//(function () {}).apply(window,links[i]);
+
+var myBoundFoo = obj.sayFoo.bind(window);
+myBoundFoo();
+//changed, takes one arguments, returns a bound function
+//good for performance as the functions are not called
+
+//click event runs on the context on what it was clicked in ex. body.onclick
+
+
+//the scope chain/lexical-scope can be traced inwards, related to closure
+function names () {
+  let name = "name"
+  function names2 () {
+    function names3 () {
+      //name can be used here
+    }
+  }
+}
+
+
+//private scope
+
+(function () {
+  var myFunction = function () {
+    console.log("myFunction");
+  }
+  myFunction();
+})();
+
+//myFunction(); //error - its private
+
+//public scope
+var test2001 = (function () {
+  return { myFunction: function () {
+    console.log("myFunction-public1");
+    },
+    myFunction : function () {
+      console.log("myFunction-public2");
+    }
+  }
+
+})();
+
+test2001.myFunction(); //no error, public
+
+//
+//return {,}
