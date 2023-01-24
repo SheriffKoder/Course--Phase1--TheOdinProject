@@ -23,92 +23,6 @@ so become more maintainable and easier to read
 
 
 
-////////good practices////////
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*
-use CONST instead of VAR for all references
-if will reassign use LET better than VAR for its scope properties
-
-use const item = {}; instead of new Object();
-
-
-const lukeSkywalker = 'Luke Skywalker';
-const obj = {
-    
-    lukeSkywalker, //this kind is put here first
-
-    value: 1,
-
-    addValue(value) {
-        return atom.value + value;
-    },
-
-    'data-blah': 5, //quote used on multi word names only
-
-};
-
-
-Use array spreads ... to copy arrays instead of for loops
-const itemsCopy = [...items];
-
-or convert an object to an array
-const objectname = [...foo]; //but not use when adding methods inline to it
-
-//use line breaks in multi line arrays
-const objectInArray = [
-  1,
-  {
-    id: 2,
-  },
-];
-
-
-//
-function getFullName(user) {
-  const { firstName, lastName } = user; // instead of const firstName = user.firstName;
-  return `${firstName} ${lastName}`;
-}
-
-//
-const [first, second] = arr; // first = arr[0], second = arr[1]
-
-
-//// another way of returning
-function processInput(input) {
-  // then a miracle occurs
-  return { left, right, top, bottom };
-}
-// the caller selects only the data they need
-const { left, top } = processInput(input);
-
-
-//strings more than 100 chars not written in multiple lines
-//   return `How are you, ${name}?`; better than   return 'How are you, ' + name + '?';
-
-
-//
-const newFunction = function DescriptiveFunctionNameHere () {
-}
-
-//wrap immediately invoked functions
-(function () {
-
-}();)
-
-
-//declare function names if will use in if/loops
-let test;
-if (currentUser) {
-  text = () => {};
-}
-
-//never name a parameter the name "arguments" not to take precedence over the arguments object
-
-
-
-
-check other stylings in this lesson
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*
@@ -139,6 +53,53 @@ console.log("///////////constructors");
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
+
+//common ways to create new empty objects
+/*
+
+const newObject = {};
+const newObject = Object.create(Object.prototype);
+const newObject = new Object();
+
+const myModule = {
+  myProperty: 'someValue',
+  saySomething(myConfig) {
+      this.myConfig = myConfig;
+      console.log(myConfig.value + " is my Config"); //this, is myModule
+
+  },
+};
+
+
+myModule.saySomething({value: 1, number: 1});
+newObject.myProperty = 'Hello World';
+newObject['Some Key'] = 'Hello World';
+
+
+
+
+const defineProp = (obj, key, value) => {
+  const config = {
+      value: value,
+
+  };
+  Object.defineProperty(obj, key, config);
+};
+
+const person = Object.create(Object.prototype);
+defineProp(person, 'car', 'Delorean');
+console.log(person);
+
+
+
+*/
+
+
+
+
+
+
+
 /*
 Object Constructors
 */
@@ -158,6 +119,9 @@ const player_one = new Person("steve", "X");
 //player_one.sayName();
 
 console.log(player_one.sayName()); //better practice 
+
+
+
 
 
 
@@ -599,8 +563,9 @@ function names () {
   _myFunction();
 })();
 
-//_myFunction(); //error - its private
+//_myFunction(); //error - its private due to iffy or ()(); being used
 //private naming convention starting with _
+//good for security and not allowing functions to be used outside
 
 //public scope
 var test2001 = (function () {
@@ -670,7 +635,7 @@ console.log(jeff2001);
 
 //////////////////////////////////////////
 //////////////////////////////////////////
-//inheritance using factory functions/Object.assign (Concatenative inheritance)
+//inheritance using factory functions/Object.assign (Concatenative/cloning/Mixins inheritance)
 const proto = {
   hello () {
     return `Hello, my name is ${ this.name }`;
@@ -687,9 +652,125 @@ const greeter = (name) => Object.assign(Object.create(proto), {
 const george = Object.assign({}, proto, {name: 'George'});
 
 
-const george = greeter('george');
+//const george = greeter('george');
 
 const msg = george.hello();
 
 console.log(msg);
+
+
+//*
+//object.on('event', payload => console.log(payload));
+
+
+//////////////////////////////////////////
+//////////////////////////////////////////
+//functions created for the purpose of extending existing objects
+//functional mixins
+
+//inheritance, when design your types what they are
+//composition, when design what your types they do
+
+
+//composition, separating methods from creations like driver, RobotDog
+//example with private and public to emulate inheritance
+//more flexible and more powerful
+
+let Function2101 = (function () {
+
+  const driver = (state) => (
+    {
+      drive: () => console.log("woof i am "+ state.name)
+    }
+  )
+
+  const RobotDog = function (name) {
+
+    let state = {
+      name,
+      speed: 100,
+    }
+
+  return Object.assign({}, driver(state));
+  }
+
+  //barker
+  //runner
+
+  return { RobotDog
+  }
+
+
+  })(); //function called in order to use as variable and access properties
+  //this calling is called IIFE, iffy
+
+
+let Dog2101 = Function2101.RobotDog("names");
+Dog2101.drive();
+
+
+
+
+console.log("///////////Module-pattern");
+/*////////////////////////////////////////////////////////////////////*/
+/*
+modules are similar to factory functions, differ in how they are created
+encapsulating and calling a function in the same time
+allows private and public
+
+
+*/
+
+//wrap a function, return from it an object of functions to be used
+let parameter1 = 10;
+
+
+  const calculator = (() => {
+    'use strict';
+    const add = (a, b) => a + b;
+    const sub = (a, b) => a - b;
+    const mul = (a, b) => a * b;
+    const div = (a, b) => a / b;
+    return {
+      add,
+      sub,
+      mul,
+      div,
+    };
+  })(parameter1 || parameter2);
+
+
+  let x2101;
+  x2101 = calculator.add(3,5); // 8
+  calculator.sub(6,2); // 4
+  calculator.mul(14,5534); // 77476
+
+  console.log(x2101);
+
+  //a drawback is public values can be changed from the outside
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+Design patterns, reusable solutions to commonly occurring problems in software design
+
+maintainable code, recurring themes, and optimize them
+maintainable code vs design patterns
+
+
+var, const, let
+
+To support modular programming, the language should have features 
+that allow you to import module dependencies and export 
+the module interface (the public API/variables we allow other modules 
+to consume).
+
+
+constructor, special method, initialize newly created object, once memory has been allocated for it
+
+
+
+
+*/
 
