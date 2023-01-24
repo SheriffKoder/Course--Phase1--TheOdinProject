@@ -697,7 +697,9 @@ let Function2101 = (function () {
   //barker
   //runner
 
-  return { RobotDog
+  //the revealing module
+  //solves accessing privates but more fragile than the original (returning the whole public functions in an object)
+  return { driverName: RobotDog,
   }
 
 
@@ -705,7 +707,7 @@ let Function2101 = (function () {
   //this calling is called IIFE, iffy
 
 
-let Dog2101 = Function2101.RobotDog("names");
+let Dog2101 = Function2101.driverName("names");
 Dog2101.drive();
 
 
@@ -768,6 +770,56 @@ to consume).
 
 
 constructor, special method, initialize newly created object, once memory has been allocated for it
+
+avaScript modules to organize objects, functions, classes or variables 
+in a way they can be easily exported or imported into other files.
+
+>The constructor pattern
+using class/constructors 
+functions with prototypes
+
+>The module pattern
+using objects
+*a self-contained function(); that return an object of function codes to be called
+allows privacy keeping everything within the closure private
+allows using export/import
+allows for a cleaner code
+
+Export: allows you to provide access to module features outside the module
+Import: allows to import bindings that are exported by a module to our script
+
+
+improved version of the module pattern
+"the revealing module pattern"
+
+>The singleton pattern
+useful when exactly one object is needed to coordinate across the system
+define a class/constructor for publics
+and return this object (one name ex. MySingleton)
+so can just use 
+import MySingleton from './MySingleton';
+const singleA = new MySingleton();
+can use variable = new constructorName(parameters) where takes an array input private constructor(parameters={}) for parameters.values
+
+
+>the observer pattern
+allows one object to be notified when another object changes
+an object(subject) maintains a list of objects depending on it(observers)
+ConcreteSubject, broadcasts notifications to observers on changes of states
+ConcreteObserver, stores a reference to the C-S
+-code not here
+
+>The Publish/Subscribe pattern however uses a topic/event channel 
+which sits between the objects wishing to receive notifications 
+(subscribers) and the object firing the event (the publisher). 
+avoiding dependencies between the subscriber and publisher
+no notification on subscriber crashing
+
+
+>The Mediator Pattern
+one object notify a set of other objects when an event occurs
+allows one object to be notified of events that occur in other objects
+
 
 
 
