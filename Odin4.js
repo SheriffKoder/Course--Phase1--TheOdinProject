@@ -317,15 +317,43 @@ console.log("///////////class syntax");
 
     console.log(City.name);
 
+  //mixin pattern, superclass/base(city) and sub-class(town)
   //use extends and super to take from a previous class's constructor
   class Town extends City {
-    constructor (name) {
-      super(name)
+    constructor (name,traveled,streetsCount) {
+      super(name,traveled);
+      this.streetsCount = streetsCount;
     }
   }
 
-  const myTown = new Town("Cairo");
-  console.log(myTown.name);
+  const myTown = new Town("Cairo", "false", "3");
+  console.log(myTown);
+
+
+/*////////////////////////////////////////////////////////////////////*/
+
+  //mixin pattern, superclass/base(person) and sub-class(superHero)
+
+  var Person2501 = function (firstname) {
+    this.firstname = firstname;
+  }
+
+  var clark = new Person2501("clark");
+
+  var superHero = function (firstname, powers) {
+    Person2501.call(this,firstname);
+    this.powers = powers;
+  }
+
+
+  //superHero.prototype = Object.create(Person2501.prototype);
+  var superMan = new superHero ("clark", ["flight", "heat-vision"]);
+  console.log(superMan);
+
+
+
+
+
 
 /*////////////////////////////////////////////////////////////////////*/
 
@@ -755,7 +783,7 @@ let parameter1 = 10;
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*
-Design patterns, reusable solutions to commonly occurring problems in software design
+[book] Design patterns, reusable solutions to commonly occurring problems in software design
 
 maintainable code, recurring themes, and optimize them
 maintainable code vs design patterns
@@ -771,15 +799,15 @@ to consume).
 
 constructor, special method, initialize newly created object, once memory has been allocated for it
 
-avaScript modules to organize objects, functions, classes or variables 
+JavaScript modules to organize objects, functions, classes or variables 
 in a way they can be easily exported or imported into other files.
 
 >The constructor pattern
-using class/constructors 
-functions with prototypes
+. using class/constructors 
+. using functions with prototypes
 
 >The module pattern
-using objects
+*using objects
 *a self-contained function(); that return an object of function codes to be called
 allows privacy keeping everything within the closure private
 allows using export/import
@@ -788,14 +816,16 @@ allows for a cleaner code
 Export: allows you to provide access to module features outside the module
 Import: allows to import bindings that are exported by a module to our script
 
-
+* the revealing module pattern
 improved version of the module pattern
-"the revealing module pattern"
+where add functions privately and return their names only in an object
+
 
 >The singleton pattern
 useful when exactly one object is needed to coordinate across the system
-define a class/constructor for publics
-and return this object (one name ex. MySingleton)
+define a class/constructor for publics in the object
+return variable = this; to store its reference
+and return this class (one name ex. MySingleton)
 so can just use 
 import MySingleton from './MySingleton';
 const singleA = new MySingleton();
@@ -809,6 +839,8 @@ ConcreteSubject, broadcasts notifications to observers on changes of states
 ConcreteObserver, stores a reference to the C-S
 -code not here
 
+
+
 >The Publish/Subscribe pattern however uses a topic/event channel 
 which sits between the objects wishing to receive notifications 
 (subscribers) and the object firing the event (the publisher). 
@@ -821,8 +853,266 @@ one object notify a set of other objects when an event occurs
 allows one object to be notified of events that occur in other objects
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*
+static keyword methods in a class used to create utility functions for an application
+
+
+> the mixin pattern
+classes that offer functionality that can be easily 
+inherited by a sub-class or a group of sub-classes
+for function reuse
+mix-functionality from multiple classes
+decreasing functional repetition and increasing function re-use
+
+sub-classing
+inheriting properties for a new object from a base/superclass-object
+
 
 
 
 */
+
+class Car {
+  constructor({model, color}) {
+    this.model = model || "no model provided";
+    this.color = color || "no color provided";
+  }
+}
+
+
+
+//base class
+//superclass is a parameter
+const MyMixins = superclass =>
+    class extends superclass {
+        moveUp() {
+            console.log('move up');
+        }
+        moveDown() {
+            console.log('move down');
+        }
+        stop() {
+            console.log('stop! in the name of love!');
+        }
+    };
+
+
+class LeftAnimator {
+  moveLeft() {
+      console.log('move left');
+    }
+}
+
+class PersonAnimator {
+    moveRandomly() {
+        /*..*/
+    }
+}
+
+class myAnimator1 extends MyMixins(LeftAnimator) {};
+class MyCar extends MyMixins(Car) {};
+
+const myAnimator2 = new myAnimator1();
+myAnimator2.moveLeft();
+myAnimator2.moveDown();
+myAnimator2.stop();
+
+const MyCar2 = new MyCar({model: "ford", color:"blue"});
+MyCar2.moveUp();
+MyCar2.moveDown();
+
+
+//classic js
+
+var myMixins = {
+  moveUp: function(){
+  console.log( "move up" );
+  },
+};
+
+function CarAnimator(){
+  this.moveLeft = function(){
+    console.log( "move left" );
+  };
+}
+
+//_.extend( CarAnimator.prototype, myMixins );
+
+//var myAnimator = new CarAnimator();
+//myAnimator.moveLeft();
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+Decorator pattern
+ability to add behavior to existing classes in a system diametically
+
+//Pseudo-classical Decorators
+//Abstract Decorators
+
+
+*/
+
+  
+class MacBook {
+  constructor() {
+      this.cost = 1000;
+      this.screenSize = 11.6;
+  }
+  getCost() {
+      return this.cost;
+  }
+  getScreenSize() {
+      return this.screenSize;
+  }
+}
+
+// Decorator 1
+class Memory extends MacBook {
+  constructor(macBook2) {
+      super();
+      this.macBook2 = macBook2;
+  }
+
+  getCost() {
+      return this.macBook2.getCost() + 75; //adjuct to return this.cost" +75, where cost is already in the masterclass
+  }
+}
+
+// Decorator 2
+class Insurance extends MacBook {
+  constructor(macBook) {
+      super();
+      this.macBook = macBook;
+  }
+
+  getCost() {
+      return this.macBook.getCost() + 100;
+  }
+}
+
+let mb = new MacBook();
+mb = new Memory(mb);
+mb = new Insurance(mb);
+console.log(mb.getCost());
+
+
+////classical approach
+function MacBook2() {
+  this.cost = function () { return 997; };
+  this.screenSize = function () { return 11.6; };
+}
+
+// Decorator 1
+function memory2( macbook2 ) {
+  var v = macbook2.cost();
+  
+  macbook2.cost = function() {
+    return v + 75;
+  };
+
+}
+
+var mb2 = new MacBook2();
+memory2( mb2 );
+console.log( mb2.cost() );
+
+
+//Pseudo-classical Decorators
+/*
+Objects inside other objects of the same interface
+
+
+*/
+
+
+class Todo {
+  constructor({ actions, name }) {
+      // State the methods we expect to be supported
+      // as well as the Interface instance being checked
+      // against
+
+
+      this.name = name;
+      this.methods = actions;
+  }
+}
+
+
+const properties = {
+  name: 'Remember to buy the milk',
+  date: '05/06/2016',
+  actions: {
+      summary() {
+          return 'Remember to buy the milk, we are almost out!';
+      },
+      placeOrder() {
+          return 'Ordering milk from your local grocery store';
+      },
+  },
+};
+
+const todoItem = new Todo(properties);
+
+console.log(todoItem.methods.summary());
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+Flyweight
+optimizes code that is repetitive, slow, inefficiently shares data
+aims to minimize the use of memory in an application by sharing as much data as possible
+
+taking several similar objects or data constructs used by a number of objects
+and placing this data into a single external object
+so can pass through this object to those depending on this data
+
+data-layer
+sharing data between large quantities of similar objects stored in memory
+
+DOM-layer
+central event-manager to avoid attaching event handlers to every child element
+
+*/
+
+
+
+/*
+Javascript MV patterns
+
+three very important architectural patterns
+.MVC - Model View Controller
+.MVP - Model View Presenter
+MVVM - Model View ViewModel
+
+
+MVC
+isolation of business data (models) from user interfaces (views)
+with a third component (controllers) managing logic - user input
+
+
+Models manage the data for an application
+
+*/
+
+
+
+/*
+AMD 
+Asynchronous Module Definition
+
+*/
+
+
+
+
+
+
+
+
 
