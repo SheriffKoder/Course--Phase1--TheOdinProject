@@ -1109,6 +1109,96 @@ Asynchronous Module Definition
 */
 
 
+/*
+Namespacing Patterns
+logical grouping of units of code under a unique identifier
+help avoid collisions with other objects or variables in the global namespace
+
+
+*/
+
+//Single global variable
+//as our primary object of reference
+/*
+var myApplication = (function () {
+  function() {
+    //...
+  },
+  return {
+    //...
+  }
+})();
+
+*/
+
+
+//Prefix namespacing
+//use myApplication_ then define any methods/variables/other objects
+var myApplication_propertyA = {};
+function myApplication_myMethod() {};
+
+//Object literal notation
+//containing a collection of key:value pairs with a colon separating each pair
+//can also add properties directly from outside
+myApplication2 = {
+  key1: 1,
+  key2: { key3:1, key4:1}
+}
+
+
+
+
+myApplication2.foo = function () {}
+
+//checking if already defined we use that instance otherwise assign an object literal
+// Option 1: var myApplication = myApplication || {};
+
+
+
+//decouple the default configuration for our application 
+//into a single area that can be easily modified without 
+//the need to search through our entire codebase just to alter them
+
+var myConfig = {
+
+  language: "english",
+
+  defaults: {
+    enableGeolocation: true,
+    enableSharing: false,
+    maxPhotos: 20
+  },
+
+  theme: {
+    skin: "a",
+    toolbars: {
+      index: "ui-navigation-toolbar",
+      pages: "ui-custom-toolbar"
+    }
+  }
+}
+
+
+//Nested namespacing
+//myApp.model.special = myApp.model.special || {};
+
+
+//Immediately-invoked Function Expressions (IIFE)s
+;(function (parameter) {
+
+  parameter.helloWorld = 1;
+  
+  parameter.sayHello = function () {console.log(parameter)};
+
+})(window.namespace = window.namespace || {} );
+
+namespace.sayHello();
+
+
+//Namespace injection
+//Deep object extension
+
+
 
 
 
