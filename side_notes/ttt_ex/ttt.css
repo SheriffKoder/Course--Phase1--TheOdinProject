@@ -1,0 +1,60 @@
+
+.main_container {
+
+    background-color: beige;
+    border: 1px dotted rgba(170, 170, 170, 0.3);
+    border-style: dashed;
+    height: 90vh;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+/*////////////////////////////////////////////////////////////////////*/
+
+.header, .game_container, .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+    /*////////////////////////////////////////////////////////////////////*/
+    .header {
+        background-color: whitesmoke;
+        flex: 1;
+
+    }
+
+        .header h2 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+
+    /*////////////////////////////////////////////////////////////////////*/
+    .game_container {
+        background-color: rgb(255, 254, 255);
+        flex: 5;
+    }
+
+        .game_board {
+            background-color: aliceblue;
+            border: 1px dashed rgba(170, 170, 170, 0.3);
+            height: 20rem;
+            width: 20rem;
+        }
+
+                .game_board td {
+                    border: 1px dashed rgba(170, 170, 170, 0.3);
+
+                }
+
+
+    /*////////////////////////////////////////////////////////////////////*/
+    .footer {
+        background-color: whitesmoke;
+        flex: 1;
+
+        justify-content: space-evenly;
+    }
