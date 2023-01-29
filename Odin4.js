@@ -7,7 +7,29 @@ Object-constructors
 
 set, get 
 what the new assignment does
+
+/*
+Object constructors
+Prototypes
+Prototypal Inheritance
+strict/global window
+Class constructors
+Mixin
+closures with constructors
+__proto__
+Factory Functions
+call/apply/bind
+private/public
+Object.assign
+Inheritance using factory functions
+revealing module/pattern
+Design patterns: mixin, decorator, pseudo-decorators
+
 */
+
+
+
+
 
 
 /*
@@ -135,6 +157,8 @@ prototypes are shared
 properties are copied with each new student
 
 objects have a prototype that inherit from its properties/methods, shared on creations not copied
+JS Object has a prototype containing all methods
+
 
 */
 
@@ -754,7 +778,7 @@ allows private and public
 //wrap a function, return from it an object of functions to be used
 let parameter1 = 10;
 
-
+/*
   const calculator = (() => {
     'use strict';
     const add = (a, b) => a + b;
@@ -767,13 +791,13 @@ let parameter1 = 10;
       mul,
       div,
     };
-  })(parameter1 || parameter2);
-
+  })(argument1 || argument2);
+*/
 
   let x2101;
-  x2101 = calculator.add(3,5); // 8
-  calculator.sub(6,2); // 4
-  calculator.mul(14,5534); // 77476
+  //x2101 = calculator.add(3,5); // 8
+  //calculator.sub(6,2); // 4
+  //calculator.mul(14,5534); // 77476
 
   console.log(x2101);
 
@@ -948,7 +972,7 @@ function CarAnimator(){
 /*////////////////////////////////////////////////////////////////////*/
 /*
 Decorator pattern
-ability to add behavior to existing classes in a system diametically
+ability to add behavior to existing classes in a system dynamically
 
 //Pseudo-classical Decorators
 //Abstract Decorators
@@ -978,7 +1002,7 @@ class Memory extends MacBook {
   }
 
   getCost() {
-      return this.macBook2.getCost() + 75; //adjuct to return this.cost" +75, where cost is already in the masterclass
+      return this.macBook2.getCost() + 75; //adjust to return this.cost" +75, where cost is already in the masterclass
   }
 }
 
@@ -1060,148 +1084,256 @@ const todoItem = new Todo(properties);
 console.log(todoItem.methods.summary());
 
 
-
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+console.log("///////////classes");
+
 /*
-Flyweight
-optimizes code that is repetitive, slow, inefficiently shares data
-aims to minimize the use of memory in an application by sharing as much data as possible
+Class
+a new syntax that does the exact same thing as the object 
+constructors and prototypes
 
-taking several similar objects or data constructs used by a number of objects
-and placing this data into a single external object
-so can pass through this object to those depending on this data
 
-data-layer
-sharing data between large quantities of similar objects stored in memory
+essential functions that execute on getting and setting a value
+but look like regular properties to an external code
 
-DOM-layer
-central event-manager to avoid attaching event handlers to every child element
+
+
+
+
 
 */
 
 
+//define property using set/get and defineProperty
 
-/*
-Javascript MV patterns
-
-three very important architectural patterns
-.MVC - Model View Controller
-.MVP - Model View Presenter
-MVVM - Model View ViewModel
-
-
-MVC
-isolation of business data (models) from user interfaces (views)
-with a third component (controllers) managing logic - user input
-
-
-Models manage the data for an application
-
-*/
-
-
-
-/*
-AMD 
-Asynchronous Module Definition
-
-*/
-
-
-/*
-Namespacing Patterns
-logical grouping of units of code under a unique identifier
-help avoid collisions with other objects or variables in the global namespace
-
-
-*/
-
-//Single global variable
-//as our primary object of reference
-/*
-var myApplication = (function () {
-  function() {
-    //...
-  },
-  return {
-    //...
-  }
-})();
-
-*/
-
-
-//Prefix namespacing
-//use myApplication_ then define any methods/variables/other objects
-var myApplication_propertyA = {};
-function myApplication_myMethod() {};
-
-//Object literal notation
-//containing a collection of key:value pairs with a colon separating each pair
-//can also add properties directly from outside
-myApplication2 = {
-  key1: 1,
-  key2: { key3:1, key4:1}
-}
+let obj27 = {
 
 
 
 
-myApplication2.foo = function () {}
 
-//checking if already defined we use that instance otherwise assign an object literal
-// Option 1: var myApplication = myApplication || {};
+  //
+  get propName() {
+    // getter, the code executed on getting obj.propName
+    //just retrieve the info
+    //called without () , read normally the property name
+    //return this._name;
+    return `${this.name} ${this.surname}`;
 
-
-
-//decouple the default configuration for our application 
-//into a single area that can be easily modified without 
-//the need to search through our entire codebase just to alter them
-
-var myConfig = {
-
-  language: "english",
-
-  defaults: {
-    enableGeolocation: true,
-    enableSharing: false,
-    maxPhotos: 20
   },
 
-  theme: {
-    skin: "a",
-    toolbars: {
-      index: "ui-navigation-toolbar",
-      pages: "ui-custom-toolbar"
+  set propName(value) {
+    // setter, the code executed on setting obj.propName = value
+    //split separates the string on spaces into two array inputs
+    //places in array containing this and this
+    if (value.length < 4) {
+      console.log("Name of ( " + value + " ) is too short, need at least 4 characters");
+      return;
     }
+
+    [this.name, this.surname] = value.split(" ");
+  },
+
+
+};
+
+//as setter/getter defined, we have a property propName read/write
+
+
+console.log(obj27.propName);  //undefined yet, will return if defined
+//obj27.propName = "John X";  //not changed if setter not defined
+//console.log(obj27.propName);
+
+obj27.propName = "Pete Armstrong";
+console.log(obj27.propName); // Pete Armstrong
+
+obj27.propName = "DJ"; // Name is too short...
+
+
+
+//Accessor descriptors
+Object.defineProperty(obj27,"fullName", {
+  get () {
+    return `${this.name} ${this.surname}`;
+
+  },
+
+  set (value) {
+    [this.name, this.surname] = value.split(" ");
   }
+
+});
+
+
+//console.log(obj27.fullName);
+//for(let key in obj27) console.log("for/in " + key); // name, surname
+
+
+//can use one only of these two ways
+//anything starting with an _ means it is internal and should not be touched from outside the object.
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+
+function User(name, birthday) {
+  this.name = name;
+  this.birthday = birthday;
+
+  // age is calculated from the current date and birthday
+  Object.defineProperty(this, "age", {
+    get() {
+      let todayYear = new Date().getFullYear();
+      return todayYear - this.birthday.getFullYear();
+    }
+  });
+}
+
+let john = new User("John", new Date(1992, 6, 1));
+
+console.log( john.birthday ); // birthday is available
+console.log( john.age );      // ...as well as the age
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+//class constructors
+//typeof class is function
+//special functions
+
+// class User28 //declaration
+// const NewUser = class User28
+//can be anonymous
+
+
+class User28 {
+
+  //Declaration
+  constructor(name) { 
+    this.name = name; 
+  }
+
+  sayHi() {   //called with ()
+    console.log(this.name); 
+  }
+
+  //look at this
+  ["Say" + "Bye"] () {
+    console.log("Byee");
+  }
+
+  sayNay = () => {  //called without ()
+    console.log(this.name);
+  }
+
+  #privateMethod () {
+
+  }
+
+  //look at this, runs by itself because not wrapped
+  //school = prompt("what school ?", "ex");
+
+
+
+  get secondName () {
+    return this.lastname;
+  }
+
+  set secondName (value) {
+    this.lastname = value;
+  }
+
+
 }
 
 
-//Nested namespacing
-//myApp.model.special = myApp.model.special || {};
+//setter/getter
+let Agent = new User28("John");
+Agent.secondName = "Lenin";
+console.log(Agent);
 
+//
+Agent.SayBye();
+console.log(User28.prototype); //proto exists for constructor only not instances
+console.log(User28 === User28.prototype.constructor); // true
 
-//Immediately-invoked Function Expressions (IIFE)s
-;(function (parameter) {
-
-  parameter.helloWorld = 1;
-  
-  parameter.sayHello = function () {console.log(parameter)};
-
-})(window.namespace = window.namespace || {} );
-
-namespace.sayHello();
-
-
-//Namespace injection
-//Deep object extension
+//
+//Agent.school; //asks for school
+//console.log(Agent.school); // the entered value
 
 
 
 
 
+//console.log(Object.getOwnPropertyNames(User28.prototype));
+//constructor, sayHi, secondName
+
+//Class methods are non-enumerable. 
+//A class definition sets enumerable flag to false for all methods 
+//in the "prototype".
+
+//Classes always use strict automatically
+//can use a single method without a constr. and use that method like a normal object
+//remember you can use not all lines in class, etc.
+
+
+
+/////////////////////////////////////////////////////////
+//static properties cannot be directly accessed on instances of the class
+//instead they are accessed on the class itself
+
+//utility functions, config properties
+//data not need to be replicated across instances
+
+//In order to call a static method or property within 
+//another static method of the same class, you can use the this keyword.
+
+
+
+class ClassWithStaticMethod {
+
+  //to access statics use classname.method/property or this.constructor
+  constructor() {
+    console.log("X" + ClassWithStaticMethod.staticProperty); // 'static property'
+    console.log("X" + this.constructor.staticMethod()); // 'static property'
+  }
+
+  static staticProperty = 'someValue here';
+  static staticMethod() {
+    return 'static method has been called ' + this.staticProperty;
+  }
+  static {  //self calling, initialization block
+    //console.log('Class static initialization block called');
+  }
+}
+
+console.log(ClassWithStaticMethod.staticProperty);
+// Expected output: "someValue"
+console.log(ClassWithStaticMethod.staticMethod());
+// Expected output: "static method has been called."
+
+let newGame = new ClassWithStaticMethod();
+//console.log(newGame.staticMethod()); //Type error
+
+class SubClassWithStaticField extends ClassWithStaticMethod {
+  static subStaticField = super.staticMethod();
+}
 
 
 
