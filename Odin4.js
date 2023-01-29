@@ -1224,13 +1224,16 @@ console.log( john.age );      // ...as well as the age
 
 class User28 {
 
-  //Declaration
+  height = 0;
+  #width;               //private property starts with #
+
   constructor(name) { 
     this.name = name; 
   }
 
   sayHi() {   //called with ()
-    console.log(this.name); 
+    //console.log(this.name); 
+    return this.name;
   }
 
   //look at this
@@ -1251,12 +1254,16 @@ class User28 {
 
 
 
-  get secondName () {
+  get secondName () {   //makes a method behave like a property does not need invoke
     return this.lastname;
+    //return this.calcArea();
+
   }
 
   set secondName (value) {
     this.lastname = value;
+    //this.setFirstNameMethod(value[0]); // method contains this.firstName = firstName;
+    //this.setLastNameMethod(value[1]);
   }
 
 
@@ -1264,7 +1271,7 @@ class User28 {
 
 
 //setter/getter
-let Agent = new User28("John");
+const Agent = new User28("John"); //use const ES6 syntax
 Agent.secondName = "Lenin";
 console.log(Agent);
 
@@ -1277,6 +1284,36 @@ console.log(User28 === User28.prototype.constructor); // true
 //Agent.school; //asks for school
 //console.log(Agent.school); // the entered value
 
+
+class worker extends User28 {     //all workers are persons but not all persons are workers
+  constructor(firstname,lastname, job) {
+    super(firstname,lastname);  //calling the constructor method of the person class
+    this.job = job;
+    this.hasJob = true; 
+
+  }
+
+  setJob () {
+    this.job = job;
+  }
+
+  sayHi () {
+    //super();          //super invokes the method it is in of the same name, constr/constr, sayHi()/sayHi()
+  }
+
+}
+
+
+class Doctor extends worker {
+  constructor (firstname, lastname, job, hospital_name) {
+    super(firstname,lastname,job);
+    this.hospital_name = hospital_name;
+  }
+} 
+
+
+const DrMark = new Doctor("mark", "john", "Doc", "A1"); 
+console.log(DrMark);  //inherits from worker and person !
 
 
 
@@ -1314,19 +1351,33 @@ class ClassWithStaticMethod {
     console.log("X" + this.constructor.staticMethod()); // 'static property'
   }
 
-  static staticProperty = 'someValue here';
+  //not instance properties, class properties
+  static staticProperty = 'someValue here';   //React feature, if error/unsupported use babel compiler
   static staticMethod() {
     return 'static method has been called ' + this.staticProperty;
+    //this inside a static points to the Class, not the instances like other
   }
-  static {  //self calling, initialization block
-    //console.log('Class static initialization block called');
+  static {  //static initialization block, can use more than one
+    //console.log('Class static initialization block called'); //self calling
   }
+
+  static get staticMethod2() {
+    return ('static get method has been called ' + this.staticProperty).toLocaleUpperCase();
+    //this inside a static points to the Class, not the instances like other
+    //can be called here without (), just like a property
+  }
+
+
+
 }
 
 console.log(ClassWithStaticMethod.staticProperty);
 // Expected output: "someValue"
 console.log(ClassWithStaticMethod.staticMethod());
 // Expected output: "static method has been called."
+
+console.log(ClassWithStaticMethod.staticMethod2);
+
 
 let newGame = new ClassWithStaticMethod();
 //console.log(newGame.staticMethod()); //Type error
@@ -1337,4 +1388,50 @@ class SubClassWithStaticField extends ClassWithStaticMethod {
 
 
 
+/////////////////////////////////////////////////////////
+/*
+super/extend
 
+class Cat {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    console.log(`${this.name} makes a noise.`);
+  }
+}
+
+class Lion extends Cat {
+  speak() {
+    super.speak();
+    console.log(`${this.name} roars.`);
+  }
+}
+
+const l = new Lion("Fuzzy");
+l.speak();
+// Fuzzy makes a noise.
+// Fuzzy roars.
+
+const speak2 = l.speak();
+speak2();  //undefined due to global restriction but works on function constr.
+
+
+*/
+/////////////////////////////////////////////////////////
+/*
+
+//“Class” notation favors “Inheritance over Composition”. opposing to functions
+
+
+//in function constructors
+//any thing that begins with this will be public
+//regular var/const etc. variables are private
+//however can be returned from a this method
+
+
+//nodejs, react, redux, mongoDB databases
+
+
+*/
