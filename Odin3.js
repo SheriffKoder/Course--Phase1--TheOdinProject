@@ -5,6 +5,20 @@
 /*////////////////////////////////////////////////////////////////////*/
 /*
 
+index
+= backend
+= frameworks
+= http requests
+= scroll events
+= theme toggle (ex)
+= show range input slider value (ex)
+= toggle billing (ex)
+= check validity (form) (ex)
+= show hide div below input (ex)
+= submit a form without leaving a page (ex)
+= add invalid style on submit (ex)
+
+
 understanding the backend
 the browser cares about whether it has been sent a 
 properly formatted html, css, and javascript files
@@ -742,6 +756,5 @@ function validateForm(e) {
 
 
 */
-
 
 

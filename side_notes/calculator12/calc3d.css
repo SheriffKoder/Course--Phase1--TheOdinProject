@@ -69,6 +69,7 @@ body {
     transform-style: preserve-3d;
 
     top: -2.5vh;
+    transform: rotateY(60deg);
 
 }
 
@@ -132,6 +133,8 @@ body {
 
 }
 
+
+
 /*
 .cube2 {
     width: var(--cube-width);
@@ -165,6 +168,11 @@ body {
 
 }
 
+
+
+
+
+
 .front {
 
     /*the width, basic 1em %*/
@@ -179,6 +187,9 @@ body {
     border: 1px solid var(--border-color);
 
 }
+
+
+
 
 
 

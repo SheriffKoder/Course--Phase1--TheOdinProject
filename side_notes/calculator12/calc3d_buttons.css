@@ -1,0 +1,44 @@
+
+.cube_button {
+    width: 50px;
+    height: 25px;
+
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translateX(calc(var(--cube-width)/-2)) translateY(calc(var(--cube-width)/-1));
+
+
+
+}
+
+/*////////////////////////////////////////////////////////////////////*/
+
+
+.front_button, .back_button {
+
+    background: var(--box-Color);
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+}
+
+.front_button {
+
+    /*the width, basic 1em %*/
+    transform: rotateY(0deg) translateZ(15px);
+    border: 1px solid var(--border-color);
+    font-size: 10px;
+
+}
+.back_button {
+
+    /*the width, basic 1em %*/
+    transform: rotateY(180deg) translateZ(-10px);
+    border: 1px solid var(--border-color);
+    font-size: 10px;
+
+}
+
+/*////////////////////////////////////////////////////////////////////*/

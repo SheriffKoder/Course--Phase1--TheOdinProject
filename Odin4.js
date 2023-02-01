@@ -1601,7 +1601,6 @@ now added two scripts build and watch
 --progress shows percent progress
 --mode=production //minimize the code for production
 
-
 package.json can run webpack without having to specify 
 the full path ./node_modules/.bin/webpack
 
@@ -1626,7 +1625,185 @@ and refresh the browser automatically.
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
+/*
 
+node package manager
+command line tool gives access to repository of plugins, libraries and tools
+
+consists of three distinct components
+website, command line interface CLI, registry
+
+--production=false will install all modules listed in devDependencies and dependencies 
+when NODE_ENV is set to production
+
+unscoped packages are always public
+can be searched for, downloaded and installed by anyone
+
+
+to install a public package on the command line run
+> npm install <package_name>
+
+
+will create/modify node_modules directory
+if there is package.json in directory, "npm install" 
+installs the latest version of the package
+if there is none, then the latest version of the package is installed
+
+
+installing scoped public packages
+> npm install @scope/package-name
+
+
+installing a private package
+npm install @scope/private-package-name
+
+
+testing package installation
+ls node_modules
+
+npm install <package_name>@<tag>
+the tag will avoid using the latest package name by default
+tag can be beta for example
+
+
+//////////////////////////////////////
+can add a package.json to make it easy for others to manage and install
+
+lists the packages your project depends on
+specifies versions of a package that your project can use using semantic versioning rules
+makes your build reproducible, easier to share with other developers
+
+set your custom description in the file
+name, "lowercase", one word with hyphens and underscores
+version, in the form of "x.x.x", and follow the semantic ver. guidelines
+author, "your name <email@example.com"
+
+to create a .json file with the values that you SUPPLY(asked)
+cd to the package path
+run > npm init
+
+
+file npm-init.js
+contains the questions asked and fields created during the init process
+so all package.json files contain a standard set of information
+
+to add custom questions using a text editor, add questions with the prompt function
+module.exports = prompt("what's your favorite flavor of ice cream, buddy?", "I LIKE THEM ALL");
+
+//to add custom questions
+module.exports = {
+  customField: 'Example custom field',
+  otherCustomField: 'This example field is really cool'
+}
+
+advanced npm init customizations
+
+
+to create a default package.json using information extracted from the current directory
+use npm init with --yes or -y flag
+for a list of default values, check out online the default values
+
+to change values
+> npm set init-author-name "example_user"
+
+
+
+
+//////////////////////////////////////
+when an application is fed into a module bundler
+all required dependencies are pulled together and bundled
+make sure they are present in dependencies as they're needed at runtime 
+--save-dev
+
+
+devDependencies are packages that are consumed by requiring them 
+in files or run as binaries, during the development phase only
+like babel plugins, presets, test runner and linter packages
+--save
+
+but dependency that is necessary in both production and development
+can be added to dependencies
+
+
+//////////////////////////////////////
+yarn is like npm but has few more features
+
+Webpack
+a powerful tool for building modules
+proficiency with webpack looks amazing on resumes.
+
+used to compile js modules
+https://webpack.js.org/guides/installation/
+once installed can interact from its CLI or API
+
+1. install Node.js
+2. install webpack
+
+> npm install --save-dev webpack@<optional-version>
+npm install --save-dev webpack@next
+npm install --save-dev webpack/webpack#<tagname/branchname>
+
+
+to install the CLI for webpack v4 or later
+> npm install --save-dev webpack-cli
+
+to run local installation of webpack for v5.2.0+
+> npx webpack
+
+to make webpack available globally
+> npm install --global webpack
+
+  webpack-demo-folder
+  |- package.json
+  |- package-lock.json
+ |- /dist
+   |- index.html  //create/edit if manually for now
+  |- /src
+    |- index.js
+
+
+add this to html head
+    <script src="https://unpkg.com/lodash@4.17.20"></script>
+//dependency on it, lodash, included in the page before it runs
+//because index.js never explicitly declared a need for lodash
+//it assumes the global variable _ exists
+
+
+
+adjust package.json 
+//in order to make sure we mark package as "private"
+//as well as removing the main entry
+//to prevent an accidental publish of your code
+
+
+to bundle lodash dependency with index.js
+install the library locally
+>npm install --save lodash
+
+then import lodash in our script js file
+JS: import _ from 'lodash';
+
+binds lodash as _
+
+
+remove the lodash html tag as we now imported it through js
+change js file from ./src/index.js to ./main.js
+
+
+>npx webpack
+//this will take script in src/index.js
+and will generate dist/main.js as the output
 
 
 */
+
+function component() {
+  const element = document.createElement('div');
+
+  // Lodash, currently included via a script, is required for this line to work
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+
+  return element;
+}
+
+document.body.appendChild(component());
