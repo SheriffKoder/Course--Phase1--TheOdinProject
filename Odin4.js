@@ -1435,3 +1435,198 @@ speak2();  //undefined due to global restriction but works on function constr.
 
 
 */
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+console.log("///////////Modules");
+/*
+
+
+//arrived in ES6
+//npm and webpack before
+
+adding an external library method to your code
+
+HTML:   <script src="../../moment.min.js"></script> before default.js script tag, to be used for any defined after it
+JS : librayName().methodName();
+
+npm is used to not download each update for the library
+yarn is an alternative but stull uses npm under the hood
+
+npm package manager made for node.js
+node.js a js runtime designed to run on the server not frontend
+
+npm install
+> npm init
+generates new file named package.json
+which is config file uses npm to save all project information
+> npm install moment --save //download into node_modules folder and modifies json to keep track
+(line 1481) HTML:   <script src="../../moment.min.js"></script> before default.js
+
+share json file with other developers and they install required packages with npm install
+
+node.js is an implementation of
+CommonJS an ecosystem for js to run outside the browser
+to allow js to import/export code across files without resorting to global variables
+node.js a server side programming language
+
+instead of (line 1481) to load js modules
+var moment = require('moment'); //node js knows where to find moment within the directories
+
+but the browser does not have file access, so it throws an error
+bundler, a tool has access to file system to create a final output 
+that is browser compatible (which does not need access to the file system)
+it replaces all require with actual contents of each required file automatically
+
+module bundler like Browserify and webpack(used in react)
+
+step: install webpack, webpack-cli(allows usage of wp from cmd)
+it is an npm package
+> npm install webpack webpack-cli --save-dev
+--save-dev this saves it as a development dependency, so it would be
+needed in the development env, but not on the production server
+will be reflected on the json file
+
+
+> ./node_modules/.bin/webpack index.js --mode=development
+command runs webpack tool that was installed in the node_modules folder
+so it can check the index.js for any require statements to replace
+into an output file called main.js
+--mode=development outputs a code that is readable for developers
+as opposed to --mode=production
+use main.js instead of HTML :  <script src="dist/main.js"></script>
+
+
+webpack can read options from a config file in the root directory
+of the project named webpack.config.js
+where the target file and mode option are stored
+
+this line is run every time we change index.js
+> ./node_modules/.bin/webpack
+
+now any external scripts will be added with "require" statements
+thus will have single js bundle file which is good for performance
+
+
+
+//////////////////////////////////////
+//////////////////////////////////////
+transpiling code, converting code from one language to another similar language
+
+for Css there are Sass, Less, Stylus etc.
+for js the most popular transpiler was CoffeeScript 
+but now Babel or TypeScript
+
+Babel transpiles next generation JavaScript with features 
+not yet available to all browsers
+ES2015+ to be compatible with ES5
+
+Typescript is a language that is identical to next generation JS
+but also adds optional static typing
+
+many people use babel as its closest to vanilla JS
+
+continue out cmds lesson and install babel(which is an npm package)
+these are three separate packages as dev dependencies
+> $ npm install @babel/core @babel/preset-env babel-loader --save-dev
+@babel/core //main part of babel
+@babel/preset-env //preset defining which new js features to tanspile
+babel-loader  //pkg enable babale to work with webpack
+
+and can configure webpack to use babel-loader by adding/editing-to 
+to the module exports of webpack.config.js this
+
+  module: {  
+    rules: [  
+      {  
+        test: /\.js$/,  
+        exclude: /node_modules/,  
+        use: {  
+          loader: 'babel-loader',  
+          options: {  
+            presets: ['@babel/preset-env']  
+          }  
+        }  
+      }  
+    ]  
+  } 
+
+
+// index.js  
+var moment = require('moment');
+or 
+import moment from 'moment';  //extra flexibility
+
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+task runner
+tool that automates different parts of the build process
+like minifying code, optimizing images, running tests etc.
+
+in 2013 Grunt was the popular frontend taskrunner
+now the popular choice is to be using the scripting 
+capabilities built into npm package manager itself
+
+adding to package.json script object property these properties
+make using webpack easier
+
+    "build": "webpack --progress --mode=production",  
+    "watch": "webpack --progress --watch" 
+
+
+now added two scripts build and watch
+> npm run build (this will run webpack from the webpack.config.js edited)
+> npm run watch (this uses --watch option instead to automatically 
+                re-run webpack each time any JS file changes)
+
+--progress shows percent progress
+--mode=production //minimize the code for production
+
+
+package.json can run webpack without having to specify 
+the full path ./node_modules/.bin/webpack
+
+webpack-dev-server, 
+a separate tool which provides a simple web server with live reloading.
+
+
+> npm install webpack-dev-server --save-dev
+the add to package.json like before "serve": "webpack-dev-server --open"  
+
+
+Now you can start your dev server by running the command:
+> npm run serve
+
+This will automatically open the index.html website in your browser 
+with an address of localhost:8080 (by default).
+Any time you change your JavaScript in index.js, 
+webpack-dev-server will rebuild its own bundled JavaScript 
+and refresh the browser automatically.
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
+*/
