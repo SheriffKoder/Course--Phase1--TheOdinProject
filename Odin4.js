@@ -1624,17 +1624,296 @@ plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
 
 
 */
-
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
-/*
+/*////////////////////////////////////////////////////////////////////*/
+/* lesson 2
+
+another webpack feature, 
+process and manipulate the code during the compilation step
+Sass to css
+images to web optimized/compressed images
+
+
+//////////////////////////////////////
+Minifying is just removing unnecessary white-space 
+and redundant like comments and semicolons. 
+And it can be reversed back when needed.
+speeds up page loading, making visitors and search engines friendly
+
+
+Uglifying is transforming the code into an "unreadable" form by changing
+variable names, function names, etc, to hide the original content. 
+Once it is used there's no way to reverse it back.
+
+//////////////////////////////////////
+before webpack, tools like grunt and gulp where used 
+to process assets like images or any type of file
+and move them from /src to /dist
+webpack, dynamically bundle all dependencies/dependency graph
+
+this is great because every module now explicitly states its dependencies
+and will avoid bundling modules that aren't in use
+
+there is a loader/built-in asset modules support
+
+
+//////////////////////////////////////CSS
+>>change the main.js file in html/config.js to bundle.js
+to import a css file from within a JS module
+
+# npm install --save-dev style-loader css-loader
+
+//any file that ends with .css will be served to style-loader and css-loader
+//enable import "./style.css" and a <style> will be inserted into the head of the html file
+add to config
+module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+
+module loaders can be changed, executed in reverse order
+first loader passes its result to the next one and so forth
+
+>>create src/style.css
+>> import './style.css'; in js file
+>>element.classList.add("importedClassName");    
+# npm run build
+
+
+//////////////////////////////////////Images
+
+
+>> add this to the module>rules in config.json
+  {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+
+
+>> add .png to the src folder
+>> add to the css   background: url('./icon.png');
+
+
+
+//////////////////////////////////////Fonts
+
+>>add to config.json module>rules
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
+
+>>add to src the font files my-font.woff & my-font.woff2
+
+>>add to css
+@font-face {
+  font-family: 'MyFont';
+  src: url('./my-font.woff2') format('woff2'),
+    url('./my-font.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+use by font-family: 'MyFont';
+
+>> npm build run
+
+
+
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////Fonts
+loading data, like JSON files, CSVs, TSVs, and XML.
+
+
+can naturally import JSON by
+import Data from "./data.json"
+only default. i.e no {..}
+
+can import any toml,yaml, json5 files as JSON module
+by using a custom parser
+# npm install toml yamljs json5 --save-dev
+>> and putting in config.json
+const toml = require('toml');
+const yaml = require('yamljs');
+const json5 = require('json5');
+
+{
+  test: /\.toml$/i,
+  type: 'json',
+  parser: {
+    parse: toml.parse,
+  },
+  },
+  {
+  test: /\.yaml$/i,
+  type: 'json',
+  parser: {
+    parse: yaml.parse,
+  },
+  },
+  {
+  test: /\.json5$/i,
+  type: 'json',
+  parser: {
+    parse: json5.parse,
+  },
+},
+
+>>and putting in js
+import toml from './data.toml';
+import yaml from './data.yaml';
+import json from './data.json5';
+
+console.log(toml.title); // output `TOML Example`
+console.log(toml.owner.name); // output `Tom Preston-Werner`
+
+console.log(yaml.title); // output `YAML Example`
+console.log(yaml.owner.name); // output `Tom Preston-Werner`
+
+console.log(json.title); // output `JSON5 Example`
+console.log(json.owner.name); // output `Tom Preston-Werner`
 
 
 
 
+for CVs, TSVs, XML
+use csv-loader, xml-loader
+#npm install --save-dev csv-loader xml-loader
+
+>>add to config.json module>rules
+      {
+        test: /\.(csv|tsv)$/i,
+        use: ['csv-loader'],
+      },
+      {
+        test: /\.xml$/i,
+        use: ['xml-loader'],
+      },
+
+add some data to /src 
+data.xml
+data.csv
+
+>> add to js file
+import Data from './data.xml';
+import Notes from './data.csv';
+..
+console.log(Data);
+console.log(Notes);
 
 
+//////////////////////////////////////Global assets
+
+group assets with the code that uses them
+|– /components
+ |  |– /my-component
+ |  |  |– index.jsx
+ |  |  |– index.css
+ |  |  |– icon.svg
+ |  |  |– img.png
+
+As long as you've installed any external dependencies 
+and your configuration has the same loaders defined, 
+you can copy/move my-component in another folder/project.
+
+or use "aliasing" to make them easier to import
+https://webpack.js.org/configuration/resolve/#resolvealias
+
+
+
+# npm uninstall css-loader csv-loader json5 style-loader toml xml-loader yamljs
+
+
+
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+//////////////////////////////////////
+Output management
+
+once start using hashes in filenames and outputting multiple bundles
+it will be difficult to keep managing your index.html manually
+
+>>make print.js file in src
+and add in it
+export default function printMe() {
+  console.log('I get called from print.js!');
+}
+
+
+>>adding to HTML header
+    <script src="./print.bundle.js"></script> <!--adding as new entry point-->
+and change the output at the body, to dynamically generate bundle names based on entry points
+    <script src="./index.bundle.js"></script>
+
+
+>>change the module in config.json
+form
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+
+to
+  entry: {
+    index: './src/index.js',
+    print: './src/print.js'
+  },
+
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+
+
+  webpack generates print.bundle.js and index.bundle.js
+
+
+//////////////////////////
+what would happen if we changed the name of one of our entry points
+or even added a new one,
+
+the generated bundles would be renamed on a build
+but the index.html file would still reference the old names
+
+can be fixed with the HtmlWebpackPlugin
+but it also will generate its own index.html and replace our index.html
+
+
+
+# npm install --save-dev html-webpack-plugin
+
+>>and add to config.json this property in the begining
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+>>add below entry object
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Output Management',
+    }),
+  ],
+
+
+
+
+//////////////////////
+adding to the output in config.json
+    clean: true,
+
+will clean the dist/ folder so only used files will be present from the build
+
+//////////////////////
+webpack manifest
+webpack know what files are being generated
+keeps track how all the modules map to the output bundles
+WebpackManifestPlugin
 
 
 
