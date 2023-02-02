@@ -1756,6 +1756,8 @@ to make webpack available globally
   webpack-demo-folder
   |- package.json
   |- package-lock.json
+  |- webpack.config.js
+
  |- /dist
    |- index.html  //create/edit if manually for now
   |- /src
@@ -1794,16 +1796,120 @@ change js file from ./src/index.js to ./main.js
 //this will take script in src/index.js
 and will generate dist/main.js as the output
 
+//////////////////////////////////////
+//////////////////////////////////////
+The import and export statements have been standardized in ES2015
+webpack supports them out of the box
+
+if you are using other ES2015 features make sure to use a transpiler
+such as babel via webpack's loader system
+
+Using a configuration
+most projects will need complex setup 
+which is why webpack supports a configuration file
+which is more efficient than manually type in a lot of commands
+
+
+add one
+and run
+> npx webpack --config webpack.config.js
+
+
+"build": "webpack"
+in the package.json allows to run using
+npm run build rather than npx command
+
+
+the src and dist folders could be named anything else
+
+
+webpack is a static module bundler for modern javascript applications
+1) internally builds a dependency graph from one or more entry points
+2) combines every module your project needs into one or more bundles
+
+Entry ;   entry: './src/index.js'
+Output ;  ./dist/main.js
+Loaders
+Plugins
+Mode
+Browser Compatibility
+
+
+an entry point; indicates which module webpack should use to begin building out its internal dependency graph
+and will figure out which other modules and libraries that entry point depends on
+
+const path = require('path');
+//a code Node.js module that gets used to manipulate file paths
+
+////////////////////
+Loaders:
+webpack only understands JS and Json files
+loaders allow it to process other types of files and convert them
+into valid modules
+that can be consumed by your application and added to the dependency graph
+like .css files
+
+at a high level, loaders have
+test property; which files should be transformed
+use property; which loader should be used to do the transforming
+
+//when come across a path that resolves to a txt file
+inside of a require()/import statement
+use the raw-loader to transform it
+before you add it to the bundle
+
+put under output 
+  module: {
+    rules: [{ test: /\.txt$/, use: 'raw-loader' }],
+  },
+
+////////////////////
+plugins;
+tasks like bundle optimization, asset management and injection of environment variables
+
+const webpack = require('webpack'); //to access built-in plugins
+//at top
+
+plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
+//put after the module object
+//which generates an html file for your application
+//and automatically injects all your generated bundles into this file
+
+
+
+////////////////////
+  mode: 'production',     //default value
+
+  can set to development, production or none,
+  you can enable webpack's built in optimizations that correspond to each environment
+
+
+  webpack supports all browsers that are ES5
+  needs Promise for import() and require.ensure()
+  
+  IE8 and below are not supported
+  you will need to load a polyfill before using these expressions
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+
+With the introduction of ES6 Modules, the module pattern (IIFEs) 
+is not needed anymore
+
+defer 
+async attr
+nomodule  //new browsers to ignore this script, and older browsers to use this script
+
+babel used to import into unsupported browsers
+
+
+
+
+
+
+
 
 */
 
-function component() {
-  const element = document.createElement('div');
-
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-  return element;
-}
-
-document.body.appendChild(component());
