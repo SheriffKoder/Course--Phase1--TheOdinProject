@@ -1459,162 +1459,105 @@ console.log("///////////Modules");
 /*
 
 
-//arrived in ES6
-//npm and webpack before
 
-adding an external library method to your code
+/*
 
-HTML:   <script src="../../moment.min.js"></script> before default.js script tag, to be used for any defined after it
-JS : librayName().methodName();
+https://webpack.js.org/guides/getting-started/
 
-npm is used to not download each update for the library
-yarn is an alternative but stull uses npm under the hood
+node package manager
+for adding an external library/js source to your main code
+by using in the end libraryName().methodName();
 
-npm package manager made for node.js
-node.js a js runtime designed to run on the server not frontend
+Npm is used to use Node.js or Webpack
+Node.js (implementation of CommonJS) allow import/export code across files
+yarn is like npm but has few more features
 
-npm install
-> npm init
-generates new file named package.json
-which is config file uses npm to save all project information
-> npm install moment --save //download into node_modules folder and modifies json to keep track
-(line 1481) HTML:   <script src="../../moment.min.js"></script> before default.js
-
-share json file with other developers and they install required packages with npm install
-
-node.js is an implementation of
-CommonJS an ecosystem for js to run outside the browser
-to allow js to import/export code across files without resorting to global variables
-node.js a server side programming language
-
-instead of (line 1481) to load js modules
-var moment = require('moment'); //node js knows where to find moment within the directories
-
-but the browser does not have file access, so it throws an error
-bundler, a tool has access to file system to create a final output 
-that is browser compatible (which does not need access to the file system)
-it replaces all require with actual contents of each required file automatically
-
-module bundler like Browserify and webpack(used in react)
-
-step: install webpack, webpack-cli(allows usage of wp from cmd)
-it is an npm package
-> npm install webpack webpack-cli --save-dev
---save-dev this saves it as a development dependency, so it would be
-needed in the development env, but not on the production server
-will be reflected on the json file
+Webpack
+a powerful tool for building modules
+IE8 and below are not supported, you will need to load a polyfill before using these expressions
+With the introduction of ES6 Modules, the module pattern (IIFEs) 
+is not needed anymore
 
 
-> ./node_modules/.bin/webpack index.js --mode=development
-command runs webpack tool that was installed in the node_modules folder
-so it can check the index.js for any require statements to replace
-into an output file called main.js
---mode=development outputs a code that is readable for developers
-as opposed to --mode=production
-use main.js instead of HTML :  <script src="dist/main.js"></script>
-
-
-webpack can read options from a config file in the root directory
-of the project named webpack.config.js
-where the target file and mode option are stored
-
-this line is run every time we change index.js
-> ./node_modules/.bin/webpack
-
-now any external scripts will be added with "require" statements
-thus will have single js bundle file which is good for performance
-
-
-
-//////////////////////////////////////
-//////////////////////////////////////
-transpiling code, converting code from one language to another similar language
-
-for Css there are Sass, Less, Stylus etc.
-for js the most popular transpiler was CoffeeScript 
-but now Babel or TypeScript
-
-Babel transpiles next generation JavaScript with features 
-not yet available to all browsers
+transpiling code, 
+converting code from one language to another similar language
+Babel (closes to vanilla js) transpiles next generation JavaScript with features for older
 ES2015+ to be compatible with ES5
-
+and can configure webpack to use babel-loader
 Typescript is a language that is identical to next generation JS
 but also adds optional static typing
 
-many people use babel as its closest to vanilla JS
-
-continue out cmds lesson and install babel(which is an npm package)
-these are three separate packages as dev dependencies
-> $ npm install @babel/core @babel/preset-env babel-loader --save-dev
-@babel/core //main part of babel
-@babel/preset-env //preset defining which new js features to tanspile
-babel-loader  //pkg enable babale to work with webpack
-
-and can configure webpack to use babel-loader by adding/editing-to 
-to the module exports of webpack.config.js this
-
-  module: {  
-    rules: [  
-      {  
-        test: /\.js$/,  
-        exclude: /node_modules/,  
-        use: {  
-          loader: 'babel-loader',  
-          options: {  
-            presets: ['@babel/preset-env']  
-          }  
-        }  
-      }  
-    ]  
-  } 
+Questions for html script
+defer 
+async attr
+nomodule  //new browsers to ignore this script, and older browsers to use this script
+type=module does not load the result!
 
 
-// index.js  
-var moment = require('moment');
-or 
-import moment from 'moment';  //extra flexibility
 
 
-//////////////////////////////////////
-//////////////////////////////////////
+//for first time
+> npm init      //npm install
 
-task runner
-tool that automates different parts of the build process
-like minifying code, optimizing images, running tests etc.
+>>create root folder, and cd..
 
-in 2013 Grunt was the popular frontend taskrunner
-now the popular choice is to be using the scripting 
-capabilities built into npm package manager itself
+# npm init -y    //this will create the json
+# npm install webpack webpack-cli --save-dev //install webpack tool will create nodes_module folder
 
-adding to package.json script object property these properties
-make using webpack easier
+>> now create dist/index.html and src/index.js
+>> add a function that uses an imported property/method to .js and normal boiler plate to html
 
-    "build": "webpack --progress --mode=production",  
-    "watch": "webpack --progress --watch" 
+>> from package.json file remove main and add "private":true,
+> and can add to package.json's script object to make it easier
+"build": "webpack" // to use "npm run build" instead of "npx webpack"
+"build": "webpack --progress --mode=production",  
+"watch": "webpack --progress --watch"  "auto run WP on JS file change"
 
-
-now added two scripts build and watch
-> npm run build (this will run webpack from the webpack.config.js edited)
-> npm run watch (this uses --watch option instead to automatically 
-                re-run webpack each time any JS file changes)
-
---progress shows percent progress
---mode=production //minimize the code for production
-
-package.json can run webpack without having to specify 
-the full path ./node_modules/.bin/webpack
-
-webpack-dev-server, 
-a separate tool which provides a simple web server with live reloading.
+# npm install wantedLibraryName --save //install a wanted library
 
 
+>>add import line to .js and script tag to html
+src/JS: import wantedMethodOrPropertyName from 'wantedLibraryName';
+dist/HTML:     <script src="main.js"></script>
+
+# npx webpack   //this will create the main.js file we scripted from "./node_modules/.bin/webpack"
+
+
+>>if you want, can add a config file "webpack.config.js" to configure some locations etc.
+>>check https://webpack.js.org/configuration for more configs
+
+
+webpack-demo-folder
+|- package.json
+|- package-lock.json
+|- webpack.config.js
+|- /dist
+  |- main.js
+  |- index.html
+|- /src
+  |- index.js
+|- /node_modules
+
+
+////////more tools///////
+// --save-dev // state > development dependency not production server
+//--mode=development
+//--mode=production
+// --progress shows percent progress
+// ls node_modules //testing package installation
+
+# ./node_modules/.bin/webpack index.js --mode=development
+checks the index.js for any require statements to replace using webpack
+
+# npm install @scope/private-package-name //installing a private package
+# npm install <package_name>@<tag> //tag is the version wanted
+
+
+// webpack-dev-server //tool, simple web server with live reloading
 > npm install webpack-dev-server --save-dev
 the add to package.json like before "serve": "webpack-dev-server --open"  
-
-
 Now you can start your dev server by running the command:
 > npm run serve
-
 This will automatically open the index.html website in your browser 
 with an address of localhost:8080 (by default).
 Any time you change your JavaScript in index.js, 
@@ -1622,68 +1565,7 @@ webpack-dev-server will rebuild its own bundled JavaScript
 and refresh the browser automatically.
 
 
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*
-
-node package manager
-command line tool gives access to repository of plugins, libraries and tools
-
-consists of three distinct components
-website, command line interface CLI, registry
-
---production=false will install all modules listed in devDependencies and dependencies 
-when NODE_ENV is set to production
-
-unscoped packages are always public
-can be searched for, downloaded and installed by anyone
-
-
-to install a public package on the command line run
-> npm install <package_name>
-
-
-will create/modify node_modules directory
-if there is package.json in directory, "npm install" 
-installs the latest version of the package
-if there is none, then the latest version of the package is installed
-
-
-installing scoped public packages
-> npm install @scope/package-name
-
-
-installing a private package
-npm install @scope/private-package-name
-
-
-testing package installation
-ls node_modules
-
-npm install <package_name>@<tag>
-the tag will avoid using the latest package name by default
-tag can be beta for example
-
-
-//////////////////////////////////////
-can add a package.json to make it easy for others to manage and install
-
-lists the packages your project depends on
-specifies versions of a package that your project can use using semantic versioning rules
-makes your build reproducible, easier to share with other developers
-
-set your custom description in the file
-name, "lowercase", one word with hyphens and underscores
-version, in the form of "x.x.x", and follow the semantic ver. guidelines
-author, "your name <email@example.com"
-
-to create a .json file with the values that you SUPPLY(asked)
-cd to the package path
-run > npm init
-
-
-file npm-init.js
+////// npm-init.js (root file)
 contains the questions asked and fields created during the init process
 so all package.json files contain a standard set of information
 
@@ -1696,162 +1578,15 @@ module.exports = {
   otherCustomField: 'This example field is really cool'
 }
 
-advanced npm init customizations
+or can use # npm set init-author-name "example_user"
 
 
-to create a default package.json using information extracted from the current directory
-use npm init with --yes or -y flag
-for a list of default values, check out online the default values
-
-to change values
-> npm set init-author-name "example_user"
-
-
-
-
-//////////////////////////////////////
-when an application is fed into a module bundler
-all required dependencies are pulled together and bundled
-make sure they are present in dependencies as they're needed at runtime 
---save-dev
-
-
-devDependencies are packages that are consumed by requiring them 
-in files or run as binaries, during the development phase only
-like babel plugins, presets, test runner and linter packages
---save
-
-but dependency that is necessary in both production and development
-can be added to dependencies
-
-
-//////////////////////////////////////
-yarn is like npm but has few more features
-
-Webpack
-a powerful tool for building modules
-proficiency with webpack looks amazing on resumes.
-
-used to compile js modules
-https://webpack.js.org/guides/installation/
-once installed can interact from its CLI or API
-
-1. install Node.js
-2. install webpack
-
-> npm install --save-dev webpack@<optional-version>
-npm install --save-dev webpack@next
-npm install --save-dev webpack/webpack#<tagname/branchname>
-
-
-to install the CLI for webpack v4 or later
-> npm install --save-dev webpack-cli
-
-to run local installation of webpack for v5.2.0+
-> npx webpack
-
-to make webpack available globally
-> npm install --global webpack
-
-  webpack-demo-folder
-  |- package.json
-  |- package-lock.json
-  |- webpack.config.js
-
- |- /dist
-   |- index.html  //create/edit if manually for now
-  |- /src
-    |- index.js
-
-
-add this to html head
-    <script src="https://unpkg.com/lodash@4.17.20"></script>
-//dependency on it, lodash, included in the page before it runs
-//because index.js never explicitly declared a need for lodash
-//it assumes the global variable _ exists
-
-
-
-adjust package.json 
-//in order to make sure we mark package as "private"
-//as well as removing the main entry
-//to prevent an accidental publish of your code
-
-
-to bundle lodash dependency with index.js
-install the library locally
->npm install --save lodash
-
-then import lodash in our script js file
-JS: import _ from 'lodash';
-
-binds lodash as _
-
-
-remove the lodash html tag as we now imported it through js
-change js file from ./src/index.js to ./main.js
-
-
->npx webpack
-//this will take script in src/index.js
-and will generate dist/main.js as the output
-
-//////////////////////////////////////
-//////////////////////////////////////
-The import and export statements have been standardized in ES2015
-webpack supports them out of the box
-
-if you are using other ES2015 features make sure to use a transpiler
-such as babel via webpack's loader system
-
-Using a configuration
-most projects will need complex setup 
-which is why webpack supports a configuration file
-which is more efficient than manually type in a lot of commands
-
-
-add one
-and run
-> npx webpack --config webpack.config.js
-
-
-"build": "webpack"
-in the package.json allows to run using
-npm run build rather than npx command
-
-
-the src and dist folders could be named anything else
-
-
-webpack is a static module bundler for modern javascript applications
-1) internally builds a dependency graph from one or more entry points
-2) combines every module your project needs into one or more bundles
-
-Entry ;   entry: './src/index.js'
-Output ;  ./dist/main.js
-Loaders
-Plugins
-Mode
-Browser Compatibility
-
-
-an entry point; indicates which module webpack should use to begin building out its internal dependency graph
-and will figure out which other modules and libraries that entry point depends on
-
-const path = require('path');
-//a code Node.js module that gets used to manipulate file paths
-
-////////////////////
-Loaders:
+//////Loaders
 webpack only understands JS and Json files
 loaders allow it to process other types of files and convert them
 into valid modules
 that can be consumed by your application and added to the dependency graph
 like .css files
-
-at a high level, loaders have
-test property; which files should be transformed
-use property; which loader should be used to do the transforming
 
 //when come across a path that resolves to a txt file
 inside of a require()/import statement
@@ -1876,33 +1611,28 @@ plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
 //and automatically injects all your generated bundles into this file
 
 
-
-////////////////////
-  mode: 'production',     //default value
-
-  can set to development, production or none,
-  you can enable webpack's built in optimizations that correspond to each environment
+////adding package.json main object
+//name, "lowercase", one word with hyphens and underscores
+//version, in the form of "x.x.x", and follow the semantic ver. guidelines
+//author, "your name <email@example.com"
 
 
-  webpack supports all browsers that are ES5
-  needs Promise for import() and require.ensure()
-  
-  IE8 and below are not supported
-  you will need to load a polyfill before using these expressions
+
+~~ just make sure to open .html to see the result
 
 
+
+
+*/
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*
 
 
-With the introduction of ES6 Modules, the module pattern (IIFEs) 
-is not needed anymore
 
-defer 
-async attr
-nomodule  //new browsers to ignore this script, and older browsers to use this script
 
-babel used to import into unsupported browsers
 
 
 
@@ -1912,4 +1642,3 @@ babel used to import into unsupported browsers
 
 
 */
-
