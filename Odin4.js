@@ -9,6 +9,7 @@ set, get
 what the new assignment does
 
 /*
+//////Classes
 Object constructors
 Prototypes
 Prototypal Inheritance
@@ -24,6 +25,43 @@ Object.assign
 Inheritance using factory functions
 revealing module/pattern
 Design patterns: mixin, decorator, pseudo-decorators
+class setters/getters, defineproperty
+private, static class properties
+
+
+
+//////NPM
+npm/webpack install and prepare files
+uninstall loader
+
+more tools: 
+    property attributes
+    webpack-dev-server (live reloading)
+    npm-init.js (root file for config questions)
+    loaders, plugins intro
+
+plugins/asset management
+    plugins config
+    css-loader install,config, use, run
+    images: config, use, run
+    fonts: config, apply in css file, run
+    data files: JSON/CSV/TSV/XML install/config, use
+    global assets: 
+
+output management
+    config
+    HtmlWebpackPlugin: install/config (helps when renaming files outside, outside of the referenced name in code )
+    cleaning code
+
+development
+    source maps (dev-tool): config (to track errors correctly in browser-console)
+    auto-save-run: 
+        watch: config,run (semi-auto)
+        webpack-dev-server: install, config, run (auto)
+        webpack-dev-middleware: install, config, add file, run, open localhost:3000 (auto)
+
+
+use CTRL+C to exit from watch modes
 
 */
 
@@ -1505,28 +1543,28 @@ type=module does not load the result!
 # npm install webpack webpack-cli --save-dev //install webpack tool will create nodes_module folder
 
 >> now create dist/index.html and src/index.js
->> add a function that uses an imported property/method to .js and normal boiler plate to html
-
->> from package.json file remove main and add "private":true,
-> and can add to package.json's script object to make it easier
-"build": "webpack" // to use "npm run build" instead of "npx webpack"
-"build": "webpack --progress --mode=production",  
-"watch": "webpack --progress --watch"  "auto run WP on JS file change"
-
-# npm install wantedLibraryName --save //install a wanted library
-
-
+>> add an import line and a function that uses an imported property/method to .js and normal boiler plate to html
 >>add import line to .js and script tag to html
 src/JS: import wantedMethodOrPropertyName from 'wantedLibraryName';
 dist/HTML:     <script src="main.js"></script>
 
+
+>> from package.json file, put basic-template, remove main and add "private":true,
+> and can add the following to package.json's script object to make it easier
+"build": "webpack" // to use "npm run build" instead of "npx webpack"
+"build": "webpack --progress --mode=production",  
+"watch": "webpack --progress --watch"  "auto run WP on JS file change"
+
+# npm install wantedLibraryName --save //install a wanted library if you will use it like moment/lodash
+
+
 # npx webpack   //this will create the main.js file we scripted from "./node_modules/.bin/webpack"
 
 
->>if you want, can add a config file "webpack.config.js" to configure some locations etc.
+>>if you want, can add a config file with basic-template "webpack.config.js" to configure some locations etc.
 >>check https://webpack.js.org/configuration for more configs
 
-
+//your directory should look like this
 webpack-demo-folder
 |- package.json
 |- package-lock.json
@@ -1540,6 +1578,7 @@ webpack-demo-folder
 
 
 ////////more tools///////
+/////properties
 // --save-dev // state > development dependency not production server
 //--mode=development
 //--mode=production
@@ -1572,7 +1611,7 @@ so all package.json files contain a standard set of information
 to add custom questions using a text editor, add questions with the prompt function
 module.exports = prompt("what's your favorite flavor of ice cream, buddy?", "I LIKE THEM ALL");
 
-//to add custom questions
+//to add custom questions in this file, put this
 module.exports = {
   customField: 'Example custom field',
   otherCustomField: 'This example field is really cool'
@@ -1602,7 +1641,7 @@ put under output
 plugins;
 tasks like bundle optimization, asset management and injection of environment variables
 
-const webpack = require('webpack'); //to access built-in plugins
+>> const webpack = require('webpack'); //to access built-in plugins
 //at top
 
 plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
@@ -1650,7 +1689,7 @@ Uglifying is transforming the code into an "unreadable" form by changing
 variable names, function names, etc, to hide the original content. 
 Once it is used there's no way to reverse it back.
 
-//////////////////////////////////////
+//////////////////////////////////////loaders/plugins
 before webpack, tools like grunt and gulp where used 
 to process assets like images or any type of file
 and move them from /src to /dist
@@ -1662,15 +1701,29 @@ and will avoid bundling modules that aren't in use
 there is a loader/built-in asset modules support
 
 
+//add to config.json
+>>const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+//and in its module object
+  plugins: [
+    new HtmlWebpackPlugin({
+     title: 'Output Management',
+     title: 'Development',
+    }),
+  ],
+
+
+
 //////////////////////////////////////CSS
->>change the main.js file in html/config.js to bundle.js
+>>change the output from main.js file in html/config.json to bundle.js
 to import a css file from within a JS module
 
 # npm install --save-dev style-loader css-loader
 
 //any file that ends with .css will be served to style-loader and css-loader
-//enable import "./style.css" and a <style> will be inserted into the head of the html file
-add to config
+//this will enable to import "./style.css" and a <style> will be inserted into the head of the html file
+
+>>add to config.json module.exports object
 module: {
     rules: [
       {
@@ -1685,14 +1738,14 @@ first loader passes its result to the next one and so forth
 
 >>create src/style.css
 >> import './style.css'; in js file
->>element.classList.add("importedClassName");    
+>>element.classList.add("importedClassName"); //which is imported from style.css
 # npm run build
 
 
 //////////////////////////////////////Images
 
 
->> add this to the module>rules in config.json
+>> add this to the module.exports{}>module{}>rules[] in config.json
   {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
@@ -1700,7 +1753,9 @@ first loader passes its result to the next one and so forth
 
 
 >> add .png to the src folder
->> add to the css   background: url('./icon.png');
+>> add to the css imported   background: url('./icon.png'); 
+to any class to use this image crossly
+
 
 
 
@@ -1730,13 +1785,13 @@ use by font-family: 'MyFont';
 
 //////////////////////////////////////
 //////////////////////////////////////
-//////////////////////////////////////Fonts
+//////////////////////////////////////Data files
 loading data, like JSON files, CSVs, TSVs, and XML.
 
 
 can naturally import JSON by
-import Data from "./data.json"
-only default. i.e no {..}
+line : import Name from "./data.json"
+only default. i.e no { } for the Name
 
 can import any toml,yaml, json5 files as JSON module
 by using a custom parser
@@ -1907,7 +1962,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 //////////////////////
-adding to the output in config.json
+adding to the output{} in config.json
     clean: true,
 
 will clean the dist/ folder so only used files will be present from the build
@@ -1928,23 +1983,6 @@ WebpackManifestPlugin
 https://webpack.js.org/guides/development/
 //////Development
 
-npm install --save-dev html-webpack-plugin
-
-
->> in config.json add 
-in the start
- const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-and above entry
-mode: "development",
-
->> and after entry
-  plugins: [
-     new HtmlWebpackPlugin({
-      title: 'Output Management',
-      title: 'Development',
-     }),
-   ],
 
 
 
@@ -1997,7 +2035,7 @@ below entry
 this tells webpack-dev-server to serve the files
 from the dist directory on localhost:8080
  
-and below output
+>> and below output in config.json
   optimization: {
     runtimeChunk: 'single',
   },
@@ -2008,6 +2046,10 @@ or will end up with one entry point
 
 
 >> add to package.json's script tag
+    "start": "webpack serve --open",
+    "server": "node server.js",
+
+
 
 # npm start
 this will open the html by itself in the browser
@@ -2054,8 +2096,43 @@ JetBrains IDEs (e.g. WebStorm): Uncheck "Use safe write" in Preferences > Appear
 Vim: Add :set backupcopy=yes to your settings.
 
 
- There are several sweet features that you might want to use in future projects such as code-splitting, lazy-loading, and tree-shaking.
- on the website to check out in the future
+There are several sweet features that you might want to use in future projects such as code-splitting, lazy-loading, and tree-shaking.
+on the website to check out in the future
+
+
+*/
+
+
+
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+/*/////////////////////////////////*/
+/*
+NPM Revision
+
+in the plugin section
+configured in config.json the plugin lines
+changed the output js file from main to bundle in  html/config.json
+just installed css loader
+added to ./src : css file, image file
+added to js file css import/use, image use, 
+added to module.exports{}.module{}.rules > scc,img,font
+
+in the output management section
+added in the html header print.bundle
+changed output to index.bundle.js
+installed HtmlWebpackPlugin and added to config.js
+
+in development
+installed devserver, middleware
+added devtool,watch,devserver, publicpath to config.json
+added to package.json srcipt{} some configs
+
+
+effect from basic
+added in the html header print.bundle
+changed output in html from main.js to bundle.js then index.bundle.js
+changed output in config.json also
 
 
 */
