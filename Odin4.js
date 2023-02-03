@@ -1630,6 +1630,9 @@ plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
 /*////////////////////////////////////////////////////////////////////*/
 /* lesson 2
 
+https://webpack.js.org/guides/asset-management/
+https://webpack.js.org/guides/output-management/
+
 another webpack feature, 
 process and manipulate the code during the compilation step
 Sass to css
@@ -1854,10 +1857,10 @@ and change the output at the body, to dynamically generate bundle names based on
 
 
 >>change the module in config.json
-form
+from
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
 
@@ -1890,7 +1893,7 @@ but it also will generate its own index.html and replace our index.html
 
 # npm install --save-dev html-webpack-plugin
 
->>and add to config.json this property in the begining
+>>and add to config.json this property in the beginning
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 >>add below entry object
@@ -1916,8 +1919,143 @@ keeps track how all the modules map to the output bundles
 WebpackManifestPlugin
 
 
+*/
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+https://webpack.js.org/guides/development/
+//////Development
+
+npm install --save-dev html-webpack-plugin
+
+
+>> in config.json add 
+in the start
+ const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+and above entry
+mode: "development",
+
+>> and after entry
+  plugins: [
+     new HtmlWebpackPlugin({
+      title: 'Output Management',
+      title: 'Development',
+     }),
+   ],
+
+
+
+//////source maps
+when bundling a.js + b.js + c.js into bundle.js
+and one of the source files contains an error, 
+the stack trace  will point to bundle.js not the file its coming from
+so we use using source maps, there are many types
+
+for illustrative purposes (though not for production)
+will use inline-source-map
+
+>>add this line below entry in config.json
+  devtool: 'inline-source-map',
+this will tell you which file contains the error
+
+
+///////Choosing a Development Tool
+some text editors have a safe write that might interfere with the following tools
+read Adjusting your text editor
+
+
+to automatically compile your code whenever it changes
+webpack's Watch Mode
+webpack-dev-server
+webpack-dev-middleware
+
+
+//////using watch mode
+>> package.json scripts> below test
+    "watch": "webpack --watch",
+
+# npm run watch
+refresh and the change applies
+CTRL+C to exit
+
+
+
+//////using webpack-dev-server
+comes with many configurable options, check its docs
+
+# npm install --save-dev webpack-dev-server
+
+>> add in config.json
+below entry
+  devServer: {
+    static: './dist',
+  },
+
+this tells webpack-dev-server to serve the files
+from the dist directory on localhost:8080
+ 
+and below output
+  optimization: {
+    runtimeChunk: 'single',
+  },
+
+we have more than one entry point on a single HTML page
+either each entry will be loaded at a different priority
+or will end up with one entry point 
+
+
+>> add to package.json's script tag
+
+# npm start
+this will open the html by itself in the browser
+and any saved change will refresh the page
+
+
+check: https://webpack.js.org/guides/hot-module-replacement/
+
+
+//////webpack-dev-middleware
+wrapper that will emit files processed by webpack to a server
+
+same as webpack-dev-server internally
+but available in a separate package to allow more custom setups
+
+#npm install --save-dev express webpack-dev-middleware
+
+>>add to config.json's end of output object
+    publicPath: '/',
+
+will be used in our server script as well in order to make 
+sure files are served correctly on http://localhost:3000
+
+>>add to root server.js file
+with the provided code
+
+>> add to package.json scripts object
+"server": "node server.js",
+
+# npm run server
+
+>>open the browser and go to
+http://localhost:3000
+
+
+//////
+when using automatic compilation, 
+when saving files, some Editors have "safe write" feature
+that can interfere with recompilation
+
+to disable
+Sublime Text 3: Add atomic_save: 'false' to your user preferences.
+JetBrains IDEs (e.g. WebStorm): Uncheck "Use safe write" in Preferences > Appearance & Behavior > System Settings.
+Vim: Add :set backupcopy=yes to your settings.
+
+
+ There are several sweet features that you might want to use in future projects such as code-splitting, lazy-loading, and tree-shaking.
+ on the website to check out in the future
 
 
 */
