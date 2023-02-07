@@ -2222,6 +2222,170 @@ because the logic for logging the information should not
 be a responsibility of the Car class.
 
 
+ask a question when designing
+need to update every file writing instance of every class 
+you’ve ever implemented a logger inside of.
+The Car class can be changed, moved around 
+or even deleted without affecting the logger class.
+
+class ErrorLog {
+class Car {   //that has its properties, methods, uses errorlog
+
+
+any function can return a new object. 
+When it’s not a constructor function or class, called a factory function.
+
+
+const shapes = [
+  circle(2),
+  square(5),
+  square(6)
+]
+const areas  = areaCalculator(shapes) //factory function
+const output = sumCalculatorOputter(areas) //ff
+console.log(output.JSON())
+console.log(output.HAML())
+console.log(output.HTML())
+console.log(output.JADE())
+
+
+
+//////Open-closed Principle
+
+Open: able to add new features or components to the application without breaking existing code
+Closed: should not introduce breaking changes to existing functionality
+
+
+//////Liskov substitution principle
+All this is stating is that every subclass/derived class 
+should be substitutable for their base/parent class.
+
+//////Interface segregation principle
+A client should never be forced to implement an interface 
+that it doesn’t use or clients shouldn’t be forced to depend on methods they do not use.
+
+//////Dependency inversion principle
+Entities must depend on abstractions not on concretions. 
+It states that the high level module must not depend on the 
+low level module, but they should depend on abstractions.
+
+
+
+////Higher order functions
+callback functions like filter
+
+var isDog = function (animal) {
+  return animal.species === "dogs";
+}
+
+var dogs = animals.filter(isDog);
+var otherAnimals = animals.reject(isDog);
+
+functions are values, can be separated into small tasks, composed together using higher order for example
+
+
+
+
+
+////// reducing-coupling
+coupling: when one module directly references/knows about another module
+
+//ordering module, create, read, update, and delete orders (i.e., CRUD)
+//delivery module, estimate, begin, complete etc.
+
+any module should be easily swapped out at any time for a 
+different module. Reusability is also a major reason to minimize coupling.
+
+even if the delivery time is not estimated, the code and order is still placed
+
+patterns like observer pattern or publish/subscribe
+using a mediator object to further minimize coupling between modules by isolating them
+like when the watch tower mediates between airplanes
+
+Loose coupling is very important for promoting code reuse, 
+independent testability, interchangeability, and protection against a single point of failure.
+code can most certainly be highly scalable, maintainable, usable, 
+reusable, sustainable, extensible, and so on.
+
+
+
+
+
+
+object is the heart of object-oriented programming
+Stop thinking about individual variables and functions and start thinking in terms of self-sufficient objects.
+
+Class is not an object — it is the blueprint of an object. 
+Classes are functions, and functions are objects in JavaScript.
+
+const Book = function(getTitle, getAuthor) { 
+  // Public method 
+    this.giveTitle = function() {
+        return title;
+    }
+    
+  // Private method
+  const summary = function() {
+    return `${title} written by ${author}.`
+  }
+}
+
+
+
+
+javascript is a prototype based language
+and inheritance is achieved by using the prototype
+pattern called Behavior Delegation Pattern or prototypal inheritance.
+
+let Book = function(title, author) {
+  Corebook.call(this, title, author)
+}
+Book.prototype = Object.create(Corebook.prototype);
+
+let book2 = function() {}
+book2.prototype = Object.create(book1.prototype);
+
+
+book2.multiplicity = book1
+//adds a property of book1, //Association
+
+//Aggregation, independence, can live without
+let publication = {
+   "name": "new publication Inc", 
+   "books": []
+}
+publication.books.push(book1);
+
+
+
+//composition, object inside and object
+const getSummary = () =>  ({
+   summary :() => console.log(`book summary need to update.`)
+});
+const Book = (title, author) => {
+   const data = { 
+      title, 
+      author  
+   }
+   
+   return Object.assign({},
+             getTitle(data), 
+             getAuthor(data), 
+             getSummary()
+   )
+}
+let book1 = Book('The Alchemist', 'Paulo Coelho');
+book1.title();
+
+
+
+separating state logic from the UI controls 
+
+
+
+
+
+
 
 
 
