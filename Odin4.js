@@ -1534,8 +1534,6 @@ type=module does not load the result!
 
 
 
-//for first time
-> npm init      //npm install
 
 >>create root folder, and cd..
 
@@ -1554,6 +1552,9 @@ dist/HTML:     <script src="main.js"></script>
 "build": "webpack" // to use "npm run build" instead of "npx webpack"
 "build": "webpack --progress --mode=production",  
 "watch": "webpack --progress --watch"  "auto run WP on JS file change"
+
+and make sure to put , before it in the object placing into
+
 
 # npm install wantedLibraryName --save //install a wanted library if you will use it like moment/lodash
 
@@ -2133,6 +2134,95 @@ effect from basic
 added in the html header print.bundle
 changed output in html from main.js to bundle.js then index.bundle.js
 changed output in config.json also
+
+
+*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+console.log("///////////OPP Principles");
+/*
+
+these principles are not rules, they're helpful guidelines
+
+
+
+//////Single responsibility
+
+everything an class/object/module does should be part of one responsibility
+
+separate DOM stuff from the application logic
+function isGameOver() {
+  if (gameOver){
+    DOMStuff.gameOver(this.winner);
+  }
+}
+and the isGameOver function should not not work on DOM anyway, 
+that is another function in the game loop
+
+
+
+//////Loosely couples objects
+
+all our objects are intended to work together to form final app
+individual objects stand alone as much as possible
+
+but Tightly couples objects are objects that rely so heavily on each other
+that removing or changing one will mean have to completely change another one
+
+if we want to change the interface of a game,
+we should be able to do that without completely re-working the game logic
+
+
+
+SOLID: collection of design principles
+The Single Responsibility Principle
+The Open/Closed Principle
+The Liskov Substitution Principle
+The Interface Segregation Principle
+The Dependency Inversion Principle
+
+
+//////Single responsibility
+
+helps improve maintainability by limiting the responsibilities
+of an object to those which change for related reasons
+By decoupling such responsibilities, we can create code 
+that is more resilient to change.
+
+established approach to making these determinations
+to what behaviors constitutes a single responsibility
+
+Object Role Stereotypes:
+Information holder – an object designed to know certain information and provide that information to other objects.
+Structurer – an object that maintains relationships between objects and information about those relationships.
+Service provider – an object that performs specific work and offers services to others on demand.
+Controller – an object designed to make decisions and control a complex task.
+Coordinator – an object that doesn’t make many decisions but, in a rote or mechanical way, delegates work to other objects.
+Interfacer – an object that transforms information or requests between distinct parts of a system.
+
+
+""This violates the single responsibility principle, 
+because the logic for logging the information should not 
+be a responsibility of the Car class.
+
+
+
 
 
 */
