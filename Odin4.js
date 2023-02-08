@@ -2252,7 +2252,8 @@ console.log(output.JADE())
 
 //////Open-closed Principle
 
-Open: able to add new features or components to the application without breaking existing code
+Open: able to add new features or components to the application 
+without breaking existing code
 Closed: should not introduce breaking changes to existing functionality
 
 
@@ -2381,12 +2382,153 @@ book1.title();
 
 separating state logic from the UI controls 
 
+*/
 
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+Dynamic User Interface Interactions
+
+
+//Drop Down menus
+hard coded in html, hide/reveal using js
+should be able to create multiple drop downs without repeating js code
+
+If you bundle your code into a module you can publish it to npm 
+and then install and use it anytime you like
+
+
+//Image-sliders
+using previous-next functions to change the pictures in a nested div
+
+
+//Forms
+more complex constraints can be tested 
+using the Constraint Validation API.
+
+validity property
+customError
+patternMismatch
+rangeOverflow
+rangeUnderflow
+stepMismatch
+tooLong
+typeMismatch
+valueMissing
+valid
+
+*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+ESC6
+
+ECMAScript is a standard (ES)
+while JS is the most popular implementation of that standard
+and builds on top of it
+
+ES6 and ES2015 are the same thing
+New editions (starting with 2015) will be named ES followed by the year of release: ES2015, ES2016, ES2017
+
+Each release brings updates and new features to the language.
+An update to ECMAscript can be expected annually.
+
+install babel to allow support/use of new ES updates 
+on older client's browsers
+
+# npm install -D babel-loader @babel/core @babel/preset-env webpack
+
+>>add the following to config.json > module > rules
+
+    {
+      test: /\.m?js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            ['@babel/preset-env', { targets: "defaults" }]
+          ]
+        }
+      }
+    }
+
+>>You can pass options to the loader by using the options property:
+>>add plugins below presets array
+  plugins: ['@babel/plugin-proposal-class-properties']
+
+
+
+////method 2
+
+# npm install --save-dev @babel/core @babel/cli
+
+
+
+>> add line of code
+
+>> add plugins because they are the workers of babel
+each plugin install its own NPM library
+or use a preset
+//add plugin that transpiles arrow functions
+# npm install --save-dev @babel/plugin-transform-arrow-functions //X
+
+# npm install --save-dev @babel/preset-env
+Every preset is its own NPM dependency
+
+
+>>add file .babelrc file to the root dir
+this is a config file for babel, 
+to tell to use the arrow functions plugin
+
+>>add to .babelrc
+{
+  "plugins": ["@babel/plugin-transform-arrow-functions"]  //X
+}
+
+{
+  "presets": ["@babel/preset-env"]  
+  //the preset will be used inst. of arrow functions as its included
+}
+
+
+//run through babel
+# npx babel input.js --out-file output.js
+
+
+
+// the amount of code needed to support very old browsers is extreme
+we need the new plugins only that are needed as most ES6 is already supported
+so can tell which browsers excatly we want to support
+done by adding lines to .browserlistrc 
+
+>> not ie all   //not support any IE
+>>  >0.25%      //only browsers with 0.25% market share or more
+
+https://github.com/browserslist/browserslist
+
+
+//can get a list of all browsers supported by your browserlist 
+config by running following command
+
+npx browserslist
+
+webpack/babel course
+https://blog.jakoblind.no/babel-preset-env/
 
 
 
 
 
 */
+
+
