@@ -2532,3 +2532,167 @@ https://blog.jakoblind.no/babel-preset-env/
 */
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+JSON
+JavaScript Object Notation
+
+will encounter when working with external servers or API's
+the universal format for transmitting data on the web
+
+commonly used for transmitting data in web applications
+sending some data from the server to client etc
+
+working with JSON using javascript, parsing(reading) to access, creating
+
+
+
+json exists as a STRING, converted to JS in order to be accessed
+javascript provides a global JSON object that has methods available
+for converting between the two
+
+string > js (deserialization)
+js > string (serialization)
+
+
+contains only properties, no methods
+use double quotes, single quotes only for surrounding the whole object
+
+
+
+
+
+{ name : [ object, object ] } name["object"][1]["objectProperty"][0]
+[ object,object ]     // [0]["objectName"][0]
+
+/////////////////////////////////JSON format
+{
+  "squadName": "Super hero squad",
+  "homeTown": "Metro City",
+  "formed": 2016,
+  "secretBase": "Super tower",
+  "active": true,
+  "members": [
+    {
+      "name": "Molecule Man",
+      "age": 29,
+      "secretIdentity": "Dan Jukes",
+      "powers": ["Radiation resistance", "Turning tiny", "Radiation blast"]
+    },
+    {
+      "name": "Madame Uppercut",
+      "age": 39,
+      "secretIdentity": "Jane Wilson",
+      "powers": [
+        "Million tonne punch",
+        "Damage resistance",
+        "Superhuman reflexes"
+      ]
+    },
+    {
+      "name": "Eternal Flame",
+      "age": 1000000,
+      "secretIdentity": "Unknown",
+      "powers": [
+        "Immortality",
+        "Heat Immunity",
+        "Inferno",
+        "Teleportation",
+        "Interdimensional travel"
+      ]
+    }
+  ]
+}
+/////////////////////////////////
+
+
+superHeroes.homeTown
+superHeroes['active']
+superHeroes['members'][1]['powers'][2]
+
+
+////// ex1 to obtain json, use API fetch
+make network requests to retrieve resources from a server via JS
+we can update small sections of content without having to reload the entire page
+
+
+when receiving a raw JSON string,
+need to convert it to object
+use text() then parse()
+
+and when want to send an object/array across a network, 
+need to convert to string, 
+dates are not allowed and have to be converted to a string first using obj.age = obj.age.toString();
+stringify()
+
+const obj = {name: "John", age: 30, city: "New York"};
+const myJSON = JSON.stringify(obj);
+
+
+//////
+to work on dates, pass as a string first then use
+The reviver parameter, a function that checks each property, 
+before returning the value.
+
+
+
+//////
+to work on passed in functions
+pass as a string first
+
+const text = '{"name":"John", "age":"function () {return 30;}", "city":"New York"}';
+const obj = JSON.parse(text);
+obj.age = eval("(" + obj.age + ")");
+
+document.getElementById("demo").innerHTML = obj.name + ", " + obj.age();
+
+
+//////
+check https://jsonformatter.curiousconcept.com/#
+to check your json formatting
+
+
+
+*/
+
+//add async to the function that uses the fetch API
+//add await before the calls to any async functions
+
+//ex1
+async function populate() {
+
+  const requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
+  const request = new Request(requestURL);
+
+  const response = await fetch(request);
+  //const superHeroes = await response.json();
+  const superHeroesText = await response.text();  //converting to JS
+  console.log(superHeroesText);
+
+  const superHeroes = JSON.parse(superHeroesText);
+  console.log(superHeroes);
+
+  populateHeader(superHeroes);
+
+
+
+  console.log(JSON.stringify(superHeroes)); //convert to JSON
+
+
+
+}
+
+function populateHeader(obj) {
+  const header = document.querySelector('header');
+  const myH1 = document.createElement('h1');
+  myH1.textContent = obj.squadName;
+  header.appendChild(myH1);
+
+  const myPara = document.createElement('p');
+  myPara.textContent = `Hometown: ${obj.homeTown} // Formed: ${obj.formed}`;
+  header.appendChild(myPara);
+}
+
+populate();
+
