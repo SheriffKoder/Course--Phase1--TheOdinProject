@@ -2696,3 +2696,66 @@ function populateHeader(obj) {
 
 populate();
 
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+Asynchronous code
+functions that can happen in the background 
+while the rest of code executes
+
+Callbacks
+a function that is passed into another function as an argument
+which is then invoked inside the outer function
+Callbacks are functions that are executed asynchronously, 
+or at a later different time.
+
+
+myDiv.addEventListener("click", function(){
+  // do something!
+})
+//function is called when div is clicked
+
+
+javascript does not run line 1, 2 etc. 
+thus nesting functions too many causes callback hell
+
+'asynchronous', aka 'async' just means 'takes some time' 
+or 'happens in the future, not right now'.
+
+
+var photo = downloadPhoto('http://coolcats.com/cat.gif')
+// photo is 'undefined'!
+In this case the gif might take a very long time to download, 
+and you don't want your program to pause (aka 'block') 
+while waiting for the download to finish.
+
+
+downloadPhoto('http://coolcats.com/cat.gif', handlePhotoFunction)
+
+handlePhotoFunction is passed to downloadPhoto but wont run until
+downloadPhoto finishes its task, which could take a long time
+
+to fix this
+do not get into anonymous nesting
+name the functions, keep their code out
+use modules
+handle errors early
+
+keeping code simple, not nested and split up into small modules.
+
+synchronous code - it sequentially runs top to bottom.
+
+
+trying to convert PDF files into TXT files, start by
+# npm search pdf
+
+
+
+
+
+
+
+
+
+*/
