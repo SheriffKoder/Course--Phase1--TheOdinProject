@@ -2100,6 +2100,17 @@ Vim: Add :set backupcopy=yes to your settings.
 There are several sweet features that you might want to use in future projects such as code-splitting, lazy-loading, and tree-shaking.
 on the website to check out in the future
 
+always use modules, import/export over a non-standard module system
+you can always transpile to your preferred module system.
+
+// best
+import { es6 } from './AirbnbStyleGuide';
+export default es6;
+
+// bad
+import * as AirbnbStyleGuide from './AirbnbStyleGuide';
+export { es6 as default } from './AirbnbStyleGuide';
+
 
 */
 
@@ -2562,7 +2573,7 @@ use double quotes, single quotes only for surrounding the whole object
 
 
 
-
+how its written
 { name : [ object, object ] } name["object"][1]["objectProperty"][0]
 [ object,object ]     // [0]["objectName"][0]
 
@@ -2704,7 +2715,7 @@ Asynchronous code
 functions that can happen in the background 
 while the rest of code executes
 
-Callbacks
+//////////////////////////////////Callbacks
 a function that is passed into another function as an argument
 which is then invoked inside the outer function
 Callbacks are functions that are executed asynchronously, 
@@ -2750,6 +2761,103 @@ synchronous code - it sequentially runs top to bottom.
 trying to convert PDF files into TXT files, start by
 # npm search pdf
 
+keep using the composition syntax to avoid callback triangles
+
+
+
+
+//////////////////////////////////Promises
+an object that might produce a value at some point in the future
+
+
+const getData = function() {
+  // go fetch data from some API...
+  // clean it up a bit and return it as an object:
+  return data
+}
+
+//getData takes time to evaluate and can be used before its evaluated
+
+const myData = getData() // if this is refactored to return a Promise...
+myData.then(function(data){ // .then() tells it to wait until the promise is resolved
+  const pieceOfData = data['whatever'] // and THEN run the function inside
+})
+
+
+promises can be tested using setTimeout
+
+
+//promise provides resolve and reject functions to the provided callback:
+
+or var p = new Promise(function(resolve, reject) {
+	// Do an async task async task and then...
+
+	if( good condition) {
+		resolve('Success!');
+	}
+	else {
+		reject('Failure!');
+	}
+});
+
+
+p.then(function(result) {   //when the promise is resolved
+	/* do something with the result
+}).catch(function() { //when the promise is rejected
+	/* error :(
+}).finally(function() {
+   /* executes regardless or success for failure
+});
+
+
+
+Since a promise is always returned, you can always use the then and catch methods on its return value!
+
+
+new Promise({...setTimeout}).then(fn).catch(fn);
+
+new Promise(function(resolve, reject) {
+	// A mock async action using setTimeout
+	setTimeout(function() { reject('Done!'); }, 3000);
+})
+.then(function(e) { console.log('done', e); })
+.catch(function(e) { console.log('catch: ', e); });
+.finally(res => { console.log("finally") });  //regardless of success or failure
+
+
+reject(Error('Data could not be found')); //sending an error to the catch
+
+
+
+
+/////Promise.all
+//only want to respond when all of them are completed
+
+takes an array of promises
+
+Promise.all([promise1, promise2]).then(function(results) { //results promise method
+	// Both promises resolved
+})
+.catch(function(error){
+  	// One or more promises was rejected
+});
+
+
+//Promise.race 
+triggers as soon as any promise in the array is resolved or rejected
+written like Prime.all
+
+
+
+import loadImagePromised from './load-image-promised'
+
+loadImagePromised('images/cat1.jpg)
+  .then((img)=>{
+    var imgElement = document.createElement("img");
+    imgElement.src = img.src
+    document.body.appendChild(imgElement);
+
+  })
 
 
 
