@@ -2721,6 +2721,13 @@ which is then invoked inside the outer function
 Callbacks are functions that are executed asynchronously, 
 or at a later different time.
 
+it might:
+Call the callback too early
+Call the callback too late (or never)
+Call the callback too few or too many times
+Fail to pass along any necessary environment/parameters
+Swallow any errors/exceptions that may happen
+
 
 myDiv.addEventListener("click", function(){
   // do something!
@@ -2859,7 +2866,104 @@ loadImagePromised('images/cat1.jpg)
 
   })
 
+// also let whenCatLoaded = loadImagePromised('images/cat1.jpg);
 
+
+
+
+  let addImg = (src) => {
+    let imgElement = document.createElement("img");
+    imgElement.src = img.src
+    document.body.appendChild(imgElement);
+  })
+
+
+  Promise.all([
+    loadImagePromised('url'),
+    loadImagePromised('url'),
+    loadImagePromised('url'),
+  ]).then(images) => {
+    images.forEach( img => addImg(img.src));
+  }).catch((error) =>{
+    //handle error later
+  })
+
+Promises are better than callbacks because they compose
+
+
+
+
+/////////////////
+
+javascript is single threaded, it can do one thing at a time
+one call stack
+
+
+doA( function(){
+	doC();
+
+	doD( function(){
+		doF();
+	} )
+
+	doE();
+} );
+
+doB();
+
+callback hell is skip from one function, to the next, to the next, 
+and bounce all around the code base to "see" the sequence flow.
+often very repetitive and not reusable in other steps or in other async flows 
+
+//check for values before return
+function timeoutify(fn,delay) {
+	var intv = setTimeout( function(){
+			intv = null;
+			fn( new Error( "Timeout!" ) );
+		}, delay )
+	;
+
+	return function() {
+		// timeout hasn't happened yet?
+		if (intv) {
+			clearTimeout( intv );
+			fn.apply( this, [ null ].concat( [].slice.call( arguments ) ) );
+		}
+	};
+}
+
+
+
+
+/////////////////
+Promise
+once my future value was ready, I exchanged my value-promise 
+for the value itself.
+
+add().then(function(returnedPromiseAllDotThenValue){   //where add returns Primise all.this which is a promise value
+    console.log(returnedPromiseAllDotThenValue)        //we can use on it .then also ?!
+});
+
+why ? Promises are an easily repeatable mechanism 
+for encapsulating and composing future values.
+
+
+once a Promise is resolved, it stays that way forever
+it becomes an immutable value at that point
+and can then be observed as many times as necessary.
+safe to pass that value around to any party 
+and know that it cannot be modified accidentally or maliciously
+
+
+Promise.all creates a promise 
+then chained with .then creates another promise
+
+.then can take two functions as arguments
+either by code or name
+first: for fulfillment, second: for rejection
+
+
+chain .then
 
 
 
