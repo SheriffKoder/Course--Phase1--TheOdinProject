@@ -188,7 +188,7 @@ put in : article > header > h1 > p > text + time
 
 year - month - date - time - timezone
 <p>By Troy McClure. Published <time datetime='2017-1-3'>January 3rd</time></p>
-
+formats available on the docs
 
 <address> 
 element indicates that the enclosed html provides 
@@ -256,10 +256,13 @@ semantic alternative to ul and treated by browsers like a ul
 
 
 <br> a line break in text, useful in p tags etc.
+<wbr> position within text where may optionally break a line
 
-<cite> mark up the title of a cited creative work, reference link/text, italic
+<cite> mark up the title of a cited creative work, reference link/text, book title, italic
 
 <code> monospace text
+<var> name of a variable math/programming context, 
+
 
 <data> links its content with a machine-readable translation
       <li><data value="398">Mini Ketchup</data></li>
@@ -267,15 +270,23 @@ semantic alternative to ul and treated by browsers like a ul
 <dfn> the defining term in the sentence given an id
 indicate the "term" being "defined" "within" the "context" of a definition phrase or sentence
 
-<em> stressed emphasis compared to surrounding text
-<strong> greater emphasis
+<em> stressed emphasis compared to surrounding text, can be used with strong for greater importance
 <i> used for mood, change in language using attr lang
 font-style for styling without importance
+
+<strong> greater emphasis, seriousness, urgency, bold style
+<b> draw attention to text, without indicating that it's more important
+
 
 <kbd> represents a keyboard-button displayed in monospace
   to be styled to show a button like background
 
 <mark> add a highlighter, can appear for assistive tech. using :before/after
+
+<u> span of inline text which has non-textual annotation
+  solid underline, indicating spelling error, while css text-decoration: red wavy underline;
+
+
 
 
 Ruby
@@ -293,7 +304,22 @@ css strike-through
 <samp>, sample or quoted output, appears in monospace
 <small> side-comments that are displayed in small font size
 
-HTML Structure, CSS presentation
+
+<sub> b-below, for typographical reasons, rather than solely for appearance 
+otherwise use vertical-align css -25%
+<sup>, p-super, like vertical-align: 50%
+The <msub>, <msup>, and <msubsup> MathML elements.
+
+
+
+HTML Structure vs CSS presentation
+
+
+
+
+
+
+
 
 
 <span> generic container, inline vs div is block level
@@ -415,7 +441,11 @@ HTML Structure, CSS presentation
 
 
 
+<div class="testDiv">
+  <header>
 
+  </header>
+</div>
 
 
 
