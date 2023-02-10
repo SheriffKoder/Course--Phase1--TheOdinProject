@@ -2963,11 +2963,169 @@ either by code or name
 first: for fulfillment, second: for rejection
 
 
+
+var p2 = p.then ( function fullfilled (){
+
+});
+
+
+//////
+var p = new Promise( function(X,Y){
+	// X() for fulfillment
+	// Y() for rejection
+} );
+
+
+//////
+var rejectedTh = {
+	then: function(resolved,rejected) {
+		rejected( "Oops" );
+	}
+};
+
+var rejectedPr = Promise.resolve( rejectedTh );
+
+
+////
+function fulfilled(msg) {
+	console.log( msg );
+}
+
+function rejected(err) {
+	console.error( err );
+}
+
+p.then(
+	fulfilled,
+	rejected
+);
+
+
+higher-order function
+A function that takes other functions as arguments/returns functions as its result 
+
+callback-function
+function that is passed as an argument
+called back by the higher order function
+
+Each .then() returns a newly generated promise object,
+
 chain .then
+(promise D, (promise C, (promise B, (promise A) ) ) )
+
+let handleFulfilledA = function (tweets) {
+  console.log(tweets);
+  return get("data/friends.json");
+}
+
+myPromise
+  .then(handleFulfilledA) 1
+  .then(handleFulfilledB) 2
+  .then(handleFulfilledC) 3
+  .catch(handleRejectedAny);
+with each then return variable to next then for input 
+
+Promise.resolve();
+returns a new promise, that is resolved with the given value
+if the value (has .then) returned promise will follow it
+otherwise will be fulfilled with the value
+
+Promise.reject();
+
+
+Promise.all()
+Fulfills when all of the promises fulfill; rejects when any of the promises rejects.
+
+Promise.allSettled()
+Fulfills when all promises settle.
+
+Promise.any()
+Fulfills when any of the promises fulfills; rejects when all of the promises reject.
+
+Promise.race()
+Settles when any of the promises settles. In other words, fulfills when any of the promises fulfills; rejects when any of the promises rejects.
+
+Promise()
+Creates a new Promise object. The constructor is primarily used to wrap functions that do not already support promises.
+
+
+code
+https://www.youtube.com/watch?v=vQ3MoXnKfuQ
+https://www.youtube.com/watch?v=yswb4SkDoj0
+
+
+var isMomHappy = false;
+
+// Promise
+var willIGetNewPhone = new Promise(
+    function (resolve, reject) {
+        if (isMomHappy) {
+            var phone = {
+                brand: 'Samsung',
+                color: 'black'
+            };
+            resolve(phone); // fulfilled
+        } else {
+            var reason = new Error('mom is not happy');
+            reject(reason); // reject
+        }
+
+    }
+);
+
+// call our promise
+var askMom = function () {
+    willIGetNewPhone
+        .then(function (fulfilled) {
+            // yay, you got a new phone
+            console.log(fulfilled);
+             // output: { brand: 'Samsung', color: 'black' }
+        })
+        .catch(function (error) {
+            // oops, mom didn't buy it
+            console.log(error.message);
+             // output: 'mom is not happy'
+        });
+};
 
 
 
 
+var showOff = function (phone) {
+    var message = 'Hey friend, I have a new ' +
+                phone.color + ' ' + phone.brand + ' phone';
 
+    return Promise.resolve(message);
+};
+
+
+// call our promise
+var askMom = function () {
+      console.log('before asking Mom'); // log before (1)
+
+    willIGetNewPhone
+    .then(showOff) // chain it here
+    .then(function (fulfilled) {
+            console.log(fulfilled);
+         // output: 'Hey friend, I have a new black Samsung phone.' (3)
+        })
+        .catch(function (error) {
+            // oops, mom don't buy it
+            console.log(error.message);
+         // output: 'mom is not happy'
+        });
+            console.log('after asking mom'); // log after (2)
+
+};
+
+askMom();
+
+
+() asynchonous
+the code will run without blocking or waiting for the result. 
+Anything that needs to wait for a promise to proceed is put in .then.
+
+remote call to get the result, you need to wait, and you can’t get the result immediately.
+You don’t want your entire process to be blocked while waiting for the result.
 
 */
