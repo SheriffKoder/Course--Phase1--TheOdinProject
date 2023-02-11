@@ -3246,8 +3246,16 @@ fetch('https://api.giphy.com/v1/gifs/translate?api_key=xk53LAHxmWHiXw63IIkWi8pQX
   console.log(response.data.images.original.url); //will output the image's url
 });
 
+//EX/
+/*
+Expand on our little project here by adding a button that fetches a new image without refreshing the page.
+Add a search box so users can search for specific gifs. 
+You should also investigate adding a .catch() to the end of the promise chain in case Giphy doesn’t find 
+any gifs with the searched keyword. Add a default image, or an error 
+message if the search fails.
+*/
 
-
+/*
 //2nd parameter to fetch
 // Example POST method implementation:
 async function postData(url = '', data = {}) {
@@ -3289,5 +3297,166 @@ on both same-origin and cross-origin calls, add credentials: 'include'
 
 
 
+more on credentials property
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+
+//////Uploading JSON data
+const data = { username: 'example' };
+
+fetch('https://example.com/profile', {
+  method: 'POST', // or 'PUT'
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+})
+
+
+//////Uploading a file
+const formData = new FormData();
+const fileField = document.querySelector('input[type="file"]');
+
+formData.append('username', 'abc123');
+formData.append('avatar', fileField.files[0]); //formData.append(`photos_${i}`, photo);
+
+fetch('https://example.com/profile/avatar', {
+  method: 'PUT',
+  body: formData
+})
+
+
+
+//////
+Request() accepts exactly the same parameters as the fetch() method. 
+You can even pass in an existing request object to create a copy of it:
+
+const myHeaders = new Headers();
+
+const myRequest = new Request('flowers.jpg', {
+  method: 'GET',
+  headers: myHeaders,
+  mode: 'cors',
+  cache: 'default',
+});
+
+fetch(myRequest)
+
+
+//////
+The Headers interface allows you to create your own headers object 
+via the Headers() constructor
+
+
+//////
+if (window.fetch) {
+  // run my fetch request here
+} else {
+  // do something with XMLHttpRequest?
+}
+
+
 
 */
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+check this list of useful public api's:
+https://github.com/n0shake/Public-APIs#captcha
+https://github.com/public-apis/public-apis
+
+
+async and await : two keywords that can help
+make async read more like sync
+
+async function getPersonsInfo(name) { //async functions allows using await on promises
+  const people = await server.getPeople();   //await is like .then? and makes code pause until gets the value
+  const person = people.find(person => { return person.name === name });
+  return person;
+}.catch(err => {
+  console.log(err); //handle error using catch normally
+});
+
+automatically/always returns a promise
+Other values are wrapped in a resolved promise automatically.
+returning in an async function is the same as resolving a promise.
+throwing an error will reject the promise.
+
+async function f() {
+  return 1;
+}
+
+f().then(alert); // 1
+
+//you can name any function async
+server.getPeople().then(async (people) => {
+  people.forEach(person => {
+    // do something asynchronously for each person
+  });
+});
+
+await is pretty simple: it tells JavaScript to wait 
+for an asynchronous action to finish before continuing the function. 
+It’s like a ‘pause until done’ keyword.
+used in place of then
+
+
+//another way of handling errors
+async function getPersonsInfo(name) {
+  try {
+    const people = await server.getPeople();
+    const person = people.find(person => { return person.name === name });
+    return person;
+  } catch (error) {
+    // Handle the error any way you'd like
+  }
+}
+
+
+//await does not work on the global scope
+
+
+//the previous API example
+  const img = document.querySelector('img');
+
+  async function getCats() {
+    const response = await fetch('https://api.giphy.com/v1/gifs/translate?api_key=YOUR_KEY_HERE&s=cats', {mode: 'cors'});
+    const catData = await response.json();
+    img.src = catData.data.images.original.url;
+  }
+  getCats();
+
+
+
+
+*/
+
+
+async function f() {
+
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("done!"), 5000)
+  });
+
+  let result = await promise; // wait until the promise resolves (*)
+
+  alert(result); // "done!"
+}
+
+f();
+
+async function f2() {
+
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("done2!"), 1000)
+  });
+
+  let result = await promise; // wait until the promise resolves (*)
+
+  alert(result); // "done2!"
+}
+
+f2();
+
