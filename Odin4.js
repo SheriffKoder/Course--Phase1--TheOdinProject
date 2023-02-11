@@ -63,6 +63,18 @@ development
 
 use CTRL+C to exit from watch modes
 
+
+////OOP
+    Single Responsibility
+    Coupling
+    ES6
+        Babel: installation/usage
+        JSON:  write, to and from convert
+    Asynchronous code: 
+        CallBacks (summarized)
+        Promise with examples (summarized)
+
+
 */
 
 
@@ -1888,6 +1900,8 @@ https://webpack.js.org/configuration/resolve/#resolvealias
 
 # npm uninstall css-loader csv-loader json5 style-loader toml xml-loader yamljs
 
+trying to convert PDF files into TXT files, start by
+# npm search pdf
 
 
 //////////////////////////////////////
@@ -2453,7 +2467,7 @@ New editions (starting with 2015) will be named ES followed by the year of relea
 Each release brings updates and new features to the language.
 An update to ECMAscript can be expected annually.
 
-install babel to allow support/use of new ES updates 
+install BABEL to allow support/use of new ES updates 
 on older client's browsers
 
 # npm install -D babel-loader @babel/core @babel/preset-env webpack
@@ -2765,9 +2779,6 @@ keeping code simple, not nested and split up into small modules.
 synchronous code - it sequentially runs top to bottom.
 
 
-trying to convert PDF files into TXT files, start by
-# npm search pdf
-
 keep using the composition syntax to avoid callback triangles
 
 
@@ -2940,7 +2951,7 @@ Promise
 once my future value was ready, I exchanged my value-promise 
 for the value itself.
 
-add().then(function(returnedPromiseAllDotThenValue){   //where add returns Primise all.this which is a promise value
+add().then(function(returnedPromiseAllDotThenValue){   //where add returns Proimise all.this which is a promise value
     console.log(returnedPromiseAllDotThenValue)        //we can use on it .then also ?!
 });
 
@@ -3127,5 +3138,25 @@ Anything that needs to wait for a promise to proceed is put in .then.
 
 remote call to get the result, you need to wait, and you can’t get the result immediately.
 You don’t want your entire process to be blocked while waiting for the result.
+
+*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+
+
+
+
+
+
+
 
 */
