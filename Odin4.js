@@ -3151,10 +3151,141 @@ You don’t want your entire process to be blocked while waiting for the result.
 /*////////////////////////////////////////////////////////////////////*/
 /*
 
+fetching data from a server - displaying it creatively on their site
+server containing: blog posts, user data, high scores for a game etc.
+the methods of accessing and then using that data are essentially the same
+
+servers serve data for external use (referred to as API's)
+Application programming interfaces
+
+a waiter running back and forth between applications and databases
+and devices to deliver data and create connectivity
+ 
+requesting data from an API
+accessed through URL's
+
+specifics for any API are usually documented on the service's website
+in most cases you will have to create an account and request an API key
+
+like the:
+https://openweathermap.org/current
+https://openweathermap.org/price
+
+secure your api keys
+"my key had been spotted by a bot that continually searches GitHub for API keys.
+Don’t trust .gitignores and gems like Firago for keeping your data safe, 
+these may work as a first layer of protection – 
+but should be backed up by another level of security.
+store it in a private repo if not on your local machine. And lastly, if your API keys get out on the web"
+
+
+" Amazon was offering a 1 year free trial of AWS, 
+with a limited cap on uploads. I figured I’d give it a shot, 
+hook into S3 and host my images there.
+
+I knew my API key needed to be safe, so I installed the Figaro"
+
+
+wait for the key,
+
+
+//////Fetching Data
+get data from the API into our code
+
+XMLHttpRequest //years ago
+libraries like axios and superagent 
+
+>>browser fetch
+fetch(url).then().catch()
+
+
+
+For security reasons, by default, browsers restrict HTTP requests 
+to outside sources (which is exactly what we’re trying to do here).
+https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+https://javascript.info/fetch-crossorigin
+
+fixed by adding mode:cors parameter to the fetch function
+
+fetch('url.url.com/api', {
+  mode: 'cors'
+});
+
+fetch is an async request
 
 
 
 
+fetch can be used by other technologies like "Service workers"
+single logical place to define other http related concepts
+such as CORS and extensions to http
+
+and differs from jQuery.ajax()
+wont reject on HTTP 404 or 500, only on network failure
+unless called with credentials option set to include
+  wont send/set cookies sent back in cross-origin responses
+
+
+can accept a second parameter init object
+that allows you to control a number of different settings
+
+
+
+
+*/
+
+
+
+const newImage = document.querySelector('.imageAPI');
+
+fetch('https://api.giphy.com/v1/gifs/translate?api_key=xk53LAHxmWHiXw63IIkWi8pQXy0Vns2E&s=cats', { mode: 'cors' })
+.then(function(response) {
+  return response.json();   //will output a promise
+})
+.then(function(response) {
+  console.log(response.data.images.original.url); //will output the image's url
+});
+
+
+
+//2nd parameter to fetch
+// Example POST method implementation:
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+postData('https://example.com/answer', { answer: 42 })
+  .then((data) => {
+    console.log(data); // JSON data parsed by `data.json()` call
+  });
+
+/*
+
+
+Note that mode: "no-cors" only allows a limited set of headers in the request:
+Accept
+Accept-Language
+Content-Language
+Content-Type with a value of application/x-www-form-urlencoded, 
+  multipart/form-data, or text/plain
+
+
+o cause browsers to send a request with credentials included 
+on both same-origin and cross-origin calls, add credentials: 'include'
 
 
 
