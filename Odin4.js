@@ -3372,7 +3372,7 @@ async and await : two keywords that can help
 make async read more like sync
 
 async function getPersonsInfo(name) { //async functions allows using await on promises
-  const people = await server.getPeople();   //await is like .then? and makes code pause until gets the value
+  const people = await server.getPeople();   //await is like .then? and makes code skip for now/pause this block until gets the value
   const person = people.find(person => { return person.name === name });
   return person;
 }.catch(err => {
@@ -3383,6 +3383,11 @@ automatically/always returns a promise
 Other values are wrapped in a resolved promise automatically.
 returning in an async function is the same as resolving a promise.
 throwing an error will reject the promise.
+
+We can catch that error using try..catch, the same way as a regular throw:
+throw?
+We can catch such errors using a global unhandledrejection event handler
+
 
 async function f() {
   return 1;
@@ -3399,7 +3404,7 @@ server.getPeople().then(async (people) => {
 
 await is pretty simple: it tells JavaScript to wait 
 for an asynchronous action to finish before continuing the function. 
-It’s like a ‘pause until done’ keyword.
+It’s like a ‘pause here until done and cont the next block’ keyword.
 used in place of then
 
 
@@ -3430,33 +3435,156 @@ async function getPersonsInfo(name) {
 
 
 
+In modern browsers, await on top level works just fine
 
-*/
 
+//await accepts a thened promise return
+//but what is this then/resolve class ?
+If await gets a non-promise object with .then, it calls that method providing the built-in functions resolve and reject as arguments (just as it does for a regular Promise executor). Then await waits until one of them is called (in the example above it happens in the line (*)) and then proceeds with the result.
+
+class Thenable {
+  constructor(num) {
+    this.num = num;
+  }
+  then(resolve, reject) {
+    alert(resolve);
+    // resolve with this.num*2 after 1000ms
+    setTimeout(() => resolve(this.num * 2), 1000); // (*)
+  }
+}
 
 async function f() {
-
-  let promise = new Promise((resolve, reject) => {
-    setTimeout(() => resolve("done!"), 5000)
-  });
-
-  let result = await promise; // wait until the promise resolves (*)
-
-  alert(result); // "done!"
+  // waits for 1 second, then result becomes 2
+  let result = await new Thenable(1);
+  alert(result);
 }
 
 f();
 
-async function f2() {
+///////////////////
+Async class methods
 
-  let promise = new Promise((resolve, reject) => {
-    setTimeout(() => resolve("done2!"), 1000)
-  });
-
-  let result = await promise; // wait until the promise resolves (*)
-
-  alert(result); // "done2!"
+class Waiter {
+  async wait() {
+    return await Promise.resolve(1);
+  }
 }
 
-f2();
+new Waiter()
+  .wait()
+  .then(alert); // 1 (this is the same as (result => alert(result)))
+
+
+
+// wait for the array of results
+let results = await Promise.all([
+  fetch(url1),
+  fetch(url2),
+  ...
+]);
+
+
+
+////
+throw, convert promise to async promise
+
+function loadJson(url) {
+  return fetch(url)
+    .then(response => {
+      if (response.status == 200) {
+        return response.json();
+      } else {
+        throw new Error(response.status);
+      }
+    });
+}
+
+loadJson('https://javascript.info/no-such-user.json')
+  .catch(alert); // Error: 404
+
+async function loadJson(url) {
+  let response = await fetch(url);
+
+  if (response.status == 200) {
+    let json = await response.json;
+    return json;
+  }
+  throw new Error(response.status);
+}
+
+
+
+
+async function wait() {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  return 10;
+}
+
+function f() {
+  // shows 10 after 1 second
+  wait().then(result => alert(result));
+}
+
+f();
+
+
+
+function addPromise(x){
+  return new Promise(resolve => {
+    // Code goes here...   
+    // resolve()  //add inputs here to be returned on resolve
+                  //which can be wrapped in a settimeout argument
+  });
+}
+addPromise(10).then((sum) => {
+  console.log(sum);
+});
+
+
+async function addAsync(x) {
+  const a = await doubleAfter2Seconds(10);
+  const b = await doubleAfter2Seconds(20);
+
+  return a+b;
+
+}
+
+
+
+let docs = [{}, {}, {}];
+let promises = docs.map((doc) => db.post(doc));
+
+//
+let results = [];
+for (let promise of promises) {
+  results.push(await promise);
+}
+
+//
+let results = await Promise.all(promises);
+
+console.log(results);
+
+
+
+Async functions are an empowering new concept in "ES7" ?
+
+async
+const [wes,scott] = await Promise.all([wesPromise,scottPromise]);
+
+
+cont fruits = ["peach" "apple"];
+const smoothie = fruits.map(v => getFruit(v));
+
+const fruitLoop = async() => {
+  for await (const emoji of pineapple){
+    log(emoji);
+  }
+}
+
+
+*/
+
+
 
