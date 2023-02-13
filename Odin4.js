@@ -3149,7 +3149,8 @@ You don’t want your entire process to be blocked while waiting for the result.
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
-/*
+/*console.log("///////////Async promise");
+
 
 fetching data from a server - displaying it creatively on their site
 server containing: blog posts, user data, high scores for a game etc.
@@ -3586,5 +3587,312 @@ const fruitLoop = async() => {
 
 */
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+console.log("///////////CS intro");
+/*
+
+Algorithm and Pseudo code
+
+a method of solving problems, both big and small
 
 
+set of instructions
+like counting from the beginning from 0 to +
+
+
+
+Pseudo code: resembling programming_language
+let n = 0
+for each person in room
+n = n + 1
+
+let n = 0
+for each pair in room // for each 3,4,5 etc
+n = n+2
+if 1 person remains
+set n = n+1
+
+use algorithm to build and update logic design ?
+
+using this algorithm 
+if used on 10 pages or 1000 pages
+it would take the same amount of steps in the algorithm
+
+
+"google in the early days used an algorithm called PageRank
+referencing what other pages on internet linking FROM this page"
+
+
+on typical websites, algorithms are not necessary
+hash tables and other caching methods helpful
+
+
+
+when you have a lot of data that you have to 
+process/perform complicated transformations on that data
+process to get you from one state to another
+
+support a lot of data searching, browsing, updating, and deleting.
+The only way to address these issues is to use 
+advanced data structures and algorithms.
+
+check JV bookmark Algorithms
+
+web applications are nothing but CRUD
+
+In my opinion, whether you know various weird algorithms or not, 
+
+know some tool which finds real existing bottlenecks in your web application
+you need to learn optimizing web applications for performance 
+as a separate skill.
+
+
+highly optimized databases (such as MongoDB)
+
+reuse of highly optimized frameworks fit for the purpose of data processing, such as Hadoop.
+
+do not re-invent the wheel
+
+use computer engineering rather than computer science to build
+methods of reuse rather than building/algorithms
+
+understanding of certain language-specific algorithms 
+can be enough to land you a good job later on.
+Problem-solving skills and an analytical mindset are required.
+Consider data structures and algorithms to be another tool in your toolbox.
+
+Move on to data structures and algorithms once you can 
+comfortably code in JavaScript or have determined which aspects 
+of software engineering are most important to you.
+
+
+
+
+pseudo code
+talking through your algorithm
+each algorithm can have its psdo code
+english like way to state an algorithm
+not regarding the tool that will solve the problem
+not syntax
+
+a data structure is a collection of data values, 
+the relationships among them, and the functions or 
+operations that can be applied to the data
+
+ 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+Recursive Methods
+
+function calls itself
+continue to feed their solutions back into the original function
+until some sort of answer is achieved
+
+Algorithm design
+
+breaking down a problem into two or more sub problems
+of the same or related type
+the solution to the sub problems are then combined
+to give a solution to the original problem
+
+task can be naturally split into several tasks
+of the same kind but simpler, 
+
+
+
+function pow(x, n) {
+  return (n == 1) ? x : (x * pow(x, n - 1));
+}
+
+2^3
+
+ 2x   2x   2x
+(3)  (2)  (1)
+
+recursion depth, in this example is n (3)
+recursion depth is limited by js engine, around 10000
+automatic optimizations help alleviate this "tail calls optimizations"
+
+recursive way of thinking gives simpler code, easier to maintain
+
+the information about the process of execution of a running function
+is stored in its execution context
+execution context is an internal data structure that contains details
+about the execution of a function
+
+this means that, every recursion, the fn is stored, 
+then goes to the internal call until reaches the end
+when reaches the end the previous stored states are then collected back
+and this consumes memory of n contexts
+
+recursion is simpler and less code
+but for loop algorithm is more memory-saving
+
+
+//ex//
+let company = { // the same object, compressed for brevity
+  sales: [{name: 'John', salary: 1000}, {name: 'Alice', salary: 1600 }],
+  development: {
+    sites: [{name: 'Peter', salary: 2000}, {name: 'Alex', salary: 1800 }],
+    internals: [{name: 'Jack', salary: 1300}]
+  }
+};
+
+// The function to do the job
+function sumSalaries(department) {
+  if (Array.isArray(department)) { // case (1)
+    return department.reduce((prev, current) => prev + current.salary, 0); // sum the array
+  } else { // case (2)
+    let sum = 0;
+    for (let subdep of Object.values(department)) {
+      sum += sumSalaries(subdep); // recursively call for subdepartments, sum the results
+    }
+    return sum;
+  }
+}
+
+alert(sumSalaries(company)); // 7700
+
+////
+
+this example takes company object
+and pass over each object, if found an array will reduce and return
+then pass into the next object, if found an object will get into it
+and then finds a nested array then return
+[returns on each array instance, returns to iterate to next for of]
+Loop for(val of Object.values(obj)) to iterate over object values: Object.values returns an array of them.
+
+
+/////////////////////////////
+Linked list
+the delete/insert element in an array operations are time expensive
+to make room for a new obj
+array.shift(obj); 
+
+but push/pop as they work at end of array do not require mass-renumbering
+
+a linked list is an object
+with value + next property referencing the next linked list element or null at end
+
+let list = {
+  value: 1,
+  next: {
+    value: 2,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: null
+      }
+    }
+  }
+};
+
+or 
+let list = { value: 1 };
+list.next = { value: 2 };
+list.next.next = { value: 3 };
+list.next.next.next = { value: 4 };
+list.next.next.next.tail = null;
+
+//to delete a part of it
+let secondList = list.next.next;
+list.next.next = null;
+
+//to join it again
+list.next.next = secondList;
+
+//update the head of the list
+// prepend the new value to the list
+list = { value: "new item", next: list };
+
+//remove a value from the middle
+list.next = list.next.next;
+
+
+it is less accessible than arrays but has less numbering
+
+
+//recursive function to output a list
+function printList(list) {
+  alert(list.value); // output the current item
+  if (list.next) {
+    printList(list.next); // do the same for the rest of the list
+  }
+}
+printList(list);
+
+// the loop does not spend resources for nested function calls. more effective
+function printList(list) {
+
+  while(list) {
+    alert(list.value);
+    list = list.next;
+  }
+
+}
+
+
+function RecursiveFn (n) {
+  if ( n <= 0 ) {
+    return;
+  } 
+  //otherwise
+  RecursiveFn(n-1);
+}
+
+
+
+function SumRangeRecursive (n) {
+  if (n <= 0) {
+    return total
+  }
+  return SumRangeRecursive(n-1, total + n);
+}
+
+
+
+//each iteration returns 
+itration(1)
+  itration(2)
+    return2 //not matched
+    itration(3)
+    return3
+return1
+
+
+//function for outputting all children in an object family tree
+function printChildrenFamilyTree(t) {
+  if (t.children.length ===0) {
+    return
+  }
+  t.children.forEach(child =>{
+    console.log(child.name);
+    printChildrenFamilyTree(child)
+  })
+}
+
+
+//sufficient memory allocated for the recursion stack
+//stack overflow
+// the risk of stack overflow can be reduced by minimizing 
+//the parameters and internal variables of the recursive procedure 
+//or by using an explicit stack structure.
+
+
+
+
+
+*/
