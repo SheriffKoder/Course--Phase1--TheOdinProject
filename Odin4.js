@@ -3949,8 +3949,80 @@ Breadth-first search
 Writing sorting algorithms
 Binary Search Algorithm
 
-deeply understanding the process before writing code
 
 
+algorithm is like a recipes
+
+when solving a problem ask yourself, can we do better ?
+
+
+Binary Search
+in an array of unsorted numbers
+array first sorted
+reducing the search area by half each time trying to find a target number
+steps 
+calculate the middle point of the current sub array
+if the target is at the middle stop,
+if target less than, change end point to be left to middle
+if target more than, change start point to be right to middle
+new middle point
+
+target, start/end/middle (changed)
+try with a number not exist in the array
+
+//divide any problem in longN number of times
+
+
+///////////////
+Data structures used to store and organize data
+so it can be used efficiently
+
+stacks and queues do not have indexes, 
+cant be called
+sorted by insertion order
+
+stacks accessing add/remove only from the top : add/pop
+last element in is first out
+
+queues have front and back
+can add(inQueing) only from back but remove(deQueue) only from front
+first person get served
+
+
+
+///////////////
+Binary Tree Traversal (falling tree)
+
+logical start, logical end
+process of visiting each node in the tree exactly once in some order
+
+visit -> reading/processing data in a node
+
+Methods
+breath-first
+depth-first
+
+breath-first
+visit all nodes at same depth or level
+before visiting the node on next level
+divide in levels and go level by level from above from left to right
+
+depth-first
+visit every branch independently
+like  root point/node, the right subtree, left subtree (preorder traversal)
+inorder traversal, post order traversal (location of root then left right)
+any order but same strategy
+
+
+///////////////
+Level Order Traversal of a binary tree (falling tree)
+
+pass on each level from up to down from left to right 
+
+
+
+
+
+?? what databases you have covered ? what to study
 
 */
