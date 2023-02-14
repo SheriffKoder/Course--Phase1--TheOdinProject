@@ -2200,6 +2200,8 @@ function isGameOver() {
 and the isGameOver function should not not work on DOM anyway, 
 that is another function in the game loop
 
+decoupled code is that changing the implementation 
+of any of the sub-modules will not require us to rewrite our whole program. 
 
 
 //////Loosely couples objects
@@ -3892,6 +3894,62 @@ function printChildrenFamilyTree(t) {
 //or by using an explicit stack structure.
 
 
+function factorial(n)
+    { return (n == 0) ? 1 : n * factorial(n-1); }
+
+//fibonacci
+int fib(int n)
+{ return (n == 0 || n == 1) ? 1 : fib(n-2)+fib(n-1); }
+
+
+
+
+Merge Sort
+sort smaller arrays and then combine/merge them together in sorted order
+
+
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+data structure store data in a way that meets the needs of application
+
+storing in a one giant array, time consuming
+when have number and depth of items
+
+difference in DS, how long it takes to first populate the structure
+/add or find elements, how large the structure is in memory
+
+Algorithms are really just ways of solving problems systematically. 
+
+
+
+Data structures serve as the basis for abstract data types (ADT). 
+The ADT defines the logical form of the data type.
+The data structure implements the physical form of the data type.
+
+Data structures can be used to organize the storage and 
+retrieval of information stored in both main memory and secondary memory.
+
+requires writing a set of procedures that create and manipulate 
+instances of that structure.
+
+
+Types of Datastructures
+Array
+Linked List
+Record
+Hash tables, graphs, binary trees
+Queue
+
+
+algorithms like:
+Depth-first search
+Breadth-first search
+Writing sorting algorithms
+Binary Search Algorithm
+
+deeply understanding the process before writing code
 
 
 
