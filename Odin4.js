@@ -4021,8 +4021,128 @@ pass on each level from up to down from left to right
 
 
 
+///////////////
+select from a vast number of possible decisions
 
+binary search, how to use it effectively to search
+an item in a javscript array, 
+
+to match start to destination in a game, family tree, city map
+There may be multiple paths for the character to follow, 
+and the program needs to choose the best of those paths.
+
+
+//ex//
+What algorithms do you think are used by your favorite games and apps?
+
+
+stack
+last in first out
+have a pointer variable to locate last
+push, look for pointer, push item there, move item up
+pop, move pointer down, remove item
+errors are when pushing when full or pulling when empty
+
+modulo function for queue
+the remainder of a division X % Y
+(Pointer +1) % array length 
+keeps the pointer circulating in the array
+
+
+///////////////
+choosing between Depth Breadth first searches
+
+Breadth: solution not far from the tree root, or deep tree, 
+Depth: wide tree (bec. BFS will take much memory), deep tree with frequent solutions 
+If the search tree is very deep you will need to restrict the search depth
+for depth first search (DFS), anyway (for example with iterative deepening).
+
+
+Depth: Each choice leads to further choices like games
+Breadth: find neighbor nodes like torrent peers, GPS nearby, withing specified distance
 
 ?? what databases you have covered ? what to study
+
+*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+console.log("///////////Testing Basics");
+/*
+Test Driven Development TDD
+
+writing automated tests before writing the code that is being tested
+
+many test-running systems available in JS
+Mocha, Jasmine, Tape and Jest
+each have own sets of special feautes but similar syntax
+
+writing tests is less about the syntax and more about the TDD philosophy
+why we write tests and what we test rathen than how
+
+Write Test first Development before enough production code to fulfull that test
+
+the goal of TDD is to write clean code that works
+
+> try making it work by it fail with a subset of the code
+> then contiunue building the code
+> then test the code
+> then make necessary changes to code if it fails and repeat
+
+
+benefits
+keeps out of the debugger, reduce bugs, reduces cost of change,
+improves design, encourages refatoring, forces to slow down and think
+,speed up development by eliminating waste, reduces fear
+improves communication,  higher quality, razor focus
+but it also slow down development, tedious to manage and maintain
+
+
+code into small isolated units
+(when the conceptial idea can be separated not just spreading the problem)
+test for validation
+
+to keep the building complexity from overwhelming us
+
+
+
+//code ex
+const someOrder = {
+  items: [
+    { name: "Dragon food",          price: 8,   quantity: 8 },
+    { name: "Dragon cage (small)",  price: 800, quantity: 2 },
+    { name: "shipping",             price: 40,  shipping: true}
+  ]
+}
+
+const orderTotal = order => order.items
+  .reduce((prev, cur) => prev + cur.price * cur.quantity, 0)
+
+result = orderTotal(someOrder)
+
+
+//code ex
+const shippingItem = order.items.find(x => !!x.shipping)
+const shipping = totalItems > 1000 ? 0 : shippingItem.price
+
+
+
+
+
+
+
+
+
 
 */
