@@ -4086,17 +4086,17 @@ writing automated tests before writing the code that is being tested
 
 many test-running systems available in JS
 Mocha, Jasmine, Tape and Jest
-each have own sets of special feautes but similar syntax
+each have own sets of special features but similar syntax
 
 writing tests is less about the syntax and more about the TDD philosophy
-why we write tests and what we test rathen than how
+why we write tests and what we test rather than how
 
-Write Test first Development before enough production code to fulfull that test
+Write Test first Development before enough production code to fulfill that test
 
 the goal of TDD is to write clean code that works
 
 > try making it work by it fail with a subset of the code
-> then contiunue building the code
+> then continue building the code
 > then test the code
 > then make necessary changes to code if it fails and repeat
 
@@ -4137,12 +4137,58 @@ const shippingItem = order.items.find(x => !!x.shipping)
 const shipping = totalItems > 1000 ? 0 : shippingItem.price
 
 
+approaches to write test driven development
+
+obvious implementation
+fake it till you make it
+triangulation
 
 
 
+//Testing
+
+function orderTotal(order) {
+  return order.items.reduce((prev, cur) => cur.price + (cur.quantity || 1 ) + prev, 0);
+}
+
+if (orderTotal({
+  items: [
+    { name: "Dragon food",          price: 2,   quantity: 3 }
+  ]
+}) !==6) {
+  throw new Error("check fail: quantity");
+}
+
+//////////////////////////////////////
+
+Jest testing frameworks
+very established
+ready to use
+includes assertion / mocking libraries (batteries included)
 
 
+# npm init
+enter enter
 
+install jest
+# npm i --save-dev jest
+
+
+>>create order-total.js
+>>create order-total-test.js
+
+>>main file put the function
+module.export = functionName;
+
+>>test file
+const Name = require('./main-filename);
+put test cases inside it.expect()
+
+
+>>change package.json>script>test to "jest"
+and add "watch": "jest --watch *.js" //for each time save test runs
+
+#npm test
 
 
 */
