@@ -4190,5 +4190,8 @@ and add "watch": "jest --watch *.js" //for each time save test runs
 
 #npm test
 
+can use with babel or webpack by following the getting-started
+page on jestjs.io
+
 
 */
