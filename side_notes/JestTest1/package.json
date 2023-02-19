@@ -2,9 +2,9 @@
   "name": "jesttest1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "code-and-tests.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
