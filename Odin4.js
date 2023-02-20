@@ -4388,6 +4388,88 @@ Class Inheritance vs composition
 Mocking is required when our decomposition strategy has failed.
 
 
+Loose coupling:
+Module imports without side-effects
+Message passing/pubsub
+Immutable parameters
+
+Isolate side-effects from the rest of your program logic. 
+That means don’t mix logic with I/O (including network I/O, 
+rendering UI, logging, etc…).
+
+Using pure functions takes a little practice
+
+Jest
+beforeAll(() => console.log('1 - beforeAll'));
+afterAll(() => console.log('1 - afterAll'));
+beforeEach(() => console.log('1 - beforeEach'));
+afterEach(() => console.log('1 - afterEach'));
+
+
+.mock property
+[users.js]
+import axios from 'axios';
+class Users {
+  static all() {
+    return axios.get('/users.json').then(resp => resp.data);
+  }
+}
+export default Users;
+
+users.test.js
+import axios from 'axios';
+import Users from './users';
+jest.mock('axios');
+test('should fetch users', () => {
+  const users = [{name: 'Bob'}];
+  const resp = {data: users};
+  axios.get.mockResolvedValue(resp);
+
+  // or you could use the following depending on your use case:
+  // axios.get.mockImplementation(() => Promise.resolve(resp))
+
+  return Users.all().then(data => expect(data).toEqual(users));
+});
+
+
+
+////exporting/importing
+export const foo = 'foo';
+export const bar = () => 'bar';
+export default () => 'baz';
+import defaultExport, {bar, foo} from '../foo-bar-baz';
+
+
+//jest
+provide a name for mock functions
+will be displayed instead of jest.fn()
+mockName outputs an identifier in case of an error
+
+const myMockFn = jest
+  .fn()
+  .mockReturnValue('default')
+  .mockImplementation(scalar => 42 + scalar)
+  .mockName('add42');
+
+
+//jest
+mock functions allow test links between code
+by erasing the actual function implementation
+capturing calls to the function
+and the parameters passed in those calls
+capturing instances of constr. functions
+capturing instances of constructor functions
+when instantiated with new
+and allowing test-time config of return values
+
+either by mock functions or manual mock
+
+
+messages
+Query: return something / change nothing
+command: return nothing / change something
+
+
 
 
 
