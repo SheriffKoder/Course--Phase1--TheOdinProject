@@ -4194,4 +4194,205 @@ can use with babel or webpack by following the getting-started
 page on jestjs.io
 
 
+////////////
+
+jest uses matchers to let testing in different ways
+
+.toBe //tests equality
+.not.toBe()//
+
+.toEqual //checks every field for the value of an object
+  expect(ObjName).toEqual({one: 1, two: 2});
+
+//trushiness
+test('null', () => {
+  const n = null;
+  expect(n).toBeNull();
+  expect(n).toBeDefined();
+  expect(n).not.toBeUndefined();
+  expect(n).not.toBeTruthy(); //on if statements
+  expect(n).toBeFalsy(); //on if statements
+});
+
+
+//numbers
+test('two plus two', () => {
+  const value = 2 + 2;
+  expect(value).toBeGreaterThan(3);
+  expect(value).toBeGreaterThanOrEqual(3.5);
+  expect(value).toBeLessThan(5);
+  expect(value).toBeLessThanOrEqual(4.5);
+
+  // toBe and toEqual are equivalent for numbers
+  expect(value).toBe(4);
+  expect(value).toEqual(4);
+});
+
+//for floating numbers
+  expect(value).toBeCloseTo(0.3); // to avoid rounding errors
+
+
+
+//Strings
+test('there is no I in team', () => {
+  expect('team').not.toMatch(/I/);
+});
+
+test('but there is a "stop" in Christoph', () => {
+  expect('Christoph').toMatch(/stop/);
+});
+
+
+//Arrays
+  expect(shoppingList).toContain('milk'); //shoppingList Object
+
+
+//Errors
+The function that throws an exception needs to be invoked 
+within a wrapping function otherwise the toThrow assertion will fail.
+
+
+function compileAndroidCode() {
+  throw new Error('you are using the wrong JDK!');
+}
+test('compiling android goes as expected', () => {
+  expect(() => compileAndroidCode()).toThrow();
+  expect(() => compileAndroidCode()).toThrow(Error);
+
+  // You can also use a string that must be contained in the error message or a regexp
+  expect(() => compileAndroidCode()).toThrow('you are using the wrong JDK');
+  expect(() => compileAndroidCode()).toThrow(/JDK/);
+
+  // Or you can match an exact error message using a regexp like below
+  expect(() => compileAndroidCode()).toThrow(/^you are using the wrong JDK$/); // Test fails
+  expect(() => compileAndroidCode()).toThrow(/^you are using the wrong JDK!$/); // Test pass
+});
+
+
+//////////////////////////////////////
+By default, the current version of Jest will not recognize 
+ES6 import statements. In order for you to be able 
+to use ES6 modules for this project you may do the following:
+
+Install the @babel/preset-env package
+npm i -D @babel/preset-env
+
+Create a .babelrc file in the project’s root with the following lines of code:
+{ "presets": ["@babel/preset-env"] }
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+Pure functions in testing
+
+If you have a test that depends on several functions, 
+it can be hard to tell exactly what is going wrong.
+Tightly coupled code is hard to test
+
+Test driven development encourages better program architecture 
+because it encourages you to write Pure Functions.
+
+
+Pure functions
+the output only depends on passed input arguments
+does not use (observable) requests from network, i/o, date, 
+math.random() , console/screen print, data etc.
+will always return the same result with the same input
+
+observable:
+any interaction with the outside world from within the function
+external variable change
+calling another method or outerscope variable
+
+
+benefit of using pure functions
+they are "immediately testable"
+same results on same arguments
+
+
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+
+
+
+tightly couples code problem
+1) remove dependencies
+for example instead of having an if statement that alerts a string
+put the if statement in another function that returns the string
+to this function based on inputs
+
+
+2) mocking: fake versions of a function that always behaves 
+exactly how you want, 
+
+
+vatapi.com > country code lookup
+JSON file, rates object, 
+
+create sandbox.js
+fetch sendpoint
+
+
+when writing tests first,
+allows to know what tests are needed to be tested first
+not figure out later what tests need to be written
+one small problem at a time
+provides constant sense of progression and safety
+
+
+more tight coupling = more mocking
+
+why maintain more code than you need to
+the more pure functions used, the easier to write test without mocks
+
+
+test cases should be written
+. describe the feature that is being tested in plain english
+. provide the expected outcome of the test
+. compare that to the actual value
+
+simple tests assertions provide
+. better readability
+. less code
+. less maintenance
+
+Some test frameworks (Mocha, Jest, etc…)
+they’ll do your mocking for you automatically.
+
+two kinds of coverage:
+Code coverage: how much of the code is exercised, and
+Case coverage: how many of the use-cases are covered by the test suites
+
+the tighter the coupling, the harder it is to maintain or extend 
+the application.
+
+
+types of coupling
+Subclass coupling
+Control dependencies
+state dependencies
+state shape dependencies
+event/message coupling
+
+tight coupling causes
+Mutation vs immutability
+Side-Effects vs purity/isolated side-effects
+Responsibility overload vs Do One Thing (DOT)
+Procedural instructions vs describing structure
+Class Inheritance vs composition
+
+Mocking is required when our decomposition strategy has failed.
+
+
+
+
+
+
+
+
+
 */
