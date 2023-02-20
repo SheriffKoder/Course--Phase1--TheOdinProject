@@ -328,9 +328,11 @@ HTML Structure vs CSS presentation
 defines an area inside an image <map> that has predefined clickable areas
 allowing areas on an image to be associated wth hyperlinks
 <map name="infographic">
-    <area shape="poly" coords="129,0,260,95,129,138"
+    <area shape="poly" 
+          coords="129,0,260,95,129,138"
           href="https://developer.mozilla.org/docs/Web/HTTP"
           target="_blank" alt="HTTP"
+          alt="Javascript"
     >
   </map>
 
@@ -343,11 +345,44 @@ the browser will choose the most suitable one
 OR destination for streamed media, using a MediaStream
 attr: autoplay, controls, controlslist, crossorigin(CORS), disableremoteplayback, loop, muted, preload, 
 
+<video>
+autoplay (some browsers need mute attr to work)
+autopictureinpicture: true
+controls
+disablepictureinpicture
+disablepictureinpicture
+controlslist: no download, nofullscreen, noremoteplayback
+crossorigin
+
+
 
 <source> has src/type attrs
-used on picture, audio, video    
+used on picture, audio, video   
+
+<track>
+used as a child of the media elements audio/video
+time text tracks/data like subtitles
+video > track / <aSRC> / <aSUBT>
+default: to enable by default
+kind: subtitles/captions/descriptions/chapters/metadata
+label
+src: vtt file
+src lang
 
 
+
+<img> attributes
+fetchpriority : high/low/auto relative to other images
+isMap: server side map
+height/width: px
+
+loading: (how the browser should load the image relevant to Viewport)
+eager(even if not within the visible viewport)
+lazy(loaded when reaches a calculated distance from the viewport)
+referrerpolicy
+sizes
+usemap
+title: on mouse over will show info tooltip
 
 
 
