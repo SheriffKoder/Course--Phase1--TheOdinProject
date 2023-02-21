@@ -69,7 +69,7 @@ body {
     transform-style: preserve-3d;
 
     top: -2.5vh;
-    transform: rotateY(60deg);
+    transform: rotateY(0deg);
 
 }
 
