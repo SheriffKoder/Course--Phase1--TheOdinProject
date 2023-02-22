@@ -4567,7 +4567,14 @@ by manually edit the conflicted file to select the changes to keep
 A graph refers to a collection of nodes and a collection of edges 
 that connect pairs of nodes.
 
+//git garbage collection deleting all branches not visited in the graph
+git gc
 
+
+References make commits reachable
+branches local,remote,tag (branches are references)
+make nodes in a graph
+can get back to
 
 
 
