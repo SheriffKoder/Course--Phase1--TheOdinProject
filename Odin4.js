@@ -4470,6 +4470,107 @@ Query: return something / change nothing
 command: return nothing / change something
 
 
+////////////////////////////////////////////////////////////////////////////
+using jest with webpack
+
+
+
+*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+console.log("///////////Git");
+/*
+
+
+Changing history
+
+//create files from 1 to 4
+# touch test{1..4}.md
+
+//two commands chained
+# git add test1.md && git commit -m 'Create first file'
+
+# git add test4.md (forgot to add this one)
+# git commit --amend (add the last add to our commit)
+replaces the last commit with an entirely new one
+can add a message
+
+
+//commits further back in history
+interactively stop after each commit trying to modify
+then make changes needed to head2 in the git log
+head is the current commit and (~2) points to the last two
+rebase -i HEAD~2
+
+
+//squash
+makes it easier to understand the project history
+>squash the second commit into the first commit on the list
+
+>rebase all the way back to root commit
+git rebase -i --root
+
+//reset
+git reset HEAD^ //resets the commit to the one right before head
+then add/commit files individually
+$ git add test3.md && git commit -m 'Create third file'
+
+
+//
+move where HEAD points to but dont want to touch the staging area
+to leave the index alone use
+would only perform the first part of git reset
+where the HEAD is moved to point somewhere else
+# git reset --soft
+
+# git reset --hard
+moves the head and updates the index, 
+also updates the working directory
+overwrites history
+
+#git push --force
+//overwrites the remote repo with your local history
+If you haven’t updated your local branch, and you’re attempting 
+to git push a commit which would create a conflict on the remote repository
+and an error because your history is outdated.
+
+
+//////////////////////////////////////
+what it means for branches to be pointers
+
+git commit > entire tracked workspace gets copied
+
+a branch is actually a pointer to a single commit
+each commit is also a pointer to the commit that came before it
+
+
+//////////////////////////////////////
+git can often resolve differences between branches
+and merge them automatically
+
+changes on same lines in same file
+must resolve all merge conflicts on github manually before can merge a pull request
+by manually edit the conflicted file to select the changes to keep
+
+
+//////////////////////////////////////
+A graph refers to a collection of nodes and a collection of edges 
+that connect pairs of nodes.
+
+
+
+
+
 
 
 
