@@ -4576,7 +4576,36 @@ branches local,remote,tag (branches are references)
 make nodes in a graph
 can get back to
 
+Head: current/last-commit branch
+index: proposed next commit snapshot
+working directory: sandbox
 
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+Read Book Pro Git
+
+
+//reflog, each commit that modified the git repo
+git log -g
+
+//commits no longer reachable through any reference name/branch/tag
+gitk --all --date-order $(git fsck | grep "dangling commit" | awk '{print $3;}')
+
+//files not attached to a commit
+git show SHA-1
+
+//directory tree of files not attached to a commit bec of merge conflicts
+git ls-tree -r SHA-1
+
+
+//////
+git periodic maintenance
+
+git fsck //validate repo
+git gc or git gc --aggressive //compact your repo to save space and speed git operations
+git remote update --prune //get rid of any branches were deleted upstream
+git stash list //not to let stashed work forgotten
 
 
 
