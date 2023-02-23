@@ -4577,7 +4577,7 @@ make nodes in a graph
 can get back to
 
 Head: current/last-commit branch
-index: proposed next commit snapshot
+index: proposed next commit snapshot, stagin area
 working directory: sandbox
 
 /*////////////////////////////////////////////////////////////////////*/
@@ -4608,8 +4608,169 @@ git remote update --prune //get rid of any branches were deleted upstream
 git stash list //not to let stashed work forgotten
 
 
+//////
+git add --patch
+command show changes in your code and ask if they should be committed or not
+git add --patch to add changes to the index.
+adds previously added files in the repo
+
+git diff --cached to do a final review of what is to be committed.
+git commit to commit what is in the index.
+
+rebasing allows rewriting the history of a branch into something new
+
+git rebase --interactive
+//excellent tool for rewriting commits to amend in typo fixes
 
 
+
+Git a commit not pointed to by any branch will eventually be removed
+by the garbage collection process
+can be referenced if needed when merging this obsolete into the current branch
+
+
+/*/////////////////////////////////*/
+/*
+
+$ git branch [branch-name]
+Creates a new branch
+
+$ git switch -c [branch-name]
+Switches to the specified branch and updates the working directory
+
+$ git merge [branch]
+Combines the specified branch’s history into the current branch. This is usually done in pull requests, but is an important Git operation.
+
+$ git branch -d [branch-name]
+Deletes the specified branch
+
+
+Create repositories
+A new repository can either be created locally, or an existing repository can be cloned. When a repository was initialized locally, you have to push it to GitHub afterwards.
+
+$ git init
+The git init command turns an existing directory into a new Git 
+repository inside the folder you are running this command. 
+After using the git init command, link the local repository 
+to an empty GitHub repository using the following command:
+
+$ git remote add origin [url]
+Specifies the remote repository for your local repository. 
+The url points to a repository on GitHub.
+
+$ git clone [url]
+Clone (download) a repository that already exists on GitHub, 
+including all of the files, branches, and commits
+
+
+
+Synchronize changes
+Synchronize your local repository with the remote repository on GitHub.com
+
+$ git fetch
+Downloads all history from the remote tracking branches
+
+$ git merge
+Combines remote tracking branches into current local branch
+
+$ git push
+Uploads all local branch commits to GitHub
+
+$ git pull
+Updates your current local working branch with all new commits 
+from the corresponding remote branch on GitHub. git pull is a 
+combination of git fetch and git merge
+
+$ git diff [first-branch]...[second-branch]
+Shows content differences between two branches
+
+$ git reset [commit]
+Undoes all commits after [commit], preserving changes locally
+
+$ git reset --hard [commit]
+Discards all history and changes back to the specified commit
+
+NAMING:
+commit: snapshot
+branch: a lightweight movable pointer to a commit
+remote: a common repository on GitHub that all team members use to exchange their changes
+fork: a copy of a repository on GitHub owned by a different user
+
+pull request: a place to compare and discuss the differences introduced 
+on a branch with reviews, comments, integrated tests, and more
+
+a data structure called a repository.
+contains commit objects 
+heads: set of references to commit objects called heads
+buy HEAD: the current active head
+
+commit object contains
+files
+references to their parent
+SHA1 name, 40-char string uniquely identifies the commit obj
+
+
+
+mkdir [project]
+cd [project]
+git init
+This will create a .git directory in the [project] directory.
+
+
+git status shows which files have changed between 
+the current project state and HEAD. 
+
+
+git diff shows the diff between HEAD and the current project state. 
+With the --cached option it compares added files against HEAD; 
+otherwise it compares files not yet added.*
+
+git mv and git rm mark files to be moved (rename) and removed, 
+respectively, much like git add.
+
+Referring to a commit
+SHA1 name from git log
+
+every head represents one branch
+
+
+
+Branching:
+git branch [new-head-name] [reference-to-code-to-have-head-name]
+This command will create a new head with the given name, 
+and point that head at the requested commit object.
+
+git checkout [head-name]
+Points HEAD to the commit object specified by [head-name]
+
+commit all the new changes before checking out the new head.
+
+
+
+Other useful commands at this point:
+
+git branch with no arguments lists the existing heads, with a star next to the current head.
+git diff [head1]..[head2] shows the diff between the commits referenced by head2 and head1.
+git diff [head1]...[head2] (three dots) shows the diff between head2 and the common ancestor of head1 and head2. For example, diff master...fix-headers above would show the diff between (D) and (B).
+git log [head1]..[head2] shows the change log between head2 and the common ancestor of head1 and head2. With three dots, it also shows the changes between head1 and the common ancestor; this is not so useful. (Switching head1 and head2, on the other hand, is very useful.)
+
+"If you are working on your own branch, there is no reason you need
+to be particularly careful about what you commit to the repository. 
+It won’t affect anything else."
+
+
+after implementing a new feature on a branch
+and want to bring it to the main branch
+
+git merge [head]
+git pull . [head]
+
+to delete a branch use 
+for example a development branch that has been merged
+git branch -d [head-name]
+
+To share work among developers, Git uses a distributed model of 
+version control. 
 
 
 
