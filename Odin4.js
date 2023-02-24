@@ -4856,6 +4856,31 @@ git reset HEAD~ --hard
 git checkout some-new-branch-name
 # your commit lives in this branch now
 
+git checkout -b <name> //create new branch and checkout right away
+
+
+
+
+//started a new branch based on master
+master is far behind origin/master
+now master branch is in sync with origin/master
+now wish new branch were starting now instead of being so far behind
+
+git checkout new-branch and git rebase master
+also git reset (no --hard) then git checkout -b
+and then recommit changed, but will lose commit history
+
+so use 
+git rebase master
+. it locates a common ancestor, resets currently checkout branch to that ancestor
+holding all later commits in a temp holding area, 
+then advances the currently checked out branch to the end of master
+and replays the commits from the holding area after master's last commit
+
+
+
+
+
 //committing to the wrong branch
 # undo the last commit, but leave the changes available
 git reset HEAD~ --soft
@@ -4875,6 +4900,7 @@ git cherry-pick master
 # delete it from master
 git checkout master
 git reset HEAD~ --hard
+
 
 
 git diff --staged //if added and diff no show
@@ -4905,9 +4931,57 @@ http://ohshitgit.com/
 
 
 
+//undo an un committed save with no ctrl+z
+git checkout -- <bad filename>
+alters files in the working directory to a state previously known to Git
+also can provide a SHA want to get back to or by default Git will assume
+you want to checkout HEAD, 
+any changes with this command cannot be recovered
+
+//undo a git commit before push
+git commit --amend or git commit --amend -m "commit text"
+amend combines any staged changes with the contents of the previous commit
+with nothing currently staged, it just rewrites the previous message
+
+////undo the last three commits (local)
+//git reset preserves the directory on disk but removes the commits
+git reset <last good SHA> or git reset --hard <l g SHA>
+
+//undo this reset with
+git reflog //to get the SHA
+git reset --hard <SHA> // restore to a moment in time
+git checkout <SHA> -- <filename> //recreate files in the working directory as they were in a moment in time
+git cherry-pick <SHA> //replay exactly one of those commits into your repo
 
 
 
+//undo a git push commit
+$ git revert SHA
+so anything added in the old commit will be removed in the new commit
+
+
+//half way though commiting want to get back
+git rebase -i <earlier SHA>
+before replaying any commits
+it pauses and allows gently modify each commit as its replayed
+will prompt to a text editor
+to delete a commit simply remove its text
+to edit a commit, replace pick with reword
+
+if want to combine two commits together, use squash or fixup instead of pick
+squash with the commit before it
+
+
+//include a file in an earlier commit
+git commit --squash <SHA of the earlier commit> and 
+git rebase --autosquash -i <even earlier SHA>
+
+
+//want to ignore an added file
+git rm --cached will remove it from tracking but leave the file untouched on disk. 
+and wont be seen in git status
+
+https://github.blog/2015-06-08-how-to-undo-almost-anything-with-git/
 
 
 
