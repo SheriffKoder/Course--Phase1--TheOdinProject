@@ -4772,6 +4772,32 @@ git branch -d [head-name]
 To share work among developers, Git uses a distributed model of 
 version control. 
 
+after cloning and wanting to work on a remote's branch locally
+git branch --track [new-local-branch-name] [remote-branch-name]
+
+
+Receiving Changes from the Remote Repository
+git fetch [remote-repository-reference] 
+//new commit objects in remote repo and creates/updates remote heads accordingly
+git pull [remote-repository-reference] [remote-head-name]
+//this will merge the remote head into HEAD
+
+git pull with no arguments will merge the correct remote head automatically
+and will perform a fetch automatically
+
+git push [remote-repository-reference] [remote-head-name]
+//does the opposite of pull in providing to the remote and setting the head name
+
+create a new branch on the remote repository
+git push --set-upstream origin new-branch
+
+To delete a branch on the remote repository
+git push [remote-repository-reference] :[head-name]
+
+
+
+
+
 
 
 
