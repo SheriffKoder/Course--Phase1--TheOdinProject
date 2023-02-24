@@ -4639,14 +4639,18 @@ $ git switch -c [branch-name]
 Switches to the specified branch and updates the working directory
 
 $ git merge [branch]
-Combines the specified branch’s history into the current branch. This is usually done in pull requests, but is an important Git operation.
+Combines the specified branch’s history into the current branch. 
+This is usually done in pull requests, but is an important Git operation.
 
 $ git branch -d [branch-name]
 Deletes the specified branch
 
 
 Create repositories
-A new repository can either be created locally, or an existing repository can be cloned. When a repository was initialized locally, you have to push it to GitHub afterwards.
+A new repository can either be created locally, 
+or an existing repository can be cloned. 
+When a repository was initialized locally, 
+you have to push it to GitHub afterwards.
 
 $ git init
 The git init command turns an existing directory into a new Git 
@@ -4793,6 +4797,112 @@ git push --set-upstream origin new-branch
 
 To delete a branch on the remote repository
 git push [remote-repository-reference] :[head-name]
+
+
+//////////////////////////////////////
+
+rebasing alternative to merging
+
+# git rebase [new-commit]
+. identifies each commit that is an ancestor of the current-commit
+. finds the common ancestor of the new-commit and current-commit
+. collect all the commits between this common-ancestor-commit and the current-commit
+. determines what changed for each commit and put changes aside
+. sets current head to point to new-commit
+. now the aside changes, put onto the current head and creates a new commit
+
+no merge commit created good
+rebased head cannot be pushed to a remote server
+because it does not result in a fast forward merge, problematic
+
+used when developing a branch on your own
+or when commting to a branch that changes at the same time a remote machine
+
+
+fork/clone copeies the instant of the upstream repo
+adding the upstream repo as a remote
+
+git remode add NAME link
+git remote //gives the available remotes
+
+git pull Name master  //get updates 
+(similar to git fetch, status and merge requests)
+
+git branch -a //lists all branches that are now fetched
+
+git merge Name
+git pull upstream master  //pull changes from upstream
+
+
+//////////////////////////////////////
+
+git reflog
+//list of everything done in git with idex HEAD@{index}
+git reset HEAD@{index}
+
+//if still need to change something in last commit, not use on public commits
+git add . # or add individual files
+git commit --amend --no-edit
+
+git commit --amend //to just change the message
+
+
+
+//reverse last commit from main to be put in another branch
+# create a new branch from the current state of master
+git branch some-new-branch-name
+# remove the last commit from the master branch
+git reset HEAD~ --hard
+git checkout some-new-branch-name
+# your commit lives in this branch now
+
+//committing to the wrong branch
+# undo the last commit, but leave the changes available
+git reset HEAD~ --soft
+git stash
+# move to the correct branch
+git checkout name-of-the-correct-branch
+git stash pop
+git add . # or add individual files
+git commit -m "your message here";
+# now your changes are on the correct branch
+
+or 
+
+git checkout name-of-the-correct-branch
+# grab the last commit to master
+git cherry-pick master
+# delete it from master
+git checkout master
+git reset HEAD~ --hard
+
+
+git diff --staged //if added and diff no show
+
+
+//undo a commit from X commits ago
+# find the commit you need to undo
+git log
+# use the arrow keys to scroll up and down in history
+# once you've found your commit, save the hash
+git revert [saved hash]
+# git will create a new commit that undoes that commit
+# follow prompts to edit the commit message
+# or just save and commit
+
+
+//undo changes to a file
+# find a hash for a commit before the file was changed
+git log
+# use the arrow keys to scroll up and down in history
+# once you've found your commit, save the hash
+git checkout [saved hash] -- path/to/file
+# the old version of the file will be in your index
+git commit -m "Wow, you don't have to copy-paste to undo"
+
+http://ohshitgit.com/
+
+
 
 
 
