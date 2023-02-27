@@ -77,8 +77,21 @@ use CTRL+C to exit from watch modes
 
 */
 
+/*
+Async Promises: Requesting API data (s)
+upload data to server using fetch (s)
+Async/Await to cause sync code, on API fetches (s)
+Understanding algorithms, datastructures (s)
 
-
+	.binary search algorithm (s)
+	.stacks/queues datastaructure (s)
+	.binary tree breath/depth-first algorithms (s)
+Recursive functions (s)
+Linked Lists (s)
+Testing with Jest (s)
+	.pure functions and tight coupling reduce (s)
+	.mocking test using jest
+*/
 
 
 
@@ -3288,14 +3301,12 @@ postData('https://example.com/answer', { answer: 42 })
 
 
 Note that mode: "no-cors" only allows a limited set of headers in the request:
-Accept
-Accept-Language
-Content-Language
+Accept, Accept-Language, Content-Language
 Content-Type with a value of application/x-www-form-urlencoded, 
   multipart/form-data, or text/plain
 
 
-o cause browsers to send a request with credentials included 
+to cause browsers to send a request with credentials included 
 on both same-origin and cross-origin calls, add credentials: 'include'
 
 
@@ -3443,7 +3454,11 @@ In modern browsers, await on top level works just fine
 
 //await accepts a thened promise return
 //but what is this then/resolve class ?
-If await gets a non-promise object with .then, it calls that method providing the built-in functions resolve and reject as arguments (just as it does for a regular Promise executor). Then await waits until one of them is called (in the example above it happens in the line (*)) and then proceeds with the result.
+If await gets a non-promise object with .then, 
+it calls that method providing the built-in functions resolve 
+and reject as arguments (just as it does for a regular Promise executor). 
+Then await waits until one of them is called (in the example above 
+  it happens in the line (*)) and then proceeds with the result.
 
 class Thenable {
   constructor(num) {
@@ -3951,7 +3966,7 @@ Binary Search Algorithm
 
 
 
-algorithm is like a recipes
+algorithm is like a recipe
 
 when solving a problem ask yourself, can we do better ?
 
@@ -4371,7 +4386,7 @@ the tighter the coupling, the harder it is to maintain or extend
 the application.
 
 
-types of coupling
+Types of coupling:
 Subclass coupling
 Control dependencies
 state dependencies
@@ -4468,521 +4483,6 @@ either by mock functions or manual mock
 messages
 Query: return something / change nothing
 command: return nothing / change something
-
-
-////////////////////////////////////////////////////////////////////////////
-using jest with webpack
-
-
-
-*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-/*////////////////////////////////////////////////////////////////////*/
-console.log("///////////Git");
-/*
-
-
-Changing history
-
-//create files from 1 to 4
-# touch test{1..4}.md
-
-//two commands chained
-# git add test1.md && git commit -m 'Create first file'
-
-# git add test4.md (forgot to add this one)
-# git commit --amend (add the last add to our commit)
-replaces the last commit with an entirely new one
-can add a message
-
-
-//commits further back in history
-interactively stop after each commit trying to modify
-then make changes needed to head2 in the git log
-head is the current commit and (~2) points to the last two
-rebase -i HEAD~2
-
-
-//squash
-makes it easier to understand the project history
->squash the second commit into the first commit on the list
-
->rebase all the way back to root commit
-git rebase -i --root
-
-//reset
-git reset HEAD^ //resets the commit to the one right before head
-then add/commit files individually
-$ git add test3.md && git commit -m 'Create third file'
-
-
-//
-move where HEAD points to but dont want to touch the staging area
-to leave the index alone use
-would only perform the first part of git reset
-where the HEAD is moved to point somewhere else
-# git reset --soft
-
-# git reset --hard
-moves the head and updates the index, 
-also updates the working directory
-overwrites history
-
-#git push --force
-//overwrites the remote repo with your local history
-If you haven’t updated your local branch, and you’re attempting 
-to git push a commit which would create a conflict on the remote repository
-and an error because your history is outdated.
-
-
-//////////////////////////////////////
-what it means for branches to be pointers
-
-git commit > entire tracked workspace gets copied
-
-a branch is actually a pointer to a single commit
-each commit is also a pointer to the commit that came before it
-
-
-//////////////////////////////////////
-git can often resolve differences between branches
-and merge them automatically
-
-changes on same lines in same file
-must resolve all merge conflicts on github manually before can merge a pull request
-by manually edit the conflicted file to select the changes to keep
-
-
-//////////////////////////////////////
-A graph refers to a collection of nodes and a collection of edges 
-that connect pairs of nodes.
-
-//git garbage collection deleting all branches not visited in the graph
-git gc
-
-
-References make commits reachable
-branches local,remote,tag (branches are references)
-make nodes in a graph
-can get back to
-
-Head: current/last-commit branch
-index: proposed next commit snapshot, stagin area
-working directory: sandbox
-
-/*////////////////////////////////////////////////////////////////////*/
-/*
-
-Read Book Pro Git
-
-
-//reflog, each commit that modified the git repo
-git log -g
-
-//commits no longer reachable through any reference name/branch/tag
-gitk --all --date-order $(git fsck | grep "dangling commit" | awk '{print $3;}')
-
-//files not attached to a commit
-git show SHA-1
-
-//directory tree of files not attached to a commit bec of merge conflicts
-git ls-tree -r SHA-1
-
-
-//////
-git periodic maintenance
-
-git fsck //validate repo
-git gc or git gc --aggressive //compact your repo to save space and speed git operations
-git remote update --prune //get rid of any branches were deleted upstream
-git stash list //not to let stashed work forgotten
-
-
-//////
-git add --patch
-command show changes in your code and ask if they should be committed or not
-git add --patch to add changes to the index.
-adds previously added files in the repo
-
-git diff --cached to do a final review of what is to be committed.
-git commit to commit what is in the index.
-
-rebasing allows rewriting the history of a branch into something new
-
-git rebase --interactive
-//excellent tool for rewriting commits to amend in typo fixes
-
-
-
-Git a commit not pointed to by any branch will eventually be removed
-by the garbage collection process
-can be referenced if needed when merging this obsolete into the current branch
-
-
-/*/////////////////////////////////*/
-/*
-
-$ git branch [branch-name]
-Creates a new branch
-
-$ git switch -c [branch-name]
-Switches to the specified branch and updates the working directory
-
-$ git merge [branch]
-Combines the specified branch’s history into the current branch. 
-This is usually done in pull requests, but is an important Git operation.
-
-$ git branch -d [branch-name]
-Deletes the specified branch
-
-
-Create repositories
-A new repository can either be created locally, 
-or an existing repository can be cloned. 
-When a repository was initialized locally, 
-you have to push it to GitHub afterwards.
-
-$ git init
-The git init command turns an existing directory into a new Git 
-repository inside the folder you are running this command. 
-After using the git init command, link the local repository 
-to an empty GitHub repository using the following command:
-
-$ git remote add origin [url]
-Specifies the remote repository for your local repository. 
-The url points to a repository on GitHub.
-
-$ git clone [url]
-Clone (download) a repository that already exists on GitHub, 
-including all of the files, branches, and commits
-
-
-
-Synchronize changes
-Synchronize your local repository with the remote repository on GitHub.com
-
-$ git fetch
-Downloads all history from the remote tracking branches
-
-$ git merge
-Combines remote tracking branches into current local branch
-
-$ git push
-Uploads all local branch commits to GitHub
-
-$ git pull
-Updates your current local working branch with all new commits 
-from the corresponding remote branch on GitHub. git pull is a 
-combination of git fetch and git merge
-
-$ git diff [first-branch]...[second-branch]
-Shows content differences between two branches
-
-$ git reset [commit]
-Undoes all commits after [commit], preserving changes locally
-
-$ git reset --hard [commit]
-Discards all history and changes back to the specified commit
-
-NAMING:
-commit: snapshot
-branch: a lightweight movable pointer to a commit
-remote: a common repository on GitHub that all team members use to exchange their changes
-fork: a copy of a repository on GitHub owned by a different user
-
-pull request: a place to compare and discuss the differences introduced 
-on a branch with reviews, comments, integrated tests, and more
-
-a data structure called a repository.
-contains commit objects 
-heads: set of references to commit objects called heads
-buy HEAD: the current active head
-
-commit object contains
-files
-references to their parent
-SHA1 name, 40-char string uniquely identifies the commit obj
-
-
-
-mkdir [project]
-cd [project]
-git init
-This will create a .git directory in the [project] directory.
-
-
-git status shows which files have changed between 
-the current project state and HEAD. 
-
-
-git diff shows the diff between HEAD and the current project state. 
-With the --cached option it compares added files against HEAD; 
-otherwise it compares files not yet added.*
-
-git mv and git rm mark files to be moved (rename) and removed, 
-respectively, much like git add.
-
-Referring to a commit
-SHA1 name from git log
-
-every head represents one branch
-
-
-
-Branching:
-git branch [new-head-name] [reference-to-code-to-have-head-name]
-This command will create a new head with the given name, 
-and point that head at the requested commit object.
-
-git checkout [head-name]
-Points HEAD to the commit object specified by [head-name]
-
-commit all the new changes before checking out the new head.
-
-
-
-Other useful commands at this point:
-
-git branch with no arguments lists the existing heads, with a star next to the current head.
-git diff [head1]..[head2] shows the diff between the commits referenced by head2 and head1.
-git diff [head1]...[head2] (three dots) shows the diff between head2 and the common ancestor of head1 and head2. For example, diff master...fix-headers above would show the diff between (D) and (B).
-git log [head1]..[head2] shows the change log between head2 and the common ancestor of head1 and head2. With three dots, it also shows the changes between head1 and the common ancestor; this is not so useful. (Switching head1 and head2, on the other hand, is very useful.)
-
-"If you are working on your own branch, there is no reason you need
-to be particularly careful about what you commit to the repository. 
-It won’t affect anything else."
-
-
-after implementing a new feature on a branch
-and want to bring it to the main branch
-
-git merge [head]
-git pull . [head]
-
-to delete a branch use 
-for example a development branch that has been merged
-git branch -d [head-name]
-
-To share work among developers, Git uses a distributed model of 
-version control. 
-
-after cloning and wanting to work on a remote's branch locally
-git branch --track [new-local-branch-name] [remote-branch-name]
-
-
-Receiving Changes from the Remote Repository
-git fetch [remote-repository-reference] 
-//new commit objects in remote repo and creates/updates remote heads accordingly
-git pull [remote-repository-reference] [remote-head-name]
-//this will merge the remote head into HEAD
-
-git pull with no arguments will merge the correct remote head automatically
-and will perform a fetch automatically
-
-git push [remote-repository-reference] [remote-head-name]
-//does the opposite of pull in providing to the remote and setting the head name
-
-create a new branch on the remote repository
-git push --set-upstream origin new-branch
-
-To delete a branch on the remote repository
-git push [remote-repository-reference] :[head-name]
-
-
-//////////////////////////////////////
-
-rebasing alternative to merging
-
-# git rebase [new-commit]
-. identifies each commit that is an ancestor of the current-commit
-. finds the common ancestor of the new-commit and current-commit
-. collect all the commits between this common-ancestor-commit and the current-commit
-. determines what changed for each commit and put changes aside
-. sets current head to point to new-commit
-. now the aside changes, put onto the current head and creates a new commit
-
-no merge commit created good
-rebased head cannot be pushed to a remote server
-because it does not result in a fast forward merge, problematic
-
-used when developing a branch on your own
-or when commting to a branch that changes at the same time a remote machine
-
-
-fork/clone copeies the instant of the upstream repo
-adding the upstream repo as a remote
-
-git remode add NAME link
-git remote //gives the available remotes
-
-git pull Name master  //get updates 
-(similar to git fetch, status and merge requests)
-
-git branch -a //lists all branches that are now fetched
-
-git merge Name
-git pull upstream master  //pull changes from upstream
-
-
-//////////////////////////////////////
-
-git reflog
-//list of everything done in git with idex HEAD@{index}
-git reset HEAD@{index}
-
-//if still need to change something in last commit, not use on public commits
-git add . # or add individual files
-git commit --amend --no-edit
-
-git commit --amend //to just change the message
-
-
-
-//reverse last commit from main to be put in another branch
-# create a new branch from the current state of master
-git branch some-new-branch-name
-# remove the last commit from the master branch
-git reset HEAD~ --hard
-git checkout some-new-branch-name
-# your commit lives in this branch now
-
-git checkout -b <name> //create new branch and checkout right away
-
-
-
-
-//started a new branch based on master
-master is far behind origin/master
-now master branch is in sync with origin/master
-now wish new branch were starting now instead of being so far behind
-
-git checkout new-branch and git rebase master
-also git reset (no --hard) then git checkout -b
-and then recommit changed, but will lose commit history
-
-so use 
-git rebase master
-. it locates a common ancestor, resets currently checkout branch to that ancestor
-holding all later commits in a temp holding area, 
-then advances the currently checked out branch to the end of master
-and replays the commits from the holding area after master's last commit
-
-
-
-
-
-//committing to the wrong branch
-# undo the last commit, but leave the changes available
-git reset HEAD~ --soft
-git stash
-# move to the correct branch
-git checkout name-of-the-correct-branch
-git stash pop
-git add . # or add individual files
-git commit -m "your message here";
-# now your changes are on the correct branch
-
-or 
-
-git checkout name-of-the-correct-branch
-# grab the last commit to master
-git cherry-pick master
-# delete it from master
-git checkout master
-git reset HEAD~ --hard
-
-
-
-git diff --staged //if added and diff no show
-
-
-//undo a commit from X commits ago
-# find the commit you need to undo
-git log
-# use the arrow keys to scroll up and down in history
-# once you've found your commit, save the hash
-git revert [saved hash]
-# git will create a new commit that undoes that commit
-# follow prompts to edit the commit message
-# or just save and commit
-
-
-//undo changes to a file
-# find a hash for a commit before the file was changed
-git log
-# use the arrow keys to scroll up and down in history
-# once you've found your commit, save the hash
-git checkout [saved hash] -- path/to/file
-# the old version of the file will be in your index
-git commit -m "Wow, you don't have to copy-paste to undo"
-
-http://ohshitgit.com/
-
-
-
-
-//undo an un committed save with no ctrl+z
-git checkout -- <bad filename>
-alters files in the working directory to a state previously known to Git
-also can provide a SHA want to get back to or by default Git will assume
-you want to checkout HEAD, 
-any changes with this command cannot be recovered
-
-//undo a git commit before push
-git commit --amend or git commit --amend -m "commit text"
-amend combines any staged changes with the contents of the previous commit
-with nothing currently staged, it just rewrites the previous message
-
-////undo the last three commits (local)
-//git reset preserves the directory on disk but removes the commits
-git reset <last good SHA> or git reset --hard <l g SHA>
-
-//undo this reset with
-git reflog //to get the SHA
-git reset --hard <SHA> // restore to a moment in time
-git checkout <SHA> -- <filename> //recreate files in the working directory as they were in a moment in time
-git cherry-pick <SHA> //replay exactly one of those commits into your repo
-
-
-
-//undo a git push commit
-$ git revert SHA
-so anything added in the old commit will be removed in the new commit
-
-
-//half way though commiting want to get back
-git rebase -i <earlier SHA>
-before replaying any commits
-it pauses and allows gently modify each commit as its replayed
-will prompt to a text editor
-to delete a commit simply remove its text
-to edit a commit, replace pick with reword
-
-if want to combine two commits together, use squash or fixup instead of pick
-squash with the commit before it
-
-
-//include a file in an earlier commit
-git commit --squash <SHA of the earlier commit> and 
-git rebase --autosquash -i <even earlier SHA>
-
-
-//want to ignore an added file
-git rm --cached will remove it from tracking but leave the file untouched on disk. 
-and wont be seen in git status
-
-https://github.blog/2015-06-08-how-to-undo-almost-anything-with-git/
-
 
 
 */
