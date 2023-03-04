@@ -915,7 +915,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 
-//__dirname (current directory), ./dist (directoy for bundle file) and its name
+//__dirname (current directory), ./dist (directory for bundle file) and its name
 module.exports = {
     entry: './src/index.js',
     output: {
@@ -1017,6 +1017,148 @@ const string = `
     sweet! ${js_expression}
 `;
 
+
+
+*/
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+//props
+
+
+// MyComponent.js
+
+import React, { Component } from 'react';
+
+class MyComponent extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>{this.props.title}</h1>
+        <button onClick={this.props.onButtonClicked}>Click Me!</button>
+      </div>
+    );
+  }
+}
+
+export default MyComponent;
+
+
+
+// App.js
+
+import React, { Component } from 'react';
+import MyComponent from './MyComponent';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onClickBtn = this.onClickBtn.bind(this);
+  }
+
+  onClickBtn() {
+    console.log('Button has been clicked!');
+  }
+
+  render() {
+    return (
+      <div>
+        <MyComponent title="React" onButtonClicked={this.onClickBtn} />
+      </div>
+    );
+  }
+}
+
+
+//another way to render, called destructing props
+//In functional components, you would destructure outside 
+//of the return statement or inside the parameter parentheses of the functional component
+render() {
+    const { title, onButtonClicked } = this.props;
+
+    return (
+      <div>
+        <h1>{title}</h1>
+        <button onClick={onButtonClicked}>Click Me!</button>
+      </div>
+    );
+  }
+}
+
+
+export default App;
+
+
+//React supported events
+https://reactjs.org/docs/events.html
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+//State
+//values that can change over time
+
+//state is immutable
+//should never change state directly (i.e. without using setState) 
+because it can lead to unexpected behavior or bugs.
+
+
+import React, { Component } from 'react';
+
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      count: 0,
+    };
+
+    this.countUp = this.countUp.bind(this);
+  }
+
+  countUp() {
+    this.setState({
+      count: this.state.count + 1,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.countUp}>Click Me!</button>
+        <p>{this.state.count}</p>
+      </div>
+    );
+  }
+}
+
+
+//setState()
+//enqueues changes to the component state
+and tells react that this component and its children
+//need to be re-rendered with the updated state
+
+//need to set the state based on a previous state ?
+
+//using componentDidUpdate() or a setState callback
+(setState(updated, callback)) either of which are
+guaranteed to fire after the update has been applied
+
+//unless shouldComponentUpdate() returns false
+//setState() will always lead to re-render
+
+this.setState((state, props) => {
+  return {counter: state.counter + props.step};
+});
+//props is an optional callback
 
 
 
