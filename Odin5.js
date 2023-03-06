@@ -1140,6 +1140,16 @@ class App extends Component {
   }
 }
 
+// countUp() method needs to be bound in our constructor (using bind), 
+// so it knows what context to operate in
+
+//after class can set the default values for states if undefined
+CustomButton.defaultProps = {
+  color: 'blue'
+};
+
+//but if want a null, give value = {null} in the return
+
 
 //setState()
 //enqueues changes to the component state
@@ -1161,6 +1171,238 @@ this.setState((state, props) => {
 //props is an optional callback
 
 
+
+//displayName
+used to give a different name for debugging purposes
+
+//this.props, contains the props that were defined by the caller
+of this component
+
+//this.props.children, defined by the child tags in the jsx expression
+
+
+//The state is user-defined, and it should be a plain JavaScript object.
+
+
+////mutating, change original
+//array.push, array.unshift() will add to the current array
+//array.pop() and array.shift() return the item that is removed.
+//array.splice(start,quantity_to_be_removed, value_to_insert_1..) return what is removed
+
+//not mutate state, so we use
+////non-mutating, not change original
+//const arr2 = [...arr1, 'f']; // ['a', 'b', 'c', 'd', 'e', 'f']
+//The spread operator, when used as above, will copy the original array, 
+//take all the elements out of the array, 
+//and deposit the elements in the new context.
+//we take copies of all the elements from arr1, put them in a new array, 
+//and add 'f' to the end. 
+//or to start if switched places
+
+const arr2 = arr1.filter(a => a !== 'e'); // ['a', 'b', 'c', 'd']
+//return a if a != e
+
+const arr2 = arr1.slice(1, 5) // ['b', 'c', 'd', 'e']
+//slice(start,end)
+
+//map
+const arr1 = ['a', 'b', 'c', 'd', 'e']
+const arr2 = arr1.map(item => {
+  if(item === 'c') {
+    item = 'CAT';
+  }
+  return item;
+}); // ['a', 'b', 'CAT', 'd', 'e']
+
+
+
+////using bind(this, argument1, argument2);
+
+const boundGetX = objectMethod.bind(ParentObjectName);
+console.log(boundGetX());
+
+returns a copy of the given function with the specified this value
+and initial arguments if provided
+
+
+if not used the console.log(this) will output undefined
+
+this inside a function will refer to the global object
+if in strict mode will output undefined
+
+this inside an object will refer to that object
+so we use this.name
+
+when used outside of that object in a variable reference
+this will point to the global object
+
+
+//arrow function in the call back
+//the arrow function is enclosed inside the render() method
+which is invoked by react in the context of the component instance
+render { return (
+      <button type="button" onClick={(e) => this.handleClick(e)}>
+      Click Me!</button>
+
+
+we can pass a function as a method to the event 
+without worrying about it losing its context.
+else it loses its context and outputs undefined
+so we bind this of the event handler
+
+Arrow functions are exempt from this behavior 
+because they use lexical this binding which automatically 
+binds them to the scope they are defined in.
+
+function MyComponent({ title }) {
+  // rest of code
+}
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+class uses this.props.name
+and function uses props.name only
+
+function Clock(props) {
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {props.date.toLocaleTimeString()}.</h2>
+    </div>
+  );
+}
+
+function tick() {
+  root.render(<Clock date={new Date()} />);
+}
+
+setInterval(tick, 1000);
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {date: new Date()};
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      date: new Date()
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Clock />);
+
+
+
+////lifecycle methods
+//Mounting
+//set up a timer whenever the clock is rendered to the DOM for the first time
+//When the Clock output is inserted in the DOM, React calls the componentDidMount() lifecycle method.
+
+
+//unmounting
+//clear that timer, whenever the dom produced by the clock is removed
+//If the Clock component is ever removed from the DOM, 
+//React calls the componentWillUnmount() lifecycle method 
+//so the timer is stopped.
+
+
+special methods in the class for each
+  componentDidMount() {
+  componentWillUnmount() {
+
+
+
+// Wrong
+this.setState({
+  counter: this.state.counter + this.props.increment,
+});
+
+// Correct
+this.setState((state, props) => ({
+  counter: state.counter + props.increment
+}));
+
+
+
+
+//returning/passing state to the next component
+//makes it not visible if its a state, props to the next component
+
+//The ‘this.props’ is a kind of global object which stores all 
+of a components props.
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+//using a components in the return of another component
+
+
+// Parent Component
+class Parent extends React.Component{
+  render(){
+      return(
+              <div>
+                  <h2>You are inside Parent Component</h2>
+                  <Child name="User" userId = "5555"/>
+              </div>
+          );
+  }
+}
+
+// Child Component
+class Child extends React.Component{
+  render(){
+      return(
+              <div>
+                  <h2>Hello, {this.props.name}</h2>
+                  <h3>You are inside Child Component</h3>
+                  <h3>Your user id is: {this.props.userId}</h3>
+              </div>
+          );
+  }
+}
+
+ReactDOM.render(
+  // passing props
+  <Parent />,
+  document.getElementById("root")
+);
+
+
+
+//a component should ideally only do one thing. single responsibility
+//If it ends up growing, it should be decomposed into smaller subcomponents.
 
 
 
