@@ -1404,6 +1404,272 @@ ReactDOM.render(
 //a component should ideally only do one thing. single responsibility
 //If it ends up growing, it should be decomposed into smaller subcomponents.
 
+//tate is reserved only for interactivity not for static versions
+
+//Figure out the absolute minimal representation of the state your application needs and compute everything else you need on-demand
+
+//binding static components to interact with each other
+https://reactjs.org/docs/thinking-in-react.html
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+
+//application made of two components
+//input field, submit button
+//input field adds content to a tasks array (state)
+for each task, an html list element should be rendered
+
+
+**app exercise
+https://www.theodinproject.com/lessons/node-path-javascript-handle-inputs-and-render-lists
+
+
+//////Handling events
+<button onclick="activateLasers()">  //Html
+<button onClick={activateLasers}> //JSX, //camelCase, {functionName}
+
+  Activate Lasers
+</button>
+
+
+//return false to prevent default behavior in HTML
+<form onsubmit="console.log('You clicked submit.'); return false">
+  <button type="submit">Submit</button>
+</form>
+
+
+//preventing default behavior in JSX
+function Form() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log('You clicked submit.');
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+
+
+//in react, no need to call addEventListeners
+//provide a listener when the element is initially rendered
+
+//toggle ON/OFF states in a class component
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isToggleOn: true};
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+    );
+  }
+}
+
+
+//if used onClick={this.handleClick}, you should bind that method.
+//or used arrow function in the calling line,
+//but a different callback is created each time the class renders
+<button onClick={() => this.handleClick()}>
+//or define the function 
+  handleClick = () => { };
+
+
+//passing arguments
+<button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
+<button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
+//e is passed automatically in the bind
+
+
+
+
+
+//conditional rendering
+//create distinct components that encapsulate the behavior needed
+
+function UserGreeting(props) {
+  return <h1>Welcome back!</h1>;
+}
+
+function GuestGreeting(props) {
+  return <h1>Please sign up.</h1>;
+}
+
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <UserGreeting />;
+  }
+  return <GuestGreeting />;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root')); 
+// Try changing to isLoggedIn={true}:
+root.render(<Greeting isLoggedIn={false} />);
+
+
+//////conditional rendering cont...
+function LoginButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Login
+    </button>
+  );
+}
+
+function LogoutButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Logout
+    </button>
+  );
+}
+
+class LoginControl extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = {isLoggedIn: false};
+  }
+
+  handleLoginClick() {
+    this.setState({isLoggedIn: true});
+  }
+
+  handleLogoutClick() {
+    this.setState({isLoggedIn: false});
+  }
+
+  render() {
+    const isLoggedIn = this.state.isLoggedIn;
+    let button;
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <LoginButton onClick={this.handleLoginClick} />;
+    }
+
+    return (
+      <div>
+        <Greeting isLoggedIn={isLoggedIn} />
+        {button}
+      </div>
+    );
+  }
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root')); 
+root.render(<LoginControl />);
+
+
+
+
+
+
+//////inline if with logical && operator
+//note: falsy conditions will have the expression be returned
+//It works because in JavaScript, true && expression always evaluates 
+//to expression, and false && expression always evaluates to false.
+
+function Mailbox(props) {
+  const unreadMessages = props.unreadMessages;
+  return (
+    <div>
+      <h1>Hello!</h1>
+      {unreadMessages.length > 0 &&
+        <h2>
+          You have {unreadMessages.length} unread messages.
+        </h2>
+      }
+    </div>
+  );
+}
+
+const messages = ['React', 'Re: React', 'Re:Re: React'];
+
+const root = ReactDOM.createRoot(document.getElementById('root')); 
+root.render(<Mailbox unreadMessages={messages} />);
+
+
+//another example
+render() {
+  const isLoggedIn = this.state.isLoggedIn;
+  return (
+    <div>
+      {isLoggedIn
+        ? <LogoutButton onClick={this.handleLogoutClick} />
+        : <LoginButton onClick={this.handleLoginClick} />
+      }
+    </div>
+  );
+}
+
+
+
+//////use return null to hide a component
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+
+  return (
+    <div className="warning">
+      Warning!
+    </div>
+  );
+}
+
+class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {showWarning: true};
+    this.handleToggleClick = this.handleToggleClick.bind(this);
+  }
+
+  handleToggleClick() {
+    this.setState(state => ({
+      showWarning: !state.showWarning
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <WarningBanner warn={this.state.showWarning} />
+        <button onClick={this.handleToggleClick}>
+          {this.state.showWarning ? 'Hide' : 'Show'}
+        </button>
+      </div>
+    );
+  }
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root')); 
+root.render(<Page />);
+
 
 
 
