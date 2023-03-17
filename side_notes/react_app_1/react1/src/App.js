@@ -1,12 +1,14 @@
 
-import React, { useState, setState } from 'react';
+import React, { Component, useState, setState } from 'react';
 import ReactDOM from 'react-dom';
+
+import {tick} from './components/tickingClock.js' //not default import
 
 
 ////////////////////////////////////////////////////////////
 ////component1
 
-class APP_1A extends React.Component {
+class APP_1A extends Component {
   constructor(props) {
     super(props);
 
@@ -42,10 +44,11 @@ const APP_1B = (props) => {
 
   const [timeOfDay, setTimeOfDay] = useState('Monday');
   const [count, setCount] = useState(0);
+  const AppID = "1B";
 
   return (
     <div>
-      <h1> Hello World 1B {props.name} its {timeOfDay} </h1> 
+      <h1> Hello World {AppID} {props.name} its {timeOfDay} </h1> 
       <p> You clicked {count} times </p>
 
       <button onClick={() => setCount(count + 1)}>
@@ -56,14 +59,32 @@ const APP_1B = (props) => {
 
 }
 
+
+//the idea is that you render and element to a root
+//what ever this element has
+
+
+//rendering
 const element_1A = <APP_1A name="SheriF" height="200" />;
 const output_1A = document.getElementById("rootDiv1");
 ReactDOM.render( element_1A, output_1A );
 
+//another way of rendering , createRoot
+const element_1B = <APP_1B name="SheriF" />;  //JSX element
+const output_1B = ReactDOM.createRoot(document.getElementById('rootDiv2')); //Root element
+output_1B.render(element_1B);
 
-const element_1B = <APP_1B name="SheriF" />;
-const output_1B = document.getElementById("rootDiv2");
-ReactDOM.render( element_1B,output_1B );
+
+//can pass JSX to function
+//however setInterval do not accept () after tick so no inputs passed
+
+let toCheck = (
+  <p> one </p>
+);
+tick(1,1,toCheck);
+setInterval(tick, 3000);
+
+
 
 
 export { APP_1A, APP_1B };

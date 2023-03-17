@@ -9,14 +9,7 @@ import reportWebVitals from './reportWebVitals';
 
 
 
-let myDiv1 = document.getElementById('rootDiv1');
-ReactDOM.render(<APP_1A name="SheriF" height="200" />, myDiv1);
 
-
-
-const element_1B = <APP_1B name="SheriF" />;
-const output_1B = document.getElementById("rootDiv2");
-ReactDOM.render( element_1B,output_1B );
 
 
 
