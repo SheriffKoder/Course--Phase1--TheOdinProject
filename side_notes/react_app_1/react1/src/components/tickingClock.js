@@ -42,6 +42,11 @@ function checkInput(input) {
 
 //can export right away
 //can use js code inside {} and use that in the component call
+
+//made a const with what i want to return
+//and rendered internally
+
+
 export function tick(num1, num2, input) {
     const clockJsxElement = (
         <div>
@@ -51,10 +56,14 @@ export function tick(num1, num2, input) {
         </div>
     );
     root3Div.render(clockJsxElement);
-    }
+}
 
-  
-  
-  //setInterval(tick, 1000);
+
+
+  setInterval(tick, 1000); //how setInterval is outside the export and working i.e 66
+  //root4Div.render("Hello");
+
+    //any code in the application directory can render/interval by itself if you want
+
 
   //export {tick};    //not default export
