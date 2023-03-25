@@ -8,23 +8,36 @@ import {tick} from './components/tickingClock.js' //not default import
 ////////////////////////////////////////////////////////////
 ////component1
 
+//export Class Header extends React.Component {
 class APP_1A extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name: props.name,
-      height: props.height
+      height: props.height,
+      count: 0,
     }
+
+    this.countUp = this.countUp.bind(this);
+
   }
 
-
+    countUp() {
+      this.setState({
+        count: this.state.count + 1,
+      });
+    }
 
 
   render() {
     return (
       <div className="APP_1A">
         <h1> Hello {this.props.name} your height is {this.props.height} </h1>
+
+        <button onClick={this.countUp}>Click Me!</button>
+        <p>{this.state.count}</p>
+
       </div>
     )
   }
@@ -40,6 +53,8 @@ ReactDOM.render( element_1A, output_1A );
 
 
 
+//class uses this.props.name
+//function uses props.name only
 
 
 ////////////////////////////////////////////////////////////
@@ -68,6 +83,9 @@ const APP_1B = (props) => {
 
 //the idea is that you render and element to a root
 //what ever this element has
+
+//<button onClick={this.props.onButtonClicked}>Click Me!</button>
+
 
 
 
@@ -153,9 +171,6 @@ function Comment(props) {
 }
 
 
-const root4Div = ReactDOM.createRoot(
-  document.getElementById('rootDiv4')
-);
 
 
 let SheriFObj = {
@@ -169,4 +184,64 @@ output_2.render(element_2);
 
 
 
+
+////////////////////////////////////////////////////////////
+////component4
+
+//binding functions to state values in btnApp
+
+
+class ComponentBtn extends Component {
+
+    constructor(props) {
+      super(props);
+    }
+    render () {
+      const {title, onButtonClicked, isToggleOn} = this.props;
+      //to use instead of this.props.title for example  
+
+      return (
+        <div>
+          <h1>{title}</h1>
+          <button onClick={onButtonClicked}>
+            {isToggleOn ? 'ON' : 'OFF'}
+          </button>
+        </div>
+      );
+    }
+}
+
+
+
+class AppBtn extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isToggleOn: true
+    }
+
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+
+  handleClick() {
+    console.log('Click happened');
+
+    this.setState(prevState=> ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <ComponentBtn title="React" onButtonClicked={this.handleClick} isToggleOn={this.state.isToggleOn} />
+    );
+  }
+}
+
+//return <button onClick={this.handleClick.bind(this)}>Click Me</button>;
+
+ReactDOM.render(<AppBtn />, document.getElementById("rootDiv5"));
 

@@ -40,6 +40,16 @@ function checkInput(input) {
 }
 
 
+function Clock(props) {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>It is {props.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+  
+
 //can export right away
 //can use js code inside {} and use that in the component call
 
@@ -56,6 +66,8 @@ export function tick(num1, num2, input) {
         </div>
     );
     root3Div.render(clockJsxElement);
+    //root.render(<Clock date={new Date()} />);
+
 }
 
 
