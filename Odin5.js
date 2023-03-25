@@ -2,7 +2,7 @@
 /*////////////////////////////////////////////////////////////////////*/
 /*
 
-Javascript UI framewokrs and libraries
+Javascript UI frameworks and libraries
 
 Angular, React, Vue.js, Backbone, Knockout, and Ember
 Angularjs, jquery
@@ -308,6 +308,7 @@ this.setState(function(prevState, prevProps) {
     counter: prevState.counter + prevProps.increment
   };
 });
+************************
 
 
 //If we need to set a state with nested objects, we should spread all 
@@ -362,7 +363,7 @@ ReactDOM.render(
 
 ////ex////
 //state in function components, 
-//define an array that will have to main elements
+//define an array that will have two main elements
 //value of state and function to update said state
 //assign the useState hook(hook into react features) to that array
 //hooks are used when have a function component
@@ -797,7 +798,7 @@ class App extends React.Component {
 }
 
 //in html
-<div id="app"> </div
+<div id="app"> </div>
 
 render(<App/>, window..Document.getElementByID("app"));
 
@@ -839,7 +840,7 @@ export class Home extends React.Component {
     render () {
         return (
             <div>
-                <p> In a new Component </p>
+                <p> I am a new Component </p>
             </div>
         );
     }
@@ -876,7 +877,7 @@ class App extends React.Component {
 
 
 //in html
-<div id="app"> </div
+<div id="app"> </div>
 
 render(<App/>, window..Document.getElementByID("app"));
 
@@ -890,6 +891,8 @@ render(<App/>, window..Document.getElementByID("app"));
 //so we use react-dom (was included before)
 
 //setting up React environment without create-new-react-app
+//install npm, react libs, webpack, babel
+
 
 # npm init
 # npm i react react-dom
@@ -1404,7 +1407,7 @@ ReactDOM.render(
 //a component should ideally only do one thing. single responsibility
 //If it ends up growing, it should be decomposed into smaller subcomponents.
 
-//tate is reserved only for interactivity not for static versions
+//state is reserved only for interactivity not for static versions
 
 //Figure out the absolute minimal representation of the state your application needs and compute everything else you need on-demand
 
