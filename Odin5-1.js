@@ -198,6 +198,9 @@ https://i1.wp.com/programmingwithmosh.com/wp-content/uploads/2018/10/Screen-Shot
 //class components are not recommended to be used but are still supported
 
 
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
 /*////////////////////////////////////////////////////////////////////*/
 /*
 
@@ -319,6 +322,101 @@ window.onerror or window.addEventListener('error', callback) will intercept the 
 in production, errors will not bubble up
 any ancestor error handler will only receive errors 
 not explicitly caught by componentDidCatch
+
+if would like to avoid creating class components
+write a single error boundary component like above
+or use react-error-boundary package
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+componentDidMount() 
+
+will be called when component first added to the screen
+This is a common place to start data fetching, set up subscriptions, 
+or manipulate the DOM nodes.
+
+componentDidMount does not take any parameters.
+componentDidMount should not return anything.
+
+
+
+
+for example componentDidMount reads some state or props
+implement componentDidUpdate to handle their changes
+and componentWillUnmount to clean up whatever componentDidMount was doing.
+
+class ChatRoom extends Component {
+  state = {
+    serverUrl: 'https://localhost:1234'
+  };
+
+  componentDidMount() {
+    this.setupConnection();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.roomId !== prevProps.roomId ||
+      this.state.serverUrl !== prevState.serverUrl
+    ) {
+      this.destroyConnection();
+      this.setupConnection();
+    }
+  }
+
+  componentWillUnmount() {
+    this.destroyConnection();
+  }
+
+  // ...
+}
+
+in strict mode, 
+react will call componentDidMount
+then immediately call componentWillUnmount
+and then call componentDidMount
+this helps notice if forgot to implement componentWillUnmount
+or if its logic doesn't fully mirror what componentWillUnmount does
+
+
+you can call setState immediately in componentDidMount
+avoid that when you can, it will trigger extra rendering
+before the browser updates the screen
+render will be called twice in this case
+
+componentDidMount, componentDidUpdate, and componentWillUnmount 
+together in class components is equivalent to calling useEffect 
+in function components.
+In the rare cases where it’s important for the code to run before browser paint, useLayoutEffect is a closer match.
+
+
+//componentDidUpdate(prevProps, prevState, snapshot?)
+React will call it immediately after your component has been re-rendered with updated props or state. 
+You can use it to manipulate the DOM after an update
+a common place to do network requests as long as you compare the current props to previous props
+
+
+prevProps, props before the update, compare with this.props for changes
+prevState, state before the update, compare with this.state to determine what changed
+
+snapshot, If you implemented getSnapshotBeforeUpdate, 
+snapshot will contain the value you returned from that method. 
+Otherwise, it will be undefined.
+
+componentDidUpdate should not return anything.
+
+componentDidUpdate will not get called if shouldComponentUpdate is defined and returns false.
+
+The logic inside componentDidUpdate should usually be wrapped 
+in conditions comparing this.props with prevProps, 
+and this.state with prevState. Otherwise, there’s a 
+risk of creating infinite loops.
+
+
+
 
 
 
