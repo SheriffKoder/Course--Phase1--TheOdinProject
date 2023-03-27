@@ -845,5 +845,235 @@ to be updated. For example, calling setState doesn’t generally
 trigger UNSAFE_componentWillReceiveProps inside the same component.
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*
+UNSAFE_componentWillUpdate(nextProps, nextState) 
+
+React will call it before rendering with the new props or state
+old code
+
+not return anything
+will not get called if shouldComponentUpdate is defined and return false
+will not get called if the component implements 
+ static getDerivedStateFromProps or getSnapshotBeforeUpdate.
+it's not supported to call setState
+does not guarantee that the component will update if app uses
+modern React features like Suspense
+does not mean that the component has received different props
+or state than the last time
+no equivalent to it in function components
+
+if you need to run a side effect (fetch data, run an animation,
+reinitialize a subscription) in response to prop or state changes
+move that logic to componentDidUpdate
+
+or need to read some information from the DOM (current scroll position)
+so can use in componentDidUpdate, read it inside getSnapshotBeforeUpdate instead
+
+nextProps, compare with this.props to determine what has changed
+nextState, compare with this.state to determine what has changed
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+static childContextTypes 
+static contextTypes 
+
+use static contextType instead
+
+
+static contextType 
+
+specify which context it needs to read
+if want to read this.context from your class component
+
+the context must be created by createContext
+
+class Button extends Component {
+  static contextType = ThemeContext;
+
+  render() {
+    const theme = this.context;
+    const className = 'button-' + theme;
+    return (
+      <button className={className}>
+        {this.props.children}
+      </button>
+    );
+  }
+}
+
+//equivalent to useContext in function components
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+static defaultProps 
+
+can define it to set the default props for the class
+will be used for undefined and missing props
+but not for null props
+
+If the color prop is not provided or is undefined, 
+it will be set by default to 'blue':
+
+
+
+class Button extends Component {
+  static defaultProps = {
+    color: 'blue'
+  };
+
+  render() {
+    return <button className={this.props.color}>click me</button>;
+  }
+}
+
+
+<>
+{/* this.props.color is "blue" /}
+<Button />
+
+{/* this.props.color is "blue" /}
+<Button color={undefined} />
+
+{/* this.props.color is null /}
+<Button color={null} />
+</>
+
+//Defining defaultProps in class components is similar to 
+using default values in function components.
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+static getDerivedStateFromError(error) 
+
+React will call it when a child component (including distant children) 
+throws an error during rendering. 
+
+lets you display an error message instead of clearing the UI
+
+Typically, it is used together with componentDidCatch which lets 
+you send the error report to some analytics service. 
+A component with these methods is called an error boundary.
+
+
+By default, if your application throws an error during rendering, 
+React will remove its UI from the screen. To prevent this, 
+you can wrap a part of your UI into an error boundary.
+
+fallback UI instead of the part that crashed—for example, 
+an error message.
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    // Example "componentStack":
+    //   in ComponentThatThrows (created by App)
+    //   in ErrorBoundary (created by App)
+    //   in div (created by App)
+    //   in App
+    logErrorToMyService(error, info.componentStack);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return this.props.fallback;
+    }
+
+    return this.props.children;
+  }
+}
+
+
+Then you can wrap a part of your component tree with it:
+<ErrorBoundary fallback={<p>Something went wrong</p>}>
+  <Profile />
+</ErrorBoundary>
+
+
+//no way to write an error boundary as a function component
+//you do not have to write it yourself, can use react-error-boundary instead
+
+
+Parameters
+error, the error that was thrown also JS allows to throw any value
+including strings or even null
+
+Returns
+should return the state telling the component to display the error message
+
+Caveats
+should be a pure function
+if need to perform a side effect, need to also implement
+componentDidCatch
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+static getDerivedStateFromProps(props, state) 
+
+react will call it right before calling render
+both on the initial mount and on subsequent updates
+should return an object to update the state or null to update nothing
+
+equivalent to calling the set function from useState during rendering in a function component
+
+
+exists for rare use cases
+where the state depends on changes in props over time
+
+class Form extends Component {
+  state = {
+    email: this.props.defaultEmail,
+    prevUserID: this.props.userID
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    // Any time the current user changes,
+    // Reset any parts of state that are tied to that user.
+    // In this simple example, that's just the email.
+    if (props.userID !== state.prevUserID) {
+      return {
+        prevUserID: props.userID,
+        email: props.defaultEmail
+      };
+    }
+    return null;
+  }
+
+  // ...
+}
+
+Note that this pattern requires you to keep a previous value of 
+the prop (like userID) in state (like prevUserID).
+
+If you want to re-compute some data only when a prop changes, 
+use a memoization helper instead.
+
+Parameters 
+props: The next props that the component is about to render with.
+state: The next state that the component is about to render with.
+Returns 
+static getDerivedStateFromProps return an object to update the state, or null to update nothing.
+
+
+this method is fired on every render
+regardless of the cause
+
+
+
 
 */
