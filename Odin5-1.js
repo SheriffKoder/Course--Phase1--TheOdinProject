@@ -663,10 +663,186 @@ this.props with nextProps and this.state with nextState and
 return false to tell React the update can be skipped.
 
 
+class Rectangle extends Component {
+  state = {
+    isHovered: false
+  };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.position.x === this.props.position.x &&
+      nextProps.position.y === this.props.position.y &&
+      nextProps.size.width === this.props.size.width &&
+      nextProps.size.height === this.props.size.height &&
+      nextState.isHovered === this.state.isHovered
+    ) {
+      // Nothing has changed, so a re-render is unnecessary
+      return false;
+    }
+    return true;
+  }
+
+  // ...
+}
+
+
+Parameters 
+nextProps: The next props that the component is about to render with.
+Compare nextProps to this.props to determine what changed.
+nextState: The next props that the component is about to render with.
+Compare nextState to this.state to determine what changed.
+nextContext: The next props that the component is about to render with. 
+Compare nextContext to this.context to determine what changed. Only available if you specify static contextType (modern) or static contextTypes (legacy).
+
+
+Returns 
+Return true if you want the component to re-render. 
+That’s the default behavior.
+
+Return false to tell React that re-rendering can be skipped.
+but not for children
+and it does not guarantee that the component will not re-render
+
+
+This method only exists as a performance optimization. 
+If your component breaks without it, fix that first.
+
+Consider using PureComponent instead of writing shouldComponentUpdate 
+by hand. PureComponent shallowly compares props and state, 
+and reduces the chance that you’ll skip a necessary update.
+
+Optimizing class components with shouldComponentUpdate is similar 
+to optimizing function components with memo. Function components also 
+offer more granular optimization with useMemo.
 
 
 
 
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+the context of a class component is available as this.context
+only available if you specify which context want to receive
+using static contextType (modern) or static contextTypes (old)
+
+A class component can only read one context at a time.
+
+class Button extends Component {
+  static contextType = ThemeContext;
+
+  render() {
+    const theme = this.context;
+    const className = 'button-' + theme;
+    return (
+      <button className={className}>
+        {this.props.children}
+      </button>
+    );
+  }
+}
+
+Reading this.context in class components is equivalent to useContext 
+in function components.
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+PureComponent
+PureComponent is similar to Component but it skips re-renders 
+for same props and state.
+
+a subclass of Component and supports all the Component APIs. 
+Extending PureComponent is equivalent to defining a custom 
+shouldComponentUpdate method that shallowly compares props and state.
+
+
+import { PureComponent, useState } from 'react';
+
+class Greeting extends PureComponent {
+  render() {
+    console.log("Greeting was rendered at", new Date().toLocaleTimeString());
+    return <h3>Hello{this.props.name && ', '}{this.props.name}!</h3>;
+  }
+}
+
+export default function MyApp() {
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  return (
+    <>
+      <label>
+        Name{': '}
+        <input value={name} onChange={e => setName(e.target.value)} />
+      </label>
+      <label>
+        Address{': '}
+        <input value={address} onChange={e => setAddress(e.target.value)} />
+      </label>
+      <Greeting name={name} />
+    </>
+  );
+}
+
+A React component should always have pure rendering logic.
+By using PureComponent, you are telling React that your component complies with this requirement
+React doesn’t need to re-render as long as its props and state haven’t changed. However, your component will still re-render if a context that it’s using changes.
+
+//greeting as a function
+import { memo, useState } from 'react';
+
+const Greeting = memo(function Greeting({ name }) {
+  console.log("Greeting was rendered at", new Date().toLocaleTimeString());
+  return <h3>Hello{name && ', '}{name}!</h3>;
+});
+
+
+//
+Unlike PureComponent, memo does not compare the new and the old state. 
+In function components, calling the set function with the same state 
+already prevents re-renders by default, even without memo.
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+UNSAFE_componentWillMount() 
+React will call it immediately after the constructor.
+
+It only exists for historical reasons and should not be used in any new code. 
+Instead, use one of the alternatives:
+
+To initialize state, declare state as a class field or set this.state inside the constructor.
+If you need to run a side effect or set up a subscription, move that logic to componentDidMount instead.
+
+UNSAFE_componentWillMount does not take any parameters.
+UNSAFE_componentWillMount should not return anything.
+
+does not guarantee that the component will get mounted if your app uses modern React features like Suspense
+
+UNSAFE_componentWillMount is the only lifecycle method that runs 
+during server rendering. For all practical purposes, it is identical 
+to constructor, so you should use the constructor for this type of 
+logic instead.
+
+Calling setState inside UNSAFE_componentWillMount in a class 
+component to initialize state is equivalent to passing that state 
+as the initial state to useState in a function component.
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+UNSAFE_componentWillReceiveProps(nextProps, nextContext) 
+
+only exists for historical reasons and should not be used in any new code. 
+Instead, use one of the alternatives:
+
+does not guarantee that the component will receive those props 
+if your app uses modern React features like Suspense.
+
+You need to compare nextProps and this.props yourself to check if something changed.
+
+react calls this method if some of component’s props are going 
+to be updated. For example, calling setState doesn’t generally 
+trigger UNSAFE_componentWillReceiveProps inside the same component.
 
 
 
