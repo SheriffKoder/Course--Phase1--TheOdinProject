@@ -1075,5 +1075,482 @@ regardless of the cause
 
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+React will call your render method whenever it needs to 
+figure out what to display on the screen
+
+Usually, you will return some JSX from it. 
+Your render method should be a pure function: 
+it should only calculate the JSX.
+
+import { Component } from 'react';
+
+export default class Counter extends Component {
+  state = {
+    name: 'Taylor',
+    age: 42,
+  };
+
+  handleNameChange = (e) => {
+    this.setState({
+      name: e.target.value
+    });
+  }
+
+  handleAgeChange = () => {
+    this.setState({
+      age: this.state.age + 1 
+    });
+  };
+
+  render() {
+    return (
+      <>
+        <input
+          value={this.state.name}
+          onChange={this.handleNameChange}
+        />
+        <button onClick={this.handleAgeChange}>
+          Increment age
+        </button>
+        <p>Hello, {this.state.name}. You are {this.state.age}.</p>
+      </>
+    );
+  }
+}
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+Adding lifecycle methods to a class component
+
+If you define the componentDidMount method, 
+React will call it when your component is first added (mounted) to the screen. 
+
+React will call componentDidUpdate after your component re-renders 
+due to changed props or state. 
+
+React will call componentWillUnmount 
+after your component has been removed (unmounted) from the screen.
+
+If you implement componentDidMount, you usually need to implement 
+all three lifecycles to avoid bugs.
+
+For example, if componentDidMount reads some state or props, 
+you also have to implement componentDidUpdate to handle their changes, 
+and componentWillUnmount to clean up whatever componentDidMount 
+was doing.
+
+//ChatRoom.js
+import { Component } from 'react';
+import { createConnection } from './chat.js';
+
+export default class ChatRoom extends Component {
+  state = {
+    serverUrl: 'https://localhost:1234'
+  };
+
+  componentDidMount() {
+    this.setupConnection();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.roomId !== prevProps.roomId ||
+      this.state.serverUrl !== prevState.serverUrl
+    ) {
+      this.destroyConnection();
+      this.setupConnection();
+    }
+  }
+
+  componentWillUnmount() {
+    this.destroyConnection();
+  }
+
+  setupConnection() {
+    this.connection = createConnection(
+      this.state.serverUrl,
+      this.props.roomId
+    );
+    this.connection.connect();    
+  }
+
+  destroyConnection() {
+    this.connection.disconnect();
+    this.connection = null;
+  }
+
+  render() {
+    return (
+      <>
+        <label>
+          Server URL:{' '}
+          <input
+            value={this.state.serverUrl}
+            onChange={e => {
+              this.setState({
+                serverUrl: e.target.value
+              });
+            }}
+          />
+        </label>
+        <h1>Welcome to the {this.props.roomId} room!</h1>
+      </>
+    );
+  }
+}
+
+//App.js
+import { useState } from 'react';
+import ChatRoom from './ChatRoom.js';
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general');
+  const [show, setShow] = useState(false);
+  return (
+    <>
+      <label>
+        Choose the chat room:{' '}
+        <select
+          value={roomId}
+          onChange={e => setRoomId(e.target.value)}
+        >
+          <option value="general">general</option>
+          <option value="travel">travel</option>
+          <option value="music">music</option>
+        </select>
+      </label>
+      <button onClick={() => setShow(!show)}>
+        {show ? 'Close chat' : 'Open chat'}
+      </button>
+      {show && <hr />}
+      {show && <ChatRoom roomId={roomId} />}
+    </>
+  );
+}
+
+//chat.js
+export function createConnection(serverUrl, roomId) {
+  // A real implementation would actually connect to the server
+  return {
+    connect() {
+      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+    },
+    disconnect() {
+      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+    }
+  };
+}
+
+Note that in development when Strict Mode is on, 
+React will call componentDidMount, immediately call 
+componentWillUnmount, and then call componentDidMount again. 
+This helps you notice if you forgot to implement componentWillUnmount 
+or if its logic doesn’t fully “mirror” what componentDidMount does.
+
+//ErrorBoundary
+
+
+
+//ex above using functions
+import { useState, useEffect } from 'react';
+
+function ChatRoom({ roomId }) {
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234');
+
+  useEffect(() => {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () => {
+      connection.disconnect();
+    };
+  }, [serverUrl, roomId]);
+
+  // ...
+}
+
+//To connect a component to an external system, describe this logic as a single Effect:
+//This useEffect call is equivalent to the logic in the lifecycle methods above.
+//If your lifecycle methods do multiple unrelated things, 
+split them into multiple independent Effects
+
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+////using functions
+
+function Greeting({ name }) {
+  return <h1>Hello, {name}!</h1>;
+}
+
+export default function App() {
+  return (
+    <>
+      <Greeting name="Sara" />
+      <Greeting name="Taylor" />
+    </>
+  );
+}
+
+
+
+
+///////////////////////////
+
+
+import { Component } from 'react';
+
+export default class Counter extends Component {
+  state = {
+    name: 'Taylor',
+    age: 42,
+  };
+
+  handleNameChange = (e) => {
+    this.setState({
+      name: e.target.value
+    });
+  }
+
+  handleAgeChange = (e) => {
+    this.setState({
+      age: this.state.age + 1 
+    });
+  };
+
+  render() {
+    return (
+      <>
+        <input
+          value={this.state.name}
+          onChange={this.handleNameChange}
+        />
+        <button onClick={this.handleAgeChange}>
+          Increment age
+        </button>
+        <p>Hello, {this.state.name}. You are {this.state.age}.</p>
+      </>
+    );
+  }
+}
+
+
+//the above example using functions
+
+import { useState } from 'react';
+
+function Counter() {
+const [name, setName] = useState('Taylor');
+const [age, setAge] = useState(42);
+
+function handleNameChange(e) {
+    setName(e.target.value);
+}
+
+function handleAgeChange() {
+    setAge(age + 1);
+}
+
+return (
+<>
+    <input
+    value={name}
+    onChange={handleNameChange}
+    />
+    <button onClick={handleAgeChange}>
+    Increment age
+    </button>
+    <p>Hello, {name}. You are {age}.</p>
+</>
+)
+}
+
+
+
+///////////////////////////
+
+import { createContext, Component } from 'react';
+
+const ThemeContext = createContext(null);
+
+class Panel extends Component {
+  static contextType = ThemeContext;
+
+  render() {
+    const theme = this.context;
+    const className = 'panel-' + theme;
+    return (
+      <section className={className}>
+        <h1>{this.props.title}</h1>
+        {this.props.children}
+      </section>
+    );    
+  }
+}
+
+//class Panel as a function
+//function Panel({ title, children }) {
+  const theme = useContext(ThemeContext);
+
+
+class Button extends Component {
+  static contextType = ThemeContext;
+
+  render() {
+    const theme = this.context;
+    const className = 'button-' + theme;
+    return (
+      <button className={className}>
+        {this.props.children}
+      </button>
+    );
+  }
+}
+
+//function Button({ children }) {
+  const theme = useContext(ThemeContext);
+  const className = 'button-' + theme;
+  return (
+    <button className={className}>
+      {children}
+    </button>
+  );
+}
+
+
+function Form() {
+  return (
+    <Panel title="Welcome">
+      <Button>Sign up</Button>
+      <Button>Log in</Button>
+    </Panel>
+  );
+}
+
+export default function MyApp() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Form />
+    </ThemeContext.Provider>
+  )
+}
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+useEffect
+
+a React Hook that lets you synchronize a component with an external system.
+
+useEffect(setup, dependencies?)
+
+the function with your effect's logic
+may also optionally return a cleanup function
+
+Parameters:
+setup: the function with your effect's logic
+this function may optionally return a cleanup functin
+when your component is first added to the DOM
+react will run your setup function
+with every re-render, react will run the cleanup function if provided
+with the old values
+then run the setup function with the new values
+after component is removed from the dom
+react will run the cleanup function one last time
+
+dependencies (optional)
+list of al reactive values
+referenced inside of the setup code
+values include, props, state and all the variables declared
+directly inside your component body
+
+Returns; undefined
+https://react.dev/reference/react/useEffect
+
+
+
+//
+
+import { useEffect } from 'react';
+import { createConnection } from './chat.js';
+
+function ChatRoom({ roomId }) {
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234');
+
+  useEffect(() => {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () => {
+      connection.disconnect();
+    };
+  }, [serverUrl, roomId]);
+  // ...
+}
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+is your Effect doing several unrelated things ?
+or several unrelated things ?
+
+Effects are an escape hatch from the React paradigm. 
+They let you “step outside” of React and synchronize your 
+components with some external system like a non-React widget, 
+network, or the browser DOM
+
+If there is no external system involved (for example, 
+if you want to update a component’s state when some props or state 
+change), you shouldn’t need an Effect. Removing unnecessary Effects 
+will make your code easier to follow, faster to run, and less 
+error-prone.
+
+https://react.dev/learn/you-might-not-need-an-effect
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+<Suspense>
+lets you display a fallback until its children have finished loading
+
+
+<Suspense fallback={<loading />}>
+    <SomeComponent />
+</Suspense>
+
+Props:
+children:
+the actual UI you intend to render
+"if children suspends while rendering
+the suspense boundary will switch to rendering fallback
+
+fallback:
+an alternate UI to render in place of the actual UI
+if it has not finished loading
+any valid react node is accepted
+a fallback is a lightweight placeholder view
+such as a loading spinner or skeleton
+
+suspense will automatically switch to fallback when children suspends
+and back to children when the data is ready
+if a fallback suspends while rendering
+it will activate the closest parent
+Suspense boundary
+
+
+
+
+
+
 
 */
