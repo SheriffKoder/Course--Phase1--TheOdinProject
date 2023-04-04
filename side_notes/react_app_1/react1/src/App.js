@@ -3,6 +3,7 @@ import React, { Component, useState, setState } from 'react';
 import ReactDOM from 'react-dom';
 
 import {tick} from './components/tickingClock.js' //not default import
+import {Counter} from "./components/Counter.js"
 
 
 ////////////////////////////////////////////////////////////
@@ -244,4 +245,44 @@ class AppBtn extends Component {
 //return <button onClick={this.handleClick.bind(this)}>Click Me</button>;
 
 ReactDOM.render(<AppBtn />, document.getElementById("rootDiv5"));
+
+
+////////////////////////////////////////////////////////////
+////component5 for counter.js
+
+//App5 mount/unmount counter
+class App5 extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      mount: true
+    }
+
+    this.mountCounter = () => this.setState({mount: true})
+    this.unmountCounter = () => this.setState({mount: false})
+
+  }
+
+  //UI greyed buttons on state
+  //each button tick, Counter will rerender/DidUpdate
+  render () {
+    return (
+      <div>
+        <button onClick={this.mountCounter} disabled={this.state.mount}>
+          MountCounter
+        </button>
+
+        <button onClick={this.unmountCounter} disabled={!this.state.mount}>
+          unMountCounter
+        </button>
+
+        <Counter />
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App5 />, document.getElementById("rootDiv6"))
+
 

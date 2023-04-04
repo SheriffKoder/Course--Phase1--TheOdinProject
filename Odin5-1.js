@@ -1897,12 +1897,58 @@ then react will try another attempt to re-render/return in the background
 with the new value
 
 when it receives a different value compared with Object.js
-in addition to the current render
+in addition to the current render when it still uses the
+previous value,
+it schedules a re-render in the background with the new value
+
+The background re-render is interruptible if there’s another update
+to the value, React will restart the background re-render from scratch.
+
+For example, if the user is typing into an input faster than a chart receiving its deferred value can re-render, the chart will only re-render after the user stops typing.
+
+useDeferredValue is integrated with <Suspense>. 
+If the background update caused by a new value suspends the UI, 
+the user will not see the fallback. They will see the old deferred 
+value until the data loads.
+
+useDeferredValue does not by itself prevent extra network requests.
+
+there is no fixed delay caused by it itself
+as soon as React finishes the original re-render, React will 
+immediately start working on the background re-render with the 
+new deferred value. Any updates caused by events (like typing) 
+will interrupt the background re-render and get prioritized over it.
+
+The background re-render caused by useDeferredValue does not fire Effects until it’s committed to the screen. If the background re-render suspends, its Effects will run after the data loads and the UI updates.
 
 
+import { useState, useDeferredValue } from 'react';
+import SlowList from './SlowList.js';
+
+export default function App() {
+  const [text, setText] = useState('');
+  const deferredText = useDeferredValue(text);
+  return (
+    <>
+      <input value={text} onChange={e => setText(e.target.value)} />
+      <SlowList text={deferredText} />
+    </>
+  );
+}
 
 
+This optimization requires SlowList to be wrapped in memo. 
+This is because whenever the text changes, React needs to be 
+able to re-render the parent component quickly. 
+During that re-render, deferredText still has its previous value, 
+so SlowList is able to skip re-rendering (its props have not changed). 
+Without memo, it would have to re-render anyway, defeating the point 
+of the optimization.
 
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
 
 
 
