@@ -256,12 +256,17 @@ class App5 extends React.Component {
     super(props)
 
     this.state = {
-      mount: true
+      mount: true,
+      ignoreProp: 0,
+      seed: 40
     }
 
     this.mountCounter = () => this.setState({mount: true})
     this.unmountCounter = () => this.setState({mount: false})
 
+    this.ignoreProp = () => this.setState({ignoreProp: Math.random()})
+    this.seedGenerator = () => this.setState({seed: Number.parseInt(Math.random()*100)})
+  
   }
 
   //UI greyed buttons on state
@@ -277,7 +282,18 @@ class App5 extends React.Component {
           unMountCounter
         </button>
 
-        <Counter />
+        <button onClick={this.seedGenerator}>
+          Generate Seed
+        </button>
+
+        <button onClick={this.ignoreProp}>
+          Ignore Prop
+        </button>
+
+        {this.state.mount ? <Counter 
+        ignoreProp={this.state.ignoreProp}
+        seed={this.state.seed}
+        /> : null}
       </div>
     )
   }
