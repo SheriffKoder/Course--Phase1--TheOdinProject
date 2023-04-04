@@ -1579,7 +1579,7 @@ export default function ArtistPage({ artist }) {
     <>
       <h1>{artist.name}</h1>
         <Suspense fallback={<Loading />}>
-        <Details artistId={artist.id} />
+            <Details artistId={artist.id} />
         </Suspense>
 
         function Details({ artistId }) {
@@ -1615,8 +1615,8 @@ function Loading() {
   </Suspense>
 </Suspense>
 
-//With this change, displaying the Biography doesn’t need to “wait” 
-for the Albums to load.
+//With this change, displaying the "Biography" doesn’t need to “wait” 
+for the "Albums" to load.
 
 import { Suspense } from 'react';
 import Albums from './Albums.js';
@@ -1719,6 +1719,189 @@ export default function App() {
 
 Both deferred values and transitions let you avoid showing Suspense 
 fallback in favor of inline indicators. 
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+//Preventing already revealed content from hiding 
+
+
+import { Suspense, startTransition, useState } from 'react';
+import IndexPage from './IndexPage.js';
+import ArtistPage from './ArtistPage.js';
+import Layout from './Layout.js';
+
+export default function App() {
+  return (
+    <Suspense fallback={<BigSpinner />}>
+      <Router />
+    </Suspense>
+  );
+}
+
+function Router() {
+  const [page, setPage] = useState('/');
+  //const [isPending, startTransition] = useTransition();
+
+
+  //this tells react that the state transition is not urgent
+  //its better to keep showing the previous page instead
+  //of hiding any already revealed content
+  //now clicking on the button waits for the biography to load
+  //and not reset layout
+  function navigate(url) {
+    startTransition(() => {
+      setPage(url);
+    });
+  }
+
+  let content;
+  if (page === '/') {
+    content = (
+      <IndexPage navigate={navigate} />
+    );
+  } else if (page === '/the-beatles') {
+    content = (
+      <ArtistPage
+        artist={{
+          id: 'the-beatles',
+          name: 'The Beatles',
+        }}
+      />
+    );
+  }
+  return (
+    <Layout>
+    //<Layout isPending={isPending}>
+
+      {content}
+    </Layout>
+  );
+}
+
+function BigSpinner() {
+  return <h2>🌀 Loading...</h2>;
+}
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+//Indicating that a transition is happening 
+
+there is no visual indication that a navigation is in progress
+once the button is clicked in the previous example
+
+to add an indicator, 
+replace startTransition with useTransition
+which gives a boolean isPending value
+like the //in the example above
+
+In the example below, it’s used to change the website header 
+styling while a transition is happening:
+
+//Resetting Suspense boundaries on navigation 
+During a transition, React will avoid hiding already revealed 
+content. However, if you navigate to a route with different 
+parameters, you might want to tell React it is different content. 
+You can express this with a key:
+
+<ProfilePage key={queryParams.id} />
+
+By specifying a key, you ensure that React treats different users’ 
+profiles as different components, and resets the Suspense boundaries 
+during navigation
+
+//Providing a fallback for server errors and server-only content 
+
+if you use one of the streaming server rendering API's
+of a framework that relies on them
+React will also use your suspense> boundaries to handle 
+errors on the server
+
+if a component throws an error on the server
+React will not abort the server render
+instead it will find the closest suspense component above it
+and include its fallback
+such as a spinner
+into the generated server HTML
+the user will see a spinner at first
+
+On the client, React will attempt to render the same component again. 
+If it errors on the client too, React will throw the error and display 
+the closest error boundary. However, if it does not error on the client, 
+React will not display the error to the user since the content was 
+eventually displayed successfully.
+
+You can use this to opt out some components from rendering on the 
+server. To do this, throw an error in the server environment and 
+then wrap them in a <Suspense> boundary to replace their HTML with 
+fallbacks:
+
+<Suspense fallback={<Loading />}>
+  <Chat />
+</Suspense>
+
+function Chat() {
+  if (typeof window === 'undefined') {
+    throw Error('Chat should only render on the client.');
+  }
+  // ...
+}
+
+The server HTML will include the loading indicator. 
+It will be replaced by the Chat component on the client.
+
+
+//How do I prevent the UI from being replaced by a fallback 
+during an update? 
+
+Replacing visible UI with a fallback creates a jarring user experience. This can happen when an update causes a component to suspend, and the nearest Suspense boundary is already showing content to the user.
+
+To prevent this from happening, mark the update as non-urgent using startTransition. During a transition, React will wait until enough data has loaded to prevent an unwanted fallback from appearing:
+
+function handleNextPageClick() {
+  // If this update suspends, don't hide the already displayed content
+  startTransition(() => {
+    setCurrentPage(currentPage + 1);
+  });
+}
+
+This will avoid hiding existing content. However, any newly rendered Suspense boundaries will still immediately display fallbacks to avoid blocking the UI and let the user see the content as it becomes available.
+
+If your router is integrated with Suspense, it should wrap its updates into startTransition automatically.
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+useDeferredValue
+useDeferredValue is a React Hook that lets you defer updating a part 
+of the UI.
+
+const deferredValue = useDeferredValue(value)
+
+Call useDeferredValue(value) at the top level of your component 
+to get a deferred version of that value.
+
+value can be any type strings and numbers) or 
+objects created outside of rendering.
+created values during rerendering and immediately pass to 
+useDeferredValue will be different on every render
+and will cause unnecessary rerenders
+
+Returns;
+initial render > same as the value provided
+react will first attempt to re-render/return with the old value
+then react will try another attempt to re-render/return in the background
+with the new value
+
+when it receives a different value compared with Object.js
+in addition to the current render
+
+
+
+
 
 
 
