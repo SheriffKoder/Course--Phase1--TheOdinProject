@@ -1548,7 +1548,177 @@ it will activate the closest parent
 Suspense boundary
 
 
+Caveats:
+React does not preserve any state for renders that got 
+suspended before they were able to mount for the first time. 
+When the component has loaded, React will retry rendering the 
+suspended tree from scratch.
 
+If React needs to hide the already visible content because it 
+suspended again, it will clean up layout Effects in the content 
+tree. When the content is ready to be shown again, React will fire 
+the layout Effects again. This ensures that Effects measuring 
+the DOM layout don’t try to do this while the content is hidden.
+
+React includes under-the-hood optimizations like 
+Streaming Server Rendering and Selective Hydration that are 
+integrated with Suspense. 
+
+<Suspense fallback={<Loading />}>
+  <Albums />
+</Suspense>
+
+
+import { Suspense } from 'react';
+import Albums from './Albums.js';
+import Biography from './Biography.js';
+import Panel from './Panel.js';
+
+export default function ArtistPage({ artist }) {
+  return (
+    <>
+      <h1>{artist.name}</h1>
+        <Suspense fallback={<Loading />}>
+        <Details artistId={artist.id} />
+        </Suspense>
+
+        function Details({ artistId }) {
+        return (
+            <>
+            <Biography artistId={artistId} />
+            <Panel>
+                <Albums artistId={artistId} />
+            </Panel>
+            </>
+        );
+        }    
+    </>
+  );
+}
+
+function Loading() {
+  return <h2>🌀 Loading...</h2>;
+}
+
+
+//after all of them are ready to be displayed, 
+//they will all appear together at once.
+//with items moved to a component function
+
+
+<Suspense fallback={<BigSpinner />}>
+  <Biography />
+  <Suspense fallback={<AlbumsGlimmer />}>
+    <Panel>
+      <Albums />
+    </Panel>
+  </Suspense>
+</Suspense>
+
+//With this change, displaying the Biography doesn’t need to “wait” 
+for the Albums to load.
+
+import { Suspense } from 'react';
+import Albums from './Albums.js';
+import Biography from './Biography.js';
+import Panel from './Panel.js';
+
+export default function ArtistPage({ artist }) {
+  return (
+    <>
+      <h1>{artist.name}</h1>
+      <Suspense fallback={<BigSpinner />}>
+        <Biography artistId={artist.id} />
+        <Suspense fallback={<AlbumsGlimmer />}>
+          <Panel>
+            <Albums artistId={artist.id} />
+          </Panel>
+        </Suspense>
+      </Suspense>
+    </>
+  );
+}
+
+function BigSpinner() {
+  return <h2>🌀 Loading...</h2>;
+}
+
+function AlbumsGlimmer() {
+  return (
+    <div className="glimmer-panel">
+      <div className="glimmer-line" />
+      <div className="glimmer-line" />
+      <div className="glimmer-line" />
+    </div>
+  );
+}
+
+
+//defer updating the list
+A common alternative UI pattern is to defer updating the list and 
+to keep showing the previous results until the new results are ready. 
+The useDeferredValue Hook lets you pass a deferred version of the 
+query down:
+
+export default function App() {
+  const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
+  return (
+    <>
+      <label>
+        Search albums:
+        <input value={query} onChange={e => setQuery(e.target.value)} />
+      </label>
+      <Suspense fallback={<h2>Loading...</h2>}>
+        <SearchResults query={deferredQuery} />
+      </Suspense>
+    </>
+  );
+}
+
+The query will update immediately, so the input will display 
+the new value. However, the deferredQuery will keep its previous 
+value until the data has loaded, so SearchResults will show the 
+stale results for a bit.
+
+
+
+
+////
+<div style={{
+  opacity: query !== deferredQuery ? 0.5 : 1 
+}}>
+  <SearchResults query={deferredQuery} />
+</div>
+
+Notice how instead of the Suspense fallback, you now see the 
+dimmed stale result list until the new results have loaded:
+
+import { Suspense, useState, useDeferredValue } from 'react';
+import SearchResults from './SearchResults.js';
+
+export default function App() {
+  const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
+  const isStale = query !== deferredQuery;
+  return (
+    <>
+      <label>
+        Search albums:
+        <input value={query} onChange={e => setQuery(e.target.value)} />
+      </label>
+      <Suspense fallback={<h2>Loading...</h2>}>
+        <div style={{ opacity: isStale ? 0.5 : 1 }}>
+          <SearchResults query={deferredQuery} />
+        </div>
+      </Suspense>
+    </>
+  );
+}
+
+
+Both deferred values and transitions let you avoid showing Suspense 
+fallback in favor of inline indicators. 
 
 
 
