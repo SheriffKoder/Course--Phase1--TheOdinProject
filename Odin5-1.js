@@ -1951,5 +1951,267 @@ of the optimization.
 /*
 
 
+//didCatchError not allowing app to function in myReactApp ?
+
+This is intentional. An unexpected error is still an error. 
+(We don’t recommend using error boundaries for expected errors 
+or control flow.)
+
+Error boundaries are primarily useful for production, 
+but in development we want to make errors as highly visible 
+as possible.
+
+Also The error visible is just an overlay and your 
+ErrorBoundary message gets hidden behind the Error overlay
+
+To check if the Error is actually present, you can inspect 
+element and delete the overlay from DOM, and you would be 
+able to see the error message
+
+The full error stack is just an overlay that's shown when you run the application in development mode. It won't get shown in production. (You can close it by clicking the 'X' button in the top-right corner.)
+
+
+//if whenever the counter component mounts for the first time
+it automatically gets unmounted and remounted. 
+This is happening because of a feature introduced in React 18
+
+This only applies to development mode. 
+Lifecycles will not be double-invoked in production mode.
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+
+Lifecycle methods are a last resort
+They’re to be used in special cases, when other fallbacks 
+like rearranging your components or moving your state around 
+won’t work.
+
+Lifecycle methods (with the exception of constructor) are hard
+to reason about. They add complexity to your app. 
+Don’t use them unless you must.
+
+
+//////Mounting
+////Constructor
+the first thing that gets called
+does not apply to functional components
+
+Note that using a constructor is optional, 
+and you can initialize your state like so 
+if your Babel setup has support for class fields:
+
+class MyComponent extends Component {
+  state = {
+    counter: 0,
+    //or
+    counter: this.props.initialCounterValue,
+  };
+}
+
+
+Most Common Use Case For Constructor: Setting up state, 
+creating refs and method binding.
+
+
+//to set state according to the initial props
+state of blocks = []
+
+static getDerivedStateFromProps(props, state) {
+  return { blocks: createBlocks(props.numberOfBlocks) };
+}
+
+
+////componentDidMount
+most common use: Starting AJAX calls to load in data for your component.
+If you need to load data, here’s where you do it. 
+Don’t try to load data in the constructor or render or anything crazy.
+will guarantee that there’s a component to update
+
+where can do
+draw on a <canvas> element that you just rendered
+initialize a masonry grid layout from a collection of elements (that’s us!)
+add event listeners
+
+
+
+
+//////Updating
+////getDerivedStateFromProps
+useful, not recommended, last resort
+
+static getDerivedStateFromProps(props, state) {
+  if (state.blocks.length > 0) {
+    return {};
+  }
+  return { blocks: createBlocks(props.numberOfBlocks) };
+}
+
+////shouldComponentUpdate
+when a component receives new props, or new state, 
+it should update.
+component is going to ask permission first.
+
+always return a boolean
+true(default) means yes should render
+
+useful for not wasting renders, place to improve performance
+
+shouldComponentUpdate allows us to say: only update 
+if the props you care about change.
+
+But keep in mind that it can cause major problems 
+if you set it and forget it, because your React component will 
+not update normally. So use with caution.
+
+//Now we say: the component should update only if the number 
+//of blocks in state change.
+shouldComponentUpdate(nextProps, nextState) {
+  // Only update if bricks change
+  return nextState.blocks.length > this.state.blocks.length;
+}
+
+Most Common Use Case: Controlling exactly when your component 
+will re-render.
+
+
+//getSnapshotBeforeUpdate
+called between render and the updated component actually
+being propagated to the DOM
+it exists as a last change-look at component with its
+previous props and state
+
+there may be a delay between calling render and
+having your changes appear
+
+if need to know what the dom is exactly at the time
+of integrating the result of the latest render call
+
+if a user is at the bottom of our grid
+when new blocks are loaded
+they should be scrolled down to the new bottom of the screen
+
+getSnapshotBeforeUpdate(prevProps, prevState) {
+    if (prevState.blocks.length < this.state.blocks.length) {
+      const grid = this.grid.current;
+      const isAtBottomOfGrid =
+        window.innerHeight + window.pageYOffset === grid.scrollHeight;
+      return { isAtBottomOfGrid };
+    }
+    return null;
+  }
+
+Here’s what this says: if the user has scrolled to the bottom, 
+return an object like so: { isAtBottomOfGrid: true }. 
+If they aren’t, return null.
+
+You should either return null or a value from getSnapshotBeforeUpdate.
+
+Most Common Use Case: Taking a look at some attribute of 
+the current DOM, and passing that value on to componentDidUpdate.
+
+
+//componentDidUpdate
+Now, our changes have been committed to the DOM.
+
+we have access to three things
+previous props, previous state, whatever value we returned
+from getSnapshot before update
+
+componentDidUpdate(prevProps, prevState, snapshot) {
+  this.bricks.pack();
+  if (snapshot.isAtBottomOfGrid) {
+    window.scrollTo({
+      top: this.grid.current.scrollHeight,
+      behavior: 'smooth',
+    });
+  }
+}
+
+First, we re-layout the grid, using the Bricks.js pack method.
+
+Then, if our snapshot shows the user was at the bottom of the grid, we scroll them down to the bottom of the new blocks.
+
+Most Common Use Case for componentDidUpdate: Reacting (hah!) to committed changes to the DOM.
+
+
+//////Unmounting
+//componentWillUnmount
+
+Here you can cancel any outgoing network requests, or remove all event listeners associated with the component.
+clear intervals
+
+
+//////Errors
+//getDerivedStateFromError
+
+Not in your component itself, but one of its descendants.
+
+want to show an error screen
+The easiest way to do so is to have a value like this.state.hasError
+which gets flipped to true at this point
+
+static getDerivedStateFromError(error) {
+  return { hasError: true };
+}
+
+must return the updated state object
+don't use this method for any side effects
+use componentDidCatch
+
+use case: Updating state to display an error screen.
+
+//componentDidCatch
+similar to above
+triggered when an error occurs in a child component.
+
+we can now perform any side effects, like logging the error.
+
+componentDidCatch(error, info) {
+  sendErrorLog(error, info);
+}
+
+error would be the actual error message (Undefined Variable etc. ) 
+and info would be the stack trace (In Component, in div, etc).
+
+Note that componentDidCatch only works for errors in the 
+render/lifecycle methods. If your app throws an error in a 
+click handler, it will not be caught.
+
+use only in special error boundary components
+components wrap a child tree with the purpose
+of catching and logging errors
+
+//ex error boundary catch an error and render 
+a message instead of the child components
+
+class ErrorBoundary extends Component {
+  state = { errorMessage: null };
+  static getDerivedStateFromError(error) {
+    return { errorMessage: error.message };
+  }
+  componentDidCatch(error, info) {
+    console.log(error, info);
+  }
+  render() {
+    if (this.state.errorMessage) {
+      return <h1>Oops! {this.state.errorMessage}</h1>;
+    }
+    return this.props.children;
+  }
+}
+
+common use: catching and logging errors
+
+
+
+
+
 
 */
+
+//Odin5-1.js
+//React_app_1 counter.js/(App.js)component5
