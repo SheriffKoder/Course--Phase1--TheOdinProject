@@ -22,7 +22,8 @@ export class Counter extends React.Component {
   
       this.state = {
         counter: 0,
-        seed: 0
+        seed: 0,
+        initializing: true
       }
   
       this.increment = () => this.setState({counter: this.state.counter+1})
@@ -35,6 +36,7 @@ export class Counter extends React.Component {
     //error if not return statement
     //anything returned from here get assigned to the state, 
     //not want to change state, return null
+    //copy props into state
     static getDerivedStateFromProps(props, state) {
         //if a seed exists on the props
         //and the seed in out state not equal seed 
@@ -53,6 +55,9 @@ export class Counter extends React.Component {
     //single render call next renders(buttons not use it)
     componentDidMount() {
       console.log("Component Did Mount");
+      setTimeout(() => {
+        this.setState({initializing: false})
+      }, 500);
     }
 
     //let react know rendering should be triggered or not
@@ -85,13 +90,30 @@ export class Counter extends React.Component {
     //capture some properties not stored in state
     //before we re-render that component
     //like capture the cursor to use it in componentdid update
+    //of list views
     getSnapshotBeforeUpdate(prevProps, prevState) {
         console.log("get snapshot before update")
         return null
     }
   
     render () {
+      //console.log("Render", this.state.error.message) //2
       console.log("Render") //2
+
+      //showing a specific message
+      //we could simulate
+      //component loads and need to fetch some data
+      //in the did mount
+      if(this.state.initializing) {
+        return <div> Initializing... </div>
+      }
+
+      //didCatchError
+      //when the showError is true and have an error
+      //should be able to toggle the error UI
+      if (this.props.showErrorComponent && this.state.error) {
+        return <div> We have an error {this.state.error} </div>
+      }
   
       return (
         <div>
@@ -106,12 +128,19 @@ export class Counter extends React.Component {
           <div className="counter">
             Counter: {this.state.counter}
           </div>
-          <ErrorComponent />
+
+          <div> ErrorComponent </div>
+
         </div>
       )
     }
+
+    //{this.props.showErrorComponent ? <ErrorComponent/> : null}
+
   
     //runs on every button click
+    //after every render
+    //like didmount to use network requests
     componentDidUpdate(prevProps, prevState, snapshot) {
       console.log("Component Did Update")
     }
@@ -124,11 +153,18 @@ export class Counter extends React.Component {
 
     //part of the error boundaries
     //chance to, handle errors
+    //allow app to cont running even with an error not stop
     componentDidCatch(error, info) {
         console.log("Component did catch error")
+
+        //once catch error
+        //set error and info properties on it and 
+        //handle them in render
+        this.setState({error, info})
     }
   
   }
   
   //ReactDOM.render(<Counter />, document.getElementById("rootDiv6"));
   
+  //https://www.youtube.com/watch?v=m_mtV4YaI8c
