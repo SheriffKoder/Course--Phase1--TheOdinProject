@@ -439,7 +439,7 @@ function ProductPage({ productId, referrer, theme }) {
 With this change, ShippingForm will skip re-rendering if all of its props are the same as on the last render.
 This is when caching a function becomes important
 
-//////////////
+////////////////////////////////////////////////////////
 
 function ProductPage({ productId, referrer, theme }) {
   // Tell React to cache your function between re-renders...
@@ -459,6 +459,647 @@ function ProductPage({ productId, referrer, theme }) {
 }
 
 By wrapping handleSubmit in useCallback, you ensure that it’s the same function between the re-renders (until dependencies change). 
+
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+
+//App.js
+
+import { useState } from 'react';
+import ProductPage from './ProductPage.js';
+
+export default function App() {
+  const [isDark, setIsDark] = useState(false);
+  return (
+    <>
+      <label>
+        <input
+          type="checkbox"
+          checked={isDark}
+          onChange={e => setIsDark(e.target.checked)}
+        />
+        Dark mode
+      </label>
+      <hr />
+      <ProductPage
+        referrerId="wizard_of_oz"
+        productId={123}
+        theme={isDark ? 'dark' : 'light'}
+      />
+    </>
+  );
+}
+
+//ProductPage.js
+
+import { useCallback } from 'react';
+import ShippingForm from './ShippingForm.js';
+
+export default function ProductPage({ productId, referrer, theme }) {
+  const handleSubmit = useCallback((orderDetails) => {
+    post('/product/' + productId + '/buy', {
+      referrer,
+      orderDetails,
+    });
+  }, [productId, referrer]);
+
+  return (
+    <div className={theme}>
+      <ShippingForm onSubmit={handleSubmit} />
+    </div>
+  );
+}
+
+function post(url, data) {
+  // Imagine this sends a request...
+  console.log('POST /' + url);
+  console.log(data);
+}
+
+//shippingForm.js
+import { memo, useState } from 'react';
+
+const ShippingForm = memo(function ShippingForm({ onSubmit }) {
+  const [count, setCount] = useState(1);
+
+  console.log('[ARTIFICIALLY SLOW] Rendering <ShippingForm />');
+  let startTime = performance.now();
+  while (performance.now() - startTime < 500) {
+    // Do nothing for 500 ms to emulate extremely slow code
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const orderDetails = {
+      ...Object.fromEntries(formData),
+      count
+    };
+    onSubmit(orderDetails);
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <p><b>Note: <code>ShippingForm</code> is artificially slowed down!</b></p>
+      <label>
+        Number of items:
+        <button type="button" onClick={() => setCount(count - 1)}>–</button>
+        {count}
+        <button type="button" onClick={() => setCount(count + 1)}>+</button>
+      </label>
+      <label>
+        Street:
+        <input name="street" />
+      </label>
+      <label>
+        City:
+        <input name="city" />
+      </label>
+      <label>
+        Postal code:
+        <input name="zipCode" />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  );
+});
+
+export default ShippingForm;
+
+//shipping form is intentionally slowed down
+//thanks to useCallback and memo, 
+theme toggle is fast
+
+//shipping form is skipped re-rendering because
+handle submit function has not changed
+because both product Id and referrer deps.
+haven't changed since last render
+
+// If your interactions are fast enough, you don’t need memoization.
+
+//Keep in mind that you need to run React in production mode, 
+disable React Developer Tools, and use devices similar 
+to the ones your app’s users have in order to get a realistic 
+sense of what’s actually slowing down your app.
+
+//
+
+
+
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+
+Sometimes, you might need to update state based on previous 
+state from a memoized callback.
+
+function TodoList() {
+  const [todos, setTodos] = useState([]);
+
+  const handleAddTodo = useCallback((text) => {
+    const newTodo = { id: nextId++, text };
+    setTodos([...todos, newTodo]);
+  }, [todos]);
+  // ...
+
+
+You’ll usually want memoized functions to have as few 
+dependencies as possible. When you read some state only 
+to calculate the next state, you can remove that dependency 
+by passing an updater function instead:
+
+function TodoList() {
+  const [todos, setTodos] = useState([]);
+
+  const handleAddTodo = useCallback((text) => {
+    const newTodo = { id: nextId++, text };
+    setTodos(todos => [...todos, newTodo]);
+  }, []); // ✅ No need for the todos dependency
+  // ...
+
+  Here, instead of making todos a dependency and reading 
+  it inside, you pass an instruction about how to update 
+  the state (todos => [...todos, newTodo]) to React. 
+
+
+////////////////////////////////////////////////////////
+
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  **
+  function createOptions() {
+    return {
+      serverUrl: 'https://localhost:1234',
+      roomId: roomId
+    };
+  }
+
+ useEffect(() => {
+    const options = createOptions();
+    const connection = createConnection();
+    connection.connect();
+    return () => connection.disconnect();
+  }, [createOptions]); // 🔴 Problem: This dependency changes on every render
+  // ...
+
+
+
+
+This creates a problem. as Every reactive value must be declared 
+as a dependency of your Effect. However, if you declare 
+createOptions as a dependency, it will cause your Effect 
+to constantly reconnect to the chat room:
+
+To solve this, you can wrap the function you need to call 
+from an Effect into useCallback:
+
+**
+  const createOptions = useCallback(() => {
+    return {
+      serverUrl: 'https://localhost:1234',
+      roomId: roomId
+    };
+  }, [roomId]); // ✅ Only changes when roomId changes
+
+
+  However, it’s even better to remove the need for a function 
+  dependency. Move your function inside the Effect:
+  instead of being a constant
+  Now your code is simpler and doesn’t need useCallback. 
+  Learn more about removing Effect dependencies.
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+if you're writing a custom Hook
+it's it’s recommended to wrap any functions that it returns 
+into useCallback:
+This ensures that the consumers of your Hook can optimize 
+their own code when needed.
+
+
+function useRouter() {
+  const { dispatch } = useContext(RouterStateContext);
+
+  const navigate = useCallback((url) => {
+    dispatch({ type: 'navigate', url });
+  }, [dispatch]);
+
+  const goBack = useCallback(() => {
+    dispatch({ type: 'back' });
+  }, [dispatch]);
+
+  return {
+    navigate,
+    goBack,
+  };
+}
+
+
+//Extracting your own custom Hook from a component 
+//declare a function called useOnlineStatus 
+and move all the duplicated code into it from
+the components you wrote earlier
+At the end of the function, return isOnline. 
+This lets your components read that value:
+
+
+import { useState, useEffect } from 'react';
+
+
+function useOnlineStatus() {
+  const [isOnline, setIsOnline] = useState(true);
+  useEffect(() => {
+    function handleOnline() {
+      setIsOnline(true);
+    }
+    function handleOffline() {
+      setIsOnline(false);
+    }
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+  return isOnline;
+}
+
+
+//its App.js
+import { useOnlineStatus } from './useOnlineStatus.js';
+
+function StatusBar() {
+  const isOnline = useOnlineStatus();
+  return <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1>;
+}
+
+function SaveButton() {
+  const isOnline = useOnlineStatus();
+
+  function handleSaveClick() {
+    console.log('✅ Progress saved');
+  }
+
+  return (
+    <button disabled={!isOnline} onClick={handleSaveClick}>
+      {isOnline ? 'Save progress' : 'Reconnecting...'}
+    </button>
+  );
+}
+
+export default function App() {
+  return (
+    <>
+      <SaveButton />
+      <StatusBar />
+    </>
+  );
+}
+
+
+naming conventions
+React component names must start with a capital letter, like StatusBar
+Hook names must start with use followed by a capital letter, like useState
+
+Custom Hooks let you share stateful logic but not state itself. Each call to a Hook is completely independent 
+from every other call to the same Hook.
+
+cont here: https://react.dev/learn/reusing-logic-with-custom-hooks#extracting-your-own-custom-hook-from-a-component
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+Components with many state updates spread across many 
+event handlers can get overwhelming.
+For these cases, you can consolidate all the 
+state update logic outside your component
+in a single function, called a reducer.
+
+ For example, the TaskApp component below holds an array 
+ of tasks in state and uses three different event handlers 
+ to add, remove, and edit tasks:
+
+
+import {useState} from 'react';
+import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+
+export default function TaskApp() {
+  const [tasks, setTasks] = useState(initialTasks);
+
+  function handleAddTask(text) {
+    setTasks([
+      ...tasks,
+      {
+        id: nextId++,
+        text: text,
+        done: false,
+      },
+    ]);
+  }
+
+  function handleChangeTask(task) {
+    setTasks(
+      tasks.map((t) => {
+        if (t.id === task.id) {
+          return task;
+        } else {
+          return t;
+        }
+      })
+    );
+  }
+
+  function handleDeleteTask(taskId) {
+    setTasks(tasks.filter((t) => t.id !== taskId));
+  }
+
+  return (
+    <>
+      <h1>Prague itinerary</h1>
+      <AddTask onAddTask={handleAddTask} />
+      <TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      />
+    </>
+  );
+}
+
+let nextId = 3;
+const initialTasks = [
+  {id: 0, text: 'Visit Kafka Museum', done: true},
+  {id: 1, text: 'Watch a puppet show', done: false},
+  {id: 2, text: 'Lennon Wall pic', done: false},
+];
+
+
+//you can move that state logic into a single function outside 
+your component, called a “reducer”.
+
+handleAddTask(text) is called when the user presses “Add”.
+handleChangeTask(task) is called when the user toggles a task or presses “Save”.
+handleDeleteTask(taskId) is called when the user presses “Delete”.
+
+
+Managing state with reducers is slightly different from directly setting state. Instead of telling React “what to do” by setting state, you specify “what the user just did” by dispatching “actions” from your event handlers. (The state update logic will live elsewhere!) So instead of “setting tasks” via an event handler, you’re dispatching an “added/changed/deleted a task” action. This is more descriptive of the user’s intent.
+
+function handleAddTask(text) {
+  dispatch({
+    type: 'added',
+    id: nextId++,
+    text: text,
+  });
+}
+
+function handleChangeTask(task) {
+  dispatch({
+    type: 'changed',
+    task: task,
+  });
+}
+
+function handleDeleteTask(taskId) {
+  dispatch({
+    type: 'deleted',
+    id: taskId,
+  });
+}
+
+A reducer function is where you will put your state logic. It takes two arguments, the current state and the action object, and it returns the next state:
+
+function tasksReducer(tasks, action) {
+  if (action.type === 'added') {
+    return [
+      ...tasks,
+      {
+        id: action.id,
+        text: action.text,
+        done: false,
+      },
+    ];
+  } else if (action.type === 'changed') {
+    return tasks.map((t) => {
+      if (t.id === action.task.id) {
+        return action.task;
+      } else {
+        return t;
+      }
+    });
+  } else if (action.type === 'deleted') {
+    return tasks.filter((t) => t.id !== action.id);
+  } else {
+    throw Error('Unknown action: ' + action.type);
+  }
+}
+
+
+Because the reducer function takes state (tasks) as an argument, you can declare it outside of your component. This decreases the indentation level and can make your code easier to read.
+
+//can use switch in this example
+
+  switch (action.type) {
+    case 'added': {
+    case 'changed': {
+    case 'deleted': {
+    default: {
+      throw Error('Unknown action: ' + action.type);
+
+
+import {useReducer} from 'react';
+const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+
+
+The useReducer Hook takes two arguments:
+
+A reducer function
+An initial state
+And it returns:
+
+A stateful value
+A dispatch function (to “dispatch” user actions to the reducer)
+
+import {useReducer} from 'react';
+import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+
+export default function TaskApp() {
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+
+  function handleAddTask(text) {
+    dispatch({
+      type: 'added',
+      id: nextId++,
+      text: text,
+    });
+  }
+
+  function handleChangeTask(task) {
+    dispatch({
+      type: 'changed',
+      task: task,
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    dispatch({
+      type: 'deleted',
+      id: taskId,
+    });
+  }
+
+  return (
+    <>
+      <h1>Prague itinerary</h1>
+      <AddTask onAddTask={handleAddTask} />
+      <TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      />
+    </>
+  );
+}
+
+//can be in a different file export and import into app.js
+function tasksReducer(tasks, action) {
+  switch (action.type) {
+    case 'added': {
+      return [
+        ...tasks,
+        {
+          id: action.id,
+          text: action.text,
+          done: false,
+        },
+      ];
+    }
+    case 'changed': {
+      return tasks.map((t) => {
+        if (t.id === action.task.id) {
+          return action.task;
+        } else {
+          return t;
+        }
+      });
+    }
+    case 'deleted': {
+      return tasks.filter((t) => t.id !== action.id);
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+
+let nextId = 3;
+const initialTasks = [
+  {id: 0, text: 'Visit Kafka Museum', done: true},
+  {id: 1, text: 'Watch a puppet show', done: false},
+  {id: 2, text: 'Lennon Wall pic', done: false},
+];
+
+
+//We recommend using a reducer if you often encounter bugs due to incorrect state updates in some component, and want to introduce more structure to its code.
+
+Just like with updating objects and arrays in regular state, you can use the Immer library to make reducers more concise. Here, useImmerReducer lets you mutate the state with push or arr[i] = assignment:
+
+import {useImmerReducer} from 'use-immer';
+import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+
+function tasksReducer(draft, action) {
+  switch (action.type) {
+    case 'added': {
+      draft.push({
+        id: action.id,
+        text: action.text,
+        done: false,
+      });
+      break;
+    }
+    case 'changed': {
+      const index = draft.findIndex((t) => t.id === action.task.id);
+      draft[index] = action.task;
+      break;
+    }
+    case 'deleted': {
+      return draft.filter((t) => t.id !== action.id);
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+
+export default function TaskApp() {
+  const [tasks, dispatch] = useImmerReducer(tasksReducer, initialTasks);
+
+  function handleAddTask(text) {
+    dispatch({
+      type: 'added',
+      id: nextId++,
+      text: text,
+    });
+  }
+
+  function handleChangeTask(task) {
+    dispatch({
+      type: 'changed',
+      task: task,
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    dispatch({
+      type: 'deleted',
+      id: taskId,
+    });
+  }
+
+  return (
+    <>
+      <h1>Prague itinerary</h1>
+      <AddTask onAddTask={handleAddTask} />
+      <TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      />
+    </>
+  );
+}
+
+let nextId = 3;
+const initialTasks = [
+  {id: 0, text: 'Visit Kafka Museum', done: true},
+  {id: 1, text: 'Watch a puppet show', done: false},
+  {id: 2, text: 'Lennon Wall pic', done: false},
+];
+
+Reducers must be pure, so they shouldn’t mutate state. But Immer provides you with a special draft object which is safe to mutate. Under the hood, Immer will create a copy of your state with the changes you made to the draft. This is why reducers managed by useImmerReducer can mutate their first argument and don’t need to return state.
+
+Recap
+To convert from useState to useReducer:
+Dispatch actions from event handlers.
+Write a reducer function that returns the next state for a given state and action.
+Replace useState with useReducer.
+Reducers require you to write a bit more code, but they help with debugging and testing.
+Reducers must be pure.
+Each action describes a single user interaction.
+Use Immer if you want to write reducers in a mutating style.
+
+
+example at the end:
+https://react.dev/learn/extracting-state-logic-into-a-reducer
+
 
 
 
