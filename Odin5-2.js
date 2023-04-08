@@ -1101,6 +1101,119 @@ example at the end:
 https://react.dev/learn/extracting-state-logic-into-a-reducer
 
 
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+Basic hooks:
+useEffect, useContext, useState
+
+//setWidth updates the previous width (passed as previousWidth parameter)
+const [state, setState] = useState(initialState);
+//this use state used in first render
+
+function GrowingButton() {  
+  const [width, setWidth] = useState(50);  
+  
+  // call setWidth with functional update  
+  const increaseWidth = () => setWidth((previousWidth) => previousWidth + 10);  
+  
+  return (    
+  <button style={{ width }} onClick={increaseWidth}>      
+    I grow    
+  </button>  
+  );  
+}
+
+
+//   const [state, setState] = useState({ name: "React" });  
+//        <pre>{JSON.stringify(state)}</pre>      
+
+
+//you can use the previous property and the new property
+const updateState = () =>  setState((prevState) => ({ 
+   ...prevState, 
+   creator: "Facebook" }));
+
+//dependency
+// after: if your goal is to run the callback only on mount 
+//add dependencies to prevent eslint warning
+
+useEffect(() => {  
+  setState(prevState => prevState * 10)
+}, [setState]) //remove state dependency. setState can be safely used here.
+
+
+
+The initialState argument to useState is only used 
+during your initial render.
+
+However, if the initial state is a result of an expensive 
+computation, you could also pass a function, which will be 
+invoked only on initial render:
+const [state, setState] = useState(() => yourExpensiveComputation(props))
+
+
+//they are equal, it ignores the re-render.
+//it’s important to note that in some cases, React may still 
+render the specific component whose state was updated. 
+That’s OK because React will not go deeper into the tree, i.e., 
+render the component’s children.
+
+
+Having such side effects in the main body of your function 
+can lead to confusing bugs and inconsistent UIs. Don’t do this. 
+Use useEffect.
+
+useEffect(() => {  
+  //this callback will be invoked after every render
+  //useful since most of these shouldn’t block the browser 
+  //from updating the screen.
+
+  return () => {     
+   //clean up the subscription     
+   //The cleanup function is guaranteed to be invoked before 
+   //the component is removed from the user interface.
+
+   subscription.unsubscribeApi() 
+  }
+
+})
+
+If you want your effect to run only on mount (clean up when unmounted), pass an empty array dependency:
+
+useEfect(() => {
+  console.log(props1 + props2 + props3)
+},[])
+
+but here, effect callback won’t be invoked when they change.
+props if put in dependency will run
+On mount and when prop changes
+
+useEfect(() => {
+  console.log(props1)
+},[props1])
+
+//and not passed as arguments to the effect function
+
+
+
+////////////////
+
+useLayoutEffect
+has the same signature as useEffect
+the only difference is in when it’s fired
+i.e., when the callback function is invoked.
+
+N.B., although useEffect is deferred until the browser 
+has painted, it is still guaranteed to be fired before 
+any re-renders. when state is updated again This is important.
+React will always flush a previous render’s effect before starting a new update.
+
+
+
+
+
 
 
 */
