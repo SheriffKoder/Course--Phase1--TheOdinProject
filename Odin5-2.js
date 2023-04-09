@@ -849,7 +849,14 @@ handleChangeTask(task) is called when the user toggles a task or presses “Save
 handleDeleteTask(taskId) is called when the user presses “Delete”.
 
 
-Managing state with reducers is slightly different from directly setting state. Instead of telling React “what to do” by setting state, you specify “what the user just did” by dispatching “actions” from your event handlers. (The state update logic will live elsewhere!) So instead of “setting tasks” via an event handler, you’re dispatching an “added/changed/deleted a task” action. This is more descriptive of the user’s intent.
+Managing state with reducers is slightly different from 
+directly setting state. Instead of telling React “what to do” 
+by setting state, you specify “what the user just did” by 
+dispatching “actions” from your event handlers. (The state 
+update logic will live elsewhere!) So instead of “setting 
+tasks” via an event handler, you’re dispatching an 
+“added/changed/deleted a task” action. This is more 
+descriptive of the user’s intent.
 
 function handleAddTask(text) {
   dispatch({
@@ -873,7 +880,9 @@ function handleDeleteTask(taskId) {
   });
 }
 
-A reducer function is where you will put your state logic. It takes two arguments, the current state and the action object, and it returns the next state:
+A reducer function is where you will put your state logic. 
+It takes two arguments, the current state and the action object, 
+and it returns the next state:
 
 function tasksReducer(tasks, action) {
   if (action.type === 'added') {
@@ -901,7 +910,11 @@ function tasksReducer(tasks, action) {
 }
 
 
-Because the reducer function takes state (tasks) as an argument, you can declare it outside of your component. This decreases the indentation level and can make your code easier to read.
+
+Because the reducer function takes state (tasks) as an argument, 
+you can declare it outside of your component. 
+This decreases the indentation level and can make 
+your code easier to read.
 
 //can use switch in this example
 
@@ -1007,9 +1020,14 @@ const initialTasks = [
 ];
 
 
-//We recommend using a reducer if you often encounter bugs due to incorrect state updates in some component, and want to introduce more structure to its code.
+//We recommend using a reducer if you often encounter bugs 
+due to incorrect state updates in some component, 
+and want to introduce more structure to its code.
 
-Just like with updating objects and arrays in regular state, you can use the Immer library to make reducers more concise. Here, useImmerReducer lets you mutate the state with push or arr[i] = assignment:
+Just like with updating objects and arrays in regular state, 
+you can use the Immer library to make reducers more concise. 
+Here, useImmerReducer lets you mutate the state with push or 
+arr[i] = assignment:
 
 import {useImmerReducer} from 'use-immer';
 import AddTask from './AddTask.js';
@@ -1205,13 +1223,34 @@ has the same signature as useEffect
 the only difference is in when it’s fired
 i.e., when the callback function is invoked.
 
-N.B., although useEffect is deferred until the browser 
+although useEffect is deferred until the browser 
 has painted, it is still guaranteed to be fired before 
 any re-renders. when state is updated again This is important.
 React will always flush a previous render’s effect before starting a new update.
 
+/*////////////////////////////////////////////////////////////////////*/
+/*
 
+const value = useContext(ContextObject) 
 
+Note that the value passed to useContext must be the context 
+object, i.e., the return value from invoking 
+React.createContext — not ContextObject.Provider or 
+ContextObject.Consumer.
+
+and it returns the current value for that context
+
+Note that using the useContext Hook within a component 
+implicitly subscribes to the nearest Provider in the component 
+tree
+
+when the Provider updates, this Hook will trigger a re-render 
+with the latest value passed to that Provider.
+
+Here’s an even more important point to remember. 
+If the ancestor component uses React.memo or 
+shouldComponentUpdate, a re-render will still happen 
+starting at the component that calls useContext.
 
 
 
