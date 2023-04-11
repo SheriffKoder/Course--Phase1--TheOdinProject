@@ -1247,10 +1247,503 @@ tree
 when the Provider updates, this Hook will trigger a re-render 
 with the latest value passed to that Provider.
 
-Here’s an even more important point to remember. 
+
 If the ancestor component uses React.memo or 
 shouldComponentUpdate, a re-render will still happen 
 starting at the component that calls useContext.
+
+Remember that useContext only lets you read the context and
+subscribe to its changes. You still need a context provider
+i.e., ContextObject.Provider
+
+//
+const theme = {
+  light: {background: "#fff"},
+  dark: {background: "#000"}
+}
+
+// create context object with light theme as default
+const ThemeContext = React.createContext(theme.light) 
+
+function App() {
+   return (
+    // have context provider up the tree (with its value set)
+    <ThemeContext.Provider value={theme.dark}>
+       <Body />
+    </ThemeContext.Provider>
+ )
+}
+
+function Body() {
+  //get theme value. Make sure to pass context object
+  const theme = useContext(ThemeContext)
+  return (
+   {/* style element with theme from context/}
+   <main style={{ background: theme.background, height: "50vh", color: "#fff" }}>
+	 I am the main display styled by context!	
+   </main>
+  )
+}
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+Advanced Hooks
+
+//useReducer
+alternative to useState
+
+const [state, dispatch] = useReducer(reducer, initialArgument, init) 
+
+when invoked it returns an array that holds the current state 
+value and a dispatch method
+
+with usestate, the state updater function is invoked
+to update state
+with useReducer, you invoke the dispatch function and pass 
+it an action i.e an object with a least a type property
+
+dispatch({type: 'increase'})
+
+
+when to favor useReducer over useState
+when have a complex state logic that utilizes multiple sub-values
+or when a state depends on the previous one
+
+the reducer function
+three arguments, 
+1) the reducer, function type (state, action) => newState
+takes the current state and an action object 
+and returns a new state value
+
+whenever you attempt to update state managed via useReducer
+i.e calling dispatch
+the current state value and the action argument passed to
+dispatch
+are passed on to the reducer
+
+//receives current state and dispatched action
+const reducer = (state, action) => {
+       // return new state value 
+   return state * 10 
+}
+
+const reducer = (state, action) => {
+   // check action type  
+   switch (action.type) {
+    case "increase":
+     //return new state
+      return state * 10;
+    default:
+      return state;
+  } 
+}
+
+export default function App() {
+  const [width, dispatch] = useReducer(reducer, 50);
+
+  // you update state by calling dispatch
+  const increaseWidth = () => dispatch({ type: "increase" });
+
+    return (
+    <button style={{ width }} onClick={increaseWidth}>
+      I grow
+    </button>
+  );
+}
+
+
+
+// two arguments 
+useReducer(reducer, initialState)
+
+// three arguments 
+useReducer(reducer, initialArgument, init) 
+
+const [state, dispatch] = useReducer(reducer, 10) // initial state will be 10
+
+
+
+////Lazy initialization
+can also create the initial state lazily. To do this, pass a third argument to useReducer: the init function.
+const [state, dispatch] = useReducer(reducer, initialArgument, init) 
+
+If you pass an init function, the initial state will be set 
+to init(initialState), i.e., the function will be invoked 
+with the second argument, initialArgument.
+
+function init(someInitialValue) {
+   return { state: someInitialValue }
+}
+
+
+function reducer(state, action) {
+   switch(action.type) {
+      //reset by calling init function
+      case 'reset': 
+        // an action object typically has a "type" and a "payload" 
+		return init(action.payload)
+   }
+}
+...
+const initialValue = 10;
+const [state, dispatch] = useReducer(reducer, initialValue, init)
+
+
+
+f you try to update state with the same value as the current 
+state, React won’t render the component children or fire 
+effects, e.g., useEffect callbacks. React compares previous 
+and current state via the Object.is comparison algorithm.
+
+the main app may be rendered
+child1,2,3 won't
+
+
+////useCallback
+The basic signature for useCallback looks like this:
+
+const memoizedCallback = useCallback(callback, arrayDependency)
+
+takes
+callback argument
+array dependency
+and returns a memoized callback, guaranteed to have the same reference. It’s especially useful when passing callbacks to child components that depend on referential checks to prevent needless re-renders.
+
+be sure to include all referenced variables within the 
+callback in the array dependency
+
+You should also take advantage of the official ESLint 
+plugin to help with checking that your array dependency 
+is correct and providing a fix.
+
+
+
+Even though ExpensiveComponent is memoized via React.memo, 
+it will still be re-rendered anytime App is re-rendered 
+because the reference to the prop callback will change.
+
+const App = () => {
+   const handleCallback = () => {
+     // do something important 
+   }
+   return <ExpensiveComponent callback={handleCallback}/>
+}
+
+const ExpensiveComponent = React.memo(({props}) => {
+	// expensive stuff 
+})
+
+
+To keep the reference to callback the same, we can use the useCallback Hook:
+Without passing an array dependency, useCallback will recompute 
+the returned memoized callback on every render. 
+Passing an empty array dependency means the memoized 
+callback is only computed once: on mount.
+
+
+const App = () => {
+   // use the useCallback hook 
+   const handleCallback = useCallback(() => {
+     // do something important 
+   }, [])   //array dependency
+   return <ExpensiveComponent callback={handleCallback}/>
+}
+
+In such a case, it is important to have props1 and props2 
+as part of the array dependency list.
+
+const App = ({props1, props2}) => {
+   const handleCallback = useCallback(() => {
+     // do something important
+     return props1 + props2 
+   }, [props1, props2]) // see array dependency
+   return <ExpensiveComponent callback={handleCallback}/>
+}
+
+
+
+what if props1 refers to a function
+by placing the function as a dependency
+be certain its reference does'nt change all the time
+on all re-renders
+if it does, then it defies the purpose of using useCallback
+because the memoized callback returned by useCallback will change
+every time props1 changes
+
+if it changes
+props1 could be memoized using useCallback or avoided
+
+
+////useMemo
+returns a memoized value
+the callback for useMemo is "create function"
+it is invoked and a value is returned
+the returned value is what's memoized by useMemo
+
+
+useCallback(fn, deps) === useMemo(() => fn, deps)
+
+The statement above is true because useMemo invokes the 
+“create” function () => fn. Remember that arrow functions 
+implicitly return. In this case, invoking the “create” 
+function returns fn . Making it equivalent to the useCallback 
+alternative.
+
+useMemo can be used as an optimisation to avoid expensive 
+calculations on every render.
+
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+
+he rule of thumb is that your code should work without useMemo, 
+then add useMemo for performance optimization.
+
+//dependency, wont run on every dependency
+const App = () => {
+  useMemo(() => someExpensiveCalculation(), [])
+
+  return null
+}
+
+With an empty array, it only runs on mount.
+be sure to include all referenced variables within the callback in the array dependency.
+
+
+////useRef
+const refObject = useRef(initialValue)
+
+useRef returns a mutable object whose value is set 
+as: {current: initialValue}.
+
+The difference between using useRef and manually setting an 
+object value directly within your component, e.g., const 
+myObject = {current: initialValue}, is that the ref object 
+remains the same all through the lifetime of the component, 
+i.e., across re-renders.
+
+const App = () => {
+   const refObject = useRef("value")
+   //refObject will always be {current: "value"} every time App is re-rendered. 
+
+   //update ref 
+   refObject.current = "new value" 
+  
+  //refObject will always be {current: "new value"} 
+}
+
+A common use case for useRef is to store child DOM nodes:
+function TextInputWithFocusButton() {
+  //1. create a ref object with initialValue of null
+  const inputEl = useRef(null);
+
+  const onButtonClick = () => {
+    // 4. `current` points to the mounted text input element
+    // 5. Invoke the imperative focus method from the current property
+    inputEl.current.focus();
+  };
+
+  return (
+    <>
+      {/* 2. as soon as input is rendered, the element will be saved in the ref object i.e {current: *dom node*}  /}
+      <input ref={inputEl} type="text" />
+      {/* 3. clicking the button invokes the onButtonClick handler above /}
+      <button onClick={onButtonClick}>Focus the input</button>
+    </>
+  );
+} 
+
+useRef returns a plain JavaScript object so it can be used 
+for holding more than just DOM nodes; it can hold whatever 
+value you want. This makes it the perfect choice for simulating 
+instance-like variables in functional components:
+
+
+In this example we log initialProp1 and prop1 via 
+useEffect. This will be logged on mount and every time prop1 
+changes.
+
+const App = ({prop1}) => {
+    // save props1 in ref object on render
+	const initialProp1 = useRef(prop1)
+
+    useEffect(() => {
+       // see values logged here
+       console.log({
+         initialProp1: initialProp1.current,
+         prop1
+       })
+    }, [prop1])
+}
+
+With this, you can go ahead and create instance like variables
+that don’t change within your functional component.
+useRef will give you the same ref object on every render.
+
+
+
+
+
+////useImperativeHandle
+useImperativeHandle(ref, createHandle, [arrayDependency])
+
+useImperativeHandle takes a ref object and a createHandle 
+function whose return value “replaces” the stored value in the 
+ref object.
+
+Note that useImperativeHandle should be used with forwardRef.
+
+To forward the ref object to the Input child component, 
+we use forwardRef as follows in TextInputWithFocusButton function above
+
+const Input = forwardRef((props, ref) => {
+  return <input ref={inputRef} {...props} />;
+});
+
+However, in this solution, the parent component App has 
+full access to the input element, i.e., the inputRef declared 
+in App holds the full DOM node for the child input element.
+
+What if you want to hide the DOM node from the parent and 
+just expose a focus function, which is basically all the 
+parent needs?
+That’s where useImperativeHandle comes in.
+
+const Input = forwardRef((props, ref) => {
+  // create internal ref object to hold actual input DOM node 
+  const inputRef = useRef();
+	
+  // pass ref from parent to useImperativeHandle and replace its value with the createHandle function
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus();
+    }
+  }));
+
+  // pass internal ref to input to hold DOM node
+  return <input ref={inputRef} {...props} />;
+});
+
+
+The useImperativeHandle function argument returns an object. 
+This object return value is set as the current property 
+for the ref passed in from the parent.
+Instead of the parent having full access to the entire 
+DOM node, the inputRef in App will now 
+hold {current: focus: ..}, where focus represents the function 
+we defined within useImperativeHandle.
+
+If you went ahead and logged the ref objects in the parent 
+component App and child component Input, this becomes even more 
+apparent:
+
+If you need control over the re-computation of the value 
+returned from the function argument to useImperativeHandle, 
+be sure to take advantage of the array dependency list.
+
+
+
+
+////useLayoutEffect
+The signature for useLayoutEffect is identical to useEffect; 
+the difference is the time of execution.
+
+The useLayoutEffect callback/effects will be fired synchronously 
+after all DOM mutations, i.e., before the browser has a 
+chance to paint.
+
+useLayoutEffect fires in the same phase as 
+componentDidMount and componentDidUpdate,
+
+Don’t block visual updates except when you’re absolutely 
+sure you need to.
+
+It’s also worth mentioning that with server-side rendering, 
+neither useEffect nor useLayoutEffect are run until JavaScript 
+is downloaded on the client.
+You’ll get a warning with server-rendered components 
+containing useLayoutEffect. To resolve this, you can either 
+move the code to useEffect, i.e., to be fired after first 
+render (and paint), or delay showing the component until 
+after the client renders.
+
+To exclude a component that needs layout effects from the 
+server-rendered HTML, render it conditionally with 
+showChild && <Child /> and defer showing it with 
+useEffect(() => { setShowChild(true); }, []). 
+This way, the UI doesn’t appear broken before hydration.
+
+
+//useDebugValue
+useDebugValue(value)
+useDebugValue can be used to display a label for custom Hooks in React DevTools.
+
+Consider the following basic custom Hook:
+
+const useAwake = () => {
+  const [state, setState] = useState(false);
+
+  const toggleState = () => setState((v) => !v);
+
+  return [state, toggleState];
+};
+
+A glorified toggle Hook. Let’s go ahead and use this custom Hook:
+
+export default function App() {
+  const [isAwake, toggleAwake] = useAwake();
+
+  return (
+    <div className="App">
+      <h1>isAwake: {isAwake.toString()} </h1>
+      <button onClick={toggleAwake}>Toggle awake!</button>
+    </div>
+  );
+}
+
+If you want to display a custom “label” in the DevTools, 
+we can use the useDebugValue Hook as follows:
+
+const useAwake = () => {
+  const [state, setState] = useState(false);
+  // look here
+  useDebugValue(state ? "Awake" : "Not awake");
+  ...
+};
+
+
+The custom label will now be displayed in the DevTools, as seen below:
+hooks
+Awake: "Not Awake"
+
+N.B., don’t add debug values to every custom Hook. 
+These are most valuable for custom Hooks that are part of 
+shared libraries.
+
+In some cases, formatting a value for display via 
+useDebugValue might be an expensive operation. 
+It’s also unnecessary to run this expensive operation 
+unless a Hook is actually inspected. For such cases, 
+you can pass a function to useDebugValue as a second argument.
+
+useDebugValue(state ? "Awake" : "Not awake", val => val.toUpperCase());
+
+In the example above, we avoid calling val.toUpperCase 
+unnecessarily as it’ll only be invoked if the Hook is 
+inspected in the React DevTools.
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+
+
 
 
 
