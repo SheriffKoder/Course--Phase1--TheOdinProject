@@ -2,7 +2,7 @@
 import React from "react";
 import '../App.css';
 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Nav() {
 
@@ -19,7 +19,7 @@ function Nav() {
 
       <ul className="nav-links">
 
-        <Link style={navStyle} to="/">
+        <Link style={navStyle} to="/home">
           <li>Home</li>
         </Link>
         
@@ -27,10 +27,15 @@ function Nav() {
           <li>Page 1</li>
         </Link>
 
-        <Link style={navStyle} to="/Page2">
+        <NavLink style={navStyle} to="/Page2">
           <li>Page 2</li>
-        </Link>
-        
+        </NavLink>
+
+        {//this works like Link, but reloads/request to server
+        }
+        <li><a style={navStyle} href="/Page3"> Page 3</a></li>
+        <li><a style={navStyle} href="/"> Home2 </a></li>
+
 
       </ul>
 
@@ -42,4 +47,7 @@ function Nav() {
 export default Nav;
 
 
-//link here takes to the to "/PageX" path
+//link here takes to the to "/PageX" path, and rendered as a
+//but prevents the page from being reloaded
+
+//NavLink applies style of active to links

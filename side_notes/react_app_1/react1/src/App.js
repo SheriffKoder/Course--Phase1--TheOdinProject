@@ -7,9 +7,10 @@ import {Counter} from "./components/Counter.js"
 
 
 import Nav from './Routing/Nav';
-import Page1 from './Routing/Page1';
+import {Page1, Home2, Page3} from './Routing/Page1';
 import Page2 from './Routing/Page2';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ItemDetail from './Routing/itemDetail';
 
 /*
 ////////////////////////////////////////////////////////////
@@ -370,7 +371,7 @@ const App6 = () => {
 ReactDOM.render(<App6 />, document.getElementById("rootDiv7"))
 */
 ////////////////////////////////////////////////////////////
-////component6: function Hooks
+////component7: Routing
 
 const Home = () => {
   return (
@@ -384,12 +385,22 @@ function AppRouter() {
   return (
     <Router>
       <div>
-      <Nav />
+
+      <Nav /> 
+
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Page1" element={<Page1 />} />
-          <Route path="/Page2" element={<Page2 />} />
+          <Route path="/Home" exact element={<Home />} />
+          <Route path="/Page1" exact element={<Page1 />} />
+          <Route path="/Page2" exact element={<Page2 />} />
+          
+          <Route path="/Page2/:id" exact element={<ItemDetail />} />
+          
+          <Route path="/Page3" exact element={<Page3 />} />
+          <Route path="/" exact element={<Home2 />} />
+
+
         </Routes>
+
       </div>
     </Router>
   );

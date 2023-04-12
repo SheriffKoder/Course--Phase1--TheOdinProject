@@ -154,7 +154,10 @@ you rout the specific component not refresh the page or fetch the api
 
 
 
+avoids going to the server then renders the component
+it just renders the component without fetching from the server
 
 
+//Component7: routing
 
 */
