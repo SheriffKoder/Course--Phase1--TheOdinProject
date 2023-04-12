@@ -1,6 +1,6 @@
 
 import React, { Component, useState, setState } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 
 const root3Div = ReactDOM.createRoot(

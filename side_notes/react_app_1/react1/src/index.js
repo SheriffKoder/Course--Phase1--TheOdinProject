@@ -1,12 +1,14 @@
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import {APP_1A, APP_1B} from './App.js';
 
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
+
+//allow routeSwitch.js to be run before App.js
 
 
 /*

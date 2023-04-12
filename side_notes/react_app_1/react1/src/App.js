@@ -6,6 +6,12 @@ import {tick} from './components/tickingClock.js' //not default import
 import {Counter} from "./components/Counter.js"
 
 
+import Nav from './Routing/Nav';
+import Page1 from './Routing/Page1';
+import Page2 from './Routing/Page2';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+/*
 ////////////////////////////////////////////////////////////
 ////component1
 
@@ -362,4 +368,41 @@ const App6 = () => {
 
 
 ReactDOM.render(<App6 />, document.getElementById("rootDiv7"))
+*/
+////////////////////////////////////////////////////////////
+////component6: function Hooks
 
+const Home = () => {
+  return (
+      <div>
+        <h1>Hello from Home Page</h1>
+      </div>
+  );
+};
+
+function AppRouter() {
+  return (
+    <Router>
+      <div>
+      <Nav />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Page1" element={<Page1 />} />
+          <Route path="/Page2" element={<Page2 />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+
+ReactDOM.render(<AppRouter />, document.getElementById("rootDiv8"))
+
+// component={Profile}
+//if both elements appear, this is because both share
+//the / in path, so wrap them in a <Switch></Switch>
+//and sort the <Route>s
+
+//exact only if its / render this component
+
+//want to view two components
