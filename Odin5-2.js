@@ -1742,6 +1742,152 @@ inspected in the React DevTools.
 /*////////////////////////////////////////////////////////////////////*/
 /*
 
+sharing logic between components becomes easier
+
+const [stateName,useState]
+is a js syntax to store in both variables
+
+want to pass a reference not call the function
+
+//syntaxes
+
+<button onClick={sideHandler.bind(this, 'light)}> 
+Light side
+</button>
+
+//use spread operator to get all properties of existing
+state
+//manually merging
+//not the best option, better separate the states inside App
+
+const App = props => {
+    const [ stateName, setState] = useState({
+        selectedCharacter: 1.
+        destroyed: false
+    });
+}
+
+const sideHandler = side => {
+    setState({...stateName, side: side})
+}
+
+
+const [selectedCharacter, setSelectedCharacter] = useState("1");
+const charSelectHandler = event => {
+    const charId = event.target.value
+    setSelectedCharacter(charId);
+};
+//if (selectedCharacter)
+
+
+
+instead of this.state.something, this.props.something
+we use something, props.something
+
+use useEffect instead of componentDidMount
+//with calling the function without this.
+//after the component has to render finished
+//whenever component rerenders
+//props,state changes, 
+//which changes when data fetched from the server
+//this can cause an infinite loop
+//so we put an empty array of dependencies to stop the loop
+//or add external in code prop as dependency
+
+import React, {useState, useEffect} from 'react';
+
+return in useEffect
+runs before every re-run of use effect
+or when the component is removed
+if want to only when unmount
+use an empty dependency
+
+can add many useEffects like useState
+
+
+//should component update functionality
+//used to disallow rerendering unless specific happens
+//wrap all component with React.memo
+
+export default Character;
+to 
+export default React.memo(Character, (prevProps, nextProps) => {
+    return nextProps.selectedChar === prevProps.selectedChar //true or false
+});
+
+//stores it, only when inputs change/props will rerender
+
+
+//with a function second argument that returns
+true when props are equal (should not re-render)
+false when props changed (it should re-render)
+with two arguments
+prevProps, nextProps
+//useful when have props that could change that still should not tigger a re render
+
+
+//useState returns an array of two elements state/statefunction
+
+//http request can share with custom hooks
+//http.js file
+
+import { useState } from 'react;
+
+export const useHttp = (urlProp, dependencies) => {
+
+    const [myState, setmyState] = useState([]);
+
+    //api fetch code fetch(urlProp)
+
+    //custom hook
+    //can return data: string,number,object,array or nothing
+    useEffect(()=> {
+        //code
+    }, dependencies)
+
+
+    return [myState1, myState2]
+
+};
+
+in app.js
+
+const CharPicker = props => {
+    const [isLoading, fetchedData] = usehttp('httlps://url', []);    //empty array dependency
+    const selected Characters = fetchedData 
+    ? fetchedData.result.slice(0,5).map((char,index) => ({
+    name: char.name,
+    id: index + 1
+})); 
+//the ? if data fetched run the code
+//wont see http.js logs after first render as 
+http request did not send another http request 
+
+//always call hooks custom/generic 
+outside of other hooks
+top level
+not nested in another function call, if statement, for loop
+and use the useEffect inside the useHttp to not load every time
+
+ 
+React is a library. It lets you put components together, 
+but it doesn’t prescribe how to do routing and data fetching. 
+To build an entire app with React, we recommend a full-stack 
+React framework like Next.js or Remix.
+
+People expect web app pages to load fast. On the server, 
+React lets you start streaming HTML while you’re still 
+fetching data, progressively filling in the remaining 
+content before any JavaScript code loads. On the client, 
+React can use standard web APIs to keep your UI responsive 
+even in the middle of rendering.
+
+People expect native apps to look and feel like their platform. 
+React Native and Expo let you build apps in React for Android, 
+iOS, and more. They look and feel native because their UIs are 
+truly native. It’s not a web view—your React components render 
+real Android and iOS views provided by the platform.
+
 
 
 
