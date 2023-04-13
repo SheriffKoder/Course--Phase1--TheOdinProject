@@ -42,3 +42,4 @@ export default ItemDetail;
 
 
 //link here takes me back to the "/" path
+//https://www.youtube.com/watch?v=Law7wfdg_ls

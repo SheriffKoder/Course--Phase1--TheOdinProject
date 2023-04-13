@@ -18,11 +18,3 @@ const RouteSwitch = () => {
 export default RouteSwitch;
 */
 
-// component={Profile}
-//if both elements appear, this is because both share
-//the / in path, so wrap them in a <Switch></Switch>
-//and sort the <Route>s
-
-//exact only if its / render this component
-
-//want to view two components

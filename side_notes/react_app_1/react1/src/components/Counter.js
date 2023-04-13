@@ -3,6 +3,7 @@
 
 //in the video App.js is used to render Counter
 //triggering lifecycles
+/*
 
 import React, { Component, useState, setState } from 'react';
 
@@ -168,3 +169,5 @@ export class Counter extends React.Component {
   //ReactDOM.render(<Counter />, document.getElementById("rootDiv6"));
   
   //https://www.youtube.com/watch?v=m_mtV4YaI8c
+
+  */

@@ -369,7 +369,7 @@ const App6 = () => {
 
 
 ReactDOM.render(<App6 />, document.getElementById("rootDiv7"))
-*/
+
 ////////////////////////////////////////////////////////////
 ////component7: Routing
 
@@ -401,7 +401,7 @@ function AppRouter() {
 
         </Routes>
 
-        
+
       </div>
     </Router>
   );
@@ -417,3 +417,14 @@ ReactDOM.render(<AppRouter />, document.getElementById("rootDiv8"))
 //exact only if its / render this component
 
 //want to view two components
+
+*/
+
+////////////////////////////////////////////////////////////
+////component7: Testing
+
+
+const App7 = () => <h1>Our First Test</h1>;
+
+
+export default App7;

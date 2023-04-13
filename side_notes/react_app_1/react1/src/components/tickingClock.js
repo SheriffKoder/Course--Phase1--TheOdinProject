@@ -3,6 +3,7 @@ import React, { Component, useState, setState } from 'react';
 import ReactDOM from 'react-dom/client';
 
 
+/*
 const root3Div = ReactDOM.createRoot(
     document.getElementById('rootDiv3')
   );
@@ -79,3 +80,5 @@ export function tick(num1, num2, input) {
 
 
   //export {tick};    //not default export
+
+  */
