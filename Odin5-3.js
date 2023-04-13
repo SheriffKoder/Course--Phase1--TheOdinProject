@@ -158,6 +158,88 @@ avoids going to the server then renders the component
 it just renders the component without fetching from the server
 
 
-//Component7: routing
+//Component7: routing, react1>routing
+
+
+React isn’t a framework, it’s a library. 
+Therefore, it doesn’t solve all an application’s needs. 
+It does a great job at creating components and providing 
+a system for managing state, but creating a more complex SPA 
+will require a supporting cast. 
+
+Thinking in terms of nestable components and layouts 
+will allow us to create reusable parts.
+
+After creating the static HTML, convert it into 
+React components:
+into separate components
+
+
+//nested components
+ReactDOM.render((
+  <Router>
+    <Route component={MainLayout}>
+      <Route component={SearchLayout}>
+        <Route path="users" component={UserList} />
+      </Route> 
+    </Route>
+  </Router>
+), document.getElementById('root'));
+
+
+Components will be nested in accordance with how the router 
+nests its routes. When the user visits the /users route, 
+React Router will place the UserList component inside 
+SearchLayout and then both inside MainLayout. 
+The end result of visiting /users will be the three nested 
+components placed inside 'root'.
+
+the Route component can either be written as one tag: <Route /> or two: <Route>...</Route>
+
+
+The /product portion of the path is repetitive. 
+We can remove the repetition by wrapping all three routes in 
+a new <Route>:
+<Route path="product">
+  <IndexRoute component={ProductProfile} />
+  <Route path="settings" component={ProductSettings} />
+  <Route path="inventory" component={ProductInventory} />
+  <Route path="orders" component={ProductOrders} />
+</Route>
+
+??
+
+var browserHistory = ReactRouter.browserHistory;
+
+ReactDOM.render((
+  <Router history={browserHistory}>
+    ...
+  </Router>
+), document.getElementById('root'));
+
+browserHistory.push('/some/path');
+
+??
+
+If you clicked on a few routes in the example, 
+you might notice that the browser’s back and forward 
+buttons work with the router. This is one of the main reasons 
+these history strategies exist. Also, keep in mind that 
+with each route you visit,
+
+
+
+//Route Matching
+<Route path="users/:userId" component={UserProfile} />
+
+This route will match when the user visits any path that starts 
+with users/ and has any value afterwards. 
+It will match /users/1, /users/143, or even /users/abc 
+(which you’ll need to validate on your own).
+
+React Router will pass the value for :userId as a prop 
+to the UserProfile. This props is accessed as 
+this.props.params.userId inside UserProfile.
+
 
 */

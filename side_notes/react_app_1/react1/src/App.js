@@ -388,24 +388,24 @@ function AppRouter() {
 
       <Nav /> 
 
-        <Routes>
+      <Routes>
           <Route path="/Home" exact element={<Home />} />
-          <Route path="/Page1" exact element={<Page1 />} />
+          <Route path="/Page1" exact element={<><Page1 /><Home /></>} />
           <Route path="/Page2" exact element={<Page2 />} />
           
           <Route path="/Page2/:id" exact element={<ItemDetail />} />
           
           <Route path="/Page3" exact element={<Page3 />} />
-          <Route path="/" exact element={<Home2 />} />
+         <Route path="/" exact element={<Home2 />} />
 
 
         </Routes>
 
+        
       </div>
     </Router>
   );
 }
-
 
 ReactDOM.render(<AppRouter />, document.getElementById("rootDiv8"))
 
