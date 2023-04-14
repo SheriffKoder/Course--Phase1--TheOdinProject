@@ -1636,9 +1636,603 @@ const el = getByTestId('mySpan');
 
 
 The Differences Between Different Query Categories
+getBy\*: Query methods in this category 
+return the first matching element 
+or throw an error if no match was found 
+or if more than one match was found.
+
+getByAll\*: Query methods in this category 
+return an array of all matching elements 
+or throw an error if no elements matched
+
+queryBy\*: Query methods in this category 
+return the first matching element 
+or return null if no elements match. 
+They also throw an error if more than one match is found
+
+queryAllBy\*: Query methods in this category 
+return an array of all matching elements 
+or return an empty array if no elements match
+
+findBy\*: Query methods in this category 
+return a promise which resolves when an element is found 
+which matches the given query. 
+The promise is rejected if no element is found 
+or if more than one element is found after a default timeout 
+of 1000ms
+
+findAllBy\*: Query methods in this category 
+return a promise which resolves to an array of elements 
+when any elements are found which match the given query. 
+The promise is rejected if no elements are found after 
+a default timeout of 1000ms
 
 
 
+
+if you want to select an element that is rendered after 
+an asynchronous operation, use the findBy* or findByAll* 
+variants.
+
+If you want to assert that some element should not be 
+in the DOM, use queryBy* or queryByAll* variants. 
+Otherwise use getBy* and getByAll* variants.
+
+
+In our first test written above, we used a method named 
+toBeInTheDocument to check if the h1 element was in the 
+DOM or not. This is an assertive function that is used on 
+the right side of an assertion.
+
+Jest provides many assertive function but React Testing Library 
+adds more assertive functions in an extra package named 
+jest-dom.
+
+This package comes pre-installed in a project created 
+with create-react-app.
+
+
+Assertive functions provided by this package are:
+toBeDisabled
+toBeEnabled
+toBeEmpty
+toBeEmptyDOMElement
+toBeInTheDocument
+toBeInvalid
+toBeRequired
+toBeValid
+toBeVisible
+toContainElement
+toContainHTML
+toHaveAttribute
+toHaveClass
+toHaveFocus
+toHaveFormValues
+toHaveStyle
+toHaveTextContent
+toHaveValue
+toHaveDisplayValue
+toBeChecked
+toBePartiallyChecked
+toHaveDescription
+
+
+
+Testing Multiple Elements
+function App() {
+  return (
+    <div>
+      <ul className="animals">
+        <li>Cat</li>
+        <li>Whale</li>
+        <li>Lion</li>
+        <li>elephant</li>
+        <li>Rhino</li>
+      </ul>
+    </div>
+  );
+}
+
+
+Test the following
+The ul element should be in the document.
+The ul element should have a class named animals.
+There should be exactly 5 list items in the ul element.
+
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from './App';
+
+test('list contains 5 animals', () => {
+  render(<App />);
+
+  const listElement = screen.getByRole('list'); //ul
+  const listItems = screen.getAllByRole('listitem'); //li's
+
+  expect(listElement).toBeInTheDocument(); //jest-dom
+  expect(listElement).toHaveClass('animals'); //jest-dom
+  expect(listItems.length).toEqual(5); //jest
+});
+
+
+
+////Asynchronous Tests
+
+Component is rendered after an asynchronous request to 
+jsonplaceholder api to fetch a single user.
+
+create a User component that will be rendered once 
+the user has been fetched from the API.
+
+//User Component
+function User(props) {
+  const { name, email } = props.user;
+
+  return (
+    <div className="person">
+      <h3>{name}</h3>
+      <span>{email}</span>
+    </div>
+  );
+}
+
+//App Component
+function App() {
+  const [user, setUser] = React.useState(null);
+  const [error, setError] = React.useState('');
+
+  React.useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users/1')
+      .then((response) => response.json())
+      .then((user) => setUser(user))
+      .catch((error) => setError(error.message));
+  }, []);
+
+  if (error) {
+    return <span>{error}</span>;
+  }
+
+  return <div>{user ? <User user={user} /> : <span>Loading...</span>}</div>;
+}
+
+To test whether the user is fetched from the API and 
+rendered in the DOM, we will mock the fetch function so 
+that we don't make an actual request while testing.
+
+
+//To mock the fetch function, we will provide our 
+own implementation of the fetch function.
+
+window.fetch = jest.fn(() => {
+  const user = { name: 'Jack', email: 'jack@email.com' };
+
+  return Promise.resolve({
+    json: () => Promise.resolve(user),
+  });
+});
+
+
+When we render the App component, our component will 
+now use the mocked version of the fetch function.
+
+Test the following
+While the request is in progress, a loading text should be visible.
+Therafter, the user's name should be rendered in the document.
+In case of an error, an error message should be rendered.
+
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
+
+test('loading text is shown while API request is in progress', async () => {
+  render(<App />);
+  const loading = screen.getByText('Loading...');
+
+  expect(loading).toBeInTheDocument();
+
+  await waitForElementToBeRemoved(() => screen.getByText('Loading...'));
+});
+
+
+When testing components that contain an asynchronous operation, like an API request in our App component, you might see a warning message which says
+Warning: An update to App inside a test was not wrapped 
+in act(...)
+check this post
+https://kentcdodds.com/blog/fix-the-not-wrapped-in-act-warning
+
+
+In our case, we get this warning because after we assert 
+that the loading text should be in the document, our component's 
+state is updated and the component is re-rendered. 
+Our promise (in the fake fetch method) does resolve instantly 
+after all.
+
+We can avoid this warning by waiting for the component to 
+re-render, after the API request, before ending our test. 
+To wait for a component to re-render, we have used the 
+waitForElementToBeRemoved function. This function will not 
+let our test finish until the loading text has disappeared 
+from the DOM, which only happens in case of an error or a 
+successful API request.
+
+The waitForElementToBeRemoved function returns a Promise 
+so we need to await it. And in order to use the await 
+keyword, we have used an async function.
+
+Now lets write the second test to assert that user is 
+successfully fetched and the user's name is rendered in the 
+DOM.
+
+test("user's name is rendered", async () => {
+  render(<App />);
+  const userName = await screen.findByText('Jack');
+  expect(userName).toBeInTheDocument();
+})
+
+asynchronous test which will assert that in case of an error, 
+our App component shows an error message.
+
+test('error message is shown', async () => {
+  window.fetch.mockImplementationOnce(() => {
+    return Promise.reject({ message: 'API is down' });
+  });
+
+  render(<App />);
+
+  const errorMessage = await screen.findByText('API is down');
+  expect(errorMessage).toBeInTheDocument();
+});
+
+
+The only thing to be noticed here is that we are using a 
+different version of our mocked fetch function. 
+This is needed because our initial mocked version of the 
+fetch function doesn't reject the Promise. So to force 
+our API request to fail, we reject the Promise with an 
+object containing a message property.
+
+The value of this message property is saved in the state 
+of our App component and displayed to the user when our 
+API request fails. Hence we're checking for this message 
+with findByText("API is down").
+
+
+//Grouping Tests in a Test Suite
+there is no indication on the terminal that these three 
+tests are related to each other.
+We can group them together in a test suite by wrapping 
+them with the describe function provided by Jest.
+
+import React from 'react';
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
+import App from './App';
+
+window.fetch = jest.fn(() => {
+  const user = { name: 'Jack', email: 'jack@email.com' };
+
+  return Promise.resolve({
+    json: () => Promise.resolve(user),
+  });
+});
+
+describe('Testing App Component', () => {
+  test('loading text is shown while API request is in progress', async () => {
+    render(<App />);
+    const loading = screen.getByText('Loading...');
+    expect(loading).toBeInTheDocument();
+    await waitForElementToBeRemoved(() => screen.getByText('Loading...'));
+  });
+
+  test("user's name is rendered", async () => {
+    render(<App />);
+    const userName = await screen.findByText('Jack');
+    expect(userName).toBeInTheDocument();
+  });
+
+  test('error message is shown', async () => {
+    window.fetch.mockImplementationOnce(() => {
+      return Promise.reject({ message: 'API is down' });
+    });
+
+    render(<App />);
+
+    const errorMessage = await screen.findByText('API is down');
+    expect(errorMessage).toBeInTheDocument();
+  });
+});
+
+Notice how our tests are grouped together under 
+Testing App Component.
+
+//Simulating User Interactions
+React Test Library provides an fireEvent API which can 
+be used to trigger events like change on an input element.
+
+React Testing Library also provides another API for 
+simulating use interactions in a separate package 
+named user-event. This API builds on top of the 
+fireEvent API and contains functions which mimic browser 
+behavior more closely than the fireEvent API. For example, 
+fireEvent.change() triggers only a change event whereas 
+UserEvent.type triggers change, keyDown, keyPress and 
+keyUp events.
+
+//render a counter that can be incremented using the 
+"increment" and "decrement" buttons.
+
+function App() {
+  const [counter, setCounter] = React.useState(0);
+
+  const increment = () => {
+    setCounter((prevCounter) => ++prevCounter);
+  };
+
+  const decrement = () => {
+    setCounter((prevCounter) => --prevCounter);
+  };
+
+  return (
+    <div>
+      <h2 data-testid="counter">{counter}</h2>
+      <button onClick={decrement}>Decrement</button>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+}
+
+
+//We will write two tests to assert that counter is 
+incremented and decremented correctly. We will also group 
+both our tests in a single test suite.
+
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import UserEvent from '@testing-library/user-event';
+import App from './App';
+
+describe('Testing App Component', () => {
+  test('counter is incremented on increment button click', () => {
+    render(<App />);
+
+    const counter = screen.getByTestId('counter');
+    const incrementBtn = screen.getByText('Increment');
+
+    UserEvent.click(incrementBtn);
+    UserEvent.click(incrementBtn);
+
+    expect(counter.textContent).toEqual('2');
+  });
+
+  test('counter is decremented on decrement button click', () => {
+    render(<App />);
+
+    const counter = screen.getByTestId('counter');
+    const decrementBtn = screen.getByText('Decrement');
+
+    UserEvent.click(decrementBtn);
+    UserEvent.click(decrementBtn);
+
+    expect(counter.textContent).toEqual('-2');
+  });
+});
+
+The first test checks if the counter is incremented correctly 
+by simulating a click event on the increment button twice. 
+As the initial value of counter is zero, after clicking the 
+increment button twice, our counter's value should be 2.
+
+Note that we have passed a string "2" to the toEqual function 
+instead of a number 2. The reason is that we are using the 
+textContent property of an HTML element to get the value of 
+the counter.
+
+You might have expected that, as we decrement the counter 
+after incrementing it twice in the first test, the counter's 
+value should be "0" instead of "-2" but that's not the case!
+
+That's because the React Testing Library automatically 
+unmounts the React component tree after each test.
+
+It should be noted that this automatic cleanup is done only 
+when we use the React Testing Library with a testing framework 
+that has an afterEach global function. As Jest has such a 
+function, our component tree is automatically cleaned up 
+after each test. That is why counter's value is "-2" after 
+the second test.
+
+//Testing Callbacks
+Consider a scenario where you have a component that 
+represents an input element. This component receives 
+two props:
+The value of the input element
+And a callback function which will be used to handle 
+the onChange event on the input element
+
+In addition, this input element is a controlled, meaning 
+its value is derived from the state of the component in 
+which it is rendered.
+
+Now you want to test whether the value of the input element 
+is updated correctly and also make sure that the callback 
+function is called each time the value of the input changes.
+
+
+//create an Input component and also render this Input 
+component in the App component
+passing in the required props from the App component to 
+the Input component.
+
+Input component
+export function Input(props) {
+  const { handleChange, inputValue } = props;
+  return <input onChange={handleChange} value={inputValue} />;
+}
+
+App component
+function App() {
+  const [inputValue, setInputValue] = React.useState('');
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  return (
+    <div>
+      <Input handleChange={handleChange} inputValue={inputValue} />
+    </div>
+  );
+}
+
+//In the first test, we will assert that the input 
+value is updated correctly.
+
+import UserEvent from '@testing-library/user-event';
+
+test('input value is updated correctly', () => {
+  render(<App />);
+
+  const input = screen.getByRole('textbox');
+  UserEvent.type(input, 'React');
+
+  expect(input.value).toBe('React');
+});
+
+We are selecting the input element by its role. 
+What's great about the getByRole query method is that 
+if you pass any role to this method that is not associated 
+with any element in your component, it will suggest you the 
+available roles once you run the test.
+
+After selecting the input element, we are using the 
+user-event API to trigger an onChange event on the input 
+element. Since we wrote "React" in the input component, 
+we expect its value to be "React".
+
+//For our second test, we will test whether or not 
+the handleChange callback function is called every time 
+input value is changed.
+
+To test this, we will mock the handleChange function 
+which is passed to the Input component so that we can 
+track how many times it was called. And instead of 
+rendering the App component, we will render the Input 
+component, passing in the mocked version of the handleChange 
+function.
+
+import UserEvent from '@testing-library/user-event';
+import { Input } from './App';
+
+test('call the callback every time input value is changed', () => {
+  const handleChange = jest.fn();
+
+  render(<Input handleChange={handleChange} inputValue="" />);
+
+  const input = screen.getByRole('textbox');
+  UserEvent.type(input, 'React');
+
+  expect(handleChange).toHaveBeenCalledTimes(5);
+});
+
+As we will render the Input component instead of App, 
+we need to import the Input component in our test file. 
+At the start of our test, we have mocked the handleChange 
+function and then passed it as a prop to the Input component.
+
+We again are using the user-event API to trigger an 
+onChange event on the input element and after that we 
+are asserting that the handleChange function has been 
+called 5 times because we typed "React" (= 5 characters) 
+in the input element.
+
+
+another example
+scenario is testing components that are connected to a 
+Redux store. Everything you learned in this tutorial still 
+applies though - you just need to mock the Redux store 
+which can be done using the Redux Mock Store library. 
+Once you have mocked the Redux store and the component 
+you want to test receives the state as props from the 
+mocked Redux store, you can test your components in the 
+same way as you learned in this tutorial.
+
+https://academind.com/tutorials/testing-react-apps
+
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
+
+
+
+
+
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
+yarn add react-testing-library jest-dom
+
+import React from "react";
+
+export default function Header({text}) {
+    return (
+        <header>
+            <h1 data-testid="h1tag" className="fancy-h1">
+                {text}
+            </h1>
+        </header>
+    );
+}
+
+
+import React from 'react';
+import { render, cleanup} from 'react-testing-library';
+import "jest-dom/extend-expect";
+import Header from "./Header";
+
+//call cleanup function to clean the garbage from using jest
+//calls from jest and provide globally
+//after each test clean up
+afterEach(cleanup);
+
+it("renders", () =>{
+    const {asFragment} = render(<Header text="Hello!" />);
+    expect(asFragment().toMatchSnapshot());
+});
+
+
+//render returns other little functions specific to the comonent
+use asFragment, the chunk of html that this component renders
+
+//snapshot is the html that you render
+
+press u to update the snapshot or fix the code to meet the sanpshot
+
+it("inserts text in h1", () => {
+    const {getByTestId, getByText} = render(<Header text="Hello!" />);
+})
+
+//both of these functions allow us to select indivial elements
+returned from what the component renders
+also getByLabel, Role etc.
+
+css was not meant for testing but for styling
+
+
+expect(getByTestId("h1tag")).toHaveTextContent("Hello!");
+//looks for subset not the entire word
+
+expect(getByTestId("h1tag")).toHaveClass("fancy-h1");
+//test class
+
+//now snapshot is broken, press u and update snapshot
+
+https://www.youtube.com/watch?v=YQLn7ycfzEo
+https://github.com/gnapse/jest-dom < find the info want to use
 
 
 
