@@ -2238,8 +2238,437 @@ https://github.com/gnapse/jest-dom < find the info want to use
 
 
 
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
+Part2
+/////////////////////////////////////////////////////////
+Mocking
+
+// FavoriteInput.js
+
+import React from "react";
+
+const FavoriteInput = ({ onChange: onInputChange, id }) => {
+  const inputHandler = (event) => onInputChange(event.target.value);
+
+  return (
+    <label htmlFor={id}>
+      What is your favorite wild animal?
+      <input id={id} onChange={inputHandler} />
+    </label>
+  );
+};
+
+export default FavoriteInput;
 
 
+// FavoriteInput.test.js
+
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
+import FavoriteInput from "./FavoriteInput";
+
+describe("Favorite Input", () => {
+  it("calls onChange correct number of times", async () => {
+    const onChangeMock = jest.fn();
+    const user = userEvent.setup();
+
+    render(<FavoriteInput onChange={onChangeMock} />);
+    const input = screen.getByRole("textbox");
+
+    await user.type(input, "Lion");
+
+    expect(onChangeMock).toHaveBeenCalledTimes(4);
+  });
+
+  it("calls onChange with correct argument(s) on each input", async () => {
+    const onChangeMock = jest.fn();
+    const user = userEvent.setup();
+
+    render(<FavoriteInput onChange={onChangeMock} />);
+    const input = screen.getByRole("textbox");
+
+    await user.type(input, "Ox");
+
+    expect(onChangeMock).toHaveBeenNthCalledWith(1, "O");
+    expect(onChangeMock).toHaveBeenNthCalledWith(2, "Ox");
+  });
+
+  it("input has correct values", async () => {
+    const onChangeMock = jest.fn();
+    const user = userEvent.setup();
+
+    render(<FavoriteInput onChange={onChangeMock} />);
+    const input = screen.getByRole("textbox");
+
+    await user.type(input, "Whale");
+
+    expect(input).toHaveValue("Whale");
+  });
+});
+
+Three tests and we are done with this component.
+We mock the onChange handler using one of Jest’s functions, jest.fn()
+
+first test, we assert that the mock function is invoked correct number of times.
+the second test ensures that the mock function is called with the correct arguments.
+The third test seems redundant, and it is; it’s just here to show another way we could’ve tested the component.
+
+But what if you want to set up your mocks in a beforeEach 
+block rather than in every test? That’s fine in some cases
+
+It is recommended to invoke userEvent.setup() before rendering 
+the component, and it is discouraged to call renders and 
+userEvent functions outside of the test itself, (for example, 
+in a beforeEach block). 
+
+If you find yourself repeating the same code in multiple tests, 
+the recommended approach to shorten each test is to write a setup 
+function, as outlined in the documentation.
+
+
+/////////////////////////////////////////////////////////
+
+We recommend invoking userEvent.setup() before the component 
+is rendered. This can be done in the test itself, or by using 
+a setup function. We discourage rendering or using any 
+userEvent functions outside of the test itself - e.g. 
+in a before/after hook - for reasons described in 
+"Avoid Nesting When You're Testing".
+
+// inlining
+test('trigger some awesome feature when clicking the button', async () => {
+  const user = userEvent.setup()
+  render(<MyComponent />)
+
+  await user.click(screen.getByRole('button', {name: /click me!/i}))
+
+  // ...assertions...
+})
+
+// setup function
+function setup(jsx) {
+  return {
+    user: userEvent.setup(),
+    ...render(jsx),
+  }
+}
+
+test('render with a setup function', async () => {
+  const {user} = setup(<MyComponent />)
+  // ...
+})
+
+/////////////////////////////////////////////////////////
+
+
+
+
+
+
+Notice how we mock the Submission component:
+jest.mock('../submission', () => ({ submission, isDashboardView }) => (
+  <>
+    <div data-test-id="submission">{submission.id}</div>
+    <div data-test-id="dashboard">{isDashboardView.toString()}</div>
+  </>
+));
+
+
+We only render the bare minimum to realize the validity of 
+the component we’re testing. Next, we set up our props with 
+fake data and mocked functions.
+
+almost all the tests follow a certain pattern in terms of the 
+way they’re written. They follow the Arrange-Act-Assert pattern
+
+https://github.com/TheOdinProject/theodinproject/blob/main/app/javascript/components/project-submissions/components/submissions-list.jsx
+
+
+
+/////////////////////////////////////////////////////////
+
+"Arrange-Act-Assert"
+a pattern for arranging and formatting code in UnitTest methods:
+Each method should group these functional sections, separated by blank lines:
+Arrange all necessary preconditions and inputs.
+Act on the object or method under test.
+Assert that the expected results have occurred.
+
+Examples:
+ @Test
+ public void test() {
+    String input = "abc";
+    		
+    String result = Util.reverse(input);
+    
+    assertEquals("cba", result);
+ }
+
+/////////////////////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////////////////////////
+secrets of the act(...) api
+
+tl;dr: wrap your test interactions with act(() => ...). 
+React will take care of the rest. 
+Note that for async act(...) you need React version at 
+least v16.9.0-alpha.0.
+
+guarantees 2 things for any code run inside its scope:
+
+any state updates will be executed
+any enqueued effects will be executed
+
+function App() {
+  let [ctr, setCtr] = useState(0);
+  useEffect(() => {
+    setCtr(1);
+  }, []);
+  return ctr;
+}
+
+
+it("should render 1", () => {
+  const el = document.createElement("div");
+  ReactDOM.render(<App />, el);
+  expect(el.innerHTML).toBe("1"); // this fails!
+});
+
+it("should render 1", () => {
+  const el = document.createElement("div");
+  act(() => {
+    ReactDOM.render(<App />, el);
+  });
+  expect(el.innerHTML).toBe("1"); // this passes!
+});
+
+
+/////////////
+
+function App() {
+  let [counter, setCounter] = useState(0);
+  return <button onClick={() => setCounter(counter + 1)}>{counter}</button>;
+}
+
+it("should increment a counter", () => {
+  const el = document.createElement("div");
+  document.body.appendChild(el);
+  // we attach the element to document.body to ensure events work
+  ReactDOM.render(<App />, el);
+  const button = el.childNodes[0];
+  for (let i = 0; i < 3; i++) {
+    button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  }
+  expect(button.innerHTML).toBe("3");
+});
+
+This 'works' as expected. 
+you extend the test a bit
+
+act(() => {
+  for (let i = 0; i < 3; i++) {
+    button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  }
+});
+expect(button.innerHTML).toBe(3); // this fails, it's actually "1"!
+
+
+The test fails, and button.innerHTML claims to be "1"! 
+Well shit, at first, this seems annoying. But act has 
+uncovered a potential bug here - if the handlers are ever 
+called close to each other, it's possible that the handler 
+will use stale data and miss some increments
+
+The 'fix' is simple - we rewrite with 'setState' call with 
+the updater form ie - setCounter(x => x + 1), and the 
+test passes. This demonstrates the value act brings to 
+grouping and executing interactions together, resulting 
+in more 'correct' code. Yay, thanks act!
+
+////
+function App() {
+  const [ctr, setCtr] = useState(0);
+  useEffect(() => {
+    setTimeout(() => setCtr(1), 1000);
+  }, []);
+  return ctr;
+}
+
+it("should tick to a new value", () => {
+  const el = document.createElement("div");
+  act(() => {
+    ReactDOM.render(<App />, el);
+  });
+  expect(el.innerHTML).toBe("0");
+  // ???
+  expect(el.innerHTML).toBe("1");
+});
+
+
+What could we do here?
+
+Option 1 - Let's lean on jest's timer mocks.
+
+it("should tick to a new value", () => {
+  jest.useFakeTimers();
+  const el = document.createElement("div");
+  act(() => {
+    ReactDOM.render(<App />, el);
+  });
+  expect(el.innerHTML).toBe("0");
+  jest.runAllTimers();
+  expect(el.innerHTML).toBe("1");
+});
+
+Like the warning advises, we mark the boundaries of that 
+action with act(...). Rewriting the test
+
+it("should tick to a new value", () => {
+  jest.useFakeTimers();
+  const el = document.createElement("div");
+  act(() => {
+    ReactDOM.render(<App />, el);
+  });
+  expect(el.innerHTML).toBe("0");
+  act(() => {
+    jest.runAllTimers();
+  });
+  expect(el.innerHTML).toBe("1");
+});
+
+Option 2 - Alternately, let's say we wanted to use 'real' 
+timers. This is a good time to introduce the asynchronous 
+version of act. Introduced in 16.9.0-alpha.0, it lets you 
+define an asynchronous boundary for act(). Rewriting the 
+test from above -
+
+it("should tick to a new value", async () => {
+  // a helper to use promises with timeouts
+  function sleep(period) {
+    return new Promise(resolve => setTimeout(resolve, period));
+  }
+  const el = document.createElement("div");
+  act(() => {
+    ReactDOM.render(<App />, el);
+  });
+  expect(el.innerHTML).toBe("0");
+  await act(async () => {
+    await sleep(1100); // wait *just* a little longer than the timeout in the component
+  });
+  expect(el.innerHTML).toBe("1");
+});
+
+
+Again, tests pass, no warnings. excellent!
+You don't have to mess with fake timers or builds anymore, 
+and can write tests more 'naturally'. As a bonus, it will 
+(eventually) be compatible with concurrent mode
+
+////
+
+Let's keep going. This time, let's use promises. 
+Consider a component that fetches data with, er, fetch -
+
+function App() {
+  let [data, setData] = useState(null);
+  useEffect(() => {
+    fetch("/some/url").then(setData);
+  }, []);
+  return data;
+}
+
+Let's write a test again. This time, we'll mock fetch 
+so we have control over when and how it responds:
+
+it("should display fetched data", () => {
+  // a rather simple mock, you might use something more advanced for your needs
+  let resolve;
+  function fetch() {
+    return new Promise(_resolve => {
+      resolve = _resolve;
+    });
+  }
+
+  const el = document.createElement("div");
+  act(() => {
+    ReactDOM.render(<App />, el);
+  });
+  expect(el.innerHTML).toBe("");
+  resolve(42);
+  expect(el.innerHTML).toBe("42");
+});
+
+The test passes, but we get the warning again. Like before, 
+we wrap the bit that 'resolves' the promise with act(...)
+
+// ...
+expect(el.innerHTML).toBe("");
+await act(async () => {
+  resolve(42);
+});
+expect(el.innerHTML).toBe("42");
+// ...
+
+This time, the test passes, and the warning's disappeared. 
+
+
+
+////
+Now, let's do hard mode with async/await.
+
+function App() {
+  let [data, setData] = useState(null);
+  async function somethingAsync() {
+    // this time we use the await syntax
+    let response = await fetch("/some/url");
+    setData(response);
+  }
+  useEffect(() => {
+    somethingAsync();
+  }, []);
+  return data;
+}
+
+it("should display fetched data", async () => {
+  // a rather simple mock, you might use something more advanced for your needs
+  let resolve;
+  function fetch() {
+    return new Promise(_resolve => {
+      resolve = _resolve;
+    });
+  }
+  const el = document.createElement("div");
+  act(() => {
+    ReactDOM.render(<App />, el);
+  });
+  expect(el.innerHTML).toBe("");
+  await act(async () => {
+    resolve(42);
+  });
+  expect(el.innerHTML).toBe("42");
+});
+
+Literally the same as the previous example. All good and green.
+
+if you're using ReactTestRenderer, you should use ReactTestRenderer.act instead.
+we can reduce some of the boilerplate associated with this by 
+integrating act directly with testing libraries; 
+react-testing-library already wraps its helper functions 
+by default with act
 
 
 */
