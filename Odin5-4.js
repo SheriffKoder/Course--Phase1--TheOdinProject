@@ -1100,16 +1100,223 @@ const EnhancedHello2 = withNameChange(HelloComponent);
 
 
 /*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////*/
+/*
+
+Using Baas for your backend
+
+Backend, storage, different devices
+
+You can learn how to build a back-end later using Node.js
+you can outsource your backend functionality to a 
+Backend-as-a-Service (BaaS) company like Firebase or Apigee. 
+
+
+Firebase*
+Accelerate and scale app development without managing infrastructure
+Spin up your backend without managing servers
+
+Cloud fireStore*
+build serverless, secure apps at a global scale
+Store app data in the cloud
+sync data across online and offline devices
+retrieve it with expressive queries
+
+Services:
+RealTime Database
+Remote Config
+Firebase extensions
+App Check
+App traffic check
+Cloud functions, write/run app logic server-side without needing to set up your own server
+Add an end-to-end identity solution for easy yser authentication, sign-in, and onbarding
+Cloud messaging
+Hosting*
+Cloud messaging, messages between your server and devices, across platforms at no cost
+Cloud storage,* 
+Firebase ML, machine learning features to your app with ready to use API's
+            and support for custom model deployment
+Authentication*
+
+Related extensions, pre-packed solutions, support google cloud products
+Stream collections to BigQuery
+Trigger Email
+Search with Algolia
+
+
+
+Cloud Firestore is a NoSQL document database that lets you easily 
+store, sync, and query data for your mobile and web apps - at global scale.
+
+across all devices, multiple users, support for offline mode even on the web
+manage access, structure data, 
+
+
+
+
+Hosting
+Behind the scenes, our infrastructure is powered by Google Cloud, 
+so you can scale to meet your users where they are faster than ever.
+
+Storage
+store/serve photos, videos
+stored in database and shared among "authenticated" users
+secure connection
+
+authentication
+identy for user to provide customized experience
+what parts of the database have access to
+to focus more on the app and not the authentication side of the app
+It can take months to set up your own auth system, and it requires 
+an engineering team to maintain that system in the future. Set up 
+the entire authentication system of your app in under 10 lines of 
+code, even handling complex cases like account merging.
+
+
+
+
+works on ios, android, web
 
 
 
 
 
+///////////////////////////////////////////////////////////////////
+Local Storage
+
+You would keep a key on the user’s computer and read it 
+out when the user returns.
+
+The classic way to do this is by using a cookie
+a text file hosted on the user's computer
+and connected to the domain that your website runs on
+can store information in them, read them out, delete them
+and have limitations
+.add to the load of every document accessed on the domain
+.allow up to only 4kb of data storage
+.some companies turn them off
+
+
+
+//Using Local Storage In HTML5-Capable Browsers #
+
+localStorage.setItem('favoriteflavor','vanilla');
+
+var taste = localStorage.getItem('favoriteflavor');
+// -> "vanilla"
+
+localStorage.removeItem('favoriteflavor');
+var taste = localStorage.getItem('favoriteflavor');
+// -> null
+
+You can also use sessionStorage instead of localStorage if 
+you want the data to be maintained only until the browser window 
+closes.
+
+shortcoming of local storage is that you can only store strings 
+in the different keys. This means that when you have an object, 
+it will not be stored the right way.
+
+can work around this by using the native 
+JSON.stringify() and JSON.parse() methods:
+
+var car = {};
+car.wheels = 4;
+car.doors = 2;
+car.sound = 'vroom';
+car.name = 'Lightning McQueen';
+console.log( car );
+localStorage.setItem( 'car', JSON.stringify(car) );
+console.log( JSON.parse( localStorage.getItem( 'car' ) ) );
+
+Where To Find Local Storage Data And How To Remove It from browser #
+Preferences → Advanced → Storage
+
+Use cases:
+(1) for an application that takes time to load
+can cache the data so the second time becomes faster
+
+//using jQuery here
+if(localStorage && localStorage.getItem('thewholefrigginworld')){
+  render(JSON.parse(localStorage.getItem('thewholefrigginworld')));
+} else {
+  $('#list').html('’ + loading + ’’); 
+  
+var query = ‘select centroid,woeid,name,boundingBox’+ ‘ from geo.places.children(0)’+ ‘ where parent_woeid=1 and placetype=“country”‘+ ’ | sort(field=“name”)‘; var YQL = ‘https://query.yahooapis.com/v1/public/yql?q='+ encodeURIComponent(query)+’&diagnostics=false&format=json’; $.getJSON(YQL,function(data){ if(localStorage){ localStorage.setItem(‘thewholefrigginworld’,JSON.stringify(data)); } render(data); }); }
+
+If a Web service allows you only a certain number of calls per 
+hour but the data doesn’t change all that often, you could store 
+the information in local storage and thus keep users from using up 
+your quota. 
+A photo badge, for example, could pull new images every six hours, 
+rather than every minute.
+
+getJSON() in jQuery is especially egregious in accessing services 
+and breaking their cache, as explained in
+https://www.yqlblog.net/blog/2010/03/12/avoiding-rate-limits-and-getting-banned-in-yql-and-pipes-caching-is-your-friend/ 
+
+
+(2) Maintaining the state of an interface the simple way
+storing the entire HTML or as clever as maintaining an object with the state of all of your widgets
+
+search: using-html5-storage-to-cache-application-interfaces
+
+///////////////////////////////////////////////////////////////////
+
+
+//how to use Firebase to easily create web applications by 
+implementing and deploying a chat client using Firebase products 
+and services.
+
+Sync data using Cloud Firestore and Cloud Storage for Firebase.
+Authenticate your users using Firebase Authentication.
+Deploy your web app on Firebase Hosting.
+Send notifications with Firebase Cloud Messaging.
+Collect your web app's performance data.
+
+
+Sign in to firebase
+create new project: friendlychat 
+it will be given an id : friendlychat-19e16
+Uncheck Enable Google Analytics for this project
+
+
+The application that we're going to build uses Firebase products that are available for web apps:
+
+Firebase Authentication to easily allow your users to sign into your app.
+Cloud Firestore to save structured data on the cloud and get instant notification when data changes.
+Cloud Storage for Firebase to save files in the cloud.
+Firebase Hosting to host and serve your assets.
+Firebase Cloud Messaging to send push notifications and display browser popup notifications.
+Firebase Performance Monitoring to collect user performance data for your app.
+Some of these products need special configuration or need to be enabled using the Firebase console.
+
+Add a Firebase web app to the project
+Click the web icon </> to create a new Firebase web app.
+Register the app with the nickname Friendly Chat, then check the 
+box next to Also set up Firebase Hosting for this app. 
+Click Register app.
+On the next step, you'll see a configuration object. 
+Copy just the JS object (not the surrounding HTML) 
+into src/firebase-config.js
 
 
 
 
 
+Enable Google sign-in for Firebase Authentication
+To allow users to sign in to the web app with their Google accounts, 
+we'll use the Google sign-in method.
+
+You'll need to enable Google sign-in:
+
+In the Firebase console, locate the Build section in the left panel.
+Click Authentication, then click the Sign-in method tab (or click here to go directly there).
+Enable the Google sign-in provider, then click Save.
+Set the public-facing name of your app to Friendly Chat and choose a Project support email from the dropdown menu.
+Configure your OAuth consent screen in the Google Cloud Console and add a logo:
 
 
 
