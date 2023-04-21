@@ -163,6 +163,28 @@ https://react-redux.js.org/
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 4. Context API
 as your application becomes larger and have multiple components
 to ensure reusability, might find passing props through a lot
@@ -490,6 +512,601 @@ export default function Page() {
     </Section>
   );
 }
+
+////////////////////////////////////////////
+
+//but now want to pass level prop to the <section> component
+instead and remove it from the <heading>
+
+<Section level={3}>
+  <Heading>About</Heading>
+  <Heading>Photos</Heading>
+  <Heading>Videos</Heading>
+</Section>
+
+1. create a context
+2. use that context from the component that needs the data (heading)
+3. Provide that context from the component (section)
+
+//LevelContext.js
+import { createContext } from 'react';
+export const LevelContext = createContext(1);
+
+
+//Heading.js
+import { useContext } from 'react';
+import { LevelContext } from './LevelContext.js';
+
+export default function Heading({ children }) {
+  const level = useContext(LevelContext);
+  // switch cases
+    switch (level) {
+    case 1:
+      return <h1>{children}</h1>;
+  //..
+}
+
+
+//Section.js
+//This tells React: “if any component inside this <Section> 
+asks for LevelContext, give them this level.” The component 
+will use the value of the nearest <LevelContext.Provider> in 
+the UI tree above it.
+
+import { LevelContext } from './LevelContext.js';
+
+export default function Section({ level, children }) {
+  return (
+    <section className="section">
+      <LevelContext.Provider value={level}>
+        {children}
+      </LevelContext.Provider>
+    </section>
+  );
+}
+
+
+//App.js
+import Heading from './Heading.js';
+import Section from './Section.js';
+
+export default function Page() {
+  return (
+    <Section level={1}>
+      <Heading>Title</Heading>
+      <Section level={2}>
+        <Heading>Heading</Heading>
+        <Heading>Heading</Heading>
+        <Heading>Heading</Heading>
+        <Section level={3}>
+          <Heading>Sub-heading</Heading>
+          <Heading>Sub-heading</Heading>
+          <Heading>Sub-heading</Heading>
+          <Section level={4}>
+            <Heading>Sub-sub-heading</Heading>
+            <Heading>Sub-sub-heading</Heading>
+            <Heading>Sub-sub-heading</Heading>
+          </Section>
+        </Section>
+      </Section>
+    </Section>
+  );
+}
+
+
+//Section.js
+//for having automatic increment of levels
+//having sections in App.js with no level property
+
+import { useContext } from 'react';
+import { LevelContext } from './LevelContext.js';
+
+export default function Section({ children }) {
+  const level = useContext(LevelContext);
+  return (
+    <section className="section">
+      <LevelContext.Provider value={level + 1}>
+        {children}
+      </LevelContext.Provider>
+    </section>
+  );
+}
+
+
+//this is helpful when want to pass a theme
+//the currently logged in user and so on
+
+
+
+/////////////////////////////////////////////
+
+
+//App.js
+import Heading from './Heading.js';
+import Section from './Section.js';
+
+export default function ProfilePage() {
+  return (
+    <Section>
+      <Heading>My Profile</Heading>
+      <Post
+        title="Hello traveller!"
+        body="Read about my adventures."
+      />
+      <AllPosts />
+    </Section>
+  );
+}
+
+function AllPosts() {
+  return (
+    <Section>
+      <Heading>Posts</Heading>
+      <RecentPosts />
+    </Section>
+  );
+}
+
+function RecentPosts() {
+  return (
+    <Section>
+      <Heading>Recent Posts</Heading>
+      <Post
+        title="Flavors of Lisbon"
+        body="...those pastéis de nata!"
+      />
+      <Post
+        title="Buenos Aires in the rhythm of tango"
+        body="I loved it!"
+      />
+    </Section>
+  );
+}
+
+function Post({ title, body }) {
+  return (
+    <Section isFancy={true}>
+      <Heading>
+        {title}
+      </Heading>
+      <p><i>{body}</i></p>
+    </Section>
+  );
+}
+
+
+//Section.js
+import { useContext } from 'react';
+import { LevelContext } from './LevelContext.js';
+
+export default function Section({ children, isFancy }) {
+  const level = useContext(LevelContext);
+  return (
+    <section className={
+      'section ' +
+      (isFancy ? 'fancy' : '')
+    }>
+      <LevelContext.Provider value={level + 1}>
+        {children}
+      </LevelContext.Provider>
+    </section>
+  );
+}
+
+
+//Heading.js
+import { useContext } from 'react';
+import { LevelContext } from './LevelContext.js';
+
+export default function Heading({ children }) {
+  const level = useContext(LevelContext);
+  switch (level) {
+    case 0:
+      throw Error('Heading must be inside a Section!');
+    case 1:
+      return <h1>{children}</h1>;
+    case 2:
+      return <h2>{children}</h2>;
+    case 3:
+      return <h3>{children}</h3>;
+    case 4:
+      return <h4>{children}</h4>;
+    case 5:
+      return <h5>{children}</h5>;
+    case 6:
+      return <h6>{children}</h6>;
+    default:
+      throw Error('Unknown level: ' + level);
+  }
+}
+
+//LevelContext.js
+
+import { createContext } from 'react';
+
+export const LevelContext = createContext(0);
+
+
+result: https://react.dev/learn/passing-data-deeply-with-context
+
+
+//You didn’t do anything special for this to work. 
+A Section specifies the context for the tree inside it, 
+so you can insert a <Heading> anywhere, and it will have the 
+correct size. Try it in the sandbox above!
+
+//different React contexts don’t override each other. 
+Each context that you make with createContext() is completely 
+separate from other ones
+
+
+Just because you need to pass some props several levels deep 
+doesn’t mean you should put that information into context.
+
+1.Start by passing props. If your components are not trivial
+2.Extract components and pass JSX as children to them.
+If neither of these approaches works well for you, consider context.
+
+Common uses of context
+Themes
+Current Account
+Routing
+Managing State, using a reducer with context
+
+Context is not limited to static values. 
+If you pass a different value on the next render, 
+React will update all the components reading it below! 
+This is why context is often used in combination with state.
+
+In general, if some information is needed by distant 
+components in different parts of the tree, it’s a good 
+indication that context will help you.
+
+
+//check the image list example at the end
+https://react.dev/learn/passing-data-deeply-with-context
+
+//utils.js
+export function getImageUrl(place) {
+  return (
+    'https://i.imgur.com/' +
+    place.imageId +
+    'l.jpg'
+  );
+}
+
+//data.js
+export const places = [{
+  id: 0,
+  name: 'Bo-Kaap in Cape Town, South Africa',
+  description: 'The tradition of choosing bright colors for houses began in the late 20th century.',
+  imageId: 'K9HVAGH'
+}, {
+  id: 1, 
+  name: 'Rainbow Village in Taichung, Taiwan',
+  description: 'To save the houses from demolition, Huang Yung-Fu, a local resident, painted all 1,200 of them in 1924.',
+  imageId: '9EAYZrt'
+},..cont..
+
+
+//context.js
+import { createContext } from 'react';
+
+export const ImageSizeContext = createContext(500);
+
+//App.js
+import { useState, useContext } from 'react';
+import { places } from './data.js';
+import { getImageUrl } from './utils.js';
+import { ImageSizeContext } from './Context.js';
+
+export default function App() {
+  const [isLarge, setIsLarge] = useState(false);
+  const imageSize = isLarge ? 150 : 100;
+  return (
+    <ImageSizeContext.Provider
+      value={imageSize}
+    >
+      <label>
+        <input
+          type="checkbox"
+          checked={isLarge}
+          onChange={e => {
+            setIsLarge(e.target.checked);
+          }}
+        />
+        Use large images
+      </label>
+      <hr />
+      <List />
+    </ImageSizeContext.Provider>
+  )
+}
+
+function List() {
+  const listItems = places.map(place =>
+    <li key={place.id}>
+      <Place place={place} />
+    </li>
+  );
+  return <ul>{listItems}</ul>;
+}
+
+function Place({ place }) {
+  return (
+    <>
+      <PlaceImage place={place} />
+      <p>
+        <b>{place.name}</b>
+        {': ' + place.description}
+      </p>
+    </>
+  );
+}
+
+function PlaceImage({ place }) {
+  const imageSize = useContext(ImageSizeContext);
+  return (
+    <img
+      src={getImageUrl(place)}
+      alt={place.name}
+      width={imageSize}
+      height={imageSize}
+    />
+  );
+}
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5. Higher-order Components
+are components that consume another component and
+return a third component
+
+an advanced technique in React for reusing component logic.
+not part of the React API
+they are a pattern that emerges from React's compositional nature
+
+//////////////////////////////////////////////////////////
+
+a function that takes a component and returns a new component
+Whereas a component transforms props into UI, 
+a higher-order component transforms a component into 
+another component.
+
+HOC are common in third-party React libraries
+
+Use HOCs For Cross-Cutting Concerns
+
+We want an abstraction that allows us to define this logic 
+in a single place and share it across many components. 
+
+Higher-order components (HOCs) in React were inspired by 
+higher-order functions in JavaScript.
+
+HOCs basically incorporate the don’t-repeat-yourself (DRY) principle of programming
+It is one of the best-known principles of software development,
+and observing it is very important when building an application or writing code in general.
+
+//higher order function
+//formatCurrency returns a function with a fixed currency symbol and decimal separator.
+const formatCurrency = function( currencySymbol, decimalSeparator  ) {
+    return function( value ) {
+        const wholePart = Math.trunc( value / 100 );
+        let fractionalPart = value % 100;
+        if ( fractionalPart < 10 ) {
+            fractionalPart = '0' + fractionalPart;
+        }
+        return `${currencySymbol}${wholePart}${decimalSeparator}${fractionalPart}`;
+    }
+}
+
+> getLabel = formatCurrency( '$', '.' );
+> getLabel( 1999 )
+"$19.99" //formatted value
+
+
+//Higher order component HOC
+take one or more components as arguments, 
+and return a new upgraded component.
+
+We don’t modify or mutate components. We create new ones.
+A HOC is used to compose components for code reuse.
+A HOC is a pure function. It has no side effects, returning only a new component.
+
+//ex
+import React from 'react';
+// Take in a component as argument WrappedComponent
+const higherOrderComponent = (WrappedComponent) => {
+// And return another component
+  class HOC extends React.Component {
+    render() {
+      return <WrappedComponent />;
+    }
+  }
+  return HOC;
+};
+
+
+//mapping example
+//List.js
+import React from 'react';
+const List = (props) => {
+  const { repos } = props;
+  if (!repos) return null;
+  if (!repos.length) return <p>No repos, sorry</p>;
+  return (
+    <ul>
+      {repos.map((repo) => {
+        return <li key={repo.id}>{repo.full_name}</li>;
+      })}
+    </ul>
+  );
+};
+export default List;
+
+
+//HOC ex//
+//withdLoading.js
+import React from 'react';
+function WithLoading(Component) {
+  return function WihLoadingComponent({ isLoading, ...props }) {
+    if (!isLoading) return <Component {...props} />;
+    return <p>Hold on, fetching data might take some time.</p>;
+  };
+}
+export default WithLoading;
+
+
+//App.js
+import React from 'react';
+import List from './components/List.js';
+import WithLoading from './components/withLoading.js';
+
+const ListWithLoading = WithLoading(List);
+
+class App extends React.Component {
+  state = {
+{
+  };
+  componentDidMount() {
+    this.setState({ loading: true });
+    fetch(`https://api.github.com/users/hacktivist123/repos`)
+      .then((json) => json.json())
+      .then((repos) => {
+        this.setState({ loading: false, repos: repos });
+      });
+  }
+  render() {
+    return (
+      <ListWithLoading
+        isLoading={this.state.loading}
+        repos={this.state.repos}
+      />
+    );
+  }
+}
+export default App;
+
+
+//Once the request is complete, we set the loading state to false and populate 
+//the repos state with the data we have pulled from the API request.
+
+
+
+//another example
+//The code below is a HOC named withAuth. It basically takes a component and returns 
+a new component, named AuthenticatedComponent, that checks whether the user is 
+authenticated. If the user is not authenticated, it returns the loginErrorMessage 
+component; if the user is authenticated, it returns the wrapped component.
+//this.props.isAuthenticated has to be set from your application’s logic. 
+
+// withAuth.js
+import React from "react";
+export function withAuth(Component) {
+    return class AuthenticatedComponent extends React.Component {
+        isAuthenticated() {
+            return this.props.isAuthenticated;
+        }
+
+        render() {
+          const loginErrorMessage = (
+              <div>
+                  Please <a href="/login">login</a> in order to view this part of the application.
+              </div>
+          );
+
+          return (
+              <div>
+                  { this.isAuthenticated === true ? <Component {...this.props} /> : loginErrorMessage }
+              </div>
+          );
+      }
+  };
+}
+
+export default withAuth;
+
+
+//Here, we create a component that is viewable only by users who are authenticated. 
+We wrap that component in our withAuth HOC to protect the component from users who 
+are not authenticated.
+
+// MyProtectedComponent.js
+import React from "react";
+import {withAuth} from "./withAuth.js";
+
+export class MyPrivateComponent extends React.Component {
+    render() {
+      return (
+          <div>
+              This is only viewable  by authenticated users.
+          </div>
+      );
+  }
+}
+
+// Now wrap MyPrivateComponent with the requireAuthentication function 
+export default withAuth(MyPrivateComponent);
+
+
+
+//another example
+const HelloComponent = ({ name, ...otherProps }) => (
+ <div {...otherProps}>Hello {name}!/div>
+);
+
+const withStyling = (BaseComponent) => (props) => (
+  <BaseComponent {...props} style={{ fontWeight: 700, color: 'green' }} />
+);
+
+const EnhancedHello = withStyling(HelloComponent);
+
+<EnhancedHello name='World' />
+
+
+
+
+const HelloComponent = ({ name, ...otherProps }) => (
+ <div {...otherProps}>Hello {name}!</div>
+);
+
+const withNameChange = (BaseComponent) => (props) => (
+  <BaseComponent {...props} name='New Name' />
+);
+
+const EnhancedHello2 = withNameChange(HelloComponent);
+
+<EnhancedHello /> // will output <div>Hello New World</div>
+<EnhancedHello name='Shedrack' /> //will output <div>Hello Shedrack</div>
+
+
+//if we decide to change things around, we only have to edit our HOC.
+
+
+
+/*////////////////////////////////////////////////////////////////////*/
+
+
+
+
+
+
+
 
 
 

@@ -2670,5 +2670,21 @@ integrating act directly with testing libraries;
 react-testing-library already wraps its helper functions 
 by default with act
 
+/////////////////////////////////////////////////////////
+
+
+
+
+
+if you’re looking to unit test just the logic contained in 
+the parent component, you’ll want to abstract away the 
+functionality of the child components.
+
+
+
+
+
+
+
 
 */
