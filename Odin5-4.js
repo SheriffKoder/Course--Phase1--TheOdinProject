@@ -1277,23 +1277,27 @@ Send notifications with Firebase Cloud Messaging.
 Collect your web app's performance data.
 
 
-Sign in to firebase
+//Sign in to firebase
 create new project: friendlychat 
 it will be given an id : friendlychat-19e16
 Uncheck Enable Google Analytics for this project
 
 
-The application that we're going to build uses Firebase products that are available for web apps:
+The application that we're going to build uses Firebase products 
+that are available for web apps:
 
-Firebase Authentication to easily allow your users to sign into your app.
-Cloud Firestore to save structured data on the cloud and get instant notification when data changes.
-Cloud Storage for Firebase to save files in the cloud.
-Firebase Hosting to host and serve your assets.
-Firebase Cloud Messaging to send push notifications and display browser popup notifications.
-Firebase Performance Monitoring to collect user performance data for your app.
-Some of these products need special configuration or need to be enabled using the Firebase console.
+.Firebase Authentication to easily allow your users to sign into your app.
+.Cloud Firestore to save structured data on the cloud and get 
+instant notification when data changes.
+.Cloud Storage for Firebase to save files in the cloud.
+.Firebase Hosting to host and serve your assets.
+.Firebase Cloud Messaging to send push notifications and display browser popup notifications.
+.Firebase Performance Monitoring to collect user performance data for your app.
 
-Add a Firebase web app to the project
+Some of these products need special configuration or need to be 
+enabled using the Firebase console.
+
+//Add a Firebase web app to the project
 Click the web icon </> to create a new Firebase web app.
 Register the app with the nickname Friendly Chat, then check the 
 box next to Also set up Firebase Hosting for this app. 
@@ -1306,7 +1310,7 @@ into src/firebase-config.js
 
 
 
-Enable Google sign-in for Firebase Authentication
+//Enable Google sign-in for Firebase Authentication
 To allow users to sign in to the web app with their Google accounts, 
 we'll use the Google sign-in method.
 
@@ -1315,12 +1319,271 @@ You'll need to enable Google sign-in:
 In the Firebase console, locate the Build section in the left panel.
 Click Authentication, then click the Sign-in method tab (or click here to go directly there).
 Enable the Google sign-in provider, then click Save.
-Set the public-facing name of your app to Friendly Chat and choose a Project support email from the dropdown menu.
+Set the public-facing name of your app to Friendly Chat and choose 
+a Project support email from the dropdown menu.
 Configure your OAuth consent screen in the Google Cloud Console and add a logo:
 
+//Enable Cloud Firestore
+In the Firebase console's Build section, click Firestore Database.
+Click Create database in the Cloud Firestore pane.
+Select the Start in test mode option, then click Next after reading 
+the disclaimer about the security rules.
 
 
+//Enable Cloud Storage
+In the Firebase console's Build section, click Storage.
+If there's no Get Started button, it means that Cloud storage is
+ already enabled, and you don't need to follow the steps below.
+Click Get Started.
+Read the disclaimer about security rules for your Firebase project, then click Next.
 
+With the default security rules, any authenticated user can write 
+anything to Cloud Storage. We'll make our storage more secure 
+later in this codelab.
+
+
+//4. Install the Firebase command-line interface
+The Firebase command-line interface (CLI) allows you to use 
+Firebase Hosting to serve your web app locally, as well as to 
+deploy your web app to your Firebase project.
+
+install cli
+npm install -g npm //install/update node
+node -v
+npm -v //check version
+# npm -g install firebase-tools
+
+verify CLI installation
+# firebase --version
+
+authorize the firebase cli
+# firebase login
+
+
+We've set up the web app template to pull your app's configuration 
+for Firebase Hosting from your app's local directory (the repository 
+that you cloned earlier in the codelab). But to pull the configuration, 
+we need to associate your app with your Firebase project.
+
+Associate your app with your Firebase project by running the following command:
+# firebase use --add
+
+
+//5. Run the starter app locally
+In a console from the web-start directory, run the following Firebase CLI command:
+# firebase serve --only hosting
+
+Your command line should display the following response:
+✔  hosting: Local server: http://localhost:5000
+
+We're using the Firebase Hosting emulator to serve our app locally. 
+The web app should now be available from http://localhost:5000. 
+All the files that are located under the public subdirectory are 
+served.
+
+Using your browser, open your app at http://localhost:5000.
+You should see your FriendlyChat app's UI, which is not (yet!) 
+functioning:
+
+
+////6. Import and configure Firebase
+//Import the Firebase SDK
+you can import the library from our CDN. Or you can install it locally 
+using npm, then package it in your app if you're using Browserify.
+
+get the firebase sdk from npm and use Webpack to bundle our code
+so webpack can remove any unnecessary code
+keeping our JS bundle size small
+to make sure our app loads quickly
+
+created web-start/package.json that includes the firebase SDK
+imported the needed functions at the top of web-start/src/index.js
+
+in future apps makse sure that you are only importing the parts
+of firebase that you need, to shorten the load time of your app
+
+//Install the Firebase SDK and start your Webpack build
+
+new terminal window
+in web-start directory
+# npm install > to download the firebase SDK
+# npm run start > to start up webpack to continually rebuild our 
+source code for the rest of the codelab
+
+//Configure firebase
+https://console.firebase.google.com/project/_/settings/general/
+select your project > Your apps card > nickname of the app need to config
+select config radio button, copy the config object and add it to
+firebase-config.js file locally
+
+
+go to the bottom of web-start/src/index.js and initialize Firebase:
+const firebaseAppConfig = getFirebaseConfig();
+initializeApp(firebaseAppConfig);
+
+
+////set up user sign-in
+The Firebase SDK should now be ready to use since it's imported and 
+initialized in index.js
+
+//Authenticate your users with Google Sign-In
+we want to authorize Firebase to use Google as the identity provider.
+We'll use a popup, but several other methods are available from Firebase.
+
+https://firebase.google.com/codelabs/firebase-web#6
+change the following functions
+signIn, signOut, initFirebaseAuth, gerProfilePicUrl, getUserName, isUserSignedIn
+
+
+//8. Write messages to Cloud Firestore
+write some data to Cloud Firestore so that we can populate the app's UI.
+can be done manually with the Firebase console, but we'll do it in 
+the app itself to demonstrate a basic Cloud Firestore write.
+
+//Data model
+Cloud Firestore data is split into collections, documents, fields, and subcollections. 
+We will store each message of the chat as a document in a top-level collection called messages.
+
+replace the saveMessage function in index.js
+
+//Read messages
+To read messages in the app, we'll need to add listeners that 
+trigger when data changes and then create a UI element that 
+shows new messages.
+
+we will add code that listens for newly added messages from the app
+we will register the listener that listens for changes made to the data
+last 12 messages
+
+change load messages function
+
+cloud firestore good for storing structured data
+cloud storage is better suited for storing files
+to store any images that a user shares using our app
+
+add the saveImageMessage function
+
+////show notifications
+the app will notify users when new messages are posted in the chat
+Firebase Cloud messaging FCM is a cross-platform solution
+allows delivering messages and notifications at no cost
+
+//add the fcm service worker
+add to firebase-messaging-sw.js a code
+
+
+//Get FCM device tokens
+When notifications have been enabled on a device or browser, 
+you'll be given a device token. This device token is what we use 
+to send a notification to a particular device or particular browser.
+
+When the user signs-in, we call the saveMessagingDeviceToken function. 
+That's where we'll get the FCM device token from the browser and save it 
+to Cloud Firestore.
+
+
+//Request permissions to show notifications
+
+For your app to be able to retrieve the device token, 
+the user needs to grant your app permission to show notifications
+
+add code to the function requestNotificationsPermissions.*
+
+
+//Send a notification to your device
+Open the Cloud Messaging tab of the Firebase console.
+Click "New Notification"
+Enter a notification title and notification text.
+On the right side of the screen, click "send a test message"
+Enter the device token you copied from the JavaScript console of your browser, then click the plus ("+") sign
+Click "test"
+
+
+//12. Cloud Firestore security rules
+in the Database section's Rules tab, you can view and modify these rules.
+
+add code to firestore.rules*
+
+To update security rules in the Firebase console:
+
+Go to the Database section from the left panel, and then click the Rules tab.
+Replace the default rules that are already in the console with the rules shown above.
+Click Publish.
+To update security rules from a local file:
+
+From the web-start directory, open firestore.rules.
+Replace the default rules that are already in the file with the rules shown above.
+From the web-start directory, open firebase.json.
+Add the firestore.rules attribute pointing to firestore.rules, as shown below. (The hosting 
+
+add code to firebase.json
+
+Deploy the security rules using the Firebase CLI by running the following command:
+firebase deploy --only firestore
+
+
+////13. Cloud Storage security rules
+View Cloud Storage security rules
+
+Cloud Storage for Firebase uses a specific rules language to define 
+access rights, security, and data validations.
+
+we already chose to use default cloud storage
+that only allows authenticated users to use cloud storage
+
+We'll update the rules to do the following:
+
+Allow each user to write only to their own specific folders
+Allow anyone to read from Cloud Storage
+Make sure that the files uploaded are images
+Restrict the size of the images that can be uploaded to maximum 5 MB
+
+can be done by adding code to storage.rules*
+
+There are two ways to edit your storage security rules: either in 
+the Firebase console or from a local rules file deployed using the 
+Firebase CLI.
+
+
+To update security rules in the Firebase console:
+Go to the Storage section from the left panel, and then click the Rules tab.
+Replace the default rule that is already in the console with the rules shown above.
+Click Publish.
+
+To update security rules from a local file:
+
+From the web-start directory, open storage.rules.
+Replace the default rules that are already in the file with the rules shown above.
+From the web-start directory, open firebase.json.
+Add the storage.rules attribute pointing to the storage.rules file, 
+as shown below. (The hosting and database attribute should already be 
+in the file.)
+
+can be done by adding code to firebase.json*
+
+Deploy the security rules using the Firebase CLI by running the following command:
+firebase deploy --only storage
+
+
+//14. Collect performance data
+Performance Monitoring helps you to understand where and when the 
+performance of your app can be improved so that you can use that 
+information to fix performance issues.
+
+add one line to tell Performance Monitoring to automatically collect 
+page load and network request metrics for you when users visit your 
+deployed site!
+
+In web-start/src/index.js, add*
+
+//First input delay is useful since the browser responding to a 
+user interaction gives your users their first impressions about 
+the responsiveness of your app.
+
+View performance data
+
+You need to add domain mail-demo-fcm.firebaseapp.com
+in Authentication settings > authorized domains > add domain
 
 
 
