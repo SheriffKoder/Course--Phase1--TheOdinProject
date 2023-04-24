@@ -145,10 +145,278 @@ you can use the transform property to move and rotate objects in a 3D space
 /* the basics of perspective 
 the z-axis becomes effective when perspective is used
 
+body {
+  font-family: 'Anton', sans-serif;
+  background-color: #eee;
+  color: #333;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  align-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  flex-wrap: wrap;
+}
+
+#axesZ:checked ~ .container > .square {
+  -webkit-animation: moveOnZ 2s infinite ease-in-out alternate;
+          animation: moveOnZ 2s infinite ease-in-out alternate;
+}
+
+#axesZ:checked ~ .options > label.axesZ {
+  background-color: greenyellow;
+}
+
+@-webkit-keyframes moveOnZ {
+@keyframes moveOnZ {
+  from {
+    -webkit-transform: translateZ(-50px);
+            transform: translateZ(-50px);
+  }
+  to {
+    -webkit-transform: translateZ(50px);
+            transform: translateZ(50px);
+  }
+}
+label.usePerspective {
+  display: block;
+  text-align: center;
+  padding: 0.5em 1em;
+  border: 1px solid #777;
+  border-radius: 4px;
+  margin-top: 1.5em;
+}
+
+#usePerspective:checked ~ .container {
+  -webkit-perspective: 240px;
+          perspective: 240px;
+}
+
+#usePerspective:checked ~ .options label.usePerspective {
+  background-color: greenyellow;
+}
+
+/////////////////////////////////////////////////////////////
+
+#axesX:checked ~ .container > .square {
+  -webkit-animation: rotateOnX 4s infinite linear;
+          animation: rotateOnX 4s infinite linear;
+}
+
+#axesX:checked ~ .options > label.axesX {
+  background-color: greenyellow;
+}
+
+@-webkit-keyframes rotateOnX {
+  to {
+    -webkit-transform: rotateX(360deg);
+            transform: rotateX(360deg);
+  }
+}
+
+
+
+moving: translate  (perspective in Z)
+flipping: rotate (perspective in X Y)
+
+
+
 The perspective-origin property determines the position from which 
 you are “looking” at an object. If the origin is centered (which is the 
 default) and the object is moved to the right, it will seem like you are 
 looking at it from the left (and vice versa).
+
+When the origin is set to the side, it’s like you are “looking” at the object 
+from that side. The bigger the value, the further aside it will look.
+
+
+//behaves according to the perspective rules assigned to the parent element.
+.container {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-perspective: 240px;
+          perspective: 240px;
+}
+
+//moving from side to side rotated side
+.square {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  -webkit-transform: rotateY(90deg);
+          transform: rotateY(90deg);
+}
+
+.containerA > .square {
+  -webkit-animation: moveSquare 4s infinite ease-in-out alternate;
+          animation: moveSquare 4s infinite ease-in-out alternate;
+}
+
+@-webkit-keyframes moveSquare {
+  from {
+    -webkit-transform: translateX(-100px) rotateY(90deg);
+            transform: translateX(-100px) rotateY(90deg);
+  }
+  to {
+    -webkit-transform: translateX(100px) rotateY(90deg);
+            transform: translateX(100px) rotateY(90deg);
+  }
+}
+
+
+//while having rotateY 90, can view from different angles using origin
+
+.containerB {
+  -webkit-animation: moveOrigin 4s infinite ease-in-out alternate;
+          animation: moveOrigin 4s infinite ease-in-out alternate;
+}
+
+@-webkit-keyframes moveOrigin {
+  from {
+    -webkit-perspective-origin: left;
+            perspective-origin: left;
+  }
+  to {
+    -webkit-perspective-origin: right;
+            perspective-origin: right;
+  }
+}
+
+
+
+
+
+
+When rotating an object, its coordinate system is transformed along with the object.
+When translating an object, it moves relative to its own coordinate system (rather than its parent’s coordinates).
+The order in which these values are written can (and will) change the end result.
+
+
+//rotation order explaination, if order changes, output is different
+.squareA {
+  -webkit-animation: sqrA 4s infinite ease-in-out;
+          animation: sqrA 4s infinite ease-in-out;
+}
+
+@-webkit-keyframes sqrA {
+  0%, 10% {
+    -webkit-transform: none;
+            transform: none;
+  }
+  50% {
+    -webkit-transform: rotate(30deg);
+            transform: rotate(30deg);
+  }
+  90%, 100% {
+    -webkit-transform: rotate(30deg) translateX(140px);
+            transform: rotate(30deg) translateX(140px);
+  }
+}
+
+
+
+
+
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  margin: 0.5em auto;
+  -webkit-perspective: 420px;
+          perspective: 420px;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+//  left: calc(50% - 50px);
+
+//moving around itself
+@-webkit-keyframes sqrA {
+  from {
+    -webkit-transform: translateX(120px) rotateY(0deg);
+            transform: translateX(120px) rotateY(0deg);
+  }
+  to {
+    -webkit-transform: translateX(120px) rotateY(360deg);
+            transform: translateX(120px) rotateY(360deg);
+  }
+}
+
+//moving around the axis, (can use that 180 degree on click to show new box ?)
+@keyframes sqrB {
+  from {
+    -webkit-transform: rotateY(0deg) translateX(120px);
+            transform: rotateY(0deg) translateX(120px);
+  }
+  to {
+    -webkit-transform: rotateY(360deg) translateX(120px);
+            transform: rotateY(360deg) translateX(120px);
+  }
+}
+
+
+
+// we could simply change the values themselves to get the desired result 
+instead of changing the order of the values.
+
+
+
+//The transform-style property has two values: 
+
+flat (default)
+preserve-3d:
+It tells the sides of the cube (the child elements) to be positioned 
+in the same 3D space as the cube
+
+“copies” the cube perspective to its children (the sides) and allows 
+us to rotate just the cube, so we don’t need to animate each side separately.
+
+It displays the child elements according to their position in the 3D space, 
+regardless of their place in the DOM.
+
+//////////////////////////////////////////////////////////////////////////
+
+
+
+
+//////////////////////////////////////////////////////////////////////////
+
+The rotate3d() function rotates the element along the x, y, and z axes 
+using the angle provided as an argument.
+rotate3d(x, y, z, a)
+
+transform: rotate3d(0);
+transform: rotate3d(2, -1, -1, -0.2turn);
+transform: rotate3d(0, 1, 0.5, 3.142rad);
+transform: rotate3d(1, 1, 1, 45deg);
+
+Is an <angle> representing the angle of the rotation. A positive angle 
+denotes a clockwise rotation, a negative angle a counter-clockwise one.
+deg, Degrees. There are 360 degrees in a full circle.
+grad, Gradians, also known as "gons" or "grades" (although these aren't valid unit identifiers — you should still use grad as the unit identifier). There are 400 gradians in a full circle.
+rad, Radians. There are 2Ï€ radians in a full circle.
+turn, Turns. There is 1 turn in a full circle.
+
+
+The default origin for the rotation is 50% 50%. You can use transform-origin 
+to adjust the origin of the transformation:
+
+  .rotated {
+    transform-origin: 90% 90%;
+    transform: rotate3d(1, -5, 1, -60deg);
+  }
+
 
 
 */
