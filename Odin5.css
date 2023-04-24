@@ -1,0 +1,155 @@
+
+/*
+////2D Transforms
+
+Almost all elements can have the transform property applied to it, 
+with the exceptions being <col>, <colgroup>, and non-replaced inline elements. 
+
+“Non-replaced” simply refers to elements whose content is contained within the HTML 
+document (<span>, <b>, and <em>, for example), 
+
+as opposed to a “replaced” element’s content being contained outside of the document 
+(<a>, <iframe>, and <img>, for example).
+
+
+rotate, scale, skew, translate
+
+
+
+
+*/
+
+.margin {
+    margin: 0 0 100px 100px;
+}
+
+.box {
+    background: black;
+    height: 100px;
+    width: 100px;
+}
+
+.skewXY {
+    /* X and Y values respectively, if one then its X 
+    also skewX, skewY separately */
+    transform: skew(45deg, -0.5rad);
+
+}
+
+
+.mainContainer {
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 0 100px 100px;
+
+}
+
+.TranslateXY {
+    transform: translate(20px, -33%);
+}
+
+
+/* order of chain will affect the display, 
+as these two chains have the same values but different order 
+composite transforms are effectively applied in order from right to left.
+
+When an element is rotated before being translated, 
+the translate direction is on the rotated axis.
+
+transformation are always in the position defined by transform-origin 
+(by default the center of the element)
+
+the other difference with the left to right version is 
+that you use a fixed system of coordinates/angles.
+
+consider making use of the prefers-reduced-motion media feature — 
+use it to write a media query that will turn off animations if the user 
+has reduced animation specified in their system preferences.
+
+*/
+
+.TranslateChain1 {
+    transform: skew(45deg, -0.5rad) translate(20px, 33%);
+}
+
+
+.TranslateChain2 {
+    transform: translate(20px, 33%) skew(45deg, -0.5rad) ;
+}
+
+
+
+
+/* transformation example of ltr and rtl
+The left element is using a left to right progression and the right one a right 
+to left progression. Note how the corners of the left one are following 
+an elliptical path and how the shape is not preserved during the rotation.
+*/
+.object
+{
+  width: 100px; height: 100px;
+  background: rgb(114,34,34);
+  animation: ltr 5s infinite;
+}
+.object2 {
+    animation-name: rtl;
+}
+
+@keyframes ltr
+{
+  from, 10% { transform: scaleY(1 ) rotate( 0deg); }
+  40%       { transform: scaleY(.5) rotate( 0deg); }
+  70%, to   { transform: scaleY(.5) rotate(45deg); }
+}
+@keyframes rtl
+{
+  from, 10% { transform: scaleY(1 ) rotate( 0deg); }
+  40%       { transform: scaleY(1 ) rotate(45deg); }
+  70%, to   { transform: scaleY(.5) rotate(45deg); }
+}
+
+
+
+/*
+//// 3D transforms
+
+to perceive a 3D effect on some of these function values
+perspective is required
+
+This is the transform function value to set the distance 
+from the user to the z = 0 plane:
+viewing it from a specific distance on the z-axis
+
+perspective must be declared first (leftmost) 
+when there are multiple transform function values
+
+you can use the transform property to move and rotate objects in a 3D space 
+(with the X, Y, and Z axes), then use perspective to control depth.
+
+
+*/
+
+.perspective {
+    transform: perspective();
+
+}
+
+
+/*////////////////////////////////////////////////////////////////////////*/
+/* the basics of perspective 
+the z-axis becomes effective when perspective is used
+
+The perspective-origin property determines the position from which 
+you are “looking” at an object. If the origin is centered (which is the 
+default) and the object is moved to the right, it will seem like you are 
+looking at it from the left (and vice versa).
+
+
+*/
+
