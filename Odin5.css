@@ -419,5 +419,133 @@ to adjust the origin of the transformation:
 
 
 
+
+
+Note: scaleZ(sz) is equivalent to scale3d(1, 1, sz).
+
+//translateZ and perspective work together
+.moved {
+  transform: perspective(500px) translate3d(10px, 0, 100px);
+  background-color: pink;
+}
+
+
+
+
+The matrix() function is an alternative to the two-dimensional transform 
+functions rotate(), skew(), scale(), and translate().
+use the matrix() function instead of those functions.
+matrix() for 2D transforms, matrix3d() for 3D transforms
+
+transform: matrix(0.707107, 0.707107, -0.707107, 0.707107, 150, 0);
+
+Any time you do a CSS transform, you're affecting the matrix. 
+Even if you use another function such as rotate(), you're still affecting 
+the matrix. The matrix determines the coordinates of the element — 
+its position, size, orientation, etc.
+
+matrix(a, b, c, d, e, f)
+a, d
+The arguments a and d represent how the element is scaled in the x and y direction respectively (just like in scale(a, d)).
+b, c
+The arguments b and c represent how the element is skewed (just like in skew(b, c)).
+e, f
+The arguments e and f represent how the element is translated in the x and y direction respectively (just like in translate(e, f)).
+
+//Both lines have the same result
+scale(2, 3);
+matrix(2, 0, 0, 3, 0, 0);
+
+https://css-tricks.com/how-css-perspective-works/
+https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/rotate3d
+
+Fortunately, there are other options for getting the applicable arguments for the matrix() function:
+
+One option is to create the transform using the various functions, then get the computed value from your browser's developer tools.
+Another option is to use the Window.getComputedStyle() method to retrieve the computed value of the transform function.
+
+//////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////
+Rendering Performance
+Users notice if sites and apps don't run well, so optimizing rendering performance is crucial!
+
+Users of today’s web expect that the pages they visit will be interactive and 
+smooth and that’s where you need to increasingly focus your time and effort. 
+Pages should not only load quickly, but also run well; scrolling should be 
+stick-to-finger fast, and animations and interactions should be silky smooth.
+
+Most devices today refresh their screens 60 times a second. 
+If there’s an animation or transition running, or the user is scrolling 
+the pages, the browser needs to match the device’s refresh rate and put up 
+1 new picture, or frame, for each of those screen refreshes.
+
+It doesn’t have to be JavaScript that triggers a visual change, 
+though: CSS Animations, Transitions, and the Web Animations API 
+are also commonly used.
+
+
+The key benefit of using transform is that it occurs during composition. 
+This makes it cheaper to use compared to many other CSS properties.
+
+You can see a table of what triggers are executed with each CSS property here.
+https://web.archive.org/web/20220727225220/https://csstriggers.com/
+
+
+A graphics processing unit (GPU) is a specialized electronic circuit designed 
+to manipulate and alter memory to accelerate the creation of images in a frame 
+buffer intended for output to a display device.
+
+//////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+When we use a percentage value in translate, that percentage refers to the 
+element's own size, not the available space within the parent container.
+wether height or width
+
+ .dialog-content {
+    position: relative;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(-100%);
+  }
+
+
+With the magic of calc, we can even mix relative and absolute units:
+transform: translateX(calc(1% + 0px));
+
+
+The text scales up and down with the element
+scaling the entire element
+
+With transforms, we can skip a bunch of steps. This means that the 
+calculations run quicker, leading to smoother motion.
+
+Every element has an origin, the anchor that the transform functions execute from.
+like an anchor point to anglgling
+
+One common gotcha with transforms is that they don't work with inline 
+elements in Flow layout.
+The easiest fix is to switch it to use display: inline-block, 
+or to use a different layout mode (eg. Flexbox or Grid).
+
+
+
+
+
 */
 
