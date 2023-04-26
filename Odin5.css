@@ -950,6 +950,184 @@ Stacking contexts can be contained in other stacking contexts, and together crea
 Each stacking context is completely independent of its siblings: only descendant elements are considered when stacking is processed.
 Each stacking context is self-contained: after the element's contents are stacked, the whole element is considered in the stacking order of the parent stacking context.
 
+When the z-index property is not specified on any element, elements are stacked in the following order (from bottom to top):
+The background and borders of the root element.
+Descendant non-positioned elements, in order of appearance in the HTML.
+Floating elements.
+Descendant positioned elements, in order of appearance in the HTML.
+
+can use the ordering above to create layers without stacking index with z-axis
+
+Root stacking context
+DIV #2 (z-index: 2)
+DIV #3 (z-index: 1)
+DIV #4 (z-index: 10)
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+.animate {
+  animation: opacity 2.5s both;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+Before using any CSS property for animation (other than transform and opacity), 
+determine the property's impact on the rendering pipeline. Avoid any property 
+that triggers layout or paint unless absolutely necessary.
+
+Style: Calculate the styles that apply to the elements.
+Layout: Generate the geometry and position for each element.
+Paint: Fill out the pixels for each element into layers.
+Composite: Draw the layers to the screen.
+
+When you animate something on a page that has already loaded these 
+steps have to happen again. 
+ If you change one element, the geometry of other elements may need to be recalculated.
+
+
+these steps are sequential. For example, if you animate something that changes 
+layout, the paint and composite steps also have to run again. Animating something 
+that changes layout is therefore more expensive than animating something that 
+only changes compositing.
+
+//Animating composite properties #
+Compositing is the process of separating the page into layers, converting the information about how the page should look into pixels (rasterization), and putting the layers together to create a page (compositing).
+
+
+Chromium-based browsers and WebKit create a new layer for any element which 
+has a CSS transition or animation on opacity.
+
+//What is a layer
+By placing the things that will be animated or transitioned onto a new layer, 
+the browser only needs to repaint those items and not everything else.
+
+creating new layers should be done with care because each layer uses memory.
+herefore you may well hit constraints of bandwidth between the CPU and GPU.
+
+css based animations can keep going without being interrupted.
+because they are on the compositor thread
+different from the browser's main thread where styling, painting, js are executed
+
+other changes to transforms and opacity can, in many cases, also be 
+handled by the compositor thread.
+
+use transform translateX better than left/right
+Because the browser sees that none of the properties would cause a reflow or 
+repaint, it can apply a compositing optimization: painting two images as 
+compositing layers and sending them to the GPU.
+
+In this case, for every animation frame, the browser has to recalculate 
+the element’s geometry (i.e. reflow), render the image of the page’s new state 
+(i.e. repaint) and then send it again to the GPU to display on screen. We know 
+that repainting is very performance-costly, but every modern browser 
+is smart enough to repaint only the changed area of the page, instead of 
+the entire page. While browsers can repaint very fast in most cases, our 
+animation is still not smooth.
+
+
+It would be much more effective just to paint two separate images — one for 
+the A element and one for the entire page without the A element — 
+and then simply offset those images relative to each other. In other words, 
+composing the images of cached elements would be faster. And this is exactly 
+where the GPU shines
+
+To optimize the compositing, the browser has to ensure that the animated CSS property:
+
+does not affect the document’s flow,
+does not depend on the document’s flow,
+does not cause a repaint.
+
+One might think that the top and left properties, along with the positions 
+absolute and fixed, don’t depend on an element’s environment, but that’s not so. 
+For example, a left property may receive a percentage value that depends on the 
+size of .offsetParent; also, em, vh and other units depend on their environment. 
+Rather, transform and opacity are the only CSS properties that meet the conditions 
+above.
+
+What does a GPU payload look like? In most cases, it consists of layer images, along with additional instructions such as for the layer’s size, offset, animation parameters, etc. Here is roughly what making a payload and transferring data with the GPU looks like:
+
+Paint each compositing layer to a separate image.
+Prepare the layer data (size, offset, opacity, etc.).
+Prepare shaders for the animation (if applicable).
+Send the data to the GPU.
+
+
+
+
+
+
+
+As explained in Why are some animations slow?, by placing elements on a new 
+layer they can be repainted without also requiring the rest of the layout to 
+be repainted.
+
+Browsers will often make good decisions about which items should be placed on a 
+new layer, but you can manually force layer creation with the will-change property. 
+As the name suggests, this property tells the browser that this element is going 
+to be changed in some way.
+
+As layer creation can cause other performance issues, this property should not 
+be used as a premature optimization. Instead, you should only use it when you 
+are seeing jank and think that promoting the element to a new layer may help.
+
+body > .sidebar {
+  will-change: transform;
+}
+
+ome items on your page may not frequently change, and so it would be better to 
+apply will-change using JavaScript at a point where it becomes likely the change 
+will occur. You'll need to make sure to give the browser enough time to perform 
+the optimizations needed and then remove the property once the changing has stopped.
+
+If you need a way to force layer creation in one of the rare browsers that doesn't 
+support will-change (most likely Internet Explorer at this point), 
+you can set transform: translateZ(0).
+
+
+//Debug slow or janky animations #
+Chrome DevTools and Firefox DevTools have lots of tools to help you 
+figure out why your animations are slow or janky.
+
+Chrome:
+Open the Performance panel.
+Record runtime performance while your animation is happening.
+Inspect the Summary tab.
+
+Firefox::after
+Open the Performance panel.
+In the panel Start Recording Performance while your animation is happening.
+Stop the recording and inspect the Waterfall tab.
+
+
+Alternatively, you can open the Rendering tab in the following ways to check FPS drop
+Press Esc to open the Drawer, and, in the top left corner, click More Tools More > Rendering.
+In the top right corner, click More Options More > More Tools > Rendering.
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+/*
+
 
 
 */
