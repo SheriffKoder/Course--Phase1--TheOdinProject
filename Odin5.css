@@ -536,7 +536,7 @@ With transforms, we can skip a bunch of steps. This means that the
 calculations run quicker, leading to smoother motion.
 
 Every element has an origin, the anchor that the transform functions execute from.
-like an anchor point to anglgling
+like an anchor point to angling
 
 One common gotcha with transforms is that they don't work with inline 
 elements in Flow layout.
@@ -547,5 +547,301 @@ or to use a different layout mode (eg. Flexbox or Grid).
 
 
 
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/* Transition
+
+
+
+
+button {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2% 5% 2% 5%;
+  background-color: white;
+  color: white;
+  transition-property: background-color;
+  transition-duration: 1s;
+  transition-timing-function: ease-out;
+  transition-delay: 0.25s;
+}
+
+button:hover {
+  background-color: black;
+  cursor: pointer;
+}
+
+
+transition duration: gradually happen over this period
+transition timing function, ease-out, the color change will be faster at
+the start than at the end of the transition
+
+
+you can also trigger transitions by adding or removing classes with JavaScript. 
+For example, clicking a button could append the “open” class to a dropdown menu, 
+which would trigger the opening transition.
+
+
+using a transform scenario forms a "stacking context"
+when making many stacking contexts through various other means
+when it comes to rendering our initial transform
+we would repaint not only our div element
+but also every element that is stacked on top of it in the stack context
+
+if left, can cause transition to be slow
+
+div {
+  width: 100px;
+  height: 100px;
+  transition: transform 2s 1s; 
+}
+
+div:hover {
+  transform: rotate(180deg);
+}
+
+
+second thing, keep your animations to only affect opacity and transform
+if want to keep performance for animations on your web page
+transition is an expensive operation
 */
 
+
+
+.transitionButton {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2% 5% 2% 5%;
+    background-color: white;
+    color: white;
+
+    /*equivalent to   
+    transition: background-color 1s ease-out 0.25s;     */
+    transition-property: background-color;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;
+    transition-delay: 0.25s;
+  }
+  
+  .transitionButton:hover {
+    background-color: black;
+    cursor: pointer;
+  }
+
+
+/*
+//////////////////////////////////////////////////////////////////////////////
+
+CSS transition provide a way to control animation speed when changing CSS properties
+
+implicit transitions: between two states
+explicit: defining delay, duration, timing
+
+
+Each property's animation type determines how values combine - 
+interpolate, add, or accumulate - for this property. 
+Transitions only involve interpolation, 
+whereas animations may use all three combination methods.
+
+Animation types
+. not animatable
+. discrete: property's values are not additive, swaps from start value
+to end value at 50%
+. by computed value: corresponding inivicial components of the computed values
+are combined using the indicated procedure for that value type
+.Repeatable list: 
+
+Using animations with auto may lead to unpredictable results, 
+depending on the browser and its version, and should be avoided
+
+
+////transition-property
+Specifies the name or names of the CSS properties to which transitions should be applied.
+changes to all other properties occur instantaneously as usual.
+
+transition-property: margin-right, color; //this shortens the box
+transition-property: all;
+
+/* Keyword values
+transition-property: none;
+transition-property: all;
+
+/* <custom-ident> values
+transition-property: test_05;
+transition-property: -specific;
+transition-property: sliding-vertically;
+
+/* Multiple values
+transition-property: test1, animation4;
+transition-property: all, height, color;
+transition-property: all, -moz-specific, sliding;
+
+
+.target {
+  font-size: 14px;
+  transition-property: font-size;
+  transition-duration: 4s;
+}
+
+.target:hover {
+  font-size: 36px;
+}
+
+
+
+
+////transition-duration
+Specifies the duration over which transitions should occur. 
+You can specify a single duration that applies to all properties during the 
+transition, or multiple values to allow each property to transition over a 
+different period of time.
+
+If the number of specified durations is less than in the master list, 
+the user agent repeats the list of durations. If the number of specified 
+durations is more than in the master list, the list is truncated to the 
+right size. In both the cases, the CSS declaration stays valid.
+
+//both properties have different times
+transition-duration: 3s, 1s;
+transition-property: margin-right, color;
+
+A time of 0s indicates that no transition will happen, default
+
+
+////transition-timing-function
+<easing-function> CSS data type denotes a mathematical function that describes 
+the rate at which a numerical value changes.
+This lets you vary the animation's speed over the course of its duration.
+It may also be used to interpolate between two colors in a color gradient.
+for transition and animation properties
+
+*so can play with gradient by 
+/* linear function and keyword
+/* linear(<list-of-points>)
+linear(1, -0.5, 0);
+linear;
+
+/* cubic-bezier function and keywords
+/* cubic-bezier(<x1>, <y1>, <x2>, <y2>)
+cubic-bezier(0.42, 0.0, 1.0, 1.0);
+ease;
+ease-in;
+ease-out;
+ease-in-out;
+
+/* steps function and keywords
+/* steps(<number-of-steps>, <direction>)
+steps(4, end);
+step-start;
+step-end;
+
+cubic-bezier
+x1, y1, x2, y2
+defining the cubic Bézier curve. x1 and x2 must be in the range [0, 1], 
+otherwise the value is invalid.
+
+ease
+Indicates that the interpolation starts slowly, accelerates sharply, 
+and then slows gradually towards the end. This keyword represents 
+the easing function cubic-bezier(0.25, 0.1, 0.25, 1.0). It is similar 
+to ease-in-out, though it accelerates more sharply at the beginning.
+
+ease-in
+Indicates that the interpolation starts slowly, then progressively speeds up 
+until the end, at which point it stops abruptly. This keyword represents 
+the easing function cubic-bezier(0.42, 0.0, 1.0, 1.0).
+
+ease-in-out
+Indicates that the interpolation starts slowly, speeds up, and then slows down 
+towards the end. This keyword represents the easing function 
+cubic-bezier(0.42, 0.0, 0.58, 1.0). At the beginning, it behaves like the 
+ease-in function; at the end, it is like the ease-out function.
+
+ease-out
+Indicates that the interpolation starts abruptly and then progressively 
+slows down towards the end. This keyword represents the easing function 
+cubic-bezier(0.0, 0.0, 0.58, 1.0).
+
+
+number-of-steps
+A strictly positive <integer>, representing the amount of equidistant treads 
+composing the stepping function.
+
+
+direction
+One of the following keywords that indicate when the jumps occur:
+
+jump-start denotes that the first step or jump happens when the interpolation begins.
+jump-end denotes that the last step or jump happens when the interpolation ends.
+jump-both denotes that jumps occur at both the 0% and 100% marks, effectively adding a step during the interpolation iteration.
+jump-none denotes no jump on either end. Instead, holding at both the 0% mark and the 100% mark, each for 1/n of the duration.
+start is the equivalent of jump-start.
+end is the equivalent of jump-end. This is the default.
+
+
+step-start
+Indicates that the interpolation jumps immediately to its final state, 
+where it stays until the end. This keyword represents the easing 
+function steps(1, jump-start) or steps(1, start).
+
+step-end
+Indicates that the interpolation stays in its initial state until the end, 
+at which point it jumps directly to its final state. 
+This keyword represents the easing function steps(1, jump-end) or steps(1, end).
+
+
+
+
+//Linear easing function
+linearly between its points, allowing you to approximate more complex animations 
+like bounce and elastic effects
+A typical use of the linear() function is to provide many points to create 
+the illusion of a curve.
+
+When you define the linear() function, you specify the linear easing points 
+as a list, as in, linear(0, 0.25, 1). This linear() function produces an 
+easing function that moves linearly from 0, to 0.25, then to 1.
+
+Consider another example of the function: linear(0, 0.25 75%, 1). 
+This produces a linear easing function that spends 75% of the time 
+transitioning from 0 to .25 and the last 25% transitioning from .25 to 1.
+
+The linear keyword produces a linear() function with two points. 
+This is equivalent to the easing function cubic-bezier(0.0, 0.0, 1.0, 1.0).
+
+
+//Cubic Bézier easing function
+cubic-bezier subset of easing functions are often called "smooth" easing 
+functions because they can be used to smooth down the start and end of 
+the interpolation.
+A cubic Bézier curve is defined by four points: P0, P1, P2, and P3.
+P1/P2 0->1.0 can be more (jump)
+certrain properties like color clip at 0->255 for above and below values
+whole property ignored if invalid cubic-bezier is specified
+
+
+//Step easing function
+divides the domain of output values in equidistant steps.
+sometimes also called staircase functions.
+
+steps(2, jump-start)
+steps(2, start)
+
+steps(4, jump-end)
+steps(4, end)
+
+steps(5, jump-none)
+
+steps(3, jump-both)
+
+step-start and step-end;
+
+
+
+*/
