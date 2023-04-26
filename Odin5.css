@@ -829,6 +829,7 @@ whole property ignored if invalid cubic-bezier is specified
 //Step easing function
 divides the domain of output values in equidistant steps.
 sometimes also called staircase functions.
+second parameter is optional
 
 steps(2, jump-start)
 steps(2, start)
@@ -841,6 +842,113 @@ steps(5, jump-none)
 steps(3, jump-both)
 
 step-start and step-end;
+
+
+////transition-delay
+transition-delay: 1s, 250ms;transition-property: margin-right, color;
+
+
+
+div {
+  transition: <property> <duration> <timing-function> <delay>;
+}
+
+transition: width 2s, height 2s, background-color 2s, rotate 2s;
+
+
+
+
+When property value lists are of different lengths
+If any property's list of values is shorter than the others, its values are repeated to make them match. For example:
+
+div {
+  transition-property: opacity, left, top, height;
+  transition-duration: 3s, 5s;
+}
+This is treated as if it were:
+
+div {
+  transition-property: opacity, left, top, height;
+  transition-duration: 3s, 5s, 3s, 5s;
+}
+Similarly, if any property's value list is longer than that for transition-property, it's truncated, so if you have the following CSS:
+
+div {
+  transition-property: opacity, left;
+  transition-duration: 3s, 5s, 2s, 1s;
+}
+This gets interpreted as:
+
+div {
+  transition-property: opacity, left;
+  transition-duration: 3s, 5s;
+}
+
+
+Note: Care should be taken when using a transition immediately after:
+adding the element to the DOM using .appendChild()
+removing an element's display: none; property.
+This is treated as if the initial state had never occurred and the element was 
+always in its final state. The easy way to overcome this limitation is to apply 
+a setTimeout() of a handful of milliseconds before changing the CSS property 
+you intend to transition to.
+
+
+////Detecting the start and completion of a transition
+JS 
+
+transitionend event
+
+el.addEventListener("transitionend", propertyName, elapsedTime);
+elapsedTime: A float indicating the number of seconds the transition had been 
+running at the time the event fired. This value isn't affected by the value 
+of transition-delay.
+
+el.addEventListener("transitionend", updateTransition, true);
+el.addEventListener("transitionrun", signalStart, true);    //before delay
+el.addEventListener("transitionstart", signalStart, true); //after delay
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+/*
+The stacking context (z-index layers)
+a three-dimensional conceptualization of HTML elements along an imaginary 
+z-axis relative to the user
+
+who is assumed to be facing the viewport or the webpage. HTML elements 
+occupy this space in priority order based on element attributes.
+
+the rendering order of certain elements is influenced by their z-index value. 
+This occurs because these elements have special properties which cause them 
+to form a stacking context.
+
+A stacking context is formed, anywhere in the document, by any element in the following scenarios:
+
+Root element of the document (<html>).
+Element with a position value absolute or relative and z-index value other than auto.
+Element with a position value fixed or sticky (sticky for all mobile browsers, but not older desktop browsers).
+Element that is a child of a flex container, with z-index value other than auto.
+Element that is a child of a grid container, with z-index value other than auto.
+Element with an opacity value less than 1 (See the specification for opacity).
+Element with a mix-blend-mode value other than normal.
+Element with any of the following properties with value other than none:
+transform
+filter
+backdrop-filter
+perspective
+clip-path
+mask / mask-image / mask-border
+Element with an isolation value isolate.
+Element with a will-change value specifying any property that would create a stacking context on non-initial value (see this post).
+Element with a contain value of layout, or paint, or a composite value that includes either of them (i.e. contain: strict, contain: content).
+Within a stacking context, child elements are stacked according to the same rules explained just above. Importantly, the z-index values of its child stacking contexts only have meaning in this parent. Stacking contexts are treated atomically as a single unit in the parent stacking context.
+
+In summary:
+
+Stacking contexts can be contained in other stacking contexts, and together create a hierarchy of stacking contexts.
+Each stacking context is completely independent of its siblings: only descendant elements are considered when stacking is processed.
+Each stacking context is self-contained: after the element's contents are stacked, the whole element is considered in the stacking order of the parent stacking context.
 
 
 
