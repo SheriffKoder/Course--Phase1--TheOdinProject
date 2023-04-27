@@ -1072,10 +1072,290 @@ Prepare shaders for the animation (if applicable).
 Send the data to the GPU.
 
 
+You guess it! It will forcibly create a new compositing layer for element A — 
+and add another heavy repaint, of course:
+
+We stumble upon implicit composing much more often than you might think. 
+A browser will promote an element to a compositing layer for many reasons, 
+just a few of which are:
+
+3D transforms: translate3d, translateZ and so on;
+<video>, <canvas> and <iframe> elements;
+animation of transform and opacity via Element.animate();
+animation of transform and opacity via СSS transitions and animations;
+position: fixed;
+will-change;
+filter;
+
+
+//Memory Consumption #
+Another gentle reminder that the GPU is a separate computer: 
+It’s required not just to send rendered layer images to the GPU, 
+but to store them as well for later reuse in animation.
+
+using many animated controls, parallax effects, high-resolution images and other visual enhancements,
+and you’ll end up with a page filling all available memory on the device.
+This might not be an issue for desktop clients, but it really hurts mobile users. 
+
+A properly crafted animation works in a separate thread and is not blocked by heavy JavaScript calculations.
+
+Every composite layer consumes additional memory. 
+Memory is a precious resource on mobile devices. 
+Excessive memory use could crash the browser.
+
+If you don’t consider implicit compositing, 
+then the chances of slow repainting, extra memory usage 
+and browser crashes are very high.
+
+>layer divide reason tools in browsers
+
+AVOID IMPLICIT COMPOSITING #
+this might cause the animation to start very slowly.
+“Timeline” panel, you’ll see that the animation’s start and end are accompanied with repaints of large areas:
+
+
+Here’s what browser did, step by step:
+
+Right after the page loads, the browser doesn’t find any reason for compositing, 
+so it picks the optimal strategy: painting the page’s entire contents on a 
+single background layer.
+By clicking the “Play” button, we’re explicitly adding compositing to element A 
+— a transition with the transform property. But the browser determines that 
+element A is below element B in the stacking order, so it promotes B to its 
+own compositing layer, too (implicit compositing).
+Promotion to a compositing layer always causes a repaint: The browser has to 
+create a new texture for the element and remove it from the previous layer.
+Right after the animation finishes, we remove the reason for compositing from 
+A element. Once again, the browser sees that it doesn’t need to waste resources 
+on compositing, so it falls back to the optimal strategy: keeping the page’s 
+entire contents on a single layer, which means it has to paint A and B back on 
+the background layer (another repaint) and send the updated texture to the GPU. 
+As in the step above, this could cause flickering.
 
 
 
 
+To get rid of implicit compositing issues and to reduce visual artifacts, 
+I recommend the following:
+
+Try to keep animated objects as high as possible in the z-index. Ideally, 
+these elements should be direct children of the body element. Of course, 
+this is not always possible in the markup when an animated element is nested 
+deep inside the DOM tree and depends on the normal flow. In such cases, 
+you could clone the element and put it in the body for animation only.
+
+You can give browser a hint that you’re going to use compositing with the 
+will-change CSS property. With this property set on an element, 
+the browser will (but not always!) promote it to a compositing layer 
+in advance, so that the animation can start and stop smoothly. But don’t 
+misuse this property, or else you’ll end up with a tremendous increase in 
+memory consumption!
+
+
+//ANIMATE transform AND opacity PROPERTIES ONLY #
+
+#bg-change {
+ width: 100px;
+ height: 100px;
+ background: red;
+ transition: background 0.4s;
+}
+
+#bg-change:hover {
+ background: blue;
+}
+
+//can be changed to
+//Instead of animating the background-color property, we would add a 
+//layer on top and animate its opacity:
+
+
+<div id="bg-change"></div>
+<style>
+#bg-change {
+ width: 100px;
+ height: 100px;
+ background: red;
+}
+
+#bg-change::before {
+ background: blue;
+ opacity: 0;
+ transition: opacity 0.4s;
+}
+
+#bg-change:hover::before {
+ opacity: 1;
+}
+
+
+//This animation would be much faster and smoother, 
+but keep in mind that it could cause implicit compositing and require 
+additional memory. Yet memory consumption can be reduced greatly in this case.
+
+
+
+The difference is that the physical size of #a is 100 × 100 pixels 
+(100 × 100 × 4 = 40,000 bytes), whereas #b is only 10 × 10 pixels 
+(10 × 10 × 4 = 400 bytes) but upscaled to 100 × 100 pixels with 
+transform: scale(10). Because #b is a composite layer, due to the 
+will-change property, the transform now occurs entirely on the GPU 
+during the final image paint.
+//this trick reduces memory consumption significantly for very simple, 
+solid-colored layers only. But, for example, if you want to animate a 
+large photo, you could downsize it by 5 to 10% and then upscale it; 
+users might not see any difference, and you would save a few megabytes 
+of precious memory.
+
+<style>
+#a, #b {
+ will-change: transform;
+}
+
+#a {    //39kb
+ width: 100px;
+ height: 100px;
+}
+
+#b {    //400b
+ width: 10px;
+ height: 10px;
+ transform: scale(10);
+}
+</style>
+
+
+We already know that animation of transform and opacity via CSS transitions 
+or animations automatically creates a compositing layer and works on the GPU. 
+We could also animate via JavaScript, but we’d have to add transform: translateZ(0) 
+or will-change: transform, opacity first in order to ensure that the element 
+gets its own compositing layer.
+
+JavaScript animation happens when each step is manually calculated in a 
+requestAnimationFrame callback. Animation via Element.animate() is a 
+variation of declarative CSS animation.
+
+On the one hand, creating a simple and reusable animation via a CSS 
+transition or animation is very easy; on the other, creating complex 
+animation with fancy trajectories is much easier with JavaScript animation 
+than with CSS. Also, JavaScript is the only way to interact with user input.
+
+CSS-based animation has a very important feature: It works entirely on the GPU. 
+Because you declare how an animation should start and finish,
+
+in case of imperative Javascript
+, we’d have to calculate the new frame in the main browser 
+thread and send it to the GPU at least 60 times per second. 
+and the main thread gets blocked by intensive JavaScript calculations. 
+
+
+//example
+using an image to be rotated 360
+can be achieved 
+using multiple rays/sunrays rotating
+
+@always think of faster ways that can get the same result
+with less expensive memory calculations
+
+//JS//
+const container = document.querySelector('.sun');
+const raysAmount = 12;
+const angularVelocity = 0.5;
+const rays = createRays(container, raysAmount);
+
+animate();
+
+function animate() {
+    rays.forEach(ray => {
+        ray.angle += angularVelocity;
+        ray.elem.style.transform = `rotate(${ray.angle % 360}deg)`;
+    });
+    requestAnimationFrame(animate);
+}
+
+function createRays(container, amount) {
+    const rays = [];
+    const rotationStep = 360 / amount;
+    while (amount--) {
+        const angle = rotationStep * amount;
+        const elem = document.createElement('div');
+        elem.className = 'sun-ray';
+        container.appendChild(elem);
+        rays.push({elem, angle});
+    }
+    return rays;
+}
+//same example with scale that reduces GPU consumption
+const container = document.querySelector('.sun');
+const raysAmount = 12;
+const angularVelocity = 0.5;
+const downscale = 0.1;
+const rays = createRays(container, raysAmount, downscale);
+
+
+animate();
+
+function animate() {
+    rays.forEach(ray => {
+        ray.angle += angularVelocity;
+        ray.elem.style.transform = `rotate(${ray.angle % 360}deg) scale(${ray.scale})`;
+    });
+    requestAnimationFrame(animate);
+}
+
+function createRays(container, amount, downscale) {
+    const rays = [];
+    const rotationStep = 360 / amount;
+    while (amount--) {
+        const angle = rotationStep * amount;
+        const elem = document.createElement('div');
+        elem.className = 'sun-ray';
+        container.appendChild(elem);
+
+        let scale = 1;
+        if (downscale) {
+            const origWidth = elem.offsetWidth, origHeight = elem.offsetHeight;
+            const width = origWidth * (1 - downscale);
+            const height = origHeight * (1 - downscale);
+            elem.style.width = width + 'px';
+            elem.style.height = height + 'px';
+            scale = origWidth / width;
+        }
+
+        rays.push({elem, angle, scale});
+    }
+    return rays;
+}
+
+The new animation looks the same as the previous one but is twice as small 
+in memory consumption.
+
+the rays don’t have any crisp contrasting elements. 
+This means we can send a lower-resolution ray texture to the GPU and upscale 
+it afterwards, which allows us to reduce memory consumption a bit.
+
+next you can import this js functionality in css code
+
+Always negotiate with the client and designer about all animations and effects on the website. It could affect the page’s markup greatly and make for better compositing.
+Watch out for the number and size of composite layers from the very beginning — especially ones created by implicit compositing. The “Layers” panel in your browser’s development tools is your best friend.
+Modern browsers make heavy use of compositing not just for animation but to optimize the painting of page elements. For example, position: fixed and the iframe and video elements use compositing.
+The size of compositing layers is likely be more important than the number of layers. 
+
+if optimization has negative impact
+To bypass this optimization, I add a small, unique translateZ() 
+value to each element, such as translateZ(0.0001px), translateZ(0.0002px), etc.
+The browser will determine that the elements lie on different planes in the 3D 
+space and, thus, skip optimization.
+
+You can’t just add transform: translateZ(0) or will-change: transform 
+to any random element to virtually improve animation performance or 
+to get rid of visual artifacts. GPU compositing has many drawbacks and 
+tradeoffs to be considered. When not used sparingly, compositing will 
+decrease overall performance at best, and crash browsers at worst.
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 As explained in Why are some animations slow?, by placing elements on a new 
 layer they can be repainted without also requiring the rest of the layout to 
@@ -1113,7 +1393,7 @@ Open the Performance panel.
 Record runtime performance while your animation is happening.
 Inspect the Summary tab.
 
-Firefox::after
+Firefox:
 Open the Performance panel.
 In the panel Start Recording Performance while your animation is happening.
 Stop the recording and inspect the Waterfall tab.
@@ -1124,9 +1404,123 @@ Press Esc to open the Drawer, and, in the top left corner, click More Tools More
 In the top right corner, click More Options More > More Tools > Rendering.
 
 
+//Check if an animation triggers paint #
+When it comes to painting, some things are more expensive than others. 
+For example, anything that involves a blur (like a shadow, for example) 
+is going to take longer to paint than drawing a red box. In terms of CSS, 
+however, this isn't always obvious: 
+background: red; and box-shadow: 0, 4px, 4px, rgba(0,0,0,0.5); 
+don't necessarily look like they have vastly different performance 
+characteristics, but they do.
+
+Browser DevTools can help you to identify which areas need to be repainted, 
+and performance issues related to painting.
+
+Chrome DevTools #
+Open the Rendering tab of Chrome DevTools.
+Select Paint Flashing.
+Move the pointer around the screen.
+
+If you see the whole screen flashing, or areas that you don't think should 
+change highlighted then you can do some investigation.
+
+
+
+select frame inspection
+
+
+Conclusion #
+Where possible restrict animations to opacity and transform in order to 
+keep animations on the compositing stage of the rendering path. Use DevTools 
+to check which stage of the path is being affected by your animations.
+
+Use the paint profiler to see if any paint operations are particularly 
+expensive. If you find anything, see if a different CSS property will give 
+the same look and feel with better performance.
+
+Use the will-change property sparingly, and only if you encounter a 
+performance issue.
+
+
+
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 /*
+
+check the impacts on the page rendering steps on animating 
+css properties 
+https://web.archive.org/web/20220727225220/https://csstriggers.com/
+
+
+a solution to a heavy repaint problem even with using transform/opacity
+is to alter the stacking context (z-index) to create separate layers
+either remove the position: relative from the li items, or add 
+position: relative and a z-index to the span element.
+it wasn’t the CSS transition itself that was causing the issue, but the 
+elements and their stacking order.
+
+@checkout 3D View panel in Edge DevTools
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/*
+Keyframes
+animations greatly expand on some capabilities that transitions simply do not have
+Animations do no need trigger like :hover/:focus
+
+add more flexibility than the transition-timing-function in transitions
+both animations and transitions have their use
+
+
+#ball {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  border: 1px solid black;
+  border-radius: 50%;
+  animation-duration: 2s;
+  animation-name: change-color;
+  animation-iteration-count: infinite;
+  animation-direction: alternate; //alternate direction on the completion of one cycle, or reset to the start point 
+
+}
+
+@keyframes change-color {
+  from {
+    background-color: red;
+  }
+
+50% {
+width: 200px;
+height: 200px;
+background-color: blue;
+}
+
+  to {
+    background-color: green;
+  }
+}
+
+
+You can read from/0% as meaning ‘at zero seconds’ and to/100% as ‘at 2 seconds’ 
+according to our animation-duration
+
+
+
+
+
+
 
 
 
