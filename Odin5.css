@@ -1620,6 +1620,162 @@ Resuming a paused animation will start the animation from where it left off at t
 can be used to trigger running(play) on hover for example
 
 
+//animation-timing-function
+ease, ease-in, ease-out, ease-in-out, linear, step-start, step-end
+animation-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+animation-timing-function: steps(4, end);
+/* Steps Function keywords
+animation-timing-function: steps(4, jump-start);
+animation-timing-function: steps(10, jump-end);
+animation-timing-function: steps(20, jump-none);
+animation-timing-function: steps(5, jump-both);
+animation-timing-function: steps(6, start);
+animation-timing-function: steps(8, end);
+
+
+steps(n, <jumpterm>)
+Displays an animation iteration along n stops along the transition, 
+displaying each stop for equal lengths of time. For example, if n is 5, 
+there are 5 steps. Whether the animation holds temporarily at 0%, 20%, 40%, 60% 
+and 80%, on the 20%, 40%, 60%, 80% and 100%, or makes 5 stops between the 0% 
+and 100% along the animation, or makes 5 stops including the 0% and 100% marks 
+(on the 0%, 25%, 50%, 75%, and 100%) depends on which of the following jump 
+terms is used:
+
+jump-start
+Denotes a left-continuous function, so that the first jump happens when the animation begins;
+
+jump-end
+Denotes a right-continuous function, so that the last jump happens when the animation ends;
+
+jump-none
+There is no jump on either end. Instead, holding at both the 0% mark and the 100% mark, each for 1/n of the duration.
+
+jump-both
+Includes pauses at both the 0% and 100% marks, effectively adding a step during the animation iteration.
+
+start
+Same as jump-start.
+
+end
+Same as jump-end.
+
+step-start
+Equal to steps(1, jump-start)
+
+step-end
+Equal to steps(1, jump-end)
+
+
+////////////////////////////////////////////////////////////////////////
+
+If from/0% or to/100% is not specified, the browser starts or finishes 
+the animation using the computed values of all attributes.
+
+
+animation: duration | easing-function | delay | iteration-count | 
+direction | fill-mode | play-state | name;
+
+
+When the animation-duration value is omitted from the animation shorthand property, 
+the value for this property defaults to 0s. In this case, the animation will still 
+occur (the animationStart and animationEnd events will be fired) but no animation 
+will be visible.
+
+multiple combined animation property
+
+animation:  4s linear 0s infinite alternate rise, 
+            24s linear 0s infinite psychedelic;
+
+the last animation properties will overwrite the one before it, if same property
+
+//ex: slide in animation
+p {
+  animation-duration: 3s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  //  75% { //ths will increase the font and revert back to original
+    font-size: 300%;
+    margin-left: 25%;
+    width: 150%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+
+Note that animations like this can cause the page to become wider than the 
+browser window. To avoid this problem put the element to be animated in a 
+container, and set overflow:hidden on the container.
+
+
+You can get additional control over animations — as well as useful information 
+about them — by making use of animation events. These events, represented by 
+the AnimationEvent object, can be used to detect when animations start, finish, 
+and begin a new iteration. Each event includes the time at which it occurred 
+as well as the name of the animation that triggered the event.
+
+
+const element = document.getElementById("watchme");
+element.addEventListener("animationstart", listener, false);
+element.addEventListener("animationend", listener, false);
+element.addEventListener("animationiteration", listener, false);
+
+element.className = "slidein";
+
+
+Because the animationstart event fires as soon as the animation starts, 
+and in our case, that happens before our code runs. So we'll start the animation 
+ourselves by setting the class of the element to the style that gets animated 
+after the fact.
+
+
+function listener(event) {
+  const l = document.createElement("li");
+  switch (event.type) {
+    case "animationstart":
+      l.textContent = `Started: elapsed time is ${event.elapsedTime}`;
+      break;
+    case "animationend":
+      l.textContent = `Ended: elapsed time is ${event.elapsedTime}`;
+      break;
+    case "animationiteration":
+      l.textContent = `New loop started at time ${event.elapsedTime}`;
+      break;
+  }
+  document.getElementById("output").appendChild(l);
+}
+
+
+If a keyframe rule doesn't specify the start or end states of the animation (that is, 0%/from and 100%/to), 
+browsers will use the element's existing styles for the start/end states. 
+This can be used to animate an element from its initial state and back.
+Properties that can't be animated in keyframe rules are ignored, but supported 
+properties will still be animated.
+
+If multiple keyframe sets exist for a given name, the last one encountered by 
+the parser is used. @keyframes rules don't cascade, so animations never derive 
+keyframes from more than one rule set.
+
+If a given animation time offset is duplicated, all keyframes in the @keyframes 
+rule for that percentage are used for that frame. There is cascading within a 
+@keyframes rule if multiple keyframes specify the same percentage values.
+
+Declarations in a keyframe qualified with !important are ignored.
+
+
+////////////////////////////////////////////////////////////////////////
+
 
 
 /* Multiple animations
@@ -1627,8 +1783,10 @@ animation-name: test1, animation4;
 animation-direction: normal, reverse;
 animation-delay: 2.1s, 480ms; //seconds or ms
 animation-duration: 1.64s, 15.22s;
+animation-fill-mode: none, backwards;
 animation-iteration-count: 2, infinite;
 animation-play-state: paused, running, running;
+animation-timing-function: ease, step-start, cubic-bezier(0.1, 0.7, 1, 0.1);
 
 
 */
