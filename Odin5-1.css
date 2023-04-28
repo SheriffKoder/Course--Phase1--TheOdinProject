@@ -1,0 +1,42 @@
+/*/////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/*
+
+Introduction To Web Accessibility
+a11y friendly concepts
+important to keep in mind when developing a website.
+
+When you develop a website, you’re developing it for users, and you need 
+that website to actually be usable by them.
+
+depending on the country, there could actually be laws requiring accessibility 
+to be implemented.
+
+
+Web accessibility means that websites, tools, and technologies are designed 
+and developed so that people with disabilities and other circumstantial 
+limitations can use them with as few barriers as possible.
+
+-visual/hearing problems = audio/captions, text size/audio adjustments, signs
+-arm usage circumstances
+-using a phone outside on a bright day or noisy place
+-slow bandwidth
+-not tech savy/computer skills
+-older people
+-use duration
+
+Depending on the individual needs, people with cognitive, learning, and neurological disabilities often rely on:
+
+Clearly structured content that facilitates overview and orientation;
+Consistent labeling of forms, buttons, and other content parts;
+Predictable link targets, functionality, and overall interaction;
+Different ways of navigating websites, such as hierarchical menu and search;
+Options to suppress blinking, flickering, flashing, and otherwise distracting content;
+Simpler text that is supplemented by images, graphs, and other illustrations;
