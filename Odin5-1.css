@@ -369,9 +369,40 @@ Maximize compatibility with current and future user tools.
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
+Accessible Colors
 
 
 
 
+White text on a white background would have lowest ratio (1:1), 
+while black text on a white background would have the highest (21:1)
+Contrast ratios refer to both normal text as well as images of text.
+
+There are two different conformance levels for contrast ratios, 
+both of which have rules for normal text and large text.
+
+Normal text is defined as text with a font size that’s less than 
+18 points/24px (or less than 14 points/18.66px for bold text)
+
+Level AA (minimum) requires a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text.
+Level AAA (enhanced) requires a contrast ratio of at least 7:1 for normal text and 4.5:1 for large text.
+
+Both conformance levels have exceptions that 
+don’t need to follow the contrast ratio rules:
+
+-Incidental text, such as text that just happens to be within an image 
+that has other significant visual content, or text that is purely decorative.
+
+-Text that is part of an inactive or disabled user interface component, 
+such as a button that is disabled and has a lowered opacity.
+
+how to check:
+https://webaim.org/resources/contrastchecker/
+Chrome>element picker>element's accessibility contrast ratio
+
+Instead of only using color, your form could indicate all required fields 
+with red text and an asterisk:
 
 
+
+//////////////////////////////////////////////////////////////////////////////
