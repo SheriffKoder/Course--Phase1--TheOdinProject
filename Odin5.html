@@ -1,3 +1,152 @@
+<!--
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Semantic HTML
+
+
+div and span
+they’re not always the most a11y friendly elements to use.
+you should check
+.there is a more appropriate element to use in certain situations
+.you’re using an element correctly.
+
+
+Some elements have a semantic meaning, but don’t really provide any context 
+when announced by assistive technologies like <p>
+
+there are elements that have a semantic meaning and are announced with some 
+sort of context to help users perceive or operate them, like a <button>.
+
+<div> <span> no semantic meaning, not provide context
+They still have their uses as generic containers, such as for layouts or 
+for generic text.
+
+
+semantics:
+<button> instead of div containers
+<table>, lists, appropriate list element (<ol>, <ul>, or <dl>)
+<label> for input fields, input field with the right type attr
+
+//Okay, these are *definitely* buttons better than divs to convey clickable images
+<div class='button-container'>
+    <button class='rock'>Rock</button>
+    <button class='paper'>Paper</button>
+    <button class='scissors'>Scissors</button>
+</div>
+  
+  
+//Label method 1
+<label for='name'>Name</label>
+<input type='text' id='name' />
+
+//Label method 2
+<label>
+Name
+<input type='text' />
+</label>
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+here are seven native HTML elements that define these landmark regions:
+ot only can screen reader users navigate a page via landmarks and headings 
+by using navigation keyboard commands (or opening a menu in their screen reader), 
+but these elements also have their roles announced to provide additional context.
+
+<aside>
+<footer>
+<form>
+<header>
+<main>
+<nav>
+<section>
+
+
+make cells focusable if its used in interaction only
+
+table is created using the appropriate HTML elements (or ARIA roles) 
+screen readers can inform users about the characteristics of the table, 
+and users have access to keyboard commands specifically for navigating 
+tabular content.
+
+//////////////////////////////////////////////////////////////////////////////
+NVDA, Jaws
+uses keyboard commands, 80% of the screen reader market
+there is a difference between keyboard and screen reader navigation.
+
+
+<table>
+    <caption>Average daily tea and coffee consumption</caption>
+    <tr>
+        <th>Person</th><th>Coffee</th><th>Tea</th>
+    </tr>
+
+Press t to move screen reader focus to the table and NVDA will say:
+Average daily tea and coffee consumption
+Table with 3 columns and 4 rows
+Average daily tea and coffee consumption caption
+
+
+These four keyboard commands let you move left/right through rows 
+and up/down through columns, and with them you have the basic method 
+of navigating data tables with NVDA (and Jaws).
+
+.down arrow
+.control alt + right/left/up/down
+
+
+//alt+ down then use control alt + right arrow and NVDA will tell you:
+Coffee
+Column 2
+5 cups
+
+
+the screen reader uses the information it got from the browser to create 
+an association between information and headers
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+headlines to tell the important parts layout of the document
+skeleton for a document
+some people navigate with headings which gives order
+use heading level in order from h1>h6 
+and do not skip, css style it down
+
+if not want to display a heading, can offset it off screen
+just to help in navigation for the website
+
+proper headings and landmark elements
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+
 
 <!DOCTYPE html>
 <html lang="en-US">
