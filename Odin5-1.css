@@ -404,5 +404,233 @@ Instead of only using color, your form could indicate all required fields
 with red text and an asterisk:
 
 
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Keyboard Navigation
+
+some users rely on using a keyboard or another assistive technology that can 
+simulate keyboard inputs, such as voice recognition software.
+
+if you ever need to use an element that isn’t focusable or doesn’t have any 
+event handling by default, then you need to add both of those functionalities 
+in manually.
+
+//HTML: div and span aren't focusable but we can make them so
+<!-- The `tabindex` attribute makes the `<div>` elements focusable. -->
+<div class='button-container'>
+  <div class='rock button' tabindex='0'>Rock</div>
+  <div class='paper button' tabindex='0'>Paper</div>
+  <div class='scissors button' tabindex='0'>Scissors</div>
+</div>
+
+//JS: We also need to manually add in event handling for both mouse and keyboard events.
+const buttons = document.querySelectorAll('.button');
+
+function nameAlerter(e) {
+  if (e.type === 'click' || e.key === ' ' || e.key === 'Enter') {
+    alert(e.target.textContent);
+  }
+}
+
+buttons.forEach(button => {
+  button.addEventListener('click', nameAlerter)
+  button.addEventListener('keydown', nameAlerter)
+})
+
+
+<button>
+using the <button> element provide the context screen reader users need
+focusable and have event handling for keyboards by default
+default: pressing the “space” or “enter” keys on a keyboard when a <button> 
+has focus will trigger the “click” event.
+
+
+//changing focus behavior
+//adding your own focus styles, to enhance scale, outline to a link, 
+increasing border width, input opacity
+//Completely removing focus styles can make a page impossible for 
+keyboard users to navigate and operate
+
+*:focus {
+  outline: xxx;
+  border: xxx;
+}
+
+
+////Tab order
+//Sometimes you may find it necessary to either change the visual order of 
+elements on a page using CSS (the float or order properties, for example), 
+or the tab order of elements themselves using the tabindex attribute. 
+
+//If the tab order is different from the visual order, users could be left 
+confused or frustrated trying to navigate the page with a keyboard,
+
+//The best way to avoid this issue is to just place elements in your HTML file 
+in the order that you want them to actually receive focus.
+
+
+////Hidden content
+hide some content until a specific event occurs
+such as a user clicking on a button to open a menu or a modal box
+should be in this case visually hidden and also hidden from assistive technologies
+until that content is meant to be visible
+
+by giving a tabindex of value -1 (prevents an element from receiving focus via the keyboard)
+and can still give it focus though javascript's focus
+document.querySelector('[tabindex="-1"]').focus()
+
+While this fixes the issue for keyboard users, other assistive technologies 
+would still have access to and could still announce this hidden content.
+so a better solution is giving 
+the container for the hidden content itself
+display: none or visibility: hidden
+
+and removing or overriding that property when it’s meant to be visible.
+removes the menu items from the tab order, also prevents assistive technologies
+from announcing them
+
 
 //////////////////////////////////////////////////////////////////////////////
+focus: selecting an element and directing all the keyboard events to that element
+
+tab (focus forward)
+shift tab (focus back)
+up/down, type first letter to access dropdown
+
+focusable: inputs select button
+
+not all elements are focusable
+
+html dictates focus order
+so changing place by css wont affect the focus order
+
+
+tabindex attr to make sure items are focusable
+starting 0
+directing all the keyboard events to that element
+
+keep to tabindex of 0, to keep the html order
+higher than 0 can cause focus to bounce around
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+On most pages, keyboard and screen reader users must navigate a long list 
+of navigation links and other elements before ever arriving at the main content.
+
+Skip navigation links are useful to give screen reader and keyboard users 
+the same capability of navigating directly to the main content.
+
+The idea is simple enough: provide a link at the top of the page that, 
+when activated, jumps the user to the beginning of the main content area.
+
+creating a skip navigation link
+put it at or near the top of the page in regular text.
+The key is to make sure the link is one of the first items that screen readers hear.
+The link must also be apparent to be helpful.
+
+<body>
+<a href="#maincontent">Skip to main content</a>
+...
+<main id="maincontent">
+<h1>Heading</h1>
+<p>This is the first paragraph</p>
+
+we recommend creating a link that is hidden until to the user 
+navigates to it with a keyboard.
+.be hidden by default
+.be accessible to keyboard navigation
+.become prominently visible when it is focused
+.properly set focus to the main content area when activated
+
+Some techniques, such as hiding the skip link with CSS display:none or 
+the hidden attribute, will remove the link from keyboard navigation making 
+it inaccessible to all users. Making the link the same color as the background 
+or fully transparent, sizing the link to 0 pixels, or placing it on a one-pixel 
+transparent image can also pose accessibility issues.
+
+> Skip to main content
+
+In most cases, a single skip link is sufficient. For pages that have very 
+few navigable items preceding the main content, a skip link may not be necessary at all
+
+Implementing proper heading structures (especially starting the main content 
+with an <h1>) and regions (especially <nav> and <main>) is a vital aspect of 
+keyboard accessibility.
+
+
+////Not recommended and recommended styles
+//display:none or visibility: hidden
+These styles will hide content from all users. The content is removed from 
+the visual flow of the page and is ignored by screen readers
+
+//hidden attribute
+The HTML hidden attribute is relatively new and not supported on older browsers
+
+//An element with no height or width, whether defined in HTML or CSS, 
+is typically removed from the flow of the page, so most screen readers will 
+not read it. 
+
+//Content styled with font-size:0px or line-height:0 may work, though the 
+elements would still take horizontal space on the screen. All these 
+techniques may result in search engine penalties as they may be interpreted as 
+malicious.
+
+//text-indent: -10000px;
+This approach moves the content to the left 10000 pixels - thus off the visible 
+screen. Screen readers will still read text with this style.
+
+
+//recommended
+.sr-only {  //screen reader only
+position:absolute;  //remove from text flow
+left:-10000px;
+top:auto;   //same vertical place
+width:1px;
+height:1px;
+overflow:hidden; //hide everything that does not fit into the 1px x 1px
+}
+
+
+Navigable elements, such as links and form controls, should not be hidden 
+off-screen. They would still be navigable by sighted keyboard users, 
+but would not be visible to them, unless they are styled to become 
+visible when they receive keyboard focus.
+
+A hidden, associated <label> element with "Search terms" (or similar) text
+not all screen readers have sight problems
+
+
+//skip links recommended
+#skip a
+{
+position:absolute;
+left:-10000px;
+top:auto;
+width:1px;
+height:1px;
+overflow:hidden;
+}
+ 
+#skip a:focus
+{
+position:static;
+width:auto;
+height:auto;
+}
+
+<div id="skip"><a href="#content">Skip to Main Content</a></div>
+implementing CSS transitions to animate the focused "skip" link from above 
+the top of the page (as opposed to off-screen left) to the top left corner of the 
+page, then back above the page when focus is lost.
