@@ -334,6 +334,179 @@ However, the <img> still needs alt text—and to prevent redundancy,
 this information should not be conveyed via the <figcaption> 
 
 
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+
+“click here” links can be activated by the keyboard, but it implies that you 
+need a mouse to activate the link.
+
+Rule 1 : Don’t use the word “link” in your links
+
+Rule 2: Don’t capitalize links
+some screen readers read capitalized text letter-by-letter.
+and its difficult to read
+
+Rule 3: Avoid ASCII characters, ASCII art, emoticons, and leetspeak,
+
+However if you absolutely must use emoticons, then at least mark them up 
+with some ARIA:
+
+<span class="sr-only">Smiley face</span>
+<span aria-hidden="true">:-)</span>
+
+
+Rule 4: Avoid using URLs as link text
+a screen reader is going to read the URL letter-by-letter.
+
+Rule 5: Keep link text concise
+
+Rule 6: Restrict the number of text links on a page
+If there are a lot of links on a page, it makes it that much harder 
+to navigate a site.
+
+
+Rule 7: Don’t link directly to downloads
+never embed critical information in CSS.
+
+can include in a table of title, file-type1, file-type2
+2013 Disability Services Annual Report	| pdf-icon | word-icon
+
+<a href="http://www.google.com/" target="_blank">Google 
+ <span class="sr-only">Opens in new window</span>
+ <i aria-hidden="true" class="fa fa-edit fa-external-link"></i>
+</a>
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+Google[] with an open in a new window icon
+
+
+Rule 9: Be aware of pagination and alphabetized links
+Color is not used as the only visual means of conveying information, 
+indicating an action, prompting a response, or distinguishing a visual element“.
+
+Rule 10: Be mindful when using anchor links
+
+Rule 11: The case for underlining links
+you should never underline text in the online world unless you are 
+representing a link
+use a contrast ratio of 3:1 on link focus
+
+Rule 12: Design with keyboard-only users in mind
+the item with the keyboard focus is a different color to the surrounding content 
+and outlined with a dotted border.
+
+if content changes on mouse hover, the same should occur on keyboard focus.
+
+
+//Scripted links
+
+Using scripting events, via JavaScript, to emulate links is also banned under 
+the WCAG2.
+
+All links should be created using A HREF or AREA. The use of ONCLICK on random 
+elements, such as SPAN, IMG and DIV is not permitted.
+
+
+Rule 13: Be mindful when using images as links
+
+Rule 14: Eliminate broken or empty links
+I can only guess that they are inserted by some Content Management Systems glitch.
+All they’ll hear is “link end link” and find themselves wondering if they 
+are missing something — or perhaps they’ll assume the link is an image with 
+an empty ALT attribute.
+
+
+Rule 15: Make your links consistent
+Consistency is your friend. It lets your users orient themselves quickly.
+
+
+Rule 15: Test your color contrast
+Check My Colors (checkmycolours.com)
+Luminosity Colour Contrast Ratio Analyser (juicystudio.com)
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Usable and Accessible Form Validation and Error Recovery
+
+Form validation ensures that web forms are filled out with all necessary 
+information in the correct format.
+
+server-side—the form information is submitted and analyzed by the web server, and necessary feedback messages are written to a newly generated web page
+client-side—form validation and error recovery are performed within the web client or browser using JavaScript and generated within the web page.
+Advantages of server-side validation and error recovery include:
+
+The form can be completed and submitted without interruption from validation alerts, errors, or warnings.
+The user does not need to have scripting enabled in their browser.
+Validation mechanisms are more difficult to bypass or modify, making it more secure.
+Advantages of client-side validation and error recovery:
+
+Validation can occur in real time, before the user submits the form data to the server.
+Functionality does not require server-side scripting.
+Some users may disable scripting in their browser. As such, developers should not require client-side scripting in order for the web form to be accurately completed and submitted. Additionally, any client-side validation or information can easily be modified or disabled within the browser. For best results, developers can utilize both server-side and client-side validation and error recovery to provide both efficiency and security.
+
+Building Usable Forms
+Creating a user-friendly and accessible form is an important first step to ensure that a user completes the form correctly. This can be accomplished by:
+
+providing all necessary instructions and cues.
+associating form controls with a text label by using the label element.
+implementing fieldset and legend elements to associate groups of checkboxes and radio buttons.
+ensuring that the reading and navigation order is logical.
+ensuring that the form can be completed and submitted using a keyboard.
+testing that the form controls, labels, and functionality are understandable and usable.
+
+validation and submission process must be available when using both the mouse and keyboard.
+
+
+Error Recovery
+If either client-side or server-side validation detects errors in the form, then there is a 3-step process to ensure usable and accessible error recovery:
+
+Alert the user to the presence of the error in an apparent and accessible manner.
+Allow the user to easily access the form controls that need to be modified.
+Allow resubmission and revalidation of the form.
+
+with three primary approaches:
+Error alert, then focus
+all errors on top of form
+Inline errors
+
+A combination of "Errors on top" and "Inline errors" techniques can often be optimal
+
+
+aria-invalid
+Regardless of the mechanism used to identify and recover from form errors, 
+aria-invalid="true" should generally be set on each invalid form control. 
+This attribute causes screen readers to identify the control as being "invalid" 
+or in need of attention.
+
+
+general principles should be applied:
+
+Build forms that are easy to use and intuitive, providing all necessary instructions, cues, and prompts.
+Ensure the forms are keyboard accessible.
+Associate form <label> elements with form controls.
+Use fieldsets and legends to associate groups of checkboxes and radio buttons.
+Include necessary instructions within form <label> elements (e.g., required or specially formatted controls)
+Do not rely on JavaScript alone for form submission, validation, and error recovery.
+Alert the user of any validation errors in an apparent and accessible manner with informative feedback messages.
+Allow the user to easily access the form controls that need to be modified.
+Allow resubmission and revalidation of the form information.
+
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -343,6 +516,39 @@ this information should not be conveyed via the <figcaption>
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
+WAI-ARIA
+
+
+WAI-ARIA introduces attributes that can help make websites even more 
+accessible by modifying the semantics and context of elements
+
+ARIA) is to define a way to make web content more accessible when native HTML is unable to do so. 
+
+
+ARIA can’t:
+modify an element’s appearance,
+modify an element’s behavior,
+add focusability, or
+add keyboard event handling.
+
+When you use ARIA, you will usually have to take additional steps to add in 
+any missing semantics or functionality.
+
+ARIA can be extremely powerful when used correctly, but it can be equally as 
+dangerous when used incorrectly.
+
+Five rules of Aria:
+Always use native HTML elements and attributes over ARIA when possible.
+Never change native semantics, unless you have no other choice.
+All interactive ARIA controls must be usable with a keyboard.
+Never use role='presentation' or aria-hidden='true' on focusable elements.
+All interactive elements must have an accessible name.
+
+
+The accessibility tree is based on the DOM
+the accessibility tree contains only the accessibility related information 
+that will be used by assistive technologies. The way ARIA works is by modifying 
+properties of the objects that make up this accessibility tree
 
 
 
@@ -350,6 +556,19 @@ this information should not be conveyed via the <figcaption>
 
 
 
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 
 -->
