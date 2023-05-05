@@ -136,6 +136,205 @@ proper headings and landmark elements
 
 
 
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Meaningful text
+
+when a user reads text or has it announced to them
+they should be able to immediately understand what it means 
+even without any surrounding context
+
+provide meaningful text to users
+helps especially those who rely on assistive technologies
+
+
+////Links
+make sure that the text content of the <a> element
+somehow indicates where the link redirects to and that it's brief
+around 100 characters, 
+so avoid using phrases like "click here" or "this page"
+
+if a link will open or download a file
+include text that tells the user what kind of file it is and the file size
+
+also indicate if target="_blank" and will open in a new tab
+
+<a href='...'>2021 Sign Up Statistics (PDF, 1MB)</a>
+<a href='...'>GitHub (opens in new tab)</a>
+
+
+////Forms
+
+<div class='input-error'>
+  Error: Email is invalid.
+</div>
+an example that clearly tells you what input is invalid, 
+so you now know exactly where to go. While this might be all a user needs to know, 
+it’s worth keeping in mind that it is still a rather vague error. 
+yet We don’t know why our email is invalid.
+
+<div class='input-error'>
+  Error: 'JohnSmith@@test.com' is not valid. Example of a valid email: example@yourdomain.com.
+</div>
+
+more meaningful. It not only tells you what input is invalid, 
+but also how to fix the error.
+
+Generally when you inform a user of a form error, you should be informing 
+them what input caused the error and, when possible, 
+how to fix the error or why the error occurred in some way.
+
+
+placed at the top of the form (“* indicates a required field”)
+placed alongside the input or its label (“Name (required)”).
+password input lists any characters that the password must contain 
+    (“Must include at least one uppercase letter and one number…”)
+
+
+
+
+////Alternative Text
+
+<img src='...' alt='' />
+if the image does not convey meaning and not want assistive technologies to be aware of it
+
+If you simply omitted the alt attribute, the presence of the image could 
+still be announced, which may confuse the user (especially if the file name 
+was a random string of letters and numbers).
+
+Alternative text is a textual substitute for non-text content in web pages. like images
+
+. Screen readers announce alternative text in place of images,
+. If an image fails to load or the user has blocked images, 
+  the browser will present the alternative text visually in place of the image.
+. Search engines use alternative text and factor it into their assessment 
+  of the page purpose and content.
+
+
+Alternative text 
+can be the alt attr
+or within visible body text near the image
+wether on a separate page, linked from either the image or a text link
+adjacent to the image
+
+Every image should have an alt attribute, even if it's alt="" 
+(sometimes called "null" alternative text).
+
+First, consider its content and function. An image only has a function 
+if it is linked (or has an <area> within a <map>), or if it's in a <button> . 
+In this case, the image does not have a function.
+
+If the image's content is presented within the surrounding text, 
+then alt="" may be all that's needed.
+
+the alt attr should:
+. be accurate
+. concise 
+. not be redundant or provide the same information as text near the image.
+. not include phrases like "image of ..." or "graphic of ...", etc. 
+This would be redundant since screen readers already announce "graphic" 
+along with the alt text. If the fact that an image is a photograph or illustration, 
+etc. is important content, it may be useful to include this in alternative text.
+
+
+//Functional images
+Images are often used not only to provide content, 
+but to provide important functions, such as navigation.
+
+surrounding text Ellen Ochoa, Astronaut
+So, alt="Astronaut Ellen Ochoa" is the best choice. A screen reader would typically 
+read "Link, Image, Astronaut Ellen Ochoa. Ellen Ochoa, Astronaut".
+
+The redundancy is necessary to adequately describe the function of the linked image, 
+especially if it were to be accessed in isolation from the adjacent text, 
+such as if a screen reader user were navigating by links.
+
+"Wikipedia entry for Ellen Ochoa, Astronaut" provides content other than 
+that conveyed by the image—the fact the link goes to Wikipedia.
+
+"Read More" does not provide enough information, especially out of context.
+
+Now, both the content and function of the linked image are presented as 
+text within the link, so the image would have alt="" to avoid redundancy.
+A screen reader would typically read, "Link, Ellen Ochoa, Astronaut"—much 
+more efficient than above.
+
+When possible, avoid using "link to...", "click here for...", etc. 
+in the alt attribute. Screen readers already announce links as links.
+
+
+Download the employment application <image with attr="PDF">
+pdf is already sufficient here
+
+
+
+//Decorative Images, use alt=""
+does not present important content,
+is used for layout or non-informative purposes, and
+does not have a function (e.g., is not a link).
+
+
+Note
+When an image is used only for decorative purposes, it is best to remove 
+the image from the page content and instead define it as a CSS background image. 
+This will remove the need for alternative text entirely, and will remove the 
+image from the semantic and structural flow of the page.
+
+<a href="application.pdf">Download the Employment Application<span class="pdficon"> (PDF)</span></a>
+
+/Because the image does not convey relevant or important content, 
+empty alt text is best here.
+
+Consider: If the image were deleted, would important content be lost?
+"if I could not use this image, what would I put in its place?"
+
+
+//Advanced Images
+
+/Form image buttons
+if an image is used as a button
+the image needs an alt attribute that describes the function of the button. 
+The alt text should describe what the button will do when activated, 
+such as "Search", "Submit", "Register", "Place your order", etc.
+
+//Logos
+hearing "Link, Graphic, Acme Company" at the top of a web page is sufficient 
+for a screen reader user to know that it is a logo linked to the home page.
+so use alt=""
+
+
+if alt description wont fit
+detailed alternative text can be provided adjacent on the same page
+or on a separate web page, linked from the page with the image. 
+The link can be adjacent to the image, or the image itself could be linked 
+to the description page.
+
+"Painting of George Washington crossing the Delaware River"
+for example and provide more info elsewhere
+
+There is no one right answer here. The best alternative text will depend 
+on the context and intended content of the image.
+
+
+//Figure and figcaption
+The <figure> element, designed to contain an <img> and a <figcaption>, 
+is self-contained and typically referenced as a single unit from the main 
+flow of the document. A <figure> can be separated from the main flow of 
+the document without affecting the document's meaning.
+However, the <img> still needs alt text—and to prevent redundancy, 
+this information should not be conveyed via the <figcaption> 
+
+
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
