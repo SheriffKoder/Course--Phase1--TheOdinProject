@@ -847,6 +847,147 @@ accessibility tree in chrome inspector
 https://www.w3.org/WAI/ARIA/apg/
 
 
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Accessibility Auditing
+
+axe DevTools for Chrome
+https://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US
+
+
+Lighthouse for Chrome 
+is available in the Chrome DevTools by default
+provides more than just a11y auditing, including performance, best practices, 
+    search engine optimization (SEO), and progressive web app (PWA) if applicable. 
+and like the axe DevTools there may be a list of issues for you to manually check.
+https://developer.chrome.com/docs/lighthouse/overview/
+
+
+WebAIM’s WAVE 
+a website based tool where you enter the URL of the page you want to audit, 
+though there are also browser extension and API options. WAVE will return a preview 
+of the page with an overlay of icons on it, and issues are separated into categories 
+of alerts, warnings, and contrast errors. Unfortunately the icons that are placed 
+on the page may cause the layout to break, but that could be a minor issue 
+if you’re more focused on the a11y issues that are found
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+Chrome accessibility pane 
+is where you can view the accessibility tree, ARIA attributes, 
+and computed accessibility properties of DOM nodes.
+
+able to see single node as well as explore the whole acc tree
+will ask you to reload devtools, and click on the person icon
+to switch to accessibility tree view button
+
+This is a great way to understand the mapping between the DOM node and its 
+accessibility tree node.
+
+
+
+The elements on the page don't always appear in the order they are in the source. 
+This might confuse users who depend on assistive technology to navigate the web.
+
+To view and debug the source order on your website:
+
+Inspect an element on the page.
+In Elements > Accessibility > Source Order Viewer, check Checkbox. Show source order.
+
+In the viewport, DevTools outlines nested elements with borders and marks them 
+with numbers corresponding to their source order.
+
+Some accessibility properties are dynamically calculated by the browser. 
+These properties can be viewed in the Computed Properties section of the 
+Accessibility pane.
+
+
+fix contrast in Chrome dev tools:
+https://developer.chrome.com/docs/devtools/accessibility/contrast/
+
+the rendering tab also has 
+emulate-vision-deficiencies
+to check your website by Emulating blurred vision for example
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+Chrome dev tools accessibility improvement recommendations
+
+Click the Open Issues button next to Settings. Settings in the right corner 
+of the action bar at the top. Depending on issue severity, the button can 
+have a red Error., yellow Warning., or blue Information. icon.
+
+Alternatively, select Issues from the More tools menu. More tools menu.
+
+Once you're on the Issues tab, you might want to reload the page to catch 
+even more issues, this time occurring during page load.
+
+The Issues tab counts the number of affected resources for each issue and shows 
+it next to their headlines. Additionally, you can organize the issues by their 
+severity in three group kinds:
+
+Note: This is a preview feature disabled by default. To enable it, check Settings. 
+Settings > Experiments > Checkbox. Allow grouping and hiding of issues by issue 
+kind.
+
+To group issues, check Checkbox. Group by kind in the action bar at the top of 
+the Issues tab.
+//////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////////////
+Involving Users in Evaluating Web Accessibility
+
+Please read Involving Users in Web Projects for Better, Easier Accessibility, 
+which covers broader issues of including users early in website design, 
+tool development, standards, and other web projects.
+
+Caution: Carefully consider all input. Avoid assuming that input from one person 
+with a disability applies to all people with disabilities.
+
+https://www.youtube.com/playlist?list=PLNYkxOF6rcICWx0C9LVWWVqvHlYJyqw7g
+
+
+to know more about how elements are spoken using SR
+https://github.com/thatblindgeye/screenreader-outputs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
