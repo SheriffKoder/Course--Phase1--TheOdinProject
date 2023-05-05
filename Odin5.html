@@ -550,6 +550,309 @@ the accessibility tree contains only the accessibility related information
 that will be used by assistive technologies. The way ARIA works is by modifying 
 properties of the objects that make up this accessibility tree
 
+Name: acessible name
+what assistive technologies announce to a user
+and what separates elements of the same type from one another
+may be set by one or more native labels
+including text contents of an element
+<label> element or the alt attribute for example
+
+Description:
+what assistive technologies announce in addition
+to its accessible name
+
+aria labels help users of assistive technologies better understand 
+the content on a web page by overriding native labels or providing 
+additional descriptive text. 
+
+Unlike the <label> element, ARIA labels aren’t limited to being used 
+on only a select few elements, though they still have their own limitations.
+
+
+
+When using such ARIA attributes, you would provide an id to one element, 
+and you would then pass in that id value as another element’s ARIA attribute value. 
+This creates a link between the elements, similar to how a <label> element’s 
+for attribute creates a link to an input’s id. Of the three types of ARIA labels 
+mentioned below, both aria-labelledby and aria-describedby are two of the 
+ARIA attributes that require another element to be given an id.
+
+//aria-label
+overrides any native label and modifies the name property in the accessibility tree,
+best used when an element doesn't already have a native label
+
+when you add aria-label to an element
+you pass in a string as the value
+which will become that element's accessible name
+
+aria-label doesn’t work on every HTML element, though. Adding the attribute 
+to a plain <div> or a <span> will have no effect, for example.
+
+
+<button type='button' aria-label='Close menu'>X</button>
+a screen reader would announce, “Close menu, button”. instead of X
+
+<nav aria-label='main navigation'>...</nav>
+useful if have many navigations on the page
+it would announce “Main navigation, navigation landmark”
+it would announce Sub navigation, navigation landmark” etc.
+
+do not try to fix how the words are announced by changing their letters
+
+
+//aria-labelledby
+overrides both native labels as well as the aria-label attribute.
+has its accessible name changed to a concatenated string of the text contents 
+or alt attributes 
+of the labeling elements (the ones whose id are passed in).
+
+you can pass in any number of id references
+and you can even have an element reference itself.
+you can’t pass in the same reference multiple times, 
+as any subsequent references after the first will be ignored.
+
+
+
+//Here's the labelling element
+<h2 id='label'>Shirts</h2>
+
+//And here's the labelled element. Note the order of the ID references passed in
+<button type='button' id='shop-btn' aria-labelledby='label shop-btn'>Shop Now</button>
+
+//would be announced by a screen reader as, “Shirts, shop now, button”. 
+
+
+
+if a labeling element is visually hidden, either by the hidden HTML attribute 
+or with CSS, it will still modify the accessible name of the labeled element.
+useful when don’t want that element’s label (or labels) to be visible to sighted users.
+
+does not have the same event handling by default, like focus
+as <label>
+
+//Clicking the <label> element gives focus to the input element
+<label for='name'>Name:</label>
+<input id='name' type='text' />
+    
+//Clicking the <div> element won't give focus to the input element
+<div id='label'>Name:</div>
+<input type='text' aria-labelledby='label' />    
+
+
+//aria-describedby
+modifies the description property in the accessibility tree.
+
+Similar to the aria-labelledby attribute, when you use this attribute you pass 
+in the id values of other elements as the aria-describedby value, and the elements 
+whose id value are passed in can also be visually hidden.
+
+<label>Password:
+  <input type='password' aria-describedby='password-requirements' />
+</label>
+
+//Meaningful text + ARIA!
+<span id='password-requirements'>Password must be at least 10 characters long.</span>
+
+
+a screen reader would announce, “Password, edit protected, password must be at least ten characters long.”
+
+
+//Hiding Content from the Accessibility Tree
+Similar to how you can visually hide elements with the hidden HTML attribute 
+or the display and visibility CSS properties, you can use the aria-hidden 
+attribute to hide certain elements, such as decorative images and icons, 
+from the accessibility tree. 
+
+the element will remain visible for sighted users.
+that adds visual meaning to visual users but does not for screen readers
+
+<button type='button'>
+  <span class='material-icons' aria-hidden='true'>add</span>
+  Add Book
+</button>
+
+aria-hidden='true', all children of that element will also become hidden 
+to the accessibility tree. Adding aria-hidden='false' to a child element won’t 
+have any effect if one of its parents still has aria-hidden='true', either.
+
+You should also be careful not to give an element aria-hidden='true' if it 
+is focusable. Doing so would cause nothing to be announced when the element 
+receives focus,
+
+
+//////////////////////////////////////////////////////////////////////////////
+Landmark roles identify content areas within a page.
+navigational landmarks
+
+include the page's primary content, collections of navigation links, 
+and search functions to name a few.
+
+The banner role can be associated with the <header> element
+The complementary role can be associated with the <aside> element
+The contentinfo role can be associated with the <footer> element
+
+banner
+complementary
+contentinfo
+form
+main
+navigation
+region
+search
+
+View the full list of available Landmark roles.
+https://www.w3.org/TR/wai-aria/#landmark_roles
+
+<nav role="navigation">
+  <ul>
+    <li><a href="#a">Dexter</a></li>
+    <li><a href="#b">Doctor Who</a></li>
+    <li><a href="#c">Futurama</a></li>
+  </ul>
+</nav>
+
+<form role="search">
+  <label for="search-input">Search this site</label>
+  <input type="text" id="search-input" name="search">
+  <input type="submit" name="submit-btn" value="Search" />
+</form>
+
+<footer role="contentinfo">
+  <p>&copy; 2020 Small Business Ltd. All rights reserved.</p>
+</footer>
+
+
+Live Region Roles
+inform assistive technologies, such as screen readers, of dynamic changes to 
+page content, so that they can be announced to users. The reason for this is 
+that dynamic changes may be visually noticeable, but likely will be missed by 
+users with low or no vision.
+
+<div role="alert">
+  <p>Autosave failed.</p>
+</div>
+
+View the full list of available Live Region roles.
+https://www.w3.org/TR/wai-aria/#live_region_roles
+
+
+
+//Widget roles 
+are used to describe common interactive patterns or those that currently lack 
+semantic equivalents in HTML. In most cases, these interactive patterns will 
+be JavaScript-driven. Widget roles should not be confused with role="widget" 
+
+TABS ROLE EXAMPLE
+A common interactive pattern that relies on Widget roles is the very familiar Tabs pattern. Tabs rely on three Widget roles, namely tab, tabpanel, and tablist.
+
+<div>
+  <div role="tablist" aria-label="Fruits">
+    <button role="tab" aria-selected="true" aria-controls="apples-tab" id="apples">Apples</button>
+    <button role="tab" aria-selected="false" aria-controls="oranges-tab" id="oranges">Oranges</button>
+  </div>
+
+  <div role="tabpanel" id="apples-tab" aria-labelledby="apples">
+    <p>Apples tab content</p>
+  </div>
+
+  <div role="tabpanel" id="oranges-tab" aria-labelledby="oranges">
+    <p>Oranges tab content</p>
+  </div>
+</div>
+
+The tablist role is a composite Widget role, which means it is a container used 
+to manage other contained widgets. It is used to contain the list of tab elements, 
+each of which is an interactive element. When a tab element is activated, 
+it will cause its associated tabpanel container to display.
+
+View the full list of available Widget roles.
+https://www.w3.org/TR/wai-aria/#widget_roles
+
+
+Window Roles
+Document structure roles like toolbar and tooltip
+
+Aria live regions
+Using JavaScript, it is possible to dynamically change parts of a page without 
+requiring the entire page to reload — for instance, to update a list of search 
+results on the fly, or to display a discreet alert or notification which does 
+not require user interaction. While these changes are usually visually apparent 
+to users who can see the page, they may not be obvious to users of assistive 
+technologies. ARIA live regions fill this gap and provide a way to programmatically 
+expose dynamic content changes in a way that can be announced by assistive technologies.
+generally either a region or a widget.
+A live region is explicitly denoted using the aria-live attribute.
+
+Assistive technologies will announce dynamic changes in the content of a live region. 
+Including an aria-live attribute or a specialized live region role (such as role="alert") 
+on the element you want to announce changes to works as long as you add the attribute 
+before the changes occur — either in the original markup, or dynamically using JavaScript.
+
+
+aria-live: The aria-live=POLITENESS_SETTING is used to set the priority with which 
+screen reader should treat updates to live regions - the possible settings 
+are: off, polite or assertive. The default setting is off. This attribute is by far 
+the most important.
+
+
+Normally, only aria-live="polite" is used. Any region which receives updates that 
+are important for the user to receive, but not so rapid as to be annoying, should 
+receive this attribute. The screen reader will speak changes whenever the user 
+is idle.
+
+aria-live="assertive" should only be used for time-sensitive/critical notifications 
+that absolutely require the user's immediate attention. Generally, a change to an 
+assertive live region will interrupt any announcement a screen reader is currently 
+making. As such, it can be extremely annoying and disruptive and should only 
+be used sparingly.
+
+As aria-live="off" is the assumed default for elements, it should not be necessary 
+to set this explicitly, unless you're trying to suppress the announcement of 
+elements which have an implicit live region role (such as role="alert").
+
+cont here: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
+
+html elements are spoken main, nav, article etc. helps users
+8:09
+a span is not an interactive element
+SR intereps it as plain text
+
+span id=button role=button tabindex=0 aria-expanded="false" aria-controls="content" aria-hidden="true"
+//spelled button
+//place the control of the tab element in the page
+//SR will tell if widget is expanded or closed
+
+
+[role="button"]:hover {
+    css
+}
+
+document.getelementbyId("button").addeventlistenr("click", toggleDisclosure);
+document.getelementbyId("button").addeventlistenr("keydown", toggleDisclosure);
+
+aria-hidden takes it out of SR
+
+using the correct html by itself allows good SR 
+
+
+clients can request accessibility
+some countries it's mandated by law
+
+focus on accessibility from the start of the project
+
+giving GUI to screen readers with the accessibility tree
+ 
+accessibility tree in chrome inspector
+
+https://www.w3.org/WAI/ARIA/apg/
+
+
+
+
+
+
+
+
 
 
 
