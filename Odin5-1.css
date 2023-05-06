@@ -648,5 +648,350 @@ page, then back above the page when focus is lost.
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Responsive Design
 
 
+
+creating websites that respond to changes in browser size in order to create 
+something that works on any device.
+
+techniques
+
+Lower end target: 320px
+Higher end target: setting up a max-width for all of your content and then 
+centering that on the page. 
+
+how to completely rearrange items on a page based on screen size
+
+A plain, naked, HTML site is perfectly responsive
+until you change that with CSS
+
+If you approach your project with this mindset and do your best to maintain 
+that natural responsiveness, you might find that there isn’t that much extra 
+you need to do to make your sites properly responsive.
+
+tips you can use to maintain natural responsiveness.
+
+
+
+
+////The Viewport Meta Tag
+you should add this snippet into the <head> of your HTML file in just about 
+every project you work on.
+sets the initial width of the webpage to the size of the actual screen you’re 
+viewing it on, and telling it not to zoom in or out.
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+////Avoid Fixed Width and Height
+The number one enemy of flexibility is a fixed width on an element.
+If you put width: 600px on anything, 
+then it will never be able to shrink below that width, which ruins your chances 
+of getting that thing to fit on most phone screens.
+
+Likewise, sticking a fixed height on an element can cause issues if the contents 
+of that element run out of room.
+
+
+Obviously the context will determine what works in a given situation
+but an easy fix in many cases is replacing 
+"width or height with max-width or min-height"
+
+min-width and max-height are also valid and may be useful depending on the context
+
+
+//Avoid heights all together
+In most cases, you should avoid setting a height altogether. 
+There are some exceptions to this rule (headers and footers perhaps) 
+but you should prefer using margin and padding to increase space around your 
+content. Using margin and padding will keep your elements flexible no matter 
+what the content inside does.
+
+//Use flex and Grid
+You’ve already learned about the relevant properties here, 
+but things like flex-wrap and grid’s minmax, auto-fill and similar properties 
+can make some impressively responsive layouts without much extra work.
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Viewport meta tag
+
+The browser's viewport is the area of the window in which web content can be seen.
+This is often not the same size as the rendered page
+
+The viewport meta tag mitigates this problem of virtual viewport 
+on narrow screen devices.
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+width: 
+controls the size of the viewport
+can be pixels like 600px, 
+or to the special value device-width
+which is 100vw or 100% of the viewport width
+min 1 max 10000
+negative values are ignored
+
+height:
+same
+
+initial-scale:
+Controls the zoom level when the page is first loaded. 
+Minimum: 0.1. Maximum: 10. Default: 1. 
+Negative values: ignored.
+
+minimum-scale:
+Controls how much zoom out is allowed on the page. 
+Minimum: 0.1. Maximum: 10. Default: 0.1. 
+Negative values: ignored.
+
+maximum-scale:
+Controls how much zoom in is allowed on the page. 
+Any value less than 3 fails accessibility. 
+Minimum: 0.1. Maximum: 10. Default: 10. 
+Negative values: ignored.
+
+user-scalable: 
+Controls whether zoom in and zoom out actions are allowed on the page.
+Valid values: 0(no, against WCAG accessibility)
+              1, 
+              yes, or no. 
+
+Usage of user-scalable=no can cause accessibility issues to users 
+with visual impairments such as low vision. 
+WCAG requires a minimum of 2× scaling; however, 
+the best practice is to enable a 5× zoom.
+
+
+interactive-widget: 
+Specifies the effect that interactive UI widgets, 
+such as a virtual keyboard, have on the page's viewports
+
+Valid values: resizes-visual, resizes-content, or overlays-content. 
+Default: resizes-visual.
+
+
+
+////Screen density
+screen resolutions hare high for smartphones now
+small screen with resolutions upwards 1920x1080px (=400dpi)
+because of this, many browsers can display their pages in a smaller 
+physical size by translating multiple hardware pixels for each CSS pixel
+this caused usability and readability problems on many touch-optimized websites
+
+On high dpi screens, pages with initial-scale=1 will effectively be 
+zoomed by browsers. Their text will be smooth and crisp, 
+but their bitmap images may not take advantage of the full screen resolution. 
+To get sharper images on these screens, web developers may want to design 
+images – or whole layouts – at a higher scale than their final size 
+and then scale them down using CSS or viewport properties
+
+The default pixel ratio depends on the display density. 
+On a display with density less than 200dpi, the ratio is 1.0. 
+On displays with density between 200 and 300dpi, the ratio is 1.5. 
+For displays with density over 300dpi, the ratio is the integer floor (density/150dpi). 
+Note that the default ratio is true only when the viewport scale equals 1. 
+Otherwise, the relationship between CSS pixels and device pixels 
+depends on the current zoom level.
+
+
+//Viewport width and screen width
+Sites can set their viewport to a specific size. For example, the definition "width=320, initial-scale=1" can be used to fit precisely onto a small phone display in portrait mode. This can cause problems when the browser renders a page at a larger size. To fix this, browsers will expand the viewport width if necessary to fill the screen at the requested scale. This is especially useful on large-screen devices.
+
+For pages that set an initial or maximum scale, this means the width property actually translates into a minimum viewport width. For example, if your layout needs at least 500 pixels of width then you can use the following markup. When the screen is more than 500 pixels wide, the browser will expand the viewport (rather than zoom in) to fit the screen:
+
+<meta name="viewport" content="width=500, initial-scale=1" />
+Copy to ClipboardCopy to Clipboard
+Other attributes that are available are minimum-scale, maximum-scale, and user-scalable. These properties affect the initial scale and width, as well as limiting changes in zoom level.
+
+
+//The effect of interactive UI widgets
+Interactive UI widgets of the browser can influence the size of the page's viewports. 
+The most common such UI widget is a virtual keyboard. To control which resize behavior 
+the browser should use, set the interactive-widget property.
+
+Allowed values are:
+
+resizes-visual
+The visual viewport gets resized by the interactive widget.
+
+resizes-content
+The viewport gets resized by the interactive widget.
+
+overlays-content
+Neither the viewport nor the visual viewport gets resized by the interactive widget.
+
+When the viewport gets resized, the initial containing block also gets resized, 
+thereby affecting the computed size of viewport units.
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Using Percentages in CSS
+
+in many of the places where you might want to reach for them, 
+there is likely a better solution!
+
+
+whatever you’re styling should look nice on the range of viewports 
+and orientations that you intend to support.
+
+common misconception
+I want this thing to respond to the browser’s width or height, 
+so what I need here is to make the dimensions of my element a percentage 
+so that it’s flexible and responsive!
+
+The truth: most elements are already responsive to the viewport, 
+even without using percentages. Consider this code and the gif that follows.
+
+Generally, things look nice when the margin outside of an element 
+and the padding inside the element is either the same or related. 
+
+
+You do not need the percentage rule to make this card responsive. 
+If you simply remove the width rule, most html elements will expand horizontally 
+to fill 100% of the horizontal space. 
+(For what it’s worth, this behavior is not the same as using width: 100% 
+
+
+//OK BUT I DON’T WANT IT TO BE FULL WIDTH.
+but rather than using a percentage to define the width of the element, 
+use a static margin.
+and another margin on the media query for smaller screens
+
+max-width so that the element won’t exceed a certain width even on huge screens. 
+and good for wide screens
+we can no longer rely on margin: auto to center it
+but there are many ways to center things in CSS. like flexbox:
+
+using something like height 100% to make a child component fill 
+the entire height of its parent can be useful, as can width: 100% for elements 
+that do not expand by default. 
+(general rule: block-level elements expand, inline elements do not 
+for a list of block-level and inline elements.)
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+minmax() in auto-fill repeating tracks
+
+a grid that contains as many 200 pixel column tracks as will fit into the container 
+with the remaining space shared equally between the columns.
+
+In the minmax() function 
+the first value is the minimum size I want my tracks to be, 
+the second is the maximum. 
+By using 1fr as the maximum value the space is equally distributed.
+
+.boxes_wrapper {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr) ) ;
+}
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Responsive Images
+
+images behave properly when resizing them with CSS.
+how to serve up different images based on screen-size.
+
+the main problem faced with responsive images is aspect-ratio
+relationship between width and height
+if shrink the width of an image on smaller screens
+does not manipulate the height 
+and the image will appear distorted
+
+solution to retain its aspect ratio correctly
+flexible width
+height set to auto
+
+
+not want an image to simply shrink in h and w
+background-size, object-fit
+provide a little more flexibility with how aspect-ratios are handled
+
+background-position, background-size
+properties work on elements with a background image
+do not work on normal img tags
+
+background-position: center
+background-size: cover
+
+object-fit
+works similarly
+but is meant for img tags
+default value fil, which stretches the image to fit the dimensions
+value cover, contain
+
+For example, instead of just trusting object-fit to keep the subject of a photograph 
+in frame, you could present a cropped version of it on smaller screens. 
+There are two ways of achieving this, but the most flexible is using the <picture>
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+background-size: 
+cover / contain / value.auto / w h (values)
+given one value, height defaults to auto
+
+
+/* Multiple backgrounds
+background-size: auto, auto; /* Not to be confused with `auto auto`
+background-size: 50%, 25%, 25%;
+background-size: 6px, auto, contain;
+
+
+contain
+Scales the image as large as possible within its container without 
+cropping or stretching the image. If the container is larger than the image, 
+this will result in image tiling, unless the background-repeat property 
+is set to no-repeat.
+
+cover
+Scales the image (while preserving its ratio) to the smallest possible size to 
+fill the container (that is: both its height and width completely cover 
+the container), leaving no empty space. If the proportions of the background 
+differ from the element, the image is cropped either vertically or horizontally.
+
+auto
+Scales the background image in the corresponding direction 
+such that its intrinsic proportions are maintained.
+
+<length>
+Stretches the image in the corresponding dimension to the specified length.
+Negative values are not allowed.
