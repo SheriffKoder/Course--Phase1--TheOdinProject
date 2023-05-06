@@ -995,3 +995,274 @@ such that its intrinsic proportions are maintained.
 <length>
 Stretches the image in the corresponding dimension to the specified length.
 Negative values are not allowed.
+
+<percentage>
+Stretches the image in the corresponding dimension to the specified percentage 
+of the "background positioning area". The background positioning area is 
+determined by the value of background-origin (by default, the padding box). 
+However, if the background's background-attachment value is fixed, 
+the positioning area is instead the entire viewport. 
+Negative values are not allowed.
+
+A bitmap image (such as JPG) always has intrinsic dimensions and proportions.
+SVG does not necessarily have intrinsic dimensions
+If it has no dimensions or only one dimension, it may or may not have proportions.
+CSS <gradient>s have no intrinsic dimensions or intrinsic proportions.
+
+Background images created with the element() function use the intrinsic 
+dimensions and proportions of the generating element.
+
+<div class="tiledBackground"></div>
+
+.tiledBackground {
+  background-image: url(https://www.mozilla.org/media/img/logos/firefox/logo-quantum.9c5e96634f92.png);
+  background-size: 150px;
+  width: 300px;
+  height: 300px;
+  border: 2px solid;
+  color: pink;
+}
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+background-position
+sets the initial position for each background image
+the position is relative to the position layer set by background-origin
+
+background-position: top;
+background-position: bottom;
+background-position: left;
+background-position: right;
+background-position: center;
+
+//percentage
+background-position: 25% 75%;
+
+//length values
+background-position: 0 0;
+background-position: 1cm 2cm;
+background-position: 10ch 8em;
+
+//Multiple images
+background-position: 0 0, center;
+
+//Edge offsets values
+background-position: bottom 10px right 20px;
+background-position: right 3em bottom 10px;
+background-position: bottom 10px right;
+background-position: top right 10px;
+
+//global values
+background-position: inherit;
+background-position: initial;
+background-position: revert;
+background-position: revert-layer;
+background-position: unset;
+
+
+position
+two non keyword values are used: first (horizontal position) second (vertical position)
+if one value specified: the second value is assumed to be center
+three or four values used: length-percentage values are offsets for the preceding keyword values
+
+Note that: If one value is top or bottom, then the other value may not 
+be top or bottom. If one value is left or right, then the other value 
+may not be left or right. This means, e.g., that top top and left right 
+are not valid.
+
+
+//one value syntax
+center
+top, left, bottom, right, length/percentage etc.. the other dimension is then set to 50%
+
+
+//two value syntax
+one defines x the other defines y
+The default value is left top or 0% 0%.
+
+//three value syntax
+The first value is one of the keyword values top, left, bottom, right, or center. 
+
+If left or right are given here, then this defines X. 
+If top or bottom are given, then this defines Y and the other keyword value defines X.
+
+The <length> or <percentage> value, 
+if it is the second value, is the offset for the first value. 
+If it is the third value, it is the offset for the second value.
+
+The combination of one keyword with two <length> or <percentage> values is not valid.
+
+
+//four value syntax
+first and third values are keyword values of top/left/bottom/right
+if top/bottom then defines Y if left/right then defines X
+and second/third are offsets of length/percentage for the first and third respectively
+
+
+//percentages
+The percentage offset of the given background image's position is relative to the container.
+background-position: 25% 75% 
+means the spot on the image that is 
+25% from the left and 
+75% from the top will be placed at the spot of the container
+
+
+(container width - image width) * (position x%) = (x offset value)
+(container height - image height) * (position y%) = (y offset value)
+
+
+div {
+  background-color: #ffee99;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 80px;
+  margin-bottom: 12px;
+}
+
+.examplethree {
+  background-image: url("startransparent.gif"), url("catfront.png");
+  background-position: 0px 0px, right 3em bottom 2em;
+}
+
+
+//////background-origin
+property sets the background's origin from the border start
+,inside the border, or inside the padding
+
+background-origin: border-box;
+background-origin: padding-box;
+background-origin: content-box;
+
+.box {
+  margin: 10px 0;
+  color: #fff;
+  background: linear-gradient(
+      90deg,
+      rgba(131, 58, 180, 1) 0%,
+      rgba(253, 29, 29, 0.6) 60%,
+      rgba(252, 176, 69, 1) 100%
+    ), radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 28%);
+  border: 20px dashed black;
+  padding: 20px;
+  width: 400px;
+  background-origin: padding-box, content-box;
+  background-repeat: no-repeat;
+}
+
+
+
+//////object-fit
+css property sets how the content of a replaced element
+such as an <img> <video> should be resized to fit its container
+
+object-fit: contain;
+The entire object is made to fill the box, while preserving its aspect ratio
+the object will be "letterboxed" if its aspect ratio does not match the aspect ratio of the box.
+
+object-fit: cover;
+The replaced content is sized to maintain its aspect ratio while filling the element's 
+entire content box. If the object's aspect ratio does not match the aspect ratio of its box, 
+then the object will be clipped to fit.
+
+object-fit: fill;
+The replaced content is sized to fill the element's content box. 
+The entire object will completely fill the box. If the object's aspect 
+ratio does not match the aspect ratio of its box, 
+then the object will be stretched to fit.
+
+object-fit: none;
+The replaced content is not resized.
+
+object-fit: scale-down;
+The content is sized as if none or contain were specified, 
+whichever would result in a smaller concrete object size.
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Responsive images
+
+images on a narrow width will take much of the height
+display a cropped version of the image which displays the important details of the image
+
+mobile users don't want to waste bandwidth by downloading a large image 
+intended for desktop users
+
+To make things more complicated, some devices have high resolution screens 
+that need larger images than you might expect to display nicely.
+
+Responsive image technologies were implemented recently to solve the problems 
+indicated above by letting you offer the browser several image files, either 
+all showing the same thing but containing different numbers of pixels 
+(resolution switching), or different images suitable for different space 
+allocations (art direction).
+
+
+CSS arguably has better tools for responsive design than HTML, and we'll 
+talk about those in a future CSS module.
+
+
+<img
+  srcset="elva-fairy-480w.jpg 480w, elva-fairy-800w.jpg 800w"
+  sizes="(max-width: 600px) 480px,
+         800px"
+  src="elva-fairy-800w.jpg"
+  alt="Elva dressed as a fairy" />
+
+
+srcset defines the set of images we will allow the browser to choose between, 
+and what size each image is.
+
+
+srcset: img file name, The image's intrinsic width in pixels (480w)
+sizes: The width of the slot the image will fill when the media condition is true (480px)
+
+
+//look at what the viewport is
+document.querySelector('html').clientWidth)
+
+
+Older browsers that don't support these features will just ignore them. 
+Instead, those browsers will go ahead and load the image referenced in the 
+src attribute as normal.
+
+
+In the <head> of the example linked above, you'll find the line 
+<meta name="viewport" content="width=device-width">: this forces mobile 
+browsers to adopt their real viewport width for loading web pages 
+(some mobile browsers lie about their viewport width, and instead 
+load pages at a larger viewport width then shrink the loaded page down, 
+which is not very helpful for responsive images or design).
+
+
+//Resolution switching: Same size, different resolutions
+If you're supporting multiple display resolutions, 
+but everyone sees your image at the same real-world size on the screen, 
+you can allow the browser to choose an appropriate resolution image by using srcset 
+with x-descriptors and without sizes — a somewhat easier syntax! 
+You can find an example of what this looks like in srcset-resolutions.html 
+(see also the source code):
+
+
+<picture>
+  <source media="(max-width: 799px)" srcset="elva-480w-close-portrait.jpg" />
+  <source media="(min-width: 800px)" srcset="elva-800w.jpg" />
+  <img src="elva-800w.jpg" alt="Chris standing up holding his daughter Elva" />
+</picture>
+
+When the browser starts to load a page, it starts to download (preload) any 
+images before the main parser has started to load and interpret the page's 
+CSS and JavaScript. That mechanism is useful in general for reducing page 
+load times,
+
