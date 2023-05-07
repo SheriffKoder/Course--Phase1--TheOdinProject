@@ -1266,3 +1266,217 @@ images before the main parser has started to load and interpret the page's
 CSS and JavaScript. That mechanism is useful in general for reducing page 
 load times,
 
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Responsive images 101
+
+
+For resolution switching, we should strive to provide the browser with options 
+and let the browser pick the best possible image. The browser is in a better 
+position to know what image will work best based on user preference, 
+network conditions, etc.
+
+To provide the browser with options, we should use the image-set() syntax.
+
+
+background-image: image-set("foo.png" 1x,
+                            "foo-2x.png" 2x);
+
+works for any css that takes images, like border-image, background-image..
+1x, 2x display density
+1x by default if not provided
+
+Neither Firefox nor Microsoft have implemented it yet.
+
+
+//Art direction
+What is the CSS solution for art direction? Media queries.
+make sure your media queries for images don’t overlap or you’ll end up with duplicate downloads
+
+//Resolution media queries
+If you want to support high density displays in art direction, 
+you’ll probably want to use the new resolution media queries.
+
+@media (-webkit-min-device-pixel-ratio:2),
+      (min-resolution: 192dpi) {
+          /* high density stuff here
+      }
+
+max resolution is also valid
+dots per inch (dpi), dots per cm dpcm, dots per px unit dppx 1dppx=96dpi
+
+-webkit prefixed media query. This is for devices that support the old device-pixel-ratio syntax.
+
+you can think of 1dppx as 1x, 2dppx as 2x, and so on.
+
+
+
+<img src="cat_500px.jpg" srcset="cat_750px.jpg 1.5x, cat_1000px.jpg 2x" alt="lolcat" width="500px" />
+
+<img src="swing-400.jpg" sizes="(max-width: 30em) 100vw, (max-width: 50em) 50vw, calc(33vw - 100px)" srcset="swing-200.jpg 200w, swing-400.jpg 400w, swing-800.jpg 800w, swing-1600.jpg 1600w" alt="Kettlebell Swing" />
+
+for most responsive images, the <picture> element is the wrong solution. 
+You should be using <img> with srcset and sizes.
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+Media Queries
+
+it is possible to completely restyle your web projects based on 
+the size of a user’s screen.
+
+body {
+  margin: 24px;
+}
+
+@media (max-width: 600px) { //any resolution below the given style
+  body {
+    margin: 8px;
+  }
+}
+
+try to limit your breakpoints to just what you need.
+
+zooming in will cause the page to behave as if the screen is smaller, 
+and will trigger media-queries based on the simulated/zoomed screen resolution. 
+
+//print preview
+@media print {
+  /* print styles go here!
+}
+
+It’s fairly common to change some colors (i.e. make things black/white), 
+and add display: none to hide elements that are useless in a printed environment 
+(buttons, nav-links, etc).
+
+
+
+Media queries are used for the following:
+To conditionally apply styles with the CSS @media and @import at-rules.
+To target specific media for the <style>, <link>, <source>, and other 
+  HTML elements with the media= attribute.
+To test and monitor media states using the Window.matchMedia() 
+  and EventTarget.addEventListener() methods.
+
+
+Media types define the broad category of device for which the media query 
+applies: all, print, screen. The type is optional (assumed to be all) 
+except when using the not or only logical operators.
+
+Media features describe a specific characteristic of the user agent, 
+output device, or environment:
+
+Logical operators can be used to compose a complex 
+media query: not, and, and only. You can also combine multiple media queries 
+into a single rule by separating them with commas.
+
+@media screen and (min-width: 30em) and (orientation: landscape) {
+  /* …
+}
+
+
+@media (min-height: 680px), screen and (orientation: portrait) {
+  /* …
+}
+
+
+@media not (all and (monochrome)) {
+  /* …
+}
+
+@media not screen and (color), print and (color) {
+@media (not (screen and (color))), print and (color) {
+  /* …
+}
+
+
+The only keyword prevents older browsers that do not support media queries 
+with media features from applying the given styles. 
+It has no effect on modern browsers.
+
+@media only screen and (color) {
+  /* …
+}
+
+
+
+In Media Queries Level 4 (max-width: 30em) can be written as:
+@media (width <= 30em) {
+  /* …
+}
+
+
+//might test for a width between two values like so:
+@media (min-width: 30em) and (max-width: 50em) {
+@media (30em <= width <= 50em) {
+  /* …
+}
+
+@media (not(hover)) {
+  /* …
+}
+
+tests for devices that have a monochrome display or hover capability:
+
+@media (not (color)) or (hover) {
+  /* …
+}
+
+//////////////////////////////////////////////////////////////////////////////
+media types: all, print, screen, speech (SR)
+
+media features: 
+https://developer.mozilla.org/en-US/docs/Web/CSS/@media#media_types
+
+logical operators: not, only, and, (or, ,)
+
+
+To best accommodate people who adjust a site's text size, use ems when you 
+need a <length> for your media queries.
+em works better if the user changes the browser text size.
+
+Also consider using Level 4 media queries to improve the user's experience. 
+For example, prefers-reduced-motion to detect if the user has requested that 
+the system minimize the amount of animation or motion it uses.
+
+@media only screen and (min-width: 320px) and (max-width: 480px) and (resolution: 150dpi) {
+  body {
+    line-height: 1.4;
+  }
+}
+
+@media (400px <= width <= 700px) {
+  body {
+    line-height: 1.4;
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
+Today a website’s layout should adapt itself not only to computers, 
+but also tablets, mobile devices, and even TVs.
+
+Making a website with an adaptable layout is called Responsive Web Design. 
+And CSS Media Queries are one of the most important parts of Responsive Design.
+
+
+Important: Always put your media queries at the end of your CSS file.
+
+common breakpoints for widths of devices:
+
+320px — 480px: Mobile devices
+481px — 768px: iPads, Tablets
+769px — 1024px: Small screens, laptops
+1025px — 1200px: Desktops, large screens
+1201px and more —  Extra large screens, TV
