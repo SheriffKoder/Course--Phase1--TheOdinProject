@@ -28,6 +28,12 @@ dive in the process with a plan
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
 Strategy
 
 having a Strategy is the first step
@@ -825,6 +831,472 @@ The date you applied
 How much you like the company (scale of 1-4, use conditional formatting to colour-code)
 The stage you are at (Applied/Phone Hello/Phone Tech/On Site/Offered)
 If a company rejects you, move them to a separate list. You need to be able to see at a glance how many live applications you have and how many of them are actually interesting to you. Anything not on the above list is unnecessary and won’t get updated, so will just make your spreadsheet stale and less communicative.
+
+
+2.4 Where to look
+Hacker News Who’s Hiring thread
+AngelList - like a dating site theme
+LinkedIn - mostly spammy recruiters, small number in-house recruiters
+    protip: set your location to where you are looking before you get there
+
+Hired.com - this seems like a very interesting model, particularly for engineers. 
+I was on auction for a week and received 8 credible-looking offers with actual 
+proposed dollar amounts. None of the products felt like a fit for me, but the 
+process was very easy and potentially disproportionately rewarding. 
+In the worst case you still get some idea of your market value, although 
+I would suggest only using your shot on it once you are in a position 
+to actually follow up with any interesting offers.
+
+Intros/direct applications - these will still likely make up the 
+bulk of the top of your funnel. I made 10 applications this way.
+
+
+2.5 Inbound interest
+https://robertheaton.com/old-hire-me/
+
+
+
+
+//////3. General Interviews
+If you don’t have several interviews where you get completely annihilated 
+(I had 3), then you probably didn’t make enough speculative applications.
+
+If they make a mistake and it takes them an hour to work out that you are 
+actually completely unsuited for the job then that’s not a big deal.
+
+Once you hear how much recruiters’ fees are then you won’t feel bad or 
+embarrassed when talking to a company ever again.
+
+
+3.2 Standard general questions
+You will inevitably gradually evolve your answers to the standard questions:
+
+Tell me about yourself.
+What are you looking for in your next:
+Product?
+Team? (size, culture etc)
+Technical challenge?
+Have you had experience scaling applications?
+Tell me about a cool project you worked on recently (very important).
+
+
+//3.3 You might think that some companies suck at interviews
+
+But it’s not worth getting upset about. At pretty much every company you will 
+be answering a series of 45-60 min code-oriented challenges, with a few 
+curveballs thrown in for variety. Some of these will be purely algorithmic 
+(although very rarely a standard, rote algorithm like merge sort), 
+and some will be more focussed on architecture. 
+But regardless, you will spend much of your interview time writing code. 
+If this doesn’t appeal to you then, unfortunately, you will just have to get 
+practicing.
+
+Many companies include a 2-3 hour take-home technical challenge as part of their phone screen process.
+
+
+//3.4 Systems design questions
+Most companies will ask a question about designing a high-level (often distributed) 
+system - what machines would you use, how would you arrange them, how would you 
+deal with failures, how would you set up your database etc. If, like me, you have 
+little practical experience with this stuff, then don’t lose any sleep over it. 
+It’s all surprisingly logical and non-magical, and you can stumble through 
+the problem, learn a few things, and reach a broadly sensible answer.
+
+3.5 The one question I will give away
+“Design the infrastructure for a link-shortener.”
+“If I type https://google.com into my browser and press enter, what happens?”
+
+You can talk about so many things on so many levels - DNS lookup, IP lookup, 
+client/server-side caching, SSL/TLS and many more. A fun question to answer.
+
+
+3.7 Do your own write-ups
+In the current market, the engineering interview process is arguably more about 
+you choosing a company than a company choosing you. Every interviewer you speak 
+to will be writing detailed notes on you after you finish with them, and you 
+should do exactly the same. All you need is a document in Evernote - 
+“FooCorp Phone Interview 1/1/14” - with details of what they asked, 
+what you replied, whether you liked the person, whether you liked the 
+sound of the company, the answers to any questions you asked them and 
+what the next steps are. You will forget all of this information within 
+a couple of hours, so do it immediately after you finish.
+
+3.8 Find out next steps
+At the end of every phone and on-site interview, make sure you know exactly 
+what the next steps are and when they will contact you by. This will make your 
+planning far easier and will help in the follow up
+
+
+//////4 Phone interviews
+Phone interviews are surprisingly tiring. Don’t arrange too many in a 
+row and make sure to give yourself breaks.
+
+
+4.2 Things to learn
+“Write a program that prints the numbers from 1 to 100. 
+For multiples of three print “Fizz” instead of the number and for multiples 
+of five print “Buzz”. For numbers which are multiples of both three and five 
+print “FizzBuzz”.”
+
+It’s not a trick question, it really is as easy as it sounds, so just do it. 
+Small gotcha: remember that for(var i=0; i<=100; i++) is technically wrong - 
+you should be starting at 1, not 0.
+
+Other common screening-type questions include the properties of common data 
+structures (hashes, arrays, sets, trees, binary-search trees) and Big O 
+complexities. It’s worth learning that sorting a array of N elements 
+takes O(Nlog(N)) time, finding an element in a sorted array takes O(log(N)) 
+time, and that the sum of the numbers from 1 to N (the actual sum, not the 
+time taken to calculate this sum) is O(N^2). Pro-tip: the fact that 
+Hashes have O(1) lookup time is often a great way to speed up an algorithm.
+
+review depth-/breadth-first search, bit-shifting, programming language properties, 
+and all the other things you haven’t thought about since CS 101 though. 
+Again, it may upset you that these things aren’t directly related to what you’ll 
+be doing on a day-to-day basis, but it’s what you’re mostly going to be asked about.
+
+
+//////5. On-site interviews
+//5.1 Length and energy
+on site interviews are long can take 6 hours
+ask if you can get something to eat or drink if you need one
+
+5.2 Other people
+If a company likes you, they’ll make you an offer, regardless of whether 
+they dis/like someone else. So you don’t need to focus on other candidates
+
+5.3 Misc
+The first on-site interview of your job search won’t necessarily be terrible, 
+but it will be much worse than your last.
+
+
+//////6. Post-interview
+
+//6.1 References
+A surprisingly large number of companies want references. 
+Line up 2 or 3 people you have worked with
+
+//6.2 Don't worry
+It’s easier said than done, but don’t worry about what did or didn’t go well. 
+You don’t know what they were looking for, and even if you did there’s no 
+point worrying about whether they found it.
+
+
+
+//////7. Negotiation
+salary negotiation 
+http://www.kalzumeus.com/2012/01/23/salary-negotiation/
+
+
+7.2 Don't start negotiating until yes-if not no-but
+
+7.3 Negotiation is not scary
+only 1% of negotiation needs to be thinking of a big number and Jedi-mind-tricking 
+your way towards it. The other 99% is having several viable options and making 
+reasonable statements about their relative attractiveness to you. With strong 
+BATNAs (Best Alternative To a Negotiated Agreement), everything becomes much 
+simpler.
+
+7.4 Negotiation is not vulgar
+People in startups (as well as many other professions) generally like to think 
+that they are doing some version of “changing the world for the better.” 
+And whilst this is a good and noble-ish thing, it can make you feel 
+like a tool when you start talking about and debating salary and equity. 
+After all, you should be doing this job for love, not money. Right?
+
+It’s not at all vulgar or unreasonable or disloyal to want to feel fairly 
+materially compensated, and any suggestion that there is anything wrong 
+with negotiating in good faith with a profit-seeking enterprise is entirely 
+disingenuous
+
+Early-stage companies tend to claim poverty and offer salaries at anything 
+down to 60% of market rate.
+
+You have to find out the last round valuation of the company, 
+the total number of shares issued, and the strike price of your options, 
+otherwise an option grant is completely meaningless. It’s not rude to 
+be persistent in trying to find this information, 
+and it’s not distasteful to ask to be walked through the details 
+of the offer until you understand it. Don’t comment on whether 
+you are happy with an offer until you are clear what it actually is.
+
+
+//7.6 Calm down
+incredibly important.
+
+That said, it’s easy to be too quick to fly into slightly-hostile-negotiation 
+mode once a first offer comes through, without making it clear that you really 
+appreciate the company’s interest and offer and really like them and what 
+they’re doing, but don’t feel that the deal as it stands fairly reflects 
+your value or matches up to your competing offers. It’s good to negotiate, 
+but you should still be polite, understanding and open-minded about it.
+
+
+//Conclusion
+It’s a great market to be an engineer, but finding the right job still 
+requires a lot of time and effort. Spray applications anywhere and everywhere 
+you like the look of, and see what sticks. A little organisation will go a 
+long way, but a little over-thinking will quickly make you go insane.
+
+hopefully, with the right combination of luck, skill and more luck, 
+you’ll even come out the other side with a job. Good luck!
+
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+it starts with you (before strategy)
+
+self-assessment and goal-setting. If you don’t understand yourself, 
+you won’t be happy with where you end up. Taking some time to introspect 
+can make the process of getting hired a more manageable and strategic process.
+
+Without defining what your own needs are, you will have no way of determining 
+the right path forward so hunker down until you’ve got an idea of 
+what your key needs are right now (from a job). 
+
+The questions below should help you think about what is actually essential 
+for you versus nice-to-have. Ask yourself:
+//Needs:
+Why do I need a job?
+What kind of salary level do I need to sustain myself and my family?
+What kind of job security level do I need to sustain myself and my family?
+How desperate am I to get a job right now?
+
+
+//Where You Want To Be:
+Once you’ve been honest with yourself about your needs, 
+it’s time to figure out what you want. What will your future needs be? 
+What kinds of companies do you want to work at?
+
+Why do I want a job in web development?
+What kind of career path do I want to have?
+Do I want to work in a developer-led organization (vs sales- or business-led)?
+Do I prefer working in a team environment or remotely?
+Do I like working long hours / weekends or 9-6?
+Is the work more important than the people?
+Do I have to care about the product I’m building?
+Do I have to care about the technologies I’m using?
+Do I prefer an “easy” work environment or one where I’m constantly pushed?
+Do I want “creature comfort” incentives like free food and beer at the office?
+Do I have to enjoy my work or can I power through a crappy job?
+
+
+
+//Prioritizing Needs and Wants
+You should have at least an informal list of the things that matter to you. 
+Now ruthlessly rank them. What are your non-negotiables and what are your 
+nice-to-haves? Every company and opportunity will fall somewhere on 
+the spectrum defined by those questions and they are the criteria you 
+will later use to evaluate them. This will help you stay focused 
+when considering opportunities and not spread yourself too thin 
+chasing things that you wouldn’t really choose anyway.
+
+
+Make sure you know every one of your “must-haves” and your top 5 priorities 
+for “nice-to-haves” in a job.
+
+
+//What Are Your Assets and Liabilities?
+It’s time to be honest with yourself… what do you bring to the table? 
+If you’re early in your career (which you probably are), 
+you’ll have to work hard to distinguish yourself from the flood of unqualified 
+candidates out there. 
+You need to strike the line between being honest with yourself 
+and not selling yourself short.
+
+Everyone, especially those just starting out, feels unqualified. 
+That’s natural, so don’t worry about it.
+
+This is about figuring out your strengths and weaknesses so you can 
+tailor your story to play to your strengths and honestly address your weaknesses.
+
+How hungry am I?
+How good am I at building back end code?
+How good am I at putting together front ends?
+Can I solve really technical problems like brain teasers and algorithms?
+Have I built projects that display a good range of skills?
+Do I know people who can recommend me?
+Am I a good people person who builds relationships easily?
+Do I portray an aura of confidence or act shy?
+Do I tend to undersell myself and my capabilities?
+Do I have a broad level of general tech knowledge?
+Am I very familiar with a particular technical or industry vertical? (Usually career switchers have one)
+Do I tend to procrastinate or do I just get shit done?
+Do I wait to ask for help or do I go out and find the answer on my own?
+Do I lean in to challenges or avoid them?
+What are some really difficult problems I’ve solved before?
+
+
+Applying without much experience means you need to fill in your weak 
+spots and emphasize your strengths. For almost everyone, your biggest 
+strength will be hunger and ability to learn. But companies have heard 
+that story before, so you’ll have to tie in other strengths that you 
+can to make your story compelling.
+
+there is a difference between hunger for opportunity and desperation. 
+Hunger is about seeking reward (which you can do when you’re in a comfortable 
+situation and optimizing opportunities) and desperation is about avoiding 
+failure (which occurs when you absolutely MUST have that job). 
+Do whatever it takes to not sound desperate, even if you are.
+
+
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+What Companies you want
+
+You have to think about things from the perspective of the company. 
+Why are they interested in hiring you? What, therefore, will they look for?
+
+Hiring managers are busy people. That’s why they need someone new… to remove some 
+of their workload and get their team working better or faster. 
+They also have to deal with potentially hundreds of unqualified applicants 
+every week, which takes up too much of their valuable time. 
+They just want to get back to building stuff and not have to hire again 
+anytime soon. So they are looking for someone who can add value as soon 
+as possible and who will be able to grow with the organization.
+
+So to summarize, hiring managers are usually looking for 3 main things:
+
+Capability
+Motivation
+Fit
+
+The first part, adding value immediately, is more difficult – 
+that’s where they want to see that you’ve had relevant experience 
+before and can meet their technical bar. There’s a bit of a catch-22 
+with getting hired – the easiest way to show you are employable 
+is to have been employed before. It’s a check mark next to you. 
+So to cater to this; do whatever you can to show that other 
+people have believed in you enough to use your work and skills.
+
+
+The second characteristic, growth, is something you shouldn’t have much 
+trouble selling if you’ve come this far and learned web development on your own. 
+The key is to present yourself as a growth curve, not just a static line 
+(i.e. you’ll continue learning and improving very rapidly and not stop). 
+You have real career goals and you’ve learned incredibly fast so far to 
+get to where you are (right?).
+
+
+Aside from those two characteristics, there is another major factor – fit. 
+The hiring manager wants someone they and their team can work well with.
+
+you often make or break your chances by being someone the team members 
+want to know better and work with all day long. Almost all hiring processes 
+ask the full team to evaluate a late-stage candidate.
+
+
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+software development is 95 percent design and 5 percent construction
+Software developers are not engineers.
+
+
+can learn a new skill, e.g., a new programming language, in a matter of a few days. 
+This is because they have a natural ability to think in design terms 
+and they can easily use whatever tools are available.
+
+During the interview process the person doing the interview should “talk” 
+to the candidate. Ask them about what they like, what they have done, 
+what things excite them, etc. However, be sure that the people undertaking 
+the interviews are in fact talented interviewers. 
+They’ll recognize quickly if this is the “right” person or not.
+
+I am one of the key interviewers for my company, usually giving 
+5 - 10 interviews / week, ranging in candidates like test engineers, 
+software engineers, software architects, project managers, program managers, 
+and product managers. While a typical interview with me lasts for 45 minutes, 
+I probably have 2 - 3 hours worth of interview material.
+
+Senior people are always easy to hire; as they know their area of expertise
+
+So how do you sort out the candidates with potential from the ones who 
+are just repeating what they memorized in the latest programming book they read. 
+The basic knowledge is usually the same. The candidates most all be competent 
+in your technology of choice, they must get along with your team, and they 
+must fit your budget range. Now the hard part, once you've identified a 
+few candidates that fit these basic criteria, how do you know who will 
+really succeed? Who will improve your team? Who will exceed your expectations?
+
+
+Evaluate Problem Solving. Try and find out how the candidate works through a 
+problem that they don't know the answer. How do you weigh a 747? Why are 
+manhole covers round? How many cars are there in New York City? Questions 
+like this are not designed to reach the answer, but to see how the candidate 
+thinks. How do they respond to help? Do they ask questions? Do they break 
+down the question logically or randomly? These are some key indicators for 
+imaging the candidate 6 months down the road when you have to develop a 
+solution that no one on the team has ever seen before. Maybe an obscure 
+defect that you can't reproduce These situations will inevitably come up, 
+and you want your team best prepared to handle the unknown, and be able to 
+breakdown a problem logically.
+
+Hire Smart People
+Admitting Ignorance. Throw out some questions that the candidate has no way 
+to answer. Don't throw out a brain teaser for this one, but throw out something 
+extremely technical or deep, or on a technology just outside of their knowledge 
+level.
+Anyone who can admit they don't know something when they are engaged 
+in an interview is someone with the maturity you are looking for. 
+Professional maturity is a great indicator for future success, 
+knowledge transfer, and constant growth.
+
+Communication Counts. 
+Try to get the candidate to explain something complex to you. 
+Did you understand it? Was the information presently structurally or randomly? 
+How long did he consider his answer? Was he comfortable launching into a diatribe? 
+At the end of the day, communication is key for any team,
+As long as someone can clearly express their status, position, opinion, thoughts, 
+really anything, then your chances for team success have just gone up exponentially.
+
+
+Career Goals are Good
+You want to make sure that your candidate has some goals, 
+and he's on the path to reach them. The actual goals aren't very important, 
+it is that there is a career plan being executed. It shows forethought, 
+direction, and purpose.
+
+and all you are trying to do as the hiring manager is to hire the candidate 
+with the highest likelihood of succeeding.
+
+////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+The corollary of that rule—the rule that the great people are never on 
+the market—is that the bad people—the seriously unqualified—are on the market 
+quite a lot. They get fired all the time, because they can’t do their job. 
+and they ruin the company
+
+competent people. They’re on the market more than the great people, 
+but less than the incompetent, and all in all they will show up in small 
+numbers in your 1000 resume pile
 
 
 
