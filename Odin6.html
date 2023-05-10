@@ -4132,6 +4132,333 @@ How much do you look over people’s check ins?
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
+40 Key Computer Science Concepts Explained In Layman’s Terms
+
+
+//////Core Concept #1 – Algorithms and Data Structures
+////1.1 – Big O Notation
+number of purchased item (input) doesn’t affect the delivery time. 
+The output is constant. We call this O(1).
+
+For online downloading, the download time is directly proportional 
+to the movie file sizes (input). We call this O(n).
+
+
+////1.2 Sorting Algorithms
+
+////1.3 Recursion
+A nurse is carrying a tray with a box of cocoa and a cup containing a 
+smaller image of her holding the same thing, which in turn contains 
+an even smaller version of the image, and so on.
+
+////1.4 – Big Data
+Big data describes data sets so large and complex that is impossible 
+to manage with conventional data processing tools.
+
+////1.5 – Data Structures
+Every computer scientist and programmer should at least know:
+
+Array,Tree,Stack,Queue,Graph,Hash Table,Linked List,Heap
+
+
+//////Core Concept #2 – Artificial Intelligence
+
+////2.1 – Greedy Algorithm
+Just take paths that slope upwards the most.
+A greedy algorithm picks the best immediate choice and never reconsiders its choices.
+
+
+////2.2 Hill Climbing
+The hill climbing algorithm attempts to find a better solution by generating 
+a neighboring solution. Each neighboring solution is generated based on 
+the best solution so far, with a single element modified.
+
+
+////2.3 Simulated Annealing
+Instead of always climbing upwards, you occasionally move to a lower point 
+and explore other paths, to reducing your chance of taking the wrong path. 
+The higher you climb, the lower the probability you move to a lower point 
+and explore.
+
+
+////2.4 – Dynamic Programming
+So you didn’t need to recount because you remembered it 
+was eight before. Brilliant!
+The example above describes memoization (yes memoization not memorization), 
+a top-down approach in dynamic programming, which store the results of 
+previous computations for future use.
+
+////2.5 – Machine Learning
+
+
+////2.6 – P vs NP Problem
+Q1: 7 x 17 = p
+Q2: p x q = 119 (p & q cannot be 1 & 119)
+what p and q are ?
+
+you probably have to go through all possible numbers from 2 to 118. 
+We are yet to discover an efficient algorithm that can find the factors 
+of a number easily.
+
+What if I ask you: Could p possibly be 7? You can easily verify 
+the answer right? Just divide 119 by 7!
+
+Q2 is a NP (nondeterministic polynomial) problem because it is easy to verify, 
+but hard to solve
+Finding the factors of 119 is still fairly easy for computer to solve, 
+but how about a 500-digit number? It’s impossible for any computers right now.
+
+
+//////Core Concept #3 – Computer Architecture and Engineering
+////3.1 – How do computers work?
+
+////3.2 – Halting Problem
+
+
+//////Core Concept #4 – Concurrency
+Every time the phone rings, you have to stop whatever task you are working on.
+which you are working based on priority
+
+////4.1 – Parallelism
+Parallelism allows 2 or more tasks to run at the same time, 
+provided that the machine has multiprocessing capability.
+
+However, the implementation of concurrency concepts also introduces more 
+potential problems such as race condition.
+
+
+////4.2 – Race Condition
+imagine two transactions happening in a bank account in the same time
+one takes and one gives
+both will see the original number
+and the latter action will put its result based on the original number
+without taking into account the before action
+
+So, what can you do to handle the above situation? One really simple way 
+is mutual exclusion.
+
+////4.3 – Mutual Exclusion (Mutex)
+Now, whenever there’s an ongoing transaction, the system will lock the account(s) 
+involved in the transaction.
+
+This time, the moment when transaction A occurs, your account is locked. 
+You can’t withdraw money from ATM. It unlocks only when transaction A completes.
+
+So mutual exclusion solves the problem right? Yes, but nobody wants to get 
+rejected by the ATM every time there’s an ongoing transaction.
+
+let's modify the solution a little bit
+
+////4.4 – Semaphore
+//4.4.1 – Binary Semaphore
+When you withdraw money from ATM, transaction A (the bank transfer) 
+will stop and allow transaction B to carry on first because it has higher 
+priority. It will resume after transaction B is completed.
+
+//4.4.2 – Counting Semaphore
+ockers are full, others have to queue up. Whenever someone is done, 
+he/she will hand over the key to the first person in the queue.
+
+
+////4.5 – Deadlock
+access to a bank account is locked whenever there’s an ongoing transaction.
+
+Peter transfer $1000 to you (transaction A) and you transfer $500 to him at the same time (transaction B).
+Transaction A locks Peter’s account and deducts $1000 from Peter’s account.
+Transaction B locks your account and deducts $500 from your account.
+Then, transaction A tries access your account to add the $1000 from Peter.
+At the same time, transaction B also tries to add your $500 to Peter’s account.
+
+since both transactions aren’t completed, both can’t access the locked accounts. 
+Both wait for each other to complete. Deadlock.
+
+
+//////Core Concept #5 – Computer Security
+////5.1 – Computer Hacking
+
+//5.1.1 – Brute-force Attack
+Try hundreds and thousands of different keys. An experienced burglar 
+will try the most commonly used keys first.
+
+A brute-force attack tries every possible passwords, and usually starts 
+by guessing commonly used passwords like “123456”, “abcdef”, etc.
+
+//5.1.2 – Social Engineering
+Social engineering is tricking users into revealing their private information.
+
+
+//5.1.3 – Security Exploit
+A burglar checks every possible entries to find the easiest way (weakness) 
+to get in. Maybe your second-floor windows is left open, who knows?
+
+//5.1.4 – Trojan Horse
+A trojan horse is malware program that pretends to be useful or helpful 
+and runs malicious code in the background.
+
+//5.1.5 – Rootkit
+Your door lock is jammed and you call a locksmith. He fixes your door lock 
+and secretly duplicates another key.
+
+A rootkit gains administrator or root access of a computer through 
+various ways like social engineering, then disguise as necessary files 
+that is hard to detect by antivirus software.
+
+//5.1.6 – Distributed Denial-of-service Attack (DDoS)
+DDoS attempts to bring a site or service down by flooding it with visitors.
+
+//5.2 – Cryptography
+the study and application of secure communication.
+
+//5.2.1 – Symmetric cryptography
+make 2 identical (symmetric) keys for the lock and meet up to share 
+the keys beforehand.
+
+//5.2.2 – Asymmetric cryptography
+Anyone can close the padlocks public (encrypt), but only she has the key to 
+open private (decrypt) them.
+so not have different keys for everyone
+
+
+//////Core Concept #6 – Software Development Methodologies
+////6.1 – Waterfall Development
+
+////6.2 – Agile Development
+You figure out some of the things you need to do at the beginning. 
+Then, continuously improve, evolve, collaborate and adapt as the development 
+goes on.
+
+////6.3 – Software Development In The Real World
+cowboy coding
+
+Computer scientist is like a physicist and programmer is like an engineer.
+
+programming is Writing very specific instructions to a dumb, yet obedient machine.
+
+That’s how computer works. You have to tell the computer what it exactly 
+needs to do. It doesn’t know how to assume and never think about the consequences.
+
+Q3 – Why you shouldn’t interrupt a developer when he/she is in the zone?
+Getting into the zone is like falling asleep. Imagine you are waking up a 
+person who is close to falling asleep in few more seconds. 
+Now he/she has to spend more time to fall back into sleep!
+
+Java and Javascript are similar like car and carpet are similar.
+
+Javascript is the ugly nerd and jQuery is the wizard who turns 
+him into the handsome quarterback.
+
+Q6 – What is the difference between a framework and library?
+A library is a tool. A framework is a way of life.
+
+Measuring software productivity by lines of code is like measuring 
+progress on an airplane by how much it weighs.
+
+Q8 – What is object-oriented programming?
+You have no idea how I did that. You have no knowledge of the laundry place. 
+Maybe you speak French, and you can’t even hail a taxi. You can’t pay for one, 
+you don’t have dollars in your pocket. Yet I knew how to do all of that. 
+And you didn’t have to know any of it. All that complexity was hidden 
+inside of me, and we were able to interact at a very high level of abstraction.
+about you having a laundry to do and i make it happen
+That’s what objects are. They encapsulate complexity, and the interfaces to 
+that complexity are high level.
+
+Q9 – What is an application program interface (API)?
+At restaurants, you order food (call API) from the menu (APIs). 
+Once your food is ready (API response is ready), 
+the waiter will serve you the food.
+
+The basic idea is: you ask for what you want and the system returns 
+you a response, without exposing what’s happening behind the scene.
+
+Q10 – What is the difference between SQL and NoSQL database?
+NoSQL databases store information like you would recipes in a book. 
+When you want to know how to make a cake, you go to that recipe, and all 
+of the information about how to make that cake (ingredients, preparation, 
+mixing, baking, finishing, etc.) are all on that one page.
+
+SQL is like shopping for the ingredients for the recipe. In order to get 
+all of your ingredients into your cart, you have to go to many different 
+aisles to get each ingredient. When you are done shopping, your grocery 
+cart will be full of all the ingredients you had to run around and collect.
+
+Wouldn’t it be nicer if there was a store was organized by recipe, so you 
+could go to one place in the store and grab everything you need from that 
+one spot? Granted you’ll find ingredients like eggs in 50 different places, 
+so there’s a bit of overhead when stocking the shelves, but from a consumer 
+standpoint it was much easier/faster to find what they were looking for.
+
+////////////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////The tech challenge
+The take-home tech challenge may occur before or after the in-person screen, 
+depending on the company. They will give you an application or problem which 
+will take up to a full day to complete on your own time. 
+Examples of take-home tech challenges include building out a 
+sample web app with tests or solving a challenging algorithmic problem using code.
+
+completeness and quality of code
+it’s a good mechanism for them to test your commitment (up to half of people never even turn in a solution).
+
+////The Final Step: “Fit”
+The final step before the final decision is usually to meet the whole team 
+and get put through the paces at their offices over the period of several hours. 
+They’ll probably test you technically but the goal is also to make sure you’d 
+be a good person to work with. If any one member of the team doesn’t think 
+you’d be a good fit, you usually won’t be hired. Advice? Don’t be weird 
+or awkward even if you are at home :)
+
+It’s also a chance for you to test them out. If you’ve gotten this far in 
+the process, there’s a reasonable likelihood that you’ve got a good match. 
+You’ll need to figure out if this is the kind of company you want to work 
+for so bring a list of questions and make sure they get answered.
+
+
+////A Note on Compensation
+Be mindful when providing your salary expectations. 
+Companies will always ask you “how much do you expect to get paid”, 
+often in the initial phone screen. Providing a single concrete number 
+can be the opposite of beneficial, because you may offer a number higher 
+than their range and thus be deemed too expensive, or you may have come 
+in too low and they now know they may be able to cap your offered 
+compensation at a lower number than they might have. 
+It’s safest to provide a range (e.g. “I am looking for 
+something between $80,000 - $90,000.”) in order to better meet their 
+budget and also allow some wiggle room for negotiations.
+
+Once you have an offer, you can check it against fair market rate 
+by asking other people (hopefully you’ve got some people by now who you might ask) 
+or going to the below resources to compare. While “junior” doesn’t equate to 
+being underpaid, do be mindful to adjust for years of experience 
+(0-1) as to get the most accurate picture.
+
+Levels.fyi https://www.levels.fyi/
+Glassdoor, https://www.glassdoor.com/Salaries/index.htm
+Comparably
+Payscale
+Talent https://www.talent.com/salary
+
+Finally, if a recruiter has reached out to you, it can also be helpful 
+to ask what the budget for the role is up front. However, this must be 
+done tactfully. If you have not been asked your compensation expectations 
+and have not been told the budget up front in the initial message, 
+it can be a great way to understand if both parties are wasting each other’s time, 
+but do keep in mind that asking must be done in a respectful manner. 
+It can be helpful to phrase this ask by saying, 
+“Is there an allocated salary range for the role?”. 
+Sometimes they may reply that the salary is based on experience, 
+so do keep in mind your range as you move through the interview process!
+
+
+
+
+
+
 
 
 
