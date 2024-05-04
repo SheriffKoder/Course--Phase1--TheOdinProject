@@ -124,8 +124,10 @@ window.addEventListener("keydown", (e) => {
 function buttonSwitch (valueGot) {
 
     console.time('fetching data');
+    console.log(valueGot);
 
     overFlowDots.innerHTML = "";
+    if (valueGot == "X" || valueGot == "x") valueGot = "*";
 
 
     /////////////////////////////////////////////////////////////
@@ -218,7 +220,7 @@ function buttonSwitch (valueGot) {
         }
     }
     //AC cleans the string value and display
-    else if (valueGot == "AC" || valueGot == "Meta") {   //calc buttons
+    else if (valueGot == "AC" || valueGot == "Meta" || valueGot == "Escape") {   //calc buttons
         text_string = "";
 
         text_space.innerHTML = "";
