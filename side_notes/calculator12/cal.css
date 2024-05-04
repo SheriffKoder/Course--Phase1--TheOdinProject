@@ -14,10 +14,10 @@
     --test-border4: none;
 */
     
-    --test-border: red;
-    --test-border2: rgba(255, 255, 255, 0.588);
-    --test-border3: rgb(52, 241, 0);
-    --test-border4: yellow;
+    --test-border: rgba(255, 0, 0, 0);
+    --test-border2: rgba(255, 255, 255, 0);
+    --test-border3: rgba(52, 241, 0, 0);
+    --test-border4: rgba(255, 255, 0, 0);
 
     --button-edge-curve: calc(var(--font-size)/15);
     
@@ -163,6 +163,22 @@
 
 }
 
+.calc_buttons table tr:nth-child(1) td {
+    top: -3px;
+}
+
+.calc_buttons table tr:nth-child(1) td:nth-child(4), .calc_buttons table tr:nth-child(1) td:nth-child(5) {
+    left: -0.1%;
+}
+
+.calc_buttons table tr td:nth-child(3) {
+    left: -1%;
+}
+
+.calc_buttons table tr td:nth-child(4) {
+    left: -0.2%;
+}
+
 .calc_buttons table tr:nth-child(4) td {
     position: relative;
     top: calc(var(--font-size)*0.03);
@@ -236,7 +252,7 @@
 
 .calc_fn table {
     width: 85%;
-    border: 2px solid yellow;
+    border: 2px solid var(--test-border4);
     height: 90%;
     margin-top: 5% ;
     margin-left: 1%;
@@ -350,7 +366,7 @@
 .calc_fn .fn_button_container {
 
     width: 87%;
-    border: 2px solid yellow;
+    border: 2px solid var(--test-border4);
     height: 95%;
     margin-left: 1%;
     color: white;
@@ -371,12 +387,14 @@
     justify-content: center;
     align-items: center;
 
-    height: 80%;
-    width: 80%;
+    margin-top: -1px;
+    height: 82%;
+    width: 87%;
     background-color: rgb(119, 119, 119);
     font-weight: bold;
     color: white;
     font-size: calc(var(--font-size)/16);
+    border: 2px solid black;
 
     
 }
@@ -388,6 +406,7 @@
     justify-self: center;
     align-self: start;
     border-radius: 15%;
+    margin-left: -2px;
 
 }
 
@@ -398,5 +417,7 @@
     justify-self: start;
     align-self: start;
     border-radius: 15%;
+    margin-left: 2px;
+
 
 }

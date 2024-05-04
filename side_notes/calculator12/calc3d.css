@@ -1,6 +1,6 @@
 
 :root {
-    --box-Color: #0ff7;
+    --box-Color: rgba(0, 255, 255, 0);
     --floor: 500px;             /**/
     --perspective: -40vh;      /*angle -40vh*/
     --border-color: rgb(0,0,0,0);
@@ -75,13 +75,15 @@ body {
 
 
 .scene:hover, .scene:focus {
-    animation: sceneRotateX 2s 1 forwards linear;
+    /* animation: sceneRotateX 2s 1 forwards linear; */
 
 }
 
+/* animation: entry 1.5 1 forwards linear; */
+
 .scene {
-    animation: entryX 1.5s 1 forwards linear;
-    animation-delay: 1s ;
+    animation: sceneRotate 3s 1 forwards linear;
+    animation-delay: 1.5s ;
 
 }
 
