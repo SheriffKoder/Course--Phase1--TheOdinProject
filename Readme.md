@@ -26,10 +26,11 @@ along side with many milestone projects to complete with little guidance after e
 ###
 >### **Projects Examples**
 
-tic-tac-toe
-
 ![project screenshot](wallpaper2.png)
+
+*tic-tac-toe game*
 ###
-Scientific-Calculator
 
 ![project screenshot](wallpaper3.png)
+
+*scientific-Calculator*
