@@ -29,7 +29,6 @@ along side with many milestone projects to complete with little guidance after e
 ![project screenshot](wallpaper2.png)
 
 *tic-tac-toe game*
-###
 
 ![project screenshot](wallpaper3.png)
 
