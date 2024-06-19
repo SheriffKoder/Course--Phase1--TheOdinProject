@@ -3,15 +3,15 @@
 This repo contains my notes taken from The Odin Project course.
 The course does cover many subjects in Web-Development in small details. With many external theoretical and practical references to read from on the subjects being discussed.
 along side with many milestone projects to complete with little guidance after each step.
-
->**Purpose**
+###
+>### **Purpose**
 - Learn Web-development
+###
+>### **Progress**
 
->**Progress**
-
-![Sherif Khodeir the odin project course progress](screenshot1.png)
-
->**Topics Discussed**
+![Sherif Khodeir The Odin Project course progress](wallpaper1.png)
+###
+>### **Topics Discussed**
 - HTML
 - CSS
 - Forms
@@ -23,7 +23,7 @@ along side with many milestone projects to complete with little guidance after e
 - Responsive Design
 - ReactJS
 - NodeJS
+###
+>### **Project Example**
 
->**Project Example**
-
-![screenshot](screenshot2.png)
+![project screenshot](wallpaper2.png)
