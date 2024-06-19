@@ -26,8 +26,9 @@ along side with many milestone projects to complete with little guidance after e
 ###
 >### **Projects Examples**
 
+<p align="center">
 ![project screenshot](wallpaper2.png)
-<p align="center">Tic-Tac-Toe</p>
-
+Tic-Tac-Toe
+###
 ![project screenshot](wallpaper3.png)
-<p align="center">Scientific Calculator</p>
+</p>
