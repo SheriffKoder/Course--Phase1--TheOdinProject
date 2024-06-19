@@ -24,10 +24,12 @@ along side with many milestone projects to complete with little guidance after e
 - ReactJS
 - NodeJS
 ###
+>### **Projects Examples**
 
-**Projects Examples**
+tic-tac-toe
+
 ![project screenshot](wallpaper2.png)
-Tic-Tac-Toe
 ###
+Scientific-Calculator
+
 ![project screenshot](wallpaper3.png)
-Scientific Calculator
