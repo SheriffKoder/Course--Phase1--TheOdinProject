@@ -24,8 +24,8 @@ along side with many milestone projects to complete with little guidance after e
 - ReactJS
 - NodeJS
 ###
->### **Projects Examples**
 
+**Projects Examples**
 <p align="center">
 ![project screenshot](wallpaper2.png)
 Tic-Tac-Toe
