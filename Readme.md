@@ -3,7 +3,7 @@
 This repo contains my notes taken from The Odin Project course.
 The course does cover many subjects in Web-Development in small details. With many external theoretical and practical references to read from on the subjects being discussed.
 along side with many milestone projects to complete with little guidance after each step.
-(Course's site)[https://www.theodinproject.com/]
+[Course's site](https://www.theodinproject.com/)
 
 ###
 >### **Purpose**
@@ -31,5 +31,5 @@ along side with many milestone projects to complete with little guidance after e
 ![project screenshot](wallpaper2.png)
 ###
 
-(*scientific-Calculator*)[https://calculator-kappa-self.vercel.app/]
+*scientific-Calculator [[Live Demo]](https://calculator-kappa-self.vercel.app/)*
 ![project screenshot](wallpaper3.png)
